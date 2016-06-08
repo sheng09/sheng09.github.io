@@ -86,11 +86,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="github注册及建立仓储"><a href="#github注册及建立仓储" class="headerlink" title="github注册及建立仓储"></a>github注册及建立仓储</h2><ol>
-<li>在<a href="https://github.com" target="_blank" rel="external">github主页</a>完成注册;</li>
-<li>验证邮箱;</li>
-<li>创建仓储，其中repository name必须为username.github.io;</li>
-</ol>
+        <h2 id="github注册及建立仓储"><a href="#github注册及建立仓储" class="headerlink" title="github注册及建立仓储"></a>github注册及建立仓储</h2><p>1.在<a href="https://github.com" target="_blank" rel="external">github主页</a>完成注册;<br>2.验证邮箱;<br>3.创建仓储，其中repository name必须为username.github.io;</p>
 <h2 id="git的安装及添加ssh-key"><a href="#git的安装及添加ssh-key" class="headerlink" title="git的安装及添加ssh-key"></a>git的安装及添加ssh-key</h2><p>在ubuntu下，使用以下命令安装git:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br><span class="line">$ git config --global user.email <span class="string">"Your emaill address"</span></span><br><span class="line">$ git config --global user.name  <span class="string">"Your username on github.com"</span></span><br></pre></td></tr></table></figure></p>
 <p>使用以下命令生产ssh-key<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">"Your email address"</span>　<span class="comment">#需要指定key文件名，使用默认即可</span></span><br></pre></td></tr></table></figure></p>
 <p>默认生成的ssh-key文件位于<code>~/.ssh/</code>目录下，其中的<code>id_rsa</code>和<code>id_rsa.pub</code>为我们需要的文件。将<code>id_rsa.pub</code>文件的文本内容添加到github的ssh-key中。使用以下命令测试是否成功:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
@@ -137,7 +133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/install-and-config/" data-id="cip6zq0si00013dfbudpnpxad" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/08/install-and-config/" data-id="cip6zrv60000145fbyck2965e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -182,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/hello-world/" data-id="cip6zq0sc00003dfbmf9jkh48" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/08/hello-world/" data-id="cip6zrv5v000045fbxgx8x5ep" class="article-share-link">Share</a>
       
       
     </footer>
