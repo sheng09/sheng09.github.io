@@ -53,7 +53,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/08/install-and-config/">Install and Configuration</a>
+      <a class="article-title" href="/2016/06/08/install-and-config/">Build staic blog using github and hexo</a>
     </h1>
   
 
@@ -86,14 +86,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Step-1-New-github-repository"><a href="#Step-1-New-github-repository" class="headerlink" title="Step 1: New github repository"></a>Step 1: New github repository</h2><p>New a repository </p>
-<h2 id="Step-2-Install-Hexo"><a href="#Step-2-Install-Hexo" class="headerlink" title="Step 2: Install Hexo"></a>Step 2: Install Hexo</h2><h3 id="install-nvm"><a href="#install-nvm" class="headerlink" title="install nvm"></a>install nvm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure>
+        <h2 id="github注册及建立仓储"><a href="#github注册及建立仓储" class="headerlink" title="github注册及建立仓储"></a>github注册及建立仓储</h2><h3 id="注册github"><a href="#注册github" class="headerlink" title="注册github"></a>注册github</h3><ol>
+<li>在<a href="https://github.com" target="_blank" rel="external">github主页</a>完成注册;</li>
+<li>验证邮箱;</li>
+<li>创建仓储，其中repository name必须为username.github.io;</li>
+</ol>
+<h2 id="git的安装及添加ssh-key"><a href="#git的安装及添加ssh-key" class="headerlink" title="git的安装及添加ssh-key"></a>git的安装及添加ssh-key</h2><p>在ubuntu下，使用以下命令安装git:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
+<p>安装完成之后，</p>
+<h3 id="install-nvm"><a href="#install-nvm" class="headerlink" title="install nvm"></a>install nvm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure>
 <h3 id="install-hexo"><a href="#install-hexo" class="headerlink" title="install hexo"></a>install hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install v3.3</span><br><span class="line">$ nvm ls <span class="comment">#List installed versions</span></span><br><span class="line">$ nvm use 3.3</span><br><span class="line">$ nvm current <span class="comment">#Display currently activated version</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/install-and-config/" data-id="cip6y3w5z0001qyfbf6sk7qkq" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/06/08/install-and-config/" data-id="cip6yfc2c0001tjfbg6360ns1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -138,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/hello-world/" data-id="cip6y3w5u0000qyfbxld6xtlx" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/06/08/hello-world/" data-id="cip6yfc260000tjfbnlyzxd58" class="article-share-link">Share</a>
       
       
     </footer>
@@ -163,7 +169,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
     </div>
@@ -173,12 +179,12 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2016/06/08/install-and-config/">Install and Configuration</a>
+            <a href="/2016/06/08/install-and-config/">Build staic blog using github and hexo</a>
           </li>
         
           <li>
