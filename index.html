@@ -64,6 +64,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Makefile-compileSubs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/09/Makefile-compileSubs/" class="article-date">
+  <time datetime="2016-06-09T08:07:40.000Z" itemprop="datePublished">2016-06-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/09/Makefile-compileSubs/">利用总控Makefile一次性编译所有子程序包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当一个大的项目由很多子程序组成，而每一个子程序包都有自己独立的<code>Makefile</code>，这时候就需要一个<code>总控Makefile</code>来一次性完成所有的编译工作。以下给出了一个例子，以说明如何构建<code>总控Makefile</code>。</p>
+<h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><p>项目<a href="/exam/PRJ.tgz">PRJ</a>包含了三个子程序包。每个子程序包都拥有自己的<code>Makefile</code>，从而可以在各目录下使用<code>Make</code>完成编译。但是这样很麻烦。通过构建总控<code>Makefile</code>(<code>PRJ/Makefile</code>)，可以一次性编译<code>prj_sub1</code>,<code>prj_sub2</code>,<code>prj_sub3</code>三个子程序包。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PRJ/</span><br><span class="line">├── prj_sub1/</span><br><span class="line">│   ├── a.c</span><br><span class="line">│   ├── b.c</span><br><span class="line">│   ├── c.c</span><br><span class="line">│   └── Makefile</span><br><span class="line">|</span><br><span class="line">├── prj_sub2/</span><br><span class="line">│   ├── d.c</span><br><span class="line">│   ├── e.c</span><br><span class="line">│   └── Makefile</span><br><span class="line">├── prj_sub3/</span><br><span class="line">│   ├── f.c</span><br><span class="line">│   ├── g.c</span><br><span class="line">│   └── Makefile</span><br><span class="line">├── ...</span><br><span class="line">└── Makefile</span><br></pre></td></tr></table></figure></p>
+<h2 id="子程序包Makfile"><a href="#子程序包Makfile" class="headerlink" title="子程序包Makfile"></a>子程序包Makfile</h2><p>子程序包中的<code>Makefile</code>包含了<code>编译</code>,<code>install</code>,<code>clean</code>操作。以下例子中，有关函数<code>foreach</code>,自动化变量<code>$@ $&lt;</code>,以及<code>静态模式</code>的内容可以参见<a href="X">X</a>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Makefile for prj_sub1/</span></span><br><span class="line">CC = gcc</span><br><span class="line">EXEC = a b c</span><br><span class="line">OBJ  = $(foreach exe, <span class="variable">$&#123;EXEC&#125;</span>, <span class="variable">$&#123;exe&#125;</span>.o)</span><br><span class="line"></span><br><span class="line">all: <span class="variable">$&#123;OBJ&#125;</span> <span class="variable">$&#123;EXEC&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;EXEC&#125;</span>:%:%.o</span><br><span class="line">	<span class="variable">$&#123;CC&#125;</span> -o <span class="variable">$@</span> $&lt;</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;OBJ&#125;</span>:%.o:%.c</span><br><span class="line">	<span class="variable">$&#123;CC&#125;</span> -c -o <span class="variable">$@</span> $&lt;</span><br><span class="line"></span><br><span class="line">install:</span><br><span class="line">	cp <span class="variable">$&#123;EXEC&#125;</span> <span class="variable">$&#123;BIN&#125;</span></span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">	rm <span class="variable">$&#123;EXEC&#125;</span> <span class="variable">$&#123;OBJ&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="总控Makefile"><a href="#总控Makefile" class="headerlink" title="总控Makefile"></a>总控Makefile</h2><p>总控Makefile一次性编译了<code>prj_sub1</code>,<code>prj_sub2</code>,<code>prj_sub3</code>三个子程序包。其中，<code>${SUBS_make}:%.make:%</code>逐次从列表中提取子程序包名，利用<code>make -C $&lt;</code>完成编译。<code>make -C $&lt;</code>等价于<code>cd $&lt;; make</code>。类似的，可以完成各子程序包的<code>install</code>与<code>clean</code>操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> BIN=../bin</span><br><span class="line"></span><br><span class="line">SUBS = prj_sub1 prj_sub2 prj_sub3</span><br><span class="line">SUBS_make    = $(foreach sub, <span class="variable">$&#123;SUBS&#125;</span>, <span class="variable">$&#123;sub&#125;</span>.make)</span><br><span class="line">SUBS_clean   = $(foreach sub, <span class="variable">$&#123;SUBS&#125;</span>, <span class="variable">$&#123;sub&#125;</span>.clean)</span><br><span class="line">SUBS_install = $(foreach sub, <span class="variable">$&#123;SUBS&#125;</span>, <span class="variable">$&#123;sub&#125;</span>.install)</span><br><span class="line"></span><br><span class="line">all: <span class="variable">$&#123;SUBS_make&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;SUBS_make&#125;</span>:%.make:%</span><br><span class="line">	make -C $&lt;</span><br><span class="line"></span><br><span class="line">install: <span class="variable">$&#123;SUBS_install&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;SUBS_install&#125;</span>:%.install:%</span><br><span class="line">	-make -C $&lt; install</span><br><span class="line"></span><br><span class="line">clean: <span class="variable">$&#123;SUBS_clean&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;SUBS_clean&#125;</span>:%.clean:%</span><br><span class="line">	-make -C $&lt; clean</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/09/Makefile-compileSubs/" data-id="cip82gytf000023fbek8vhkdy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-unpack-in-linux" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/06/09/unpack-in-linux/" class="article-date">
@@ -106,7 +153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/09/unpack-in-linux/" data-id="cip80m32e0006qyfbyiddzvhu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/09/unpack-in-linux/" data-id="cip82gyu1000523fbi1f0npl5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -158,7 +205,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/fancy-terminal/" data-id="cip80m3200000qyfbax3ushry" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/08/fancy-terminal/" data-id="cip82gyts000123fbrphs9baw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
@@ -217,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/install-and-config/" data-id="cip80m3280002qyfbmgy907ty" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/08/install-and-config/" data-id="cip82gyty000323fbk6z8ob4m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -236,7 +283,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a></li></ul>
     </div>
   </div>
 
@@ -246,7 +293,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
     </div>
   </div>
 
@@ -267,6 +314,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/06/09/Makefile-compileSubs/">利用总控Makefile一次性编译所有子程序包</a>
+          </li>
         
           <li>
             <a href="/2016/06/09/unpack-in-linux/">怎么在linux下压缩和解压文件</a>
