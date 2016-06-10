@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-06-10T15:51:18.357Z</updated>
+  <updated>2016-06-10T15:52:33.125Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/06/09/deconvolution/"/>
     <id>http://sheng09.github.io/2016/06/09/deconvolution/</id>
     <published>2016-06-09T12:27:50.000Z</published>
-    <updated>2016-06-10T15:51:18.357Z</updated>
+    <updated>2016-06-10T15:52:33.125Z</updated>
     
     <content type="html">&lt;p&gt;Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”, “error”, “regularization”, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.&lt;/p&gt;
 &lt;h2 id=&quot;Convolution&quot;&gt;&lt;a href=&quot;#Convolution&quot; class=&quot;headerlink&quot; title=&quot;Convolution&quot;&gt;&lt;/a&gt;Convolution&lt;/h2&gt;&lt;p&gt;Convolution in time domain corresponds to multiplication in frequency domain:&lt;/p&gt;
@@ -66,7 +66,7 @@ R(\omega) S&#39;(\omega) &amp; = &amp; M(\omega) S(\omega) S&#39;(\omega) + N(\o
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;Choose gaussian function as desired resolution function, and estimate the noise $|N(\omega)|^2$ on the basis of observation and signal to noise energy ratio $\nu$.&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
-  \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{mod} 
+  \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{mod}
 \end{equation}&lt;/script&gt;&lt;p&gt;$\sigma_0^2$ is the self-correlation of $S(t)$, and $c = b \nu$.&lt;/p&gt;
 &lt;p&gt;From the viewpoint to regularization, an item of $c\sigma_0^2$ is added to the denominator. So instablity result from the near-zero value of $S(\omega)S^*(\omega)$ is reduced.&lt;/p&gt;
 &lt;p&gt;Likewise, we could build the solver equation of:&lt;/p&gt;
@@ -96,7 +96,7 @@ R(\omega) S&#39;(\omega) &amp; = &amp; M(\omega) S(\omega) S&#39;(\omega) + N(\o
 \begin{eqnarray}
   \hat{r} &amp; = &amp; \sum_{i=1}^N m_i s(t-t_i) \\
   \Delta_N &amp; = &amp; \int_{-\infty}^{+\infty} [r(t) - \hat{r}(t)]^2 dt
-\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;Error-and-resolution-estimation&quot;&gt;&lt;a href=&quot;#Error-and-resolution-estimation&quot; class=&quot;headerlink&quot; title=&quot;Error and resolution estimation&quot;&gt;&lt;/a&gt;Error and resolution estimation&lt;/h2&gt;&lt;p&gt;It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $\eqref(mod)$, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.&lt;br&gt;First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:&lt;/p&gt;
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;Error-and-resolution-estimation&quot;&gt;&lt;a href=&quot;#Error-and-resolution-estimation&quot; class=&quot;headerlink&quot; title=&quot;Error and resolution estimation&quot;&gt;&lt;/a&gt;Error and resolution estimation&lt;/h2&gt;&lt;p&gt;It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $\eqref{mod}$, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.&lt;br&gt;First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
   \Delta = \int_{-\infty}^{+\infty} r(t) - \hat(m)(t) \otimes s(t) dt
