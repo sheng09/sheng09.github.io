@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://sheng09.github.io/2016/06/09/deconvolution/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”,">
-<meta property="og:updated_time" content="2016-06-10T15:52:33.125Z">
+<meta property="og:updated_time" content="2016-06-10T15:53:30.782Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linear Deconvolution">
 <meta name="twitter:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”,">
@@ -168,7 +168,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 \begin{eqnarray}
   \hat{r} & = & \sum_{i=1}^N m_i s(t-t_i) \\
   \Delta_N & = & \int_{-\infty}^{+\infty} [r(t) - \hat{r}(t)]^2 dt
-\end{eqnarray}</script><h2 id="Error-and-resolution-estimation"><a href="#Error-and-resolution-estimation" class="headerlink" title="Error and resolution estimation"></a>Error and resolution estimation</h2><p>It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $\eqref{mod}$, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.<br>First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:</p>
+\end{eqnarray}</script><h2 id="Error-and-resolution-estimation"><a href="#Error-and-resolution-estimation" class="headerlink" title="Error and resolution estimation"></a>Error and resolution estimation</h2><p>It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $ \eqref{mod} $, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.<br>First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:</p>
 <script type="math/tex; mode=display">
 \begin{equation}
   \Delta = \int_{-\infty}^{+\infty} r(t) - \hat(m)(t) \otimes s(t) dt
@@ -183,7 +183,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cip9ww8420002m3fbuvbvqoun" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cip9wxisp0002n7fbysj56len" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regularization/">Regularization</a></li></ul>
