@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Sheng Wang</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://sheng09.github.io/"/>
+  <updated>2016-06-10T15:14:34.751Z</updated>
+  <id>http://sheng09.github.io/</id>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linear Deconvolution</title>
+    <link href="http://sheng09.github.io/2016/06/09/deconvolution/"/>
+    <id>http://sheng09.github.io/2016/06/09/deconvolution/</id>
+    <published>2016-06-09T12:27:50.000Z</published>
+    <updated>2016-06-10T15:14:34.751Z</updated>
+    
+    <content type="html">&lt;p&gt;Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”, “error”, “regularization”, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.&lt;/p&gt;
+&lt;h2 id=&quot;Convolution&quot;&gt;&lt;a href=&quot;#Convolution&quot; class=&quot;headerlink&quot; title=&quot;Convolution&quot;&gt;&lt;/a&gt;Convolution&lt;/h2&gt;&lt;p&gt;Convolution in time domain corresponds to multiplication in frequency domain:&lt;/p&gt;
+&lt;span&gt;$$\begin{eqnarray}
+r(t) &amp;amp; = &amp;amp; m(t) \otimes s(t) \label{convo_time}\\
+R(\omega) &amp;amp; = &amp;amp; M(\omega) S(\omega) \label{convo_freq}
+\end{eqnarray}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;
+&lt;p&gt;in $\eqref{convo_time}$, $m(t)$ is , $s(t)$ is the source wavelet or blurring function, $r(t)$ is the observed data, and $m(t)$ is the impulse repsonse of the model. Theoretically, given $s(t)$ and $r(t)$, $m(t)$ could be calculated by division according to $\eqref{convo_freq}$&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+m(t) = IFT \left\{\frac{R(\omega)}{S(\omega)}\right\} \label{decon_div}
+\end{equation}&lt;/script&gt;&lt;p&gt;However, $\eqref{decon_div}$ always present problematic results because observations $r(t)$ contain noise, and some values of $s(\omega)$ approach zero, which result in instablities in the division.&lt;/p&gt;
+&lt;h2 id=&quot;Deconvolution-in-frequency-domain&quot;&gt;&lt;a href=&quot;#Deconvolution-in-frequency-domain&quot; class=&quot;headerlink&quot; title=&quot;Deconvolution in frequency domain&quot;&gt;&lt;/a&gt;Deconvolution in frequency domain&lt;/h2&gt;&lt;p&gt;Considering noise $n(t)$, $\eqref{convo_time}$ should be:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+r(t) &amp; = &amp; m(t) \otimes s(t) + n(t) \label{convo_time_real}\\
+R(\omega) &amp; = &amp; M(\omega) S(\omega) + N(\omega) \label{convo_freq_real}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;In deconvolution, we aim to find a time series $s’(t)$, which acts like the inverse of the source wavelet or blurring function $s(t)$. So the convolution of $s’(t)$ and $s(t)$ will produces a desired resolution function $h(t)$, being impulse function theoretically.&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+r(t) \otimes s&#39;(t) &amp; = &amp; m(t) \otimes s(t) \otimes s&#39;(t) + n(t) \otimes s&#39;(t) \label{conv_with_s_inv_time}\\
+R(\omega) S&#39;(\omega) &amp; = &amp; M(\omega) S(\omega) S&#39;(\omega) + N(\omega) S&#39;(\omega) \label{conv_with_s_inv_freq}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;Let us define:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  \begin{cases}
+    \hat{m}(t) &amp; = &amp; r(t) \otimes s&#39;(t) \\
+    res(t) &amp; = &amp; s(t) \otimes s&#39;(t) \\
+    err(t) &amp; = &amp; n(t) \otimes s&#39;(t)
+  \end{cases}
+\end{equation}&lt;/script&gt;&lt;p&gt;$\hat{m}(t)$ is the calculated model, $res(t)$ is the resolution function, and $err(t)$ is the model error:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  \hat{m}(t) = m(t) \otimes res(t) + err(t)
+\end{equation}&lt;/script&gt;&lt;p&gt;In deconvolution, the real resolution function $res(t)$ should approximates desired one $h(t)$, and model error $err(t)$ should approximates zero. Trade-off exists for these two approaches. Thus, an objective function is built:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  obj = \int_{-\infty}^{+\infty}\{a|res(t)-h(t)|^2+(1-a)|err(t)|^2\}dt \label{obj_func}
+\end{equation}&lt;/script&gt;&lt;p&gt;according to Parseval’s theorem, in the frequency domain, $\eqref{obj_func}$ has the form of:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  obj =  a|S(\omega)S&#39;(\omega) - h(\omega)|^2 + (1-a) | N(\omega)S&#39;(\omega) |^2 \label{obj_func_freq}
+\end{equation}&lt;/script&gt;&lt;p&gt;When objective function approach the minimal value, the derivative of $obj$ to $S’(\omega)$ should be zero. Corresponding $S’(\omega)$ is :&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+  S&#39;(\omega) &amp; = &amp; \frac{S^*(\omega)h(\omega)}{S(\omega)S^*(\omega)+b|N(\omega)|^2} \\
+  b &amp; = &amp; \frac{1-a}{a}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;Choose gaussian function as desired resolution function, and estimate the noise $|N(\omega)|^2$ on the basis of observation and signal to noise energy ratio $\nu$.&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{mod} 
+\end{equation}&lt;/script&gt;&lt;p&gt;$\sigma_0^2$ is the self-correlation of $S(t)$, and $c = b \nu$.&lt;/p&gt;
+&lt;p&gt;From the viewpoint to regularization, an item of $c\sigma_0^2$ is added to the denominator. So instablity result from the near-zero value of $S(\omega)S^*(\omega)$ is reduced.&lt;/p&gt;
+&lt;p&gt;Likewise, we could build the solver equation of:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{ max[S(\omega)S^*(\omega), c\sigma_0^2] }e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{mod_water_level}
+\end{equation}&lt;/script&gt;&lt;p&gt;which is the water-level regularization deconvolution.&lt;/p&gt;
+&lt;h2 id=&quot;Iterative-deconvolution-in-time-domain&quot;&gt;&lt;a href=&quot;#Iterative-deconvolution-in-time-domain&quot; class=&quot;headerlink&quot; title=&quot;Iterative deconvolution in time domain&quot;&gt;&lt;/a&gt;Iterative deconvolution in time domain&lt;/h2&gt;&lt;p&gt;For time series, the model $m(t)$ is superposition of impulse functions:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  \hat{m}(t) = \sum_{i} m_i h(t-t_i) \label{superposition}
+\end{equation}&lt;/script&gt;&lt;p&gt;To determine $m_1$ and $t_1$, the error $\eqref{err_iter}$ should approximates its minimal value. &lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  \Delta_1 = \int_{-\infty}^{+\infty}\{r(t) - m_1 h(t-t_1) \otimes s(t)\}^2dt \label{err_iter}
+\end{equation}&lt;/script&gt;&lt;p&gt;Corresponding $m_1$ and $\Delta_1$ could be calculated assuming $ \frac{\partial \Delta} m_1{} = 0 $:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+  m_1 &amp; = &amp; \frac { \int_{-\infty}^{+\infty} r(t)s(t-t_1)dt } { \int_{-\infty}^{+\infty} s^2(t)dt} \\
+  \Delta_1 &amp; = &amp; \frac { \int_{-\infty}^{+\infty}r^2(t)dt -[\int_{-\infty}^{+\infty}r(t)s(t-t_1)dt ]^2} {\int_{-\infty}^{+\infty}s^2(t)dt}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;Obviously, $[\int_{-\infty}^{+\infty}r(t)s(t-t_1)dt ]^2 $ should approach its maximal value so that the error $\Delta_1 $ approach its minimum. Under this criterion, $t_1$ could be acquired by traversal.&lt;br&gt;After obtaining $m_1$ and $t_1$, we subtract $m_1h(t-t_1)$ from $r(t)$ and get residual time series:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  r&#39;(t) = r(t) - m_1h(t-t_1)
+\end{equation}&lt;/script&gt;&lt;p&gt;Likewise, $m_2$ and $t_2$ could be obtain by applying above procedure to $r’(t)$. This kind of procedure is iterated for N times until no more significant decrease in the residual time series occurs. The model could be applying a gausssian function to $\eqref{superposition}$ with $ m_i$ and $t_i(i=1,2,…N)$. Besides, synthetic observation and error are:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+  \hat{r} &amp; = &amp; \sum_{i=1}^N m_i s(t-t_i) \\
+  \Delta_N &amp; = &amp; \int_{-\infty}^{+\infty} [r(t) - \hat{r}(t)]^2 dt
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;Error-and-resolution-estimation&quot;&gt;&lt;a href=&quot;#Error-and-resolution-estimation&quot; class=&quot;headerlink&quot; title=&quot;Error and resolution estimation&quot;&gt;&lt;/a&gt;Error and resolution estimation&lt;/h2&gt;&lt;p&gt;It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $eqref(mod)$, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.&lt;br&gt;First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+  \Delta = \int_{-\infty}^{+\infty} r(t) - \hat(m)(t) \otimes s(t) dt
+\end{equation}&lt;/script&gt;&lt;p&gt;Second, for resolution estimation. A simply way to obtain resolution function is to deconvolve $s(t)$ from itself. Since we desire a gaussian shape resolution function in derivations, the calculated one will approximates gaussian function.&lt;br&gt;Resolution estimation for $eqref{mod)} and $\eqref{mod_water_level}$:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+  \widehat{res}(t) &amp; = &amp; IFT\left\{\frac{S(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{res} \\
+
+  \widehat{res}(t) &amp; = &amp; IFT\left\{\frac{S(\omega)S^*(\omega)}{ max[S(\omega)S^*(\omega), c\sigma_0^2] }e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{res_water_level}
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;Implementations&quot;&gt;&lt;a href=&quot;#Implementations&quot; class=&quot;headerlink&quot; title=&quot;Implementations&quot;&gt;&lt;/a&gt;Implementations&lt;/h2&gt;&lt;p&gt;You could design your codes according to deconvolution equtions. &lt;a href=&quot;http://www.eas.slu.edu/eqc/eqccps.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CPS&lt;/a&gt; provide programs of &lt;code&gt;sacdecon&lt;/code&gt; for deconvolution in frequency domain, and &lt;code&gt;saciterd&lt;/code&gt; for iteration deconvolution in time domain. Besides, package of &lt;a href=&quot;http://www.eas.slu.edu/People/LZhu/downloads/hk1.3.tar&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hk&lt;/a&gt; provides &lt;code&gt;decon&lt;/code&gt; and &lt;code&gt;iter_decon&lt;/code&gt; as well. These programs differs slighty in the output. To find their usages details, please vist package homepage or &lt;a href=&quot;&quot;&gt;XX&lt;/a&gt;.&lt;br&gt;You could find examples of deconvolution for receiver functions at &lt;a href=&quot;&quot;&gt;XX&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Reference&quot;&gt;&lt;a href=&quot;#Reference&quot; class=&quot;headerlink&quot; title=&quot;Reference&quot;&gt;&lt;/a&gt;Reference&lt;/h2&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring functio
+    
+    </summary>
+    
+      <category term="Digital Signal Processing" scheme="http://sheng09.github.io/categories/Digital-Signal-Processing/"/>
+    
+    
+      <category term="Digital Signal Processing" scheme="http://sheng09.github.io/tags/Digital-Signal-Processing/"/>
+    
+      <category term="Inversion" scheme="http://sheng09.github.io/tags/Inversion/"/>
+    
+      <category term="Regularization" scheme="http://sheng09.github.io/tags/Regularization/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用总控Makefile一次性编译所有子程序包</title>
+    <link href="http://sheng09.github.io/2016/06/09/Makefile-compileSubs/"/>
+    <id>http://sheng09.github.io/2016/06/09/Makefile-compileSubs/</id>
+    <published>2016-06-09T08:07:40.000Z</published>
+    <updated>2016-06-09T09:28:46.689Z</updated>
+    
+    <content type="html">&lt;p&gt;当一个大的项目由很多子程序组成，而每一个子程序包都有自己独立的&lt;code&gt;Makefile&lt;/code&gt;，这时候就需要一个&lt;code&gt;总控Makefile&lt;/code&gt;来一次性完成所有的编译工作。以下给出了一个例子，以说明如何构建&lt;code&gt;总控Makefile&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;文件结构&quot;&gt;&lt;a href=&quot;#文件结构&quot; class=&quot;headerlink&quot; title=&quot;文件结构&quot;&gt;&lt;/a&gt;文件结构&lt;/h2&gt;&lt;p&gt;项目&lt;a href=&quot;/exam/PRJ.tgz&quot;&gt;PRJ&lt;/a&gt;包含了三个子程序包。每个子程序包都拥有自己的&lt;code&gt;Makefile&lt;/code&gt;，从而可以在各目录下使用&lt;code&gt;Make&lt;/code&gt;完成编译。但是这样很麻烦。通过构建总控&lt;code&gt;Makefile&lt;/code&gt;(&lt;code&gt;PRJ/Makefile&lt;/code&gt;)，可以一次性编译&lt;code&gt;prj_sub1&lt;/code&gt;,&lt;code&gt;prj_sub2&lt;/code&gt;,&lt;code&gt;prj_sub3&lt;/code&gt;三个子程序包。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;PRJ/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;├── prj_sub1/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   ├── a.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   ├── b.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   ├── c.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   └── Makefile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;|&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;├── prj_sub2/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   ├── d.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   ├── e.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   └── Makefile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;├── prj_sub3/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   ├── f.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   ├── g.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;│   └── Makefile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;├── ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;└── Makefile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;子程序包Makfile&quot;&gt;&lt;a href=&quot;#子程序包Makfile&quot; class=&quot;headerlink&quot; title=&quot;子程序包Makfile&quot;&gt;&lt;/a&gt;子程序包Makfile&lt;/h2&gt;&lt;p&gt;子程序包中的&lt;code&gt;Makefile&lt;/code&gt;包含了&lt;code&gt;编译&lt;/code&gt;,&lt;code&gt;install&lt;/code&gt;,&lt;code&gt;clean&lt;/code&gt;操作。以下例子中，有关函数&lt;code&gt;foreach&lt;/code&gt;,自动化变量&lt;code&gt;$@ $&amp;lt;&lt;/code&gt;,以及&lt;code&gt;静态模式&lt;/code&gt;的内容可以参见&lt;a href=&quot;X&quot;&gt;X&lt;/a&gt;。&lt;br&gt;需要注意的是变量&lt;code&gt;BIN&lt;/code&gt;并没有在&lt;code&gt;Makefile&lt;/code&gt;中声明赋值，而是通过&lt;code&gt;总控Makefile&lt;/code&gt;中的&lt;code&gt;export&lt;/code&gt;来传递。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#Makefile for prj_sub1/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CC = gcc&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;EXEC = a b c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;OBJ  = $(foreach exe, &lt;span class=&quot;variable&quot;&gt;$&amp;#123;EXEC&amp;#125;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$&amp;#123;exe&amp;#125;&lt;/span&gt;.o)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;all: &lt;span class=&quot;variable&quot;&gt;$&amp;#123;OBJ&amp;#125;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$&amp;#123;EXEC&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;EXEC&amp;#125;&lt;/span&gt;:%:%.o&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;variable&quot;&gt;$&amp;#123;CC&amp;#125;&lt;/span&gt; -o &lt;span class=&quot;variable&quot;&gt;$@&lt;/span&gt; $&amp;lt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;OBJ&amp;#125;&lt;/span&gt;:%.o:%.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;variable&quot;&gt;$&amp;#123;CC&amp;#125;&lt;/span&gt; -c -o &lt;span class=&quot;variable&quot;&gt;$@&lt;/span&gt; $&amp;lt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;install:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	cp &lt;span class=&quot;variable&quot;&gt;$&amp;#123;EXEC&amp;#125;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$&amp;#123;BIN&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;clean:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	rm &lt;span class=&quot;variable&quot;&gt;$&amp;#123;EXEC&amp;#125;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$&amp;#123;OBJ&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;总控Makefile&quot;&gt;&lt;a href=&quot;#总控Makefile&quot; class=&quot;headerlink&quot; title=&quot;总控Makefile&quot;&gt;&lt;/a&gt;总控Makefile&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; BIN=../bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SUBS = prj_sub1 prj_sub2 prj_sub3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SUBS_make    = $(foreach sub, &lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS&amp;#125;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$&amp;#123;sub&amp;#125;&lt;/span&gt;.make)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SUBS_clean   = $(foreach sub, &lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS&amp;#125;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$&amp;#123;sub&amp;#125;&lt;/span&gt;.clean)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SUBS_install = $(foreach sub, &lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS&amp;#125;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$&amp;#123;sub&amp;#125;&lt;/span&gt;.install)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;all: &lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS_make&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS_make&amp;#125;&lt;/span&gt;:%.make:%&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	make -C $&amp;lt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;install: &lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS_install&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS_install&amp;#125;&lt;/span&gt;:%.install:%&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	-make -C $&amp;lt; install&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;clean: &lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS_clean&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;SUBS_clean&amp;#125;&lt;/span&gt;:%.clean:%&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	-make -C $&amp;lt; clean&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;总控Makefile一次性编译了&lt;code&gt;prj_sub1&lt;/code&gt;,&lt;code&gt;prj_sub2&lt;/code&gt;,&lt;code&gt;prj_sub3&lt;/code&gt;三个子程序包。&lt;br&gt;首先对变量&lt;code&gt;SUBS_make&lt;/code&gt;赋值，为&lt;code&gt;prj_sub1.make prj_sub2.make prj_sub3.make&lt;/code&gt;。类似的，完成变量&lt;code&gt;SUBS_clean&lt;/code&gt;，&lt;code&gt;SUBS_install&lt;/code&gt;的赋值。&lt;br&gt;随后，在编译中，&lt;code&gt;${SUBS_make}:%.make:%&lt;/code&gt;声明从变量&lt;code&gt;SUBS_make&lt;/code&gt;中逐次提取以&lt;code&gt;.make&lt;/code&gt;结尾的字段作为编译目标，去掉&lt;br&gt;&lt;code&gt;.make&lt;/code&gt;之后的内容作为编译依赖项目，进而利用&lt;code&gt;make -C $&amp;lt;&lt;/code&gt;完成编译。第10,11行等价于：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;prj_sub1.make: prj_sub1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	make -C prj_sub1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;prj_sub2.make: prj_sub2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	make -C prj_sub2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;prj_sub3.make: prj_sub3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	make -C prj_sub3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;make -C prj_sub1&lt;/code&gt;等价于&lt;code&gt;cd prj_sub1; make&lt;/code&gt;。其相当于先进入目录&lt;code&gt;prj_sub1&lt;/code&gt;，然后执行&lt;code&gt;make&lt;/code&gt;命令。&lt;br&gt;与编译类似，&lt;code&gt;install&lt;/code&gt;与&lt;code&gt;clean&lt;/code&gt;操作一次性完成所有子程序包的安装及清理操作。&lt;br&gt;需要注意的是，利用&lt;code&gt;export BIN=../bin&lt;/code&gt;，将变量&lt;code&gt;BIN&lt;/code&gt;传递至被调用&lt;code&gt;Makefile&lt;/code&gt;。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当一个大的项目由很多子程序组成，而每一个子程序包都有自己独立的&lt;code&gt;Makefile&lt;/code&gt;，这时候就需要一个&lt;code&gt;总控Makefile&lt;/code&gt;来一次性完成所有的编译工作。以下给出了一个例子，以说明如何构建&lt;code&gt;总控Makefile&lt;/code
+    
+    </summary>
+    
+      <category term="Coding and Compiling" scheme="http://sheng09.github.io/categories/Coding-and-Compiling/"/>
+    
+    
+      <category term="Makefile" scheme="http://sheng09.github.io/tags/Makefile/"/>
+    
+      <category term="Linux" scheme="http://sheng09.github.io/tags/Linux/"/>
+    
+      <category term="Compiling" scheme="http://sheng09.github.io/tags/Compiling/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>怎么在linux下压缩和解压文件</title>
+    <link href="http://sheng09.github.io/2016/06/09/unpack-in-linux/"/>
+    <id>http://sheng09.github.io/2016/06/09/unpack-in-linux/</id>
+    <published>2016-06-08T16:34:36.000Z</published>
+    <updated>2016-06-09T07:51:29.509Z</updated>
+    
+    <content type="html">&lt;p&gt;此文初衷是写给呆萌女朋友的。&lt;/p&gt;
+&lt;h2 id=&quot;tar&quot;&gt;&lt;a href=&quot;#tar&quot; class=&quot;headerlink&quot; title=&quot;tar&quot;&gt;&lt;/a&gt;tar&lt;/h2&gt;&lt;p&gt;1.使用tar打包并压缩文件(夹)&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ tar -cvzf  test.tar.gz  &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;可以将test打包压缩并生产test.tar.gz，test可以是文件夹也可以是文件。&lt;br&gt;切记，被压缩文件与压缩输出文件不要写反了，否则被压缩文件会被覆盖从而丢失！&lt;/p&gt;
+&lt;p&gt;2.解包并解压 .tar.gz&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ tar -xvzf  test.tar.gz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;zip&quot;&gt;&lt;a href=&quot;#zip&quot; class=&quot;headerlink&quot; title=&quot;zip&quot;&gt;&lt;/a&gt;zip&lt;/h2&gt;&lt;p&gt;1.使用zip压缩&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ zip  -r  test.zip   &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;将test打包压缩并生产test.zip，test可以是文件夹也可以是文件；&lt;/p&gt;
+&lt;p&gt;2.解压zip&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ unzip   test.zip&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;rar&quot;&gt;&lt;a href=&quot;#rar&quot; class=&quot;headerlink&quot; title=&quot;rar&quot;&gt;&lt;/a&gt;rar&lt;/h2&gt;&lt;p&gt;最好不要用rar，rar压缩算法不是开源的，所以linux中默认可能没有处理rar的工具。倘若强行需求，可以先安装rar&lt;br&gt;ubuntu中安装命令如下：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo apt-get install rar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;1.使用rar压缩文件或文件夹&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ rar  a  test.rar  &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;可以将test打包压缩并生产test.rar，test可以是文件夹也可以是文件；&lt;/p&gt;
+&lt;p&gt;2.解压rar&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ rar  x  test.rar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;后缀名说明&quot;&gt;&lt;a href=&quot;#后缀名说明&quot; class=&quot;headerlink&quot; title=&quot;后缀名说明&quot;&gt;&lt;/a&gt;后缀名说明&lt;/h2&gt;&lt;p&gt;一般情况，可以通过后缀名来判断需要用什么软件来解压。.tar.gz 或者.tgz的后缀都是用tar操作的。 而.zip后缀名显然是zip操作的。 .rar后缀名显然是rar操作的&lt;br&gt;自己打包压缩文件时候，一定要写后缀名，其他人看到后缀名就可以知道应该用那个解压工具。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;此文初衷是写给呆萌女朋友的。&lt;/p&gt;
+&lt;h2 id=&quot;tar&quot;&gt;&lt;a href=&quot;#tar&quot; class=&quot;headerlink&quot; title=&quot;tar&quot;&gt;&lt;/a&gt;tar&lt;/h2&gt;&lt;p&gt;1.使用tar打包并压缩文件(夹)&lt;br&gt;&lt;figure class=&quot;highligh
+    
+    </summary>
+    
+      <category term="Linux工具及配置" scheme="http://sheng09.github.io/categories/Linux%E5%B7%A5%E5%85%B7%E5%8F%8A%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="Linux" scheme="http://sheng09.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux终端美化</title>
+    <link href="http://sheng09.github.io/2016/06/08/fancy-terminal/"/>
+    <id>http://sheng09.github.io/2016/06/08/fancy-terminal/</id>
+    <published>2016-06-08T15:29:05.000Z</published>
+    <updated>2016-06-10T08:24:01.018Z</updated>
+    
+    <content type="html">&lt;p&gt;不知道你是不是受够了Linux终端的丑陋。黑色衬底配上刺眼的颜色和奇怪的字体，是默认Linux的终端外观。如果你长期需要在Linux下作业，那么一个养眼的终端带来的将是身心愉悦，效率翻倍，毕竟这是一个凡事看脸的时代，颜即正义。&lt;/p&gt;
+&lt;h2 id=&quot;配色方案&quot;&gt;&lt;a href=&quot;#配色方案&quot; class=&quot;headerlink&quot; title=&quot;配色方案&quot;&gt;&lt;/a&gt;配色方案&lt;/h2&gt;&lt;p&gt;默认配色大多指向16位色彩方案，在带给新人一种geek的感觉之后，时刻冲击着用户视觉神经。那么来试试&lt;a href=&quot;https://github.com/seebi/dircolors-solarized&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;dircolors-solarized&lt;/code&gt;&lt;/a&gt;吧。&lt;br&gt;&lt;img src=&quot;/img/screen-dircolors-in-iTerm2-solarized_dark.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在&lt;a href=&quot;https://github.com/seebi/dircolors-solarized&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;dircolors-solarized&lt;/code&gt;&lt;/a&gt;项目主页下载配色方案。解压后可以发现文件夹内包含了不同的配色设置文件，以其中的&lt;code&gt;dircolors.ansi-dark&lt;/code&gt;为例，在&lt;code&gt;~/.basrc&lt;/code&gt;(或者&lt;code&gt;~/.profile&lt;/code&gt;)中添加以下内容：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;eval&lt;/span&gt; `dircolors /path/to/your/dircolors.ansi-dark`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在终端中&lt;code&gt;source&lt;/code&gt;一下，或者关闭重启以下终端，配色是不是变了？&lt;/p&gt;
+&lt;h2 id=&quot;提示符&quot;&gt;&lt;a href=&quot;#提示符&quot; class=&quot;headerlink&quot; title=&quot;提示符&quot;&gt;&lt;/a&gt;提示符&lt;/h2&gt;&lt;p&gt;在终端里，默认的提示符包含了当前路径及用户登陆信息，臃肿而又难看。试试再&lt;code&gt;~/.basrc&lt;/code&gt;(或者&lt;code&gt;~/.profile&lt;/code&gt;)中添加以下内容：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;PS1=&lt;span class=&quot;string&quot;&gt;&#39;`a=$?;if [ $a -ne 0 ]; then a=&quot;  &quot;$a; echo -ne &quot;\[\e[s\e[1A\e[$((COLUMNS-2))G\e[31m\e[0;41m$&amp;#123;a:(-3)&amp;#125;\e[u\]\[\e[0m\e[7m\e[2m\]&quot;; fi`\[\e[1;35m\]Fa\[\e[1;33m\]nc\[\e[1;32m\]y \[\e[0m\e[1;36m\]\u \[\e[0;34m\]\$ \[\e[0m\]&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;在终端中&lt;code&gt;source&lt;/code&gt;一下，或者关闭重启以下终端，看一看新的提示符。&lt;br&gt;以&lt;code&gt;\[\e[1;35m\]Fa&lt;/code&gt;为例，字段，字段&lt;code&gt;1;35&lt;/code&gt;分别声明了&lt;code&gt;Fa&lt;/code&gt;的颜色与字体方案。&lt;br&gt;除了使用类似于&lt;code&gt;Fa&lt;/code&gt;的普通文本内容，还有以下特殊符号：&lt;br&gt;　　&lt;code&gt;\d&lt;/code&gt; :代表日期，格式为weekday month date，例如：”Mon Aug 1”&lt;br&gt;　　&lt;code&gt;\H&lt;/code&gt; :完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是fc4.linux&lt;br&gt;　　&lt;code&gt;\h&lt;/code&gt; :仅取主机的第一个名字，如上例，则为fc4，.linux则被省略&lt;br&gt;　　&lt;code&gt;\t&lt;/code&gt; :显示时间为24小时格式，如：HH：MM：SS&lt;br&gt;　　&lt;code&gt;\T&lt;/code&gt; :显示时间为12小时格式&lt;br&gt;　　&lt;code&gt;\A&lt;/code&gt; :显示时间为24小时格式：HH：MM&lt;br&gt;　　&lt;code&gt;\u&lt;/code&gt; :当前用户的账号名称&lt;br&gt;　　&lt;code&gt;\v&lt;/code&gt; :BASH的版本信息&lt;br&gt;　　&lt;code&gt;\w&lt;/code&gt; :完整的工作目录名称。家目录会以 ~代替&lt;br&gt;　　&lt;code&gt;\W&lt;/code&gt; :利用basename取得工作目录名称，所以只会列出最后一个目录&lt;br&gt;　　&lt;code&gt;\#&lt;/code&gt; :下达的第几个命令&lt;br&gt;　　&lt;code&gt;\$&lt;/code&gt; :提示字符，如果是root时，提示符为：# ，普通用户则为：$&lt;/p&gt;
+&lt;h2 id=&quot;终端背景&quot;&gt;&lt;a href=&quot;#终端背景&quot; class=&quot;headerlink&quot; title=&quot;终端背景&quot;&gt;&lt;/a&gt;终端背景&lt;/h2&gt;&lt;p&gt;终端背景一般默认纯色，且大多为黑色和白色。可以再终端的“设置”中开启背景透明，并选择合适的透明度，再挑选一张简约的深色图片做桌面背景。&lt;/p&gt;
+&lt;p&gt;通过以上的设置，是不是发现终端好看了很多，如果你有得意的美化方案配置，请致信&lt;code&gt;wangsheng.cas@gmail.com&lt;/code&gt;讨论交流。&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h2&gt;&lt;p&gt;linux PS1 提示符定义&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/starspace/archive/2009/02/21/1395382.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/starspace/archive/2009/02/21/1395382.html&lt;/a&gt;&lt;br&gt;dircolors-solarized项目主页&lt;br&gt;&lt;a href=&quot;https://github.com/seebi/dircolors-solarized&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/seebi/dircolors-solarized&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;不知道你是不是受够了Linux终端的丑陋。黑色衬底配上刺眼的颜色和奇怪的字体，是默认Linux的终端外观。如果你长期需要在Linux下作业，那么一个养眼的终端带来的将是身心愉悦，效率翻倍，毕竟这是一个凡事看脸的时代，颜即正义。&lt;/p&gt;
+&lt;h2 id=&quot;配色方案&quot;&gt;&lt;a hr
+    
+    </summary>
+    
+      <category term="Linux工具及配置" scheme="http://sheng09.github.io/categories/Linux%E5%B7%A5%E5%85%B7%E5%8F%8A%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="Linux" scheme="http://sheng09.github.io/tags/Linux/"/>
+    
+      <category term="Terminal" scheme="http://sheng09.github.io/tags/Terminal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用github和hexo搭建静态博客</title>
+    <link href="http://sheng09.github.io/2016/06/08/install-and-config/"/>
+    <id>http://sheng09.github.io/2016/06/08/install-and-config/</id>
+    <published>2016-06-08T14:48:22.000Z</published>
+    <updated>2016-06-10T10:13:16.687Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;github注册及建立仓储&quot;&gt;&lt;a href=&quot;#github注册及建立仓储&quot; class=&quot;headerlink&quot; title=&quot;github注册及建立仓储&quot;&gt;&lt;/a&gt;github注册及建立仓储&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;在&lt;a href=&quot;https://github.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;github主页&lt;/a&gt;完成注册;&lt;/li&gt;
+&lt;li&gt;验证邮箱;&lt;/li&gt;
+&lt;li&gt;创建仓储，其中repository name必须为username.github.io;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;git的安装及添加ssh-key&quot;&gt;&lt;a href=&quot;#git的安装及添加ssh-key&quot; class=&quot;headerlink&quot; title=&quot;git的安装及添加ssh-key&quot;&gt;&lt;/a&gt;git的安装及添加ssh-key&lt;/h2&gt;&lt;p&gt;在ubuntu下，使用以下命令安装git:&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo apt-get install git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global user.email &lt;span class=&quot;string&quot;&gt;&quot;Your emaill address&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global user.name  &lt;span class=&quot;string&quot;&gt;&quot;Your username on github.com&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;使用以下命令生产ssh-key&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ssh-keygen -t rsa -C &lt;span class=&quot;string&quot;&gt;&quot;Your email address&quot;&lt;/span&gt;　&lt;span class=&quot;comment&quot;&gt;#需要指定key文件名，使用默认即可&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;默认生成的ssh-key文件位于&lt;code&gt;~/.ssh/&lt;/code&gt;目录下，其中的&lt;code&gt;id_rsa&lt;/code&gt;和&lt;code&gt;id_rsa.pub&lt;/code&gt;为我们需要的文件。将&lt;code&gt;id_rsa.pub&lt;/code&gt;文件的文本内容添加到github的ssh-key中。使用以下命令测试是否成功:&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ssh -T git@github.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;hexo的安装&quot;&gt;&lt;a href=&quot;#hexo的安装&quot; class=&quot;headerlink&quot; title=&quot;hexo的安装&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo&lt;/a&gt;的安装&lt;/h2&gt;&lt;p&gt;1.安装nvm&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;2.安装node.js&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ nvm install v3.3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ nvm ls &lt;span class=&quot;comment&quot;&gt;#List installed versions&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ nvm use 3.3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ nvm current &lt;span class=&quot;comment&quot;&gt;#Display currently activated version&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;3.安装hexo&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ npm install -g hexo&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;本地hexo初始化&quot;&gt;&lt;a href=&quot;#本地hexo初始化&quot; class=&quot;headerlink&quot; title=&quot;本地hexo初始化&quot;&gt;&lt;/a&gt;本地hexo初始化&lt;/h2&gt;&lt;p&gt;1.初始化hexo目录&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo init ~/myblog&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ npm install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;2.生成静态文件&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;3.本地服务器预览&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo s &lt;span class=&quot;comment&quot;&gt;#打开浏览器通过http://0.0.0.0:4000/访问查看&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;发布&quot;&gt;&lt;a href=&quot;#发布&quot; class=&quot;headerlink&quot; title=&quot;发布&quot;&gt;&lt;/a&gt;发布&lt;/h2&gt;&lt;p&gt;1.安装hexo-deployer-git&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ npm install hexo-cli -g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;!-- $ npm install hexo-deployer-git --save --&gt; &lt;!-- old version --&gt; 
+&lt;p&gt;2.在博客目录下找到&lt;code&gt;_config.yml&lt;/code&gt;文件，添加或修改:&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;deploy: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;built_in&quot;&gt;type&lt;/span&gt;: git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	repo: git@github.com:USERNAME/USERNAME.github.io.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	branch: master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	message: &lt;span class=&quot;string&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;注意，所有的冒号后面必须有空格！！！&lt;br&gt;3.发布&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ hexo d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;预览&quot;&gt;&lt;a href=&quot;#预览&quot; class=&quot;headerlink&quot; title=&quot;预览&quot;&gt;&lt;/a&gt;预览&lt;/h2&gt;&lt;p&gt;在浏览器中打开&lt;code&gt;http://USERNAME.github.io.git&lt;/code&gt;页面访问静态博客。&lt;/p&gt;
+&lt;h2 id=&quot;添加博客文章并发布&quot;&gt;&lt;a href=&quot;#添加博客文章并发布&quot; class=&quot;headerlink&quot; title=&quot;添加博客文章并发布&quot;&gt;&lt;/a&gt;添加博客文章并发布&lt;/h2&gt;&lt;p&gt;使用以下命令添加新的文章至目录&lt;code&gt;\source\_posts\&lt;/code&gt;:&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;article1&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;随后可以在目录&lt;code&gt;\source\_posts\&lt;/code&gt;中找到markdown格式文件&lt;code&gt;article1.md&lt;/code&gt;。可以书写并修改其内容，然后使用以下命令发布:&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo clean&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ hexo g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ hexo d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;使用数学公式&quot;&gt;&lt;a href=&quot;#使用数学公式&quot; class=&quot;headerlink&quot; title=&quot;使用数学公式&quot;&gt;&lt;/a&gt;使用数学公式&lt;/h2&gt;&lt;p&gt;安装&lt;a href=&quot;https://github.com/akfish/hexo-math&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo-math&lt;/a&gt;，随后即可在文章中插入公式。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install hexo-math --save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;可以在&lt;a href=&quot;https://github.com/akfish/hexo-math&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo-math&lt;/a&gt;项目主页找到如何插入公式。&lt;br&gt;配置过程中遇到的问题：&lt;a href=&quot;https://github.com/akfish/hexo-math/issues/26&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;How to config it to make it work? #26&lt;/a&gt;&lt;br&gt;注意，&lt;a href=&quot;https://github.com/akfish/hexo-math&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo-math&lt;/a&gt;保持更新，且不同版本的安装与配置存在区别，在Google上搜索到的结果可能已经弃用了，所以以项目主页说明为准。&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h2&gt;&lt;p&gt;github注册与入门&lt;br&gt;&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&lt;/code&gt;&lt;/a&gt;&lt;br&gt;搭建静态博客&lt;br&gt;&lt;a href=&quot;http://blog.wpeace.cn/2015/07/22/%E4%BD%BF%E7%94%A8github%E5%92%8Chexo%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;http://blog.wpeace.cn/2015/07/22/%E4%BD%BF%E7%94%A8github%E5%92%8Chexo%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/&lt;/code&gt;&lt;/a&gt;&lt;br&gt;ERROR Deployer not found: git&lt;br&gt;&lt;a href=&quot;http://github.com/hexojs/hexo/issues/1154&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;http://github.com/hexojs/hexo/issues/1154&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;github注册及建立仓储&quot;&gt;&lt;a href=&quot;#github注册及建立仓储&quot; class=&quot;headerlink&quot; title=&quot;github注册及建立仓储&quot;&gt;&lt;/a&gt;github注册及建立仓储&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;在&lt;a href=&quot;https://gi
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
