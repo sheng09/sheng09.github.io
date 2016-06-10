@@ -8,7 +8,7 @@
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sheng Wang">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://sheng09.github.io/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -53,10 +53,10 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheng09.github.io"></form>
       </div>
     </div>
   </div>
@@ -90,12 +90,101 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Deconvolution problem is a subset of inversion, in which observated data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”, “error”, “regularization”, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.</p>
-<h2 id="Convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h2><h1 id=""><a href="#" class="headerlink" title="#"></a>#</h1>
+        <p>Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”, “error”, “regularization”, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.</p>
+<h2 id="Convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h2><p>Convolution in time domain corresponds to multiplication in frequency domain:</p>
+<span>$$\begin{eqnarray}
+r(t) &amp; = &amp; m(t) \otimes s(t) \label{convo_time}\\
+R(\omega) &amp; = &amp; M(\omega) S(\omega) \label{convo_freq}
+\end{eqnarray}$$</span><!-- Has MathJax -->
+<p>in $\eqref{convo_time}$, $m(t)$ is , $s(t)$ is the source wavelet or blurring function, $r(t)$ is the observed data, and $m(t)$ is the impulse repsonse of the model. Theoretically, given $s(t)$ and $r(t)$, $m(t)$ could be calculated by division according to $\eqref{convo_freq}$</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+m(t) = IFT \left\{\frac{R(\omega)}{S(\omega)}\right\} \label{decon_div}
+\end{equation}</script><p>However, $\eqref{decon_div}$ always present problematic results because observations $r(t)$ contain noise, and some values of $s(\omega)$ approach zero, which result in instablities in the division.</p>
+<h2 id="Deconvolution-in-frequency-domain"><a href="#Deconvolution-in-frequency-domain" class="headerlink" title="Deconvolution in frequency domain"></a>Deconvolution in frequency domain</h2><p>Considering noise $n(t)$, $\eqref{convo_time}$ should be:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+r(t) & = & m(t) \otimes s(t) + n(t) \label{convo_time_real}\\
+R(\omega) & = & M(\omega) S(\omega) + N(\omega) \label{convo_freq_real}
+\end{eqnarray}</script><p>In deconvolution, we aim to find a time series $s’(t)$, which acts like the inverse of the source wavelet or blurring function $s(t)$. So the convolution of $s’(t)$ and $s(t)$ will produces a desired resolution function $h(t)$, being impulse function theoretically.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+r(t) \otimes s'(t) & = & m(t) \otimes s(t) \otimes s'(t) + n(t) \otimes s'(t) \label{conv_with_s_inv_time}\\
+R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega) \label{conv_with_s_inv_freq}
+\end{eqnarray}</script><p>Let us define:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  \begin{cases}
+    \hat{m}(t) & = & r(t) \otimes s'(t) \\
+    res(t) & = & s(t) \otimes s'(t) \\
+    err(t) & = & n(t) \otimes s'(t)
+  \end{cases}
+\end{equation}</script><p>$\hat{m}(t)$ is the calculated model, $res(t)$ is the resolution function, and $err(t)$ is the model error:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  \hat{m}(t) = m(t) \otimes res(t) + err(t)
+\end{equation}</script><p>In deconvolution, the real resolution function $res(t)$ should approximates desired one $h(t)$, and model error $err(t)$ should approximates zero. Trade-off exists for these two approaches. Thus, an objective function is built:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  obj = \int_{-\infty}^{+\infty}\{a|res(t)-h(t)|^2+(1-a)|err(t)|^2\}dt \label{obj_func}
+\end{equation}</script><p>according to Parseval’s theorem, in the frequency domain, $\eqref{obj_func}$ has the form of:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  obj =  a|S(\omega)S'(\omega) - h(\omega)|^2 + (1-a) | N(\omega)S'(\omega) |^2 \label{obj_func_freq}
+\end{equation}</script><p>When objective function approach the minimal value, the derivative of $obj$ to $S’(\omega)$ should be zero. Corresponding $S’(\omega)$ is :</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+  S'(\omega) & = & \frac{S^*(\omega)h(\omega)}{S(\omega)S^*(\omega)+b|N(\omega)|^2} \\
+  b & = & \frac{1-a}{a}
+\end{eqnarray}</script><p>Choose gaussian function as desired resolution function, and estimate the noise $|N(\omega)|^2$ on the basis of observation and signal to noise energy ratio $\nu$.</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} label{mod} 
+\end{equation}</script><p>$\sigma_0^2$ is the self-correlation of $S(t)$, and $c = b \nu$.</p>
+<p>From the viewpoint to regularization, an item of $c\sigma_0^2$ is added to the denominator. So instablity result from the near-zero value of $S(\omega)S^*(\omega)$ is reduced.</p>
+<p>Likewise, we could build the solver equation of:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{ max[S(\omega)S^*(\omega), c\sigma_0^2] }e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{mod_water_level}
+\end{equation}</script><p>which is the water-level regularization deconvolution.</p>
+<h2 id="Iterative-deconvolution-in-time-domain"><a href="#Iterative-deconvolution-in-time-domain" class="headerlink" title="Iterative deconvolution in time domain"></a>Iterative deconvolution in time domain</h2><p>For time series, the model $m(t)$ is superposition of impulse functions:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  \hat{m}(t) = \sum_{i} m_i h(t-t_i) \label{superposition}
+\end{equation}</script><p>To determine $m_1$ and $t_1$, the error $\eqref{err_iter}$ should approximates its minimal value. </p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  \Delta_1 = \int_{-\infty}^{+\infty}\{r(t) - m_1 h(t-t_1) \otimes s(t)\}^2dt \label{err_iter}
+\end{equation}</script><p>Corresponding $m_1$ and $\Delta_1$ could be calculated assuming $ \frac{\partial \Delta} m_1{} = 0 $:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+  m_1 & = & \frac { \int_{-\infty}^{+\infty} r(t)s(t-t_1)dt } { \int_{-\infty}^{+\infty} s^2(t)dt} \\
+  \Delta_1 & = & \frac { \int_{-\infty}^{+\infty}r^2(t)dt -[\int_{-\infty}^{+\infty}r(t)s(t-t_1)dt ]^2} {\int_{-\infty}^{+\infty}s^2(t)dt}
+\end{eqnarray}</script><p>Obviously, $[\int_{-\infty}^{+\infty}r(t)s(t-t_1)dt ]^2 $ should approach its maximal value so that the error $\Delta_1 $ approach its minimum. Under this criterion, $t_1$ could be acquired by traversal.<br>After obtaining $m_1$ and $t_1$, we subtract $m_1h(t-t_1)$ from $r(t)$ and get residual time series:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  r'(t) = r(t) - m_1h(t-t_1)
+\end{equation}</script><p>Likewise, $m_2$ and $t_2$ could be obtain by applying above procedure to $r’(t)$. This kind of procedure is iterated for N times until no more significant decrease in the residual time series occurs. The model could be applying a gausssian function to $\eqref{superposition}$ with $ m_i$ and $t_i(i=1,2,…N)$. Besides, synthetic observation and error are:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+  \hat{r} & = & \sum_{i=1}^N m_i s(t-t_i) \\
+  \Delta_N & = & \int_{-\infty}^{+\infty} [r(t) - \hat{r}(t)]^2 dt
+\end{eqnarray}</script><h2 id="Error-and-resolution-estimation"><a href="#Error-and-resolution-estimation" class="headerlink" title="Error and resolution estimation"></a>Error and resolution estimation</h2><p>It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $eqref(mod)$, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.<br>First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  \Delta = \int_{-\infty}^{+\infty} r(t) - \hat(m)(t) \otimes s(t) dt
+\end{equation}</script><p>Second, for resolution estimation. A simply way to obtain resolution function is to deconvolve $s(t)$ from itself. Since we desire a gaussian shape resolution function in derivations, the calculated one will approximates gaussian function.<br>Resolution estimation for $eqref{mod)} and $\eqref{mod_water_level}$:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+  \widehat{res}(t) & = & IFT\left\{\frac{S(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} label{res} \\
+
+  \widehat{res}(t) & = & IFT\left\{\frac{S(\omega)S^*(\omega)}{ max[S(\omega)S^*(\omega), c\sigma_0^2] }e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{res_water_level}
+\end{eqnarray}</script><h2 id="Implementations"><a href="#Implementations" class="headerlink" title="Implementations"></a>Implementations</h2><p>You could design your codes according to deconvolution equtions. <a href="http://www.eas.slu.edu/eqc/eqccps.html" target="_blank" rel="external">CPS</a> provide programs of <code>sacdecon</code> for deconvolution in frequency domain, and <code>saciterd</code> for iteration deconvolution in time domain. Besides, package of <a href="http://www.eas.slu.edu/People/LZhu/downloads/hk1.3.tar" target="_blank" rel="external">hk</a> provides <code>decon</code> and <code>iter_decon</code> as well. These programs differs slighty in the output. To find their usages details, please vist package homepage or <a href="">XX</a>.<br>You could find examples of deconvolution for receiver functions at <a href="">XX</a>.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/09/deconvolution/" data-id="cip9hvmci00028cfbuxaq8x7p" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cip9mvuuw0002q2fbbvrj6u95" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regularization/">Regularization</a></li></ul>
@@ -144,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/09/Makefile-compileSubs/" data-id="cip9hvmca00008cfbm42tunrk" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/Makefile-compileSubs/" data-id="cip9mvuup0000q2fbfiwdduxs" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Compiling/">Compiling</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li></ul>
@@ -198,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/09/unpack-in-linux/" data-id="cip9hvmd6000b8cfbx9hnlggw" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/unpack-in-linux/" data-id="cip9mvuve000bq2fbhlovzq8x" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -250,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/fancy-terminal/" data-id="cip9hvmcr00068cfb9cyao9m9" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/08/fancy-terminal/" data-id="cip9mvuv40006q2fbol0likvy" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
@@ -292,13 +381,14 @@
 <h2 id="git的安装及添加ssh-key"><a href="#git的安装及添加ssh-key" class="headerlink" title="git的安装及添加ssh-key"></a>git的安装及添加ssh-key</h2><p>在ubuntu下，使用以下命令安装git:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br><span class="line">$ git config --global user.email <span class="string">"Your emaill address"</span></span><br><span class="line">$ git config --global user.name  <span class="string">"Your username on github.com"</span></span><br></pre></td></tr></table></figure></p>
 <p>使用以下命令生产ssh-key<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">"Your email address"</span>　<span class="comment">#需要指定key文件名，使用默认即可</span></span><br></pre></td></tr></table></figure></p>
 <p>默认生成的ssh-key文件位于<code>~/.ssh/</code>目录下，其中的<code>id_rsa</code>和<code>id_rsa.pub</code>为我们需要的文件。将<code>id_rsa.pub</code>文件的文本内容添加到github的ssh-key中。使用以下命令测试是否成功:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
-<h2 id="hexo的安装"><a href="#hexo的安装" class="headerlink" title="hexo的安装"></a>hexo的安装</h2><p>1.安装nvm<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="hexo的安装"><a href="#hexo的安装" class="headerlink" title="hexo的安装"></a><a href="https://hexo.io/" target="_blank" rel="external">hexo</a>的安装</h2><p>1.安装nvm<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure></p>
 <p>2.安装node.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install v3.3</span><br><span class="line">$ nvm ls <span class="comment">#List installed versions</span></span><br><span class="line">$ nvm use 3.3</span><br><span class="line">$ nvm current <span class="comment">#Display currently activated version</span></span><br></pre></td></tr></table></figure></p>
 <p>3.安装hexo<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure></p>
 <h2 id="本地hexo初始化"><a href="#本地hexo初始化" class="headerlink" title="本地hexo初始化"></a>本地hexo初始化</h2><p>1.初始化hexo目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init ~/myblog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
 <p>2.生成静态文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure></p>
 <p>3.本地服务器预览<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s <span class="comment">#打开浏览器通过http://0.0.0.0:4000/访问查看</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>1.安装hexo-deployer-git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>1.安装hexo-deployer-git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
+<!-- $ npm install hexo-deployer-git --save --> <!-- old version --> 
 <p>2.在博客目录下找到<code>_config.yml</code>文件，添加或修改:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">	<span class="built_in">type</span>: git</span><br><span class="line">	repo: git@github.com:USERNAME/USERNAME.github.io.git</span><br><span class="line">	branch: master</span><br><span class="line">	message: <span class="string">"g"</span></span><br></pre></td></tr></table></figure></p>
 <p>注意，所有的冒号后面必须有空格！！！<br>3.发布<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
 <h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><p>在浏览器中打开<code>http://USERNAME.github.io.git</code>页面访问静态博客。</p>
@@ -311,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/install-and-config/" data-id="cip9hvmcz00088cfb7l260gqt" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/08/install-and-config/" data-id="cip9mvuv80008q2fbuvybl7tc" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -328,7 +418,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Categorieën</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a></li></ul>
     </div>
@@ -338,7 +428,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Labels</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
     </div>
@@ -348,7 +438,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archieven</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
     </div>
@@ -358,7 +448,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Recente berichten</h3>
     <div class="widget">
       <ul>
         

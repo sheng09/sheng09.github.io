@@ -13,7 +13,7 @@
 git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo apt-get install git$ git config --global user.email &quot;Your emaill address">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用github和hexo搭建静态博客">
-<meta property="og:url" content="http://yoursite.com/2016/06/08/install-and-config/index.html">
+<meta property="og:url" content="http://sheng09.github.io/2016/06/08/install-and-config/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="github注册及建立仓储
 在github主页完成注册;
@@ -21,7 +21,7 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
 创建仓储，其中repository name必须为username.github.io;
 
 git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo apt-get install git$ git config --global user.email &quot;Your emaill address">
-<meta property="og:updated_time" content="2016-06-10T08:22:36.886Z">
+<meta property="og:updated_time" content="2016-06-10T10:13:16.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用github和hexo搭建静态博客">
 <meta name="twitter:description" content="github注册及建立仓储
@@ -69,10 +69,10 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheng09.github.io"></form>
       </div>
     </div>
   </div>
@@ -108,13 +108,14 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
 <h2 id="git的安装及添加ssh-key"><a href="#git的安装及添加ssh-key" class="headerlink" title="git的安装及添加ssh-key"></a>git的安装及添加ssh-key</h2><p>在ubuntu下，使用以下命令安装git:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br><span class="line">$ git config --global user.email <span class="string">"Your emaill address"</span></span><br><span class="line">$ git config --global user.name  <span class="string">"Your username on github.com"</span></span><br></pre></td></tr></table></figure></p>
 <p>使用以下命令生产ssh-key<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">"Your email address"</span>　<span class="comment">#需要指定key文件名，使用默认即可</span></span><br></pre></td></tr></table></figure></p>
 <p>默认生成的ssh-key文件位于<code>~/.ssh/</code>目录下，其中的<code>id_rsa</code>和<code>id_rsa.pub</code>为我们需要的文件。将<code>id_rsa.pub</code>文件的文本内容添加到github的ssh-key中。使用以下命令测试是否成功:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
-<h2 id="hexo的安装"><a href="#hexo的安装" class="headerlink" title="hexo的安装"></a>hexo的安装</h2><p>1.安装nvm<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="hexo的安装"><a href="#hexo的安装" class="headerlink" title="hexo的安装"></a><a href="https://hexo.io/" target="_blank" rel="external">hexo</a>的安装</h2><p>1.安装nvm<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure></p>
 <p>2.安装node.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install v3.3</span><br><span class="line">$ nvm ls <span class="comment">#List installed versions</span></span><br><span class="line">$ nvm use 3.3</span><br><span class="line">$ nvm current <span class="comment">#Display currently activated version</span></span><br></pre></td></tr></table></figure></p>
 <p>3.安装hexo<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure></p>
 <h2 id="本地hexo初始化"><a href="#本地hexo初始化" class="headerlink" title="本地hexo初始化"></a>本地hexo初始化</h2><p>1.初始化hexo目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init ~/myblog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
 <p>2.生成静态文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure></p>
 <p>3.本地服务器预览<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s <span class="comment">#打开浏览器通过http://0.0.0.0:4000/访问查看</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>1.安装hexo-deployer-git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>1.安装hexo-deployer-git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
+<!-- $ npm install hexo-deployer-git --save --> <!-- old version --> 
 <p>2.在博客目录下找到<code>_config.yml</code>文件，添加或修改:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">	<span class="built_in">type</span>: git</span><br><span class="line">	repo: git@github.com:USERNAME/USERNAME.github.io.git</span><br><span class="line">	branch: master</span><br><span class="line">	message: <span class="string">"g"</span></span><br></pre></td></tr></table></figure></p>
 <p>注意，所有的冒号后面必须有空格！！！<br>3.发布<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
 <h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><p>在浏览器中打开<code>http://USERNAME.github.io.git</code>页面访问静态博客。</p>
@@ -127,7 +128,7 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/08/install-and-config/" data-id="cip9hvmcz00088cfb7l260gqt" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/08/install-and-config/" data-id="cip9mvuv80008q2fbuvybl7tc" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -137,7 +138,7 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
 <nav id="article-nav">
   
     <a href="/2016/06/08/fancy-terminal/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Nieuwer</strong>
       <div class="article-nav-title">
         
           Linux终端美化
@@ -157,7 +158,7 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Categorieën</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a></li></ul>
     </div>
@@ -167,7 +168,7 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Labels</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
     </div>
@@ -177,7 +178,7 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archieven</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
     </div>
@@ -187,7 +188,7 @@ git的安装及添加ssh-key在ubuntu下，使用以下命令安装git:123$ sudo
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Recente berichten</h3>
     <div class="widget">
       <ul>
         
