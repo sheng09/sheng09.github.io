@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-06-10T15:55:16.922Z</updated>
+  <updated>2016-06-10T15:55:57.874Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/06/09/deconvolution/"/>
     <id>http://sheng09.github.io/2016/06/09/deconvolution/</id>
     <published>2016-06-09T12:27:50.000Z</published>
-    <updated>2016-06-10T15:55:16.922Z</updated>
+    <updated>2016-06-10T15:55:57.874Z</updated>
     
     <content type="html">&lt;p&gt;Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”, “error”, “regularization”, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.&lt;/p&gt;
 &lt;h2 id=&quot;Convolution&quot;&gt;&lt;a href=&quot;#Convolution&quot; class=&quot;headerlink&quot; title=&quot;Convolution&quot;&gt;&lt;/a&gt;Convolution&lt;/h2&gt;&lt;p&gt;Convolution in time domain corresponds to multiplication in frequency domain:&lt;/p&gt;
@@ -82,7 +82,7 @@ R(\omega) S&#39;(\omega) &amp; = &amp; M(\omega) S(\omega) S&#39;(\omega) + N(\o
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
   \Delta_1 = \int_{-\infty}^{+\infty}\{r(t) - m_1 h(t-t_1) \otimes s(t)\}^2dt \label{err_iter}
-\end{equation}&lt;/script&gt;&lt;p&gt;Corresponding $m_1$ and $\Delta_1$ could be calculated assuming $ \frac{\partial \Delta} {\partial m_1} = 0 $:&lt;/p&gt;
+\end{equation}&lt;/script&gt;&lt;p&gt;Corresponding $m_1$ and $\Delta_1$ could be calculated assuming $ \frac{\partial \Delta_1} {\partial m_1} = 0 $:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
   m_1 &amp; = &amp; \frac { \int_{-\infty}^{+\infty} r(t)s(t-t_1)dt } { \int_{-\infty}^{+\infty} s^2(t)dt} \\
@@ -234,7 +234,7 @@ R(\omega) S&#39;(\omega) &amp; = &amp; M(\omega) S(\omega) S&#39;(\omega) + N(\o
     <link href="http://sheng09.github.io/2016/06/08/install-and-config/"/>
     <id>http://sheng09.github.io/2016/06/08/install-and-config/</id>
     <published>2016-06-08T14:48:22.000Z</published>
-    <updated>2016-06-10T10:13:16.687Z</updated>
+    <updated>2016-06-10T15:55:59.838Z</updated>
     
     <content type="html">&lt;h2 id=&quot;github注册及建立仓储&quot;&gt;&lt;a href=&quot;#github注册及建立仓储&quot; class=&quot;headerlink&quot; title=&quot;github注册及建立仓储&quot;&gt;&lt;/a&gt;github注册及建立仓储&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;在&lt;a href=&quot;https://github.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;github主页&lt;/a&gt;完成注册;&lt;/li&gt;
