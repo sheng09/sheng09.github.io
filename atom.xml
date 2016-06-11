@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-06-10T15:55:57.874Z</updated>
+  <updated>2016-06-11T07:40:25.422Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/06/09/deconvolution/"/>
     <id>http://sheng09.github.io/2016/06/09/deconvolution/</id>
     <published>2016-06-09T12:27:50.000Z</published>
-    <updated>2016-06-10T15:55:57.874Z</updated>
+    <updated>2016-06-11T07:40:25.422Z</updated>
     
     <content type="html">&lt;p&gt;Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”, “error”, “regularization”, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.&lt;/p&gt;
 &lt;h2 id=&quot;Convolution&quot;&gt;&lt;a href=&quot;#Convolution&quot; class=&quot;headerlink&quot; title=&quot;Convolution&quot;&gt;&lt;/a&gt;Convolution&lt;/h2&gt;&lt;p&gt;Convolution in time domain corresponds to multiplication in frequency domain:&lt;/p&gt;
@@ -23,7 +23,7 @@
 r(t) &amp;amp; = &amp;amp; m(t) \otimes s(t) \label{convo_time}\\
 R(\omega) &amp;amp; = &amp;amp; M(\omega) S(\omega) \label{convo_freq}
 \end{eqnarray}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;
-&lt;p&gt;in $\eqref{convo_time}$, $m(t)$ is , $s(t)$ is the source wavelet or blurring function, $r(t)$ is the observed data, and $m(t)$ is the impulse repsonse of the model. Theoretically, given $s(t)$ and $r(t)$, $m(t)$ could be calculated by division according to $\eqref{convo_freq}$&lt;/p&gt;
+&lt;p&gt;in $\eqref{convo_time}$, $s(t)$ is the source wavelet or blurring function, $r(t)$ is the observed data, and $m(t)$ is the impulse repsonse of the model. Theoretically, given $s(t)$ and $r(t)$, $m(t)$ could be calculated by division according to $\eqref{convo_freq}$&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
 m(t) = IFT \left\{\frac{R(\omega)}{S(\omega)}\right\} \label{decon_div}
@@ -78,7 +78,7 @@ R(\omega) S&#39;(\omega) &amp; = &amp; M(\omega) S(\omega) S&#39;(\omega) + N(\o
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
   \hat{m}(t) = \sum_{i} m_i h(t-t_i) \label{superposition}
-\end{equation}&lt;/script&gt;&lt;p&gt;To determine $m_1$ and $t_1$, the error $\eqref{err_iter}$ should approximates its minimal value. &lt;/p&gt;
+\end{equation}&lt;/script&gt;&lt;p&gt;To determine $m_1$ and $t_1$, the error $\eqref{err_iter}$ should approach its minimal value. &lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
   \Delta_1 = \int_{-\infty}^{+\infty}\{r(t) - m_1 h(t-t_1) \otimes s(t)\}^2dt \label{err_iter}
