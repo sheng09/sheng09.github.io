@@ -5,16 +5,16 @@
   
   <title>Linear Deconvolution | Sheng Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”,">
+  <meta name="description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resol">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linear Deconvolution">
 <meta property="og:url" content="http://sheng09.github.io/2016/06/09/deconvolution/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”,">
-<meta property="og:updated_time" content="2016-06-11T07:40:25.422Z">
+<meta property="og:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resol">
+<meta property="og:updated_time" content="2016-06-11T07:43:19.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linear Deconvolution">
-<meta name="twitter:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”,">
+<meta name="twitter:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resol">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -89,7 +89,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including “resolution”, “error”, “regularization”, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.</p>
+        <p>Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &#x201C;resolution&#x201D;, &#x201C;error&#x201D;, &#x201C;regularization&#x201D;, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.</p>
 <h2 id="Convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h2><p>Convolution in time domain corresponds to multiplication in frequency domain:</p>
 <span>$$\begin{eqnarray}
 r(t) &amp; = &amp; m(t) \otimes s(t) \label{convo_time}\\
@@ -105,7 +105,7 @@ m(t) = IFT \left\{\frac{R(\omega)}{S(\omega)}\right\} \label{decon_div}
 \begin{eqnarray}
 r(t) & = & m(t) \otimes s(t) + n(t) \label{convo_time_real}\\
 R(\omega) & = & M(\omega) S(\omega) + N(\omega) \label{convo_freq_real}
-\end{eqnarray}</script><p>In deconvolution, we aim to find a time series $s’(t)$, which acts like the inverse of the source wavelet or blurring function $s(t)$. So the convolution of $s’(t)$ and $s(t)$ will produces a desired resolution function $h(t)$, being impulse function theoretically.</p>
+\end{eqnarray}</script><p>In deconvolution, we aim to find a time series $s&#x2019;(t)$, which acts like the inverse of the source wavelet or blurring function $s(t)$. So the convolution of $s&#x2019;(t)$ and $s(t)$ will produces a desired resolution function $h(t)$, being impulse function theoretically.</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
 r(t) \otimes s'(t) & = & m(t) \otimes s(t) \otimes s'(t) + n(t) \otimes s'(t) \label{conv_with_s_inv_time}\\
@@ -126,11 +126,11 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <script type="math/tex; mode=display">
 \begin{equation}
   obj = \int_{-\infty}^{+\infty}\{a|res(t)-h(t)|^2+(1-a)|err(t)|^2\}dt \label{obj_func}
-\end{equation}</script><p>according to Parseval’s theorem, in the frequency domain, $\eqref{obj_func}$ has the form of:</p>
+\end{equation}</script><p>according to Parseval&#x2019;s theorem, in the frequency domain, $\eqref{obj_func}$ has the form of:</p>
 <script type="math/tex; mode=display">
 \begin{equation}
   obj =  a|S(\omega)S'(\omega) - h(\omega)|^2 + (1-a) | N(\omega)S'(\omega) |^2 \label{obj_func_freq}
-\end{equation}</script><p>When objective function approach the minimal value, the derivative of $obj$ to $S’(\omega)$ should be zero. Corresponding $S’(\omega)$ is :</p>
+\end{equation}</script><p>When objective function approach the minimal value, the derivative of $obj$ to $S&#x2019;(\omega)$ should be zero. Corresponding $S&#x2019;(\omega)$ is :</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
   S'(\omega) & = & \frac{S^*(\omega)h(\omega)}{S(\omega)S^*(\omega)+b|N(\omega)|^2} \\
@@ -163,7 +163,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <script type="math/tex; mode=display">
 \begin{equation}
   r'(t) = r(t) - m_1h(t-t_1)
-\end{equation}</script><p>Likewise, $m_2$ and $t_2$ could be obtain by applying above procedure to $r’(t)$. This kind of procedure is iterated for N times until no more significant decrease in the residual time series occurs. The model could be applying a gausssian function to $\eqref{superposition}$ with $ m_i$ and $t_i(i=1,2,…N)$. Besides, synthetic observation and error are:</p>
+\end{equation}</script><p>Likewise, $m_2$ and $t_2$ could be obtain by applying above procedure to $r&#x2019;(t)$. This kind of procedure is iterated for N times until no more significant decrease in the residual time series occurs. The model could be applying a gausssian function to $\eqref{superposition}$ with $ m_i$ and $t_i(i=1,2,&#x2026;N)$. Besides, synthetic observation and error are:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
   \hat{r} & = & \sum_{i=1}^N m_i s(t-t_i) \\
@@ -183,7 +183,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cipaur6it0001q9fbb7t8sah8" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cipax2rua0008b4fbvkaxfb5r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regularization/">Regularization</a></li></ul>
@@ -193,6 +193,15 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/06/11/configure-wiley-email-alert/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          利用Wiley Online Library获取最新的期刊杂志内容
+        
+      </div>
+    </a>
   
   
     <a href="/2016/06/09/Makefile-compileSubs/" id="article-nav-older" class="article-nav-link-wrap">
@@ -213,7 +222,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建科研工作环境/">搭建科研工作环境</a></li></ul>
     </div>
   </div>
 
@@ -223,7 +232,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email-Alert/">Email Alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Journals/">Journals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
     </div>
   </div>
 
@@ -246,6 +255,10 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
       <ul>
         
           <li>
+            <a href="/2016/06/11/configure-wiley-email-alert/">利用Wiley Online Library获取最新的期刊杂志内容</a>
+          </li>
+        
+          <li>
             <a href="/2016/06/09/deconvolution/">Linear Deconvolution</a>
           </li>
         
@@ -259,10 +272,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
         
           <li>
             <a href="/2016/06/08/fancy-terminal/">Linux终端美化</a>
-          </li>
-        
-          <li>
-            <a href="/2016/06/08/install-and-config/">使用github和hexo搭建静态博客</a>
           </li>
         
       </ul>

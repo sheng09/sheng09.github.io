@@ -5,28 +5,19 @@
   
   <title>怎么在linux下压缩和解压文件 | Sheng Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="此文初衷是写给呆萌女朋友的。
-tar1.使用tar打包并压缩文件(夹)1$ tar -cvzf  test.tar.gz  test
-可以将test打包压缩并生产test.tar.gz，test可以是文件夹也可以是文件。切记，被压缩文件与压缩输出文件不要写反了，否则被压缩文件会被覆盖从而丢失！
-2.解包并解压 .tar.gz1$ tar -xvzf  test.tar.gz
-zip1.使用zip压">
+  <meta name="description" content="&amp;#x6B64;&amp;#x6587;&amp;#x521D;&amp;#x8877;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;
+tar1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;(&amp;#x593">
 <meta property="og:type" content="article">
 <meta property="og:title" content="怎么在linux下压缩和解压文件">
 <meta property="og:url" content="http://sheng09.github.io/2016/06/09/unpack-in-linux/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="此文初衷是写给呆萌女朋友的。
-tar1.使用tar打包并压缩文件(夹)1$ tar -cvzf  test.tar.gz  test
-可以将test打包压缩并生产test.tar.gz，test可以是文件夹也可以是文件。切记，被压缩文件与压缩输出文件不要写反了，否则被压缩文件会被覆盖从而丢失！
-2.解包并解压 .tar.gz1$ tar -xvzf  test.tar.gz
-zip1.使用zip压">
+<meta property="og:description" content="&amp;#x6B64;&amp;#x6587;&amp;#x521D;&amp;#x8877;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;
+tar1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;(&amp;#x593">
 <meta property="og:updated_time" content="2016-06-09T07:51:29.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怎么在linux下压缩和解压文件">
-<meta name="twitter:description" content="此文初衷是写给呆萌女朋友的。
-tar1.使用tar打包并压缩文件(夹)1$ tar -cvzf  test.tar.gz  test
-可以将test打包压缩并生产test.tar.gz，test可以是文件夹也可以是文件。切记，被压缩文件与压缩输出文件不要写反了，否则被压缩文件会被覆盖从而丢失！
-2.解包并解压 .tar.gz1$ tar -xvzf  test.tar.gz
-zip1.使用zip压">
+<meta name="twitter:description" content="&amp;#x6B64;&amp;#x6587;&amp;#x521D;&amp;#x8877;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;
+tar1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;(&amp;#x593">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -101,23 +92,23 @@ zip1.使用zip压">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>此文初衷是写给呆萌女朋友的。</p>
-<h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><p>1.使用tar打包并压缩文件(夹)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -cvzf  test.tar.gz  <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
-<p>可以将test打包压缩并生产test.tar.gz，test可以是文件夹也可以是文件。<br>切记，被压缩文件与压缩输出文件不要写反了，否则被压缩文件会被覆盖从而丢失！</p>
-<p>2.解包并解压 .tar.gz<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xvzf  test.tar.gz</span><br></pre></td></tr></table></figure></p>
-<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><p>1.使用zip压缩<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ zip  -r  test.zip   <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
-<p>将test打包压缩并生产test.zip，test可以是文件夹也可以是文件；</p>
-<p>2.解压zip<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ unzip   test.zip</span><br></pre></td></tr></table></figure></p>
-<h2 id="rar"><a href="#rar" class="headerlink" title="rar"></a>rar</h2><p>最好不要用rar，rar压缩算法不是开源的，所以linux中默认可能没有处理rar的工具。倘若强行需求，可以先安装rar<br>ubuntu中安装命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install rar</span><br></pre></td></tr></table></figure></p>
-<p>1.使用rar压缩文件或文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rar  a  test.rar  <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
-<p>可以将test打包压缩并生产test.rar，test可以是文件夹也可以是文件；</p>
-<p>2.解压rar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rar  x  test.rar</span><br></pre></td></tr></table></figure></p>
-<h2 id="后缀名说明"><a href="#后缀名说明" class="headerlink" title="后缀名说明"></a>后缀名说明</h2><p>一般情况，可以通过后缀名来判断需要用什么软件来解压。.tar.gz 或者.tgz的后缀都是用tar操作的。 而.zip后缀名显然是zip操作的。 .rar后缀名显然是rar操作的<br>自己打包压缩文件时候，一定要写后缀名，其他人看到后缀名就可以知道应该用那个解压工具。</p>
+        <p>&#x6B64;&#x6587;&#x521D;&#x8877;&#x662F;&#x5199;&#x7ED9;&#x5446;&#x840C;&#x5973;&#x670B;&#x53CB;&#x7684;&#x3002;</p>
+<h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><p>1.&#x4F7F;&#x7528;tar&#x6253;&#x5305;&#x5E76;&#x538B;&#x7F29;&#x6587;&#x4EF6;(&#x5939;)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -cvzf  test.tar.gz  <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x53EF;&#x4EE5;&#x5C06;test&#x6253;&#x5305;&#x538B;&#x7F29;&#x5E76;&#x751F;&#x4EA7;test.tar.gz&#xFF0C;test&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x5939;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x3002;<br>&#x5207;&#x8BB0;&#xFF0C;&#x88AB;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x4E0E;&#x538B;&#x7F29;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x4E0D;&#x8981;&#x5199;&#x53CD;&#x4E86;&#xFF0C;&#x5426;&#x5219;&#x88AB;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x4F1A;&#x88AB;&#x8986;&#x76D6;&#x4ECE;&#x800C;&#x4E22;&#x5931;&#xFF01;</p>
+<p>2.&#x89E3;&#x5305;&#x5E76;&#x89E3;&#x538B; .tar.gz<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xvzf  test.tar.gz</span><br></pre></td></tr></table></figure></p>
+<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><p>1.&#x4F7F;&#x7528;zip&#x538B;&#x7F29;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ zip  -r  test.zip   <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x5C06;test&#x6253;&#x5305;&#x538B;&#x7F29;&#x5E76;&#x751F;&#x4EA7;test.zip&#xFF0C;test&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x5939;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#xFF1B;</p>
+<p>2.&#x89E3;&#x538B;zip<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ unzip   test.zip</span><br></pre></td></tr></table></figure></p>
+<h2 id="rar"><a href="#rar" class="headerlink" title="rar"></a>rar</h2><p>&#x6700;&#x597D;&#x4E0D;&#x8981;&#x7528;rar&#xFF0C;rar&#x538B;&#x7F29;&#x7B97;&#x6CD5;&#x4E0D;&#x662F;&#x5F00;&#x6E90;&#x7684;&#xFF0C;&#x6240;&#x4EE5;linux&#x4E2D;&#x9ED8;&#x8BA4;&#x53EF;&#x80FD;&#x6CA1;&#x6709;&#x5904;&#x7406;rar&#x7684;&#x5DE5;&#x5177;&#x3002;&#x5018;&#x82E5;&#x5F3A;&#x884C;&#x9700;&#x6C42;&#xFF0C;&#x53EF;&#x4EE5;&#x5148;&#x5B89;&#x88C5;rar<br>ubuntu&#x4E2D;&#x5B89;&#x88C5;&#x547D;&#x4EE4;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install rar</span><br></pre></td></tr></table></figure></p>
+<p>1.&#x4F7F;&#x7528;rar&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x6216;&#x6587;&#x4EF6;&#x5939;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rar  a  test.rar  <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x53EF;&#x4EE5;&#x5C06;test&#x6253;&#x5305;&#x538B;&#x7F29;&#x5E76;&#x751F;&#x4EA7;test.rar&#xFF0C;test&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x5939;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#xFF1B;</p>
+<p>2.&#x89E3;&#x538B;rar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rar  x  test.rar</span><br></pre></td></tr></table></figure></p>
+<h2 id="&#x540E;&#x7F00;&#x540D;&#x8BF4;&#x660E;"><a href="#&#x540E;&#x7F00;&#x540D;&#x8BF4;&#x660E;" class="headerlink" title="&#x540E;&#x7F00;&#x540D;&#x8BF4;&#x660E;"></a>&#x540E;&#x7F00;&#x540D;&#x8BF4;&#x660E;</h2><p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x540E;&#x7F00;&#x540D;&#x6765;&#x5224;&#x65AD;&#x9700;&#x8981;&#x7528;&#x4EC0;&#x4E48;&#x8F6F;&#x4EF6;&#x6765;&#x89E3;&#x538B;&#x3002;.tar.gz &#x6216;&#x8005;.tgz&#x7684;&#x540E;&#x7F00;&#x90FD;&#x662F;&#x7528;tar&#x64CD;&#x4F5C;&#x7684;&#x3002; &#x800C;.zip&#x540E;&#x7F00;&#x540D;&#x663E;&#x7136;&#x662F;zip&#x64CD;&#x4F5C;&#x7684;&#x3002; .rar&#x540E;&#x7F00;&#x540D;&#x663E;&#x7136;&#x662F;rar&#x64CD;&#x4F5C;&#x7684;<br>&#x81EA;&#x5DF1;&#x6253;&#x5305;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x65F6;&#x5019;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x5199;&#x540E;&#x7F00;&#x540D;&#xFF0C;&#x5176;&#x4ED6;&#x4EBA;&#x770B;&#x5230;&#x540E;&#x7F00;&#x540D;&#x5C31;&#x53EF;&#x4EE5;&#x77E5;&#x9053;&#x5E94;&#x8BE5;&#x7528;&#x90A3;&#x4E2A;&#x89E3;&#x538B;&#x5DE5;&#x5177;&#x3002;</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/09/unpack-in-linux/" data-id="cipaur6j40007q9fbjyxiqobx" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/unpack-in-linux/" data-id="cipax2rup000db4fb8inzfr66" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -156,7 +147,7 @@ zip1.使用zip压">
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建科研工作环境/">搭建科研工作环境</a></li></ul>
     </div>
   </div>
 
@@ -166,7 +157,7 @@ zip1.使用zip压">
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email-Alert/">Email Alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Journals/">Journals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
     </div>
   </div>
 
@@ -189,6 +180,10 @@ zip1.使用zip压">
       <ul>
         
           <li>
+            <a href="/2016/06/11/configure-wiley-email-alert/">利用Wiley Online Library获取最新的期刊杂志内容</a>
+          </li>
+        
+          <li>
             <a href="/2016/06/09/deconvolution/">Linear Deconvolution</a>
           </li>
         
@@ -202,10 +197,6 @@ zip1.使用zip压">
         
           <li>
             <a href="/2016/06/08/fancy-terminal/">Linux终端美化</a>
-          </li>
-        
-          <li>
-            <a href="/2016/06/08/install-and-config/">使用github和hexo搭建静态博客</a>
           </li>
         
       </ul>
