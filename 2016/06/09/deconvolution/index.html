@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://sheng09.github.io/2016/06/09/deconvolution/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resol">
-<meta property="og:updated_time" content="2016-06-11T07:43:19.309Z">
+<meta property="og:updated_time" content="2016-06-11T14:56:21.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linear Deconvolution">
 <meta name="twitter:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resol">
@@ -90,7 +90,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &#x201C;resolution&#x201D;, &#x201C;error&#x201D;, &#x201C;regularization&#x201D;, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.</p>
-<h2 id="Convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h2><p>Convolution in time domain corresponds to multiplication in frequency domain:</p>
+<!-- toc -->
+<ul>
+<li><a href="#convolution">Convolution</a></li>
+<li><a href="#deconvolution-in-frequency-domain">Deconvolution in frequency domain</a></li>
+<li><a href="#iterative-deconvolution-in-time-domain">Iterative deconvolution in time domain</a></li>
+<li><a href="#error-and-resolution-estimation">Error and resolution estimation</a></li>
+<li><a href="#implementations">Implementations</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h2><p>Convolution in time domain corresponds to multiplication in frequency domain:</p>
 <span>$$\begin{eqnarray}
 r(t) &amp; = &amp; m(t) \otimes s(t) \label{convo_time}\\
 R(\omega) &amp; = &amp; M(\omega) S(\omega) \label{convo_freq}
@@ -100,7 +109,7 @@ R(\omega) &amp; = &amp; M(\omega) S(\omega) \label{convo_freq}
 \begin{equation}
 m(t) = IFT \left\{\frac{R(\omega)}{S(\omega)}\right\} \label{decon_div}
 \end{equation}</script><p>However, $\eqref{decon_div}$ always present problematic results because observations $r(t)$ contain noise, and some values of $s(\omega)$ approach zero, which result in instablities in the division.</p>
-<h2 id="Deconvolution-in-frequency-domain"><a href="#Deconvolution-in-frequency-domain" class="headerlink" title="Deconvolution in frequency domain"></a>Deconvolution in frequency domain</h2><p>Considering noise $n(t)$, $\eqref{convo_time}$ should be:</p>
+<h2 id="deconvolution-in-frequency-domain"><a href="#Deconvolution-in-frequency-domain" class="headerlink" title="Deconvolution in frequency domain"></a>Deconvolution in frequency domain</h2><p>Considering noise $n(t)$, $\eqref{convo_time}$ should be:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
 r(t) & = & m(t) \otimes s(t) + n(t) \label{convo_time_real}\\
@@ -146,7 +155,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 \begin{equation}
   \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{ max[S(\omega)S^*(\omega), c\sigma_0^2] }e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{mod_water_level}
 \end{equation}</script><p>which is the water-level regularization deconvolution.</p>
-<h2 id="Iterative-deconvolution-in-time-domain"><a href="#Iterative-deconvolution-in-time-domain" class="headerlink" title="Iterative deconvolution in time domain"></a>Iterative deconvolution in time domain</h2><p>For time series, the model $m(t)$ is superposition of impulse functions:</p>
+<h2 id="iterative-deconvolution-in-time-domain"><a href="#Iterative-deconvolution-in-time-domain" class="headerlink" title="Iterative deconvolution in time domain"></a>Iterative deconvolution in time domain</h2><p>For time series, the model $m(t)$ is superposition of impulse functions:</p>
 <script type="math/tex; mode=display">
 \begin{equation}
   \hat{m}(t) = \sum_{i} m_i h(t-t_i) \label{superposition}
@@ -168,7 +177,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 \begin{eqnarray}
   \hat{r} & = & \sum_{i=1}^N m_i s(t-t_i) \\
   \Delta_N & = & \int_{-\infty}^{+\infty} [r(t) - \hat{r}(t)]^2 dt
-\end{eqnarray}</script><h2 id="Error-and-resolution-estimation"><a href="#Error-and-resolution-estimation" class="headerlink" title="Error and resolution estimation"></a>Error and resolution estimation</h2><p>It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $ \eqref{mod} $, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.<br>First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:</p>
+\end{eqnarray}</script><h2 id="error-and-resolution-estimation"><a href="#Error-and-resolution-estimation" class="headerlink" title="Error and resolution estimation"></a>Error and resolution estimation</h2><p>It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $ \eqref{mod} $, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.<br>First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:</p>
 <script type="math/tex; mode=display">
 \begin{equation}
   \Delta = \int_{-\infty}^{+\infty} r(t) - \hat(m)(t) \otimes s(t) dt
@@ -178,12 +187,12 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
   \widehat{res}(t) & = & IFT\left\{\frac{S(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{res} \\
 
   \widehat{res}(t) & = & IFT\left\{\frac{S(\omega)S^*(\omega)}{ max[S(\omega)S^*(\omega), c\sigma_0^2] }e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{res_water_level}
-\end{eqnarray}</script><h2 id="Implementations"><a href="#Implementations" class="headerlink" title="Implementations"></a>Implementations</h2><p>You could design your codes according to deconvolution equtions. <a href="http://www.eas.slu.edu/eqc/eqccps.html" target="_blank" rel="external">CPS</a> provide programs of <code>sacdecon</code> for deconvolution in frequency domain, and <code>saciterd</code> for iteration deconvolution in time domain. Besides, package of <a href="http://www.eas.slu.edu/People/LZhu/downloads/hk1.3.tar" target="_blank" rel="external">hk</a> provides <code>decon</code> and <code>iter_decon</code> as well. These programs differs slighty in the output. To find their usages details, please vist package homepage or <a href="">XX</a>.<br>You could find examples of deconvolution for receiver functions at <a href="">XX</a>.</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+\end{eqnarray}</script><h2 id="implementations"><a href="#Implementations" class="headerlink" title="Implementations"></a>Implementations</h2><p>You could design your codes according to deconvolution equtions. <a href="http://www.eas.slu.edu/eqc/eqccps.html" target="_blank" rel="external">CPS</a> provide programs of <code>sacdecon</code> for deconvolution in frequency domain, and <code>saciterd</code> for iteration deconvolution in time domain. Besides, package of <a href="http://www.eas.slu.edu/People/LZhu/downloads/hk1.3.tar" target="_blank" rel="external">hk</a> provides <code>decon</code> and <code>iter_decon</code> as well. These programs differs slighty in the output. To find their usages details, please vist package homepage or <a href="">XX</a>.<br>You could find examples of deconvolution for receiver functions at <a href="">XX</a>.</p>
+<h2 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cipazoyuh00066lfb3k55ia45" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cipb86l7z0006q0fbvzwffk2u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Inversion/">Inversion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regularization/">Regularization</a></li></ul>
@@ -213,7 +222,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 
   
 </article>
-
 </section>
         
           <aside id="sidebar">
@@ -309,6 +317,12 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 
 
 <script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:50px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/imgs/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
   </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
