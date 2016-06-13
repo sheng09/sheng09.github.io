@@ -445,6 +445,28 @@ body {
 #nav-search-btn:before {
   content: "\f002";
 }
+#search-button {
+  position: absolute;
+  top: 15px;
+  width: 50px;
+  height: 30px;
+  right: 50px;
+  opacity: 20;
+  -webkit-transition: 0.2s ease-out;
+  -moz-transition: 0.2s ease-out;
+  -ms-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+#search-button.on {
+  opacity: 1;
+  right: 0;
+}
+@media screen and (max-width: 479px) {
+  #search-button {
+    width: 100%;
+    right: -100%;
+  }
+}
 #search-form-wrap {
   position: absolute;
   top: 15px;
