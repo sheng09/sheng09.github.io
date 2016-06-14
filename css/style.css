@@ -1040,18 +1040,34 @@ a.article-title:hover {
 #toc .toc-child {
   margin-left: 1em;
 }
-#comments {
-  background: #fff;
+#comments,
+#  background: #fff,
+#  box-shadow: 1px 2px 3px #ddd,
+#  padding: article-padding,
+#  border: 1px solid color-border,
+#  border-radius: 3px,
+#  margin: block-margin 0,
+#  a,
+#    color: color-link,
+#comment {
+  padding: 20px;
+  background: #272822;
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
-  padding: 20px;
-  border: 1px solid #ddd;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  margin: 50px 0;
+  margin-bottom: 50px;
 }
-#comments a {
-  color: #258fb8;
+#comments .title,
+#  background: #fff .title,
+#  box-shadow: 1px 2px 3px #ddd .title,
+#  padding: article-padding .title,
+#  border: 1px solid color-border .title,
+#  border-radius: 3px .title,
+#  margin: block-margin 0 .title,
+#  a .title,
+#    color: color-link .title,
+#comment .title {
+  font-weight: normal;
+  margin-bottom: 15px;
 }
 .archives-wrap {
   margin: 50px 0;
