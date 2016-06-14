@@ -257,6 +257,17 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
   
     
     <entry>
+      <title></title>
+      <url>http://sheng09.github.io/README.html</url>
+      <content type="html"><![CDATA[<h1 id="&#x535A;&#x5BA2;&#x6587;&#x7AE0;&#x96C6;&#x5408;"><a href="#&#x535A;&#x5BA2;&#x6587;&#x7AE0;&#x96C6;&#x5408;" class="headerlink" title="&#x535A;&#x5BA2;&#x6587;&#x7AE0;&#x96C6;&#x5408;"></a>&#x535A;&#x5BA2;&#x6587;&#x7AE0;&#x96C6;&#x5408;</h1><p>&#x672C;&#x9879;&#x76EE;&#x4E3A;<a href="http://sheng09.github.io">sheng09</a>&#x535A;&#x5BA2;&#x6587;&#x7AE0;&#x96C6;&#x5408;&#x3002;</p>
+<ul>
+<li>&#x4E3B;&#x9898;&#xFF1A; <a href="https://github.com/sheng09/hexo-theme-landscape/tree/sheng09" target="_blank" rel="external">&#x4FEE;&#x6539;&#x81EA;Landscape</a></li>
+<li>&#x535A;&#x6587;&#xFF1A; <a href="https://github.com/sheng09/sheng09.github.io.posts" target="_blank" rel="external">Posts</a></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[about]]></title>
       <url>http://sheng09.github.io/about/index.html</url>
       <content type="html"></content>
@@ -265,12 +276,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     <entry>
       <title><![CDATA[Categories]]></title>
       <url>http://sheng09.github.io/categories/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://sheng09.github.io/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
@@ -287,6 +292,12 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://sheng09.github.io/tags/index.html</url>
+      <content type="html"></content>
     </entry>
     
   
