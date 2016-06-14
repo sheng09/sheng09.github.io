@@ -4,9 +4,9 @@
   
     
     <entry>
-      <title><![CDATA[添加返回顶部按钮]]></title>
+      <title><![CDATA[Hexo博客添加返回顶部按钮]]></title>
       <url>http://sheng09.github.io/2016/06/14/add-BackToTop/</url>
-      <content type="html"><![CDATA[<p>&#x4E3A;&#x535A;&#x5BA2;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;<code>&#x8FD4;&#x56DE;&#x9876;&#x90E8;</code>&#x7684;&#x6309;&#x94AE;&#xFF0C;&#x7B80;&#x5355;&#x800C;&#x53C8;&#x5B9E;&#x7528;&#x3002;</p>
+      <content type="html"><![CDATA[<p>&#x4E3A;&#x535A;&#x5BA2;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;<code>&#x8FD4;&#x56DE;&#x9876;&#x90E8;</code>&#x7684;&#x6309;&#x94AE;&#xFF0C;&#x7B80;&#x5355;&#x800C;&#x53C8;&#x5B9E;&#x7528;&#x3002;<br><a id="more"></a></p>
 <!-- toc -->
 <ul>
 <li><a href="#&#x6DFB;&#x52A0;html&#x4EE3;&#x7801;">&#x6DFB;&#x52A0;HTML&#x4EE3;&#x7801;</a></li>
@@ -23,9 +23,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[添加Swiftype站内搜索]]></title>
+      <title><![CDATA[Hexo博客添加Swiftype站内搜索]]></title>
       <url>http://sheng09.github.io/2016/06/14/add-swiftype-search/</url>
-      <content type="html"><![CDATA[<p>Landscape&#x4E3B;&#x9898;&#x9ED8;&#x8BA4;&#x641C;&#x7D22;&#x4F4D;&#x4E8E;&#x53F3;&#x4E0A;&#x89D2;&#xFF0C;&#x4E14;&#x4F7F;&#x7528;Google&#x3002;&#x7F16;&#x8F91;&#x4E3B;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x5229;&#x7528;<a href="https://swiftype.com" target="_blank" rel="external">Swiftype</a>&#x642D;&#x5EFA;&#x81EA;&#x5DF1;&#x7684;&#x7AD9;&#x5185;&#x641C;&#x7D22;&#xFF0C;&#x5E76;&#x5C06;&#x641C;&#x7D22;&#x6309;&#x94AE;&#x7F6E;&#x4E8E;&#x83DC;&#x5355;&#x4E4B;&#x4E2D;&#x3002;<br><img src="/2016/06/14/add-swiftype-search/search.png" alt=""></p>
+      <content type="html"><![CDATA[<p>Landscape&#x4E3B;&#x9898;&#x9ED8;&#x8BA4;&#x641C;&#x7D22;&#x4F4D;&#x4E8E;&#x53F3;&#x4E0A;&#x89D2;&#xFF0C;&#x4E14;&#x4F7F;&#x7528;Google&#x3002;&#x7F16;&#x8F91;&#x4E3B;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x5229;&#x7528;<a href="https://swiftype.com" target="_blank" rel="external">Swiftype</a>&#x642D;&#x5EFA;&#x81EA;&#x5DF1;&#x7684;&#x7AD9;&#x5185;&#x641C;&#x7D22;&#xFF0C;&#x5E76;&#x5C06;&#x641C;&#x7D22;&#x6309;&#x94AE;&#x7F6E;&#x4E8E;&#x83DC;&#x5355;&#x4E4B;&#x4E2D;&#x3002;<br><img src="/2016/06/14/add-swiftype-search/search.png" alt=""><br><a id="more"></a></p>
 <!-- toc -->
 <ul>
 <li><a href="#&#x521B;&#x5EFA;swiftype&#x8D26;&#x53F7;">&#x521B;&#x5EFA;Swiftype&#x8D26;&#x53F7;</a></li>
