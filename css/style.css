@@ -1260,6 +1260,9 @@ a.article-title:hover {
 .article-entry .highlight .line {
   height: 22.400000000000002px;
 }
+.article-entry .highlight .line.marked {
+  background: #515151;
+}
 .article-entry .gist {
   margin: 0 -20px;
   border-style: solid;
