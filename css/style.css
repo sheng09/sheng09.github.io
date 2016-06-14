@@ -323,18 +323,17 @@ body {
 }
 #header:before {
   top: 0;
-  background: -webkit-linear-gradient(rgba(0,0,0,0.2), transparent);
-  background: -moz-linear-gradient(rgba(0,0,0,0.2), transparent);
-  background: -ms-linear-gradient(rgba(0,0,0,0.2), transparent);
-  background: linear-gradient(rgba(0,0,0,0.2), transparent);
 }
-#header:after {
+#    background: linear-gradient(rgba(0:after,
+0:after,
+0.2):after,
+transparent):after {
   bottom: 0;
-  background: -webkit-linear-gradient(transparent, rgba(0,0,0,0.2));
-  background: -moz-linear-gradient(transparent, rgba(0,0,0,0.2));
-  background: -ms-linear-gradient(transparent, rgba(0,0,0,0.2));
-  background: linear-gradient(transparent, rgba(0,0,0,0.2));
 }
+#    background: linear-gradient(transparent,
+rgba(0,
+0,
+0.2)),
 #header-outer {
   height: 100%;
   position: relative;
@@ -385,7 +384,7 @@ body {
 }
 #main-nav {
   float: left;
-  margin-left: -15px;
+  margin-left: 0px;
 }
 .nav-icon,
 .main-nav-link {
@@ -416,6 +415,7 @@ body {
   cursor: pointer;
 }
 .main-nav-link {
+  color: #fff;
   font-weight: 300;
   letter-spacing: 1px;
 }
