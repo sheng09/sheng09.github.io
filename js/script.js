@@ -16,19 +16,15 @@
   };
 
   $('#nav-search-btn').on('click', function(){
-    document.getElementsByClassName('st-search-show-outputs st-ui-search-tab')[0].click();//暂时这样解决
-//    if (isSearchAnim) return;
-//
-//    startSearchAnim();
-//    $searchWrap.addClass('on');
-//    stopSearchAnim(function(){
-//      $('.search-form-input').focus();
-//    });
-  });
-
-//  $('#search-button').on('click', function(e){
 //    document.getElementsByClassName('st-search-show-outputs st-ui-search-tab')[0].click();//暂时这样解决
-//  });
+    if (isSearchAnim) return;
+
+    startSearchAnim();
+    $searchWrap.addClass('on');
+    stopSearchAnim(function(){
+      $('.search-form-input').focus();
+    });
+  });
 
   $('.search-form-input').on('blur', function(){
     startSearchAnim();
