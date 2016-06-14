@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://sheng09.github.io/2016/06/09/deconvolution/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resol">
-<meta property="og:updated_time" content="2016-06-11T14:56:21.594Z">
+<meta property="og:updated_time" content="2016-06-14T14:08:44.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linear Deconvolution">
 <meta name="twitter:description" content="Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resol">
@@ -95,6 +95,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &#x201C;resolution&#x201D;, &#x201C;error&#x201D;, &#x201C;regularization&#x201D;, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.</p>
+<a id="more"></a>
 <!-- toc -->
 <ul>
 <li><a href="#convolution">Convolution</a></li>
@@ -186,7 +187,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <script type="math/tex; mode=display">
 \begin{equation}
   \Delta = \int_{-\infty}^{+\infty} r(t) - \hat(m)(t) \otimes s(t) dt
-\end{equation}</script><p>Second, for resolution estimation. A simply way to obtain resolution function is to deconvolve $s(t)$ from itself. Since we desire a gaussian shape resolution function in derivations, the calculated one will approximates gaussian function.<br>Resolution estimation for $eqref{mod)} and $\eqref{mod_water_level}$:</p>
+\end{equation}</script><p>Second, for resolution estimation. A simply way to obtain resolution function is to deconvolve $s(t)$ from itself. Since we desire a gaussian shape resolution function in derivations, the calculated one will approximates gaussian function.<br>Resolution estimation for $eqref{mod}$ and $\eqref{mod_water_level}$:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
   \widehat{res}(t) & = & IFT\left\{\frac{S(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{res} \\
@@ -197,7 +198,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cipfiux2i000bc5fbnc0yhy1h" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/deconvolution/" data-id="cipfizwmr0009dofbpjksetac" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/06/09/deconvolution/#disqus_thread" class="article-comment-link">Comments</a>
       

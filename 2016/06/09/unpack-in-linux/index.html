@@ -5,19 +5,16 @@
   
   <title>怎么在linux下压缩和解压文件 | Sheng Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#x6B64;&amp;#x6587;&amp;#x521D;&amp;#x8877;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;
-tar1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;(&amp;#x593">
+  <meta name="description" content="&amp;#x6B64;&amp;#x6587;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="怎么在linux下压缩和解压文件">
 <meta property="og:url" content="http://sheng09.github.io/2016/06/09/unpack-in-linux/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="&amp;#x6B64;&amp;#x6587;&amp;#x521D;&amp;#x8877;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;
-tar1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;(&amp;#x593">
-<meta property="og:updated_time" content="2016-06-09T07:51:29.509Z">
+<meta property="og:description" content="&amp;#x6B64;&amp;#x6587;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;">
+<meta property="og:updated_time" content="2016-06-14T14:10:06.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怎么在linux下压缩和解压文件">
-<meta name="twitter:description" content="&amp;#x6B64;&amp;#x6587;&amp;#x521D;&amp;#x8877;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;
-tar1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;(&amp;#x593">
+<meta name="twitter:description" content="&amp;#x6B64;&amp;#x6587;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -97,7 +94,7 @@ tar1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x6B64;&#x6587;&#x521D;&#x8877;&#x662F;&#x5199;&#x7ED9;&#x5446;&#x840C;&#x5973;&#x670B;&#x53CB;&#x7684;&#x3002;</p>
+        <p>&#x6B64;&#x6587;&#x662F;&#x5199;&#x7ED9;&#x5446;&#x840C;&#x5973;&#x670B;&#x53CB;&#x7684;&#x3002;<br><a id="more"></a></p>
 <h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><p>1.&#x4F7F;&#x7528;tar&#x6253;&#x5305;&#x5E76;&#x538B;&#x7F29;&#x6587;&#x4EF6;(&#x5939;)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -cvzf  test.tar.gz  <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>&#x53EF;&#x4EE5;&#x5C06;test&#x6253;&#x5305;&#x538B;&#x7F29;&#x5E76;&#x751F;&#x4EA7;test.tar.gz&#xFF0C;test&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x5939;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x3002;<br>&#x5207;&#x8BB0;&#xFF0C;&#x88AB;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x4E0E;&#x538B;&#x7F29;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x4E0D;&#x8981;&#x5199;&#x53CD;&#x4E86;&#xFF0C;&#x5426;&#x5219;&#x88AB;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x4F1A;&#x88AB;&#x8986;&#x76D6;&#x4ECE;&#x800C;&#x4E22;&#x5931;&#xFF01;</p>
 <p>2.&#x89E3;&#x5305;&#x5E76;&#x89E3;&#x538B; .tar.gz<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xvzf  test.tar.gz</span><br></pre></td></tr></table></figure></p>
@@ -113,7 +110,7 @@ tar1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/09/unpack-in-linux/" data-id="cipfiux32000jc5fba600scmn" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/unpack-in-linux/" data-id="cipfizwpq000gdofbdmx7qs1u" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/06/09/unpack-in-linux/#disqus_thread" class="article-comment-link">Comments</a>
       
