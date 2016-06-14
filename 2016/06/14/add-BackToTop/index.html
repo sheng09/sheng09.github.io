@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>添加返回顶部按钮 | Sheng Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x4E3A;&amp;#x535A;&amp;#x5BA2;&amp;#x6DFB;&amp;#x52A0;&amp;#x4E00;&amp;#x4E2A;&amp;#x8FD4;&amp;#x56DE;&amp;#x9876;&amp;#x90E8;&amp;#x7684;&amp;#x6309;&amp;#x94AE;&amp;#xFF0C;&amp;#x7B80;&amp;#x5355;&amp;#x800C;&amp;#x53C8;&amp;#x5B9E;&amp;#x7528;&amp;#x3002;
+
+
+&amp;#x6DFB;&amp;#x52A0;HTML&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="添加返回顶部按钮">
+<meta property="og:url" content="http://sheng09.github.io/2016/06/14/add-BackToTop/index.html">
+<meta property="og:site_name" content="Sheng Wang">
+<meta property="og:description" content="&amp;#x4E3A;&amp;#x535A;&amp;#x5BA2;&amp;#x6DFB;&amp;#x52A0;&amp;#x4E00;&amp;#x4E2A;&amp;#x8FD4;&amp;#x56DE;&amp;#x9876;&amp;#x90E8;&amp;#x7684;&amp;#x6309;&amp;#x94AE;&amp;#xFF0C;&amp;#x7B80;&amp;#x5355;&amp;#x800C;&amp;#x53C8;&amp;#x5B9E;&amp;#x7528;&amp;#x3002;
+
+
+&amp;#x6DFB;&amp;#x52A0;HTML&amp;">
+<meta property="og:updated_time" content="2016-06-14T08:04:07.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="添加返回顶部按钮">
+<meta name="twitter:description" content="&amp;#x4E3A;&amp;#x535A;&amp;#x5BA2;&amp;#x6DFB;&amp;#x52A0;&amp;#x4E00;&amp;#x4E2A;&amp;#x8FD4;&amp;#x56DE;&amp;#x9876;&amp;#x90E8;&amp;#x7684;&amp;#x6309;&amp;#x94AE;&amp;#xFF0C;&amp;#x7B80;&amp;#x5355;&amp;#x800C;&amp;#x53C8;&amp;#x5B9E;&amp;#x7528;&amp;#x3002;
+
+
+&amp;#x6DFB;&amp;#x52A0;HTML&amp;">
+  
+    <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sheng Wang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          
+            <a class="main-nav-link" href="/">Home</a>
+          
+        
+          
+            <a class="main-nav-link" href="/archives">Archives</a>
+          
+        
+          
+            <a class="main-nav-link st-search-show-outputs" href="/search">Search</a>
+          
+        
+        </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-add-BackToTop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/14/add-BackToTop/" class="article-date">
+  <time datetime="2016-06-14T07:49:54.000Z" itemprop="datePublished">2016-06-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      添加返回顶部按钮
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x4E3A;&#x535A;&#x5BA2;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;<code>&#x8FD4;&#x56DE;&#x9876;&#x90E8;</code>&#x7684;&#x6309;&#x94AE;&#xFF0C;&#x7B80;&#x5355;&#x800C;&#x53C8;&#x5B9E;&#x7528;&#x3002;</p>
+<!-- toc -->
+<ul>
+<li><a href="#&#x6DFB;&#x52A0;html&#x4EE3;&#x7801;">&#x6DFB;&#x52A0;HTML&#x4EE3;&#x7801;</a></li>
+<li><a href="#&#x6DFB;&#x52A0;js&#x4EE3;&#x7801;">&#x6DFB;&#x52A0;JS&#x4EE3;&#x7801;</a></li>
+<li><a href="#&#x6DFB;&#x52A0;&#x5BF9;&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x7684;&#x5F15;&#x7528;">&#x6DFB;&#x52A0;&#x5BF9;&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x7684;&#x5F15;&#x7528;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="&#x6DFB;&#x52A0;html&#x4EE3;&#x7801;"><a href="#&#x6DFB;&#x52A0;HTML&#x4EE3;&#x7801;" class="headerlink" title="&#x6DFB;&#x52A0;HTML&#x4EE3;&#x7801;"></a>&#x6DFB;&#x52A0;HTML&#x4EE3;&#x7801;</h2><p>&#x4E3A;&#x7F51;&#x9875;&#x6DFB;&#x52A0;<code>&#x8FD4;&#x56DE;&#x9876;&#x90E8;</code>&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5728;&#x4E3B;&#x9898;&#x76EE;&#x5F55;&#x4E0B;&#x65B0;&#x5EFA;<code>source/_partial/totop.ejs</code>&#xFF0C;&#x5199;&#x5165;&#x5185;&#x5BB9;<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;totop&quot;</span> <span class="attr">style</span>=<span class="string">&quot;position:fixed;bottom:150px;right:20px;cursor: pointer;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">title</span>=<span class="string">&quot;Back to top&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/imgs/scrollup_arrow.png&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x5176;&#x4E2D;&#xFF0C;&#x9009;&#x62E9;&#x81EA;&#x5DF1;&#x6EE1;&#x610F;&#x7684;&#x56FE;&#x7247;<code>src=&quot;/imgs/scrollup_arrow.png&quot;</code>&#x8BBE;&#x7F6E;&#x6309;&#x94AE;&#xFF0C;&#x4EE5;&#x53CA;&#x4E0E;&#x7F51;&#x9875;&#x76F8;&#x886C;&#x7684;<code>style</code>&#x3002;</p>
+<h2 id="&#x6DFB;&#x52A0;js&#x4EE3;&#x7801;"><a href="#&#x6DFB;&#x52A0;JS&#x4EE3;&#x7801;" class="headerlink" title="&#x6DFB;&#x52A0;JS&#x4EE3;&#x7801;"></a>&#x6DFB;&#x52A0;JS&#x4EE3;&#x7801;</h2><p>&#x4E3A;&#x6211;&#x4EEC;&#x7684;<code>&#x8FD4;&#x56DE;&#x9876;&#x90E8;</code>&#x6309;&#x94AE;&#x6DFB;&#x52A0;JS&#x4EE3;&#x7801;&#x3002;&#x5728;&#x4E3B;&#x9898;&#x76EE;&#x5F55;&#x4E0B;&#x65B0;&#x5EFA;&#x6587;&#x4EF6;<code>source/js/totop.js</code>&#xFF0C;&#x5199;&#x5165;&#x5185;&#x5BB9;<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>) </span>{</span><br><span class="line">	<span class="comment">// When to show the scroll link</span></span><br><span class="line">	<span class="comment">// higher number = scroll link appears further down the page</span></span><br><span class="line">	<span class="keyword">var</span> upperLimit = <span class="number">1000</span>;</span><br><span class="line">	<span class="comment">// Our scroll link element</span></span><br><span class="line">	<span class="keyword">var</span> scrollElem = $(<span class="string">&apos;#totop&apos;</span>);</span><br><span class="line">	<span class="comment">// Scroll to top speed</span></span><br><span class="line">	<span class="keyword">var</span> scrollSpeed = <span class="number">500</span>;</span><br><span class="line">	<span class="comment">// Show and hide the scroll to top link based on scroll position</span></span><br><span class="line">	scrollElem.hide();</span><br><span class="line">	$(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{</span><br><span class="line">		<span class="keyword">var</span> scrollTop = $(<span class="built_in">document</span>).scrollTop();</span><br><span class="line">		<span class="keyword">if</span> ( scrollTop &gt; upperLimit ) {</span><br><span class="line">			$(scrollElem).stop().fadeTo(<span class="number">300</span>, <span class="number">1</span>); <span class="comment">// fade back in</span></span><br><span class="line">		}<span class="keyword">else</span>{</span><br><span class="line">			$(scrollElem).stop().fadeTo(<span class="number">300</span>, <span class="number">0</span>); <span class="comment">// fade out</span></span><br><span class="line">		}</span><br><span class="line">	});</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Scroll to top animation on click</span></span><br><span class="line">	$(scrollElem).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">		$(<span class="string">&apos;html, body&apos;</span>).animate({scrollTop:<span class="number">0</span>}, scrollSpeed); <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	});</span><br><span class="line">})(jQuery);</span><br></pre></td></tr></table></figure></p>
+<h2 id="&#x6DFB;&#x52A0;&#x5BF9;&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x7684;&#x5F15;&#x7528;"><a href="#&#x6DFB;&#x52A0;&#x5BF9;&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x7684;&#x5F15;&#x7528;" class="headerlink" title="&#x6DFB;&#x52A0;&#x5BF9;&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x7684;&#x5F15;&#x7528;"></a>&#x6DFB;&#x52A0;&#x5BF9;&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x7684;&#x5F15;&#x7528;</h2><p>&#x6253;&#x5F00;&#x4E3B;&#x9898;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6587;&#x4EF6;<code>/layout/_partial/after_footer.ejs</code>&#xFF0C;&#x5728;&#x6587;&#x4EF6;&#x672B;&#x5C3E;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%-</span> <span class="attr">partial</span>(&apos;<span class="attr">totop</span>&apos;) %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;&lt;%- config.root %&gt;js/totop.js&quot;</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x5B8C;&#x6210;&#xFF01;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheng09.github.io/2016/06/14/add-BackToTop/" data-id="cipf5ugbl000216fb5hh8k6v3" class="article-share-link">Share</a>
+      
+        <a href="http://sheng09.github.io/2016/06/14/add-BackToTop/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/14/add-swiftype-search/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">添加Swiftype站内搜索</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建科研工作环境/">搭建科研工作环境</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email-Alert/">Email Alert</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Journals/">Journals</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swiftype/">Swiftype</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/14/add-BackToTop/">添加返回顶部按钮</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/14/add-swiftype-search/">添加Swiftype站内搜索</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/11/configure-wiley-email-alert/">利用Wiley Online Library获取最新的期刊杂志内容</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/09/deconvolution/">Linear Deconvolution</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/09/Makefile-compileSubs/">利用总控Makefile一次性编译所有子程序包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Sheng Wang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+    <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','4LRsoUZsCDnx-aTgg_f5','2.0.0');
+    </script>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/search" class="mobile-nav-link">Search</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'sheng09';
+  
+  var disqus_url = 'http://sheng09.github.io/2016/06/14/add-BackToTop/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:150px;right:20px;cursor: pointer;">
+	<a title="Back to top"><img src="/imgs/scrollup_arrow.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+
+    <script type="text/javascript">
+    var disqus_shortname = 'sheng09';
+
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+    </script>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
