@@ -20,7 +20,7 @@
 <p>&#x5B9E;&#x9645;&#x6570;&#x636E;&#x63D0;&#x53D6;&#x63A5;&#x6536;&#x51FD;&#x6570;&#xFF0C;&#x4E00;&#x822C;&#x9009;&#x53D6;&#x9707;&#x4E2D;&#x8DDD;&#x4F4D;&#x4E8E;30&#xB0;&#xFF5E;90&#xB0;&#x8303;&#x56F4;&#x5185;&#x7684;&#x5730;&#x9707;&#x4E8B;&#x4EF6;&#x8BB0;&#x5F55;&#xFF0C;&#x5728;iasp91&#x6A21;&#x578B;&#x4E2D;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x5C04;&#x7EBF;&#x53C2;&#x6570;&#x4F4D;&#x4E8E;[0.04, 0.08]&#x8303;&#x56F4;&#x5185;&#x3002;<br><img src="/2016/06/15/RF-raypara-01/rp_prf.jpg" width="600" align="center"></p>
 <p>&#x7531;&#x6B63;&#x6F14;&#x7ED3;&#x679C;&#xFF0C;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;30&#xB0;&#xFF5E;90&#xB0;&#x9707;&#x4E2D;&#x8DDD;&#x8303;&#x56F4;&#x5185;&#xFF0C;Ps&#x9707;&#x76F8;&#x968F;&#x5C04;&#x7EBF;&#x53C2;&#x6570;&#x53D8;&#x5316;&#x4E0D;&#x5927;&#xFF0C;&#x800C;PpPs&#xFF0C;PpSs+PsPs&#x9707;&#x76F8;&#x5219;&#x5448;&#x73B0;&#x8F83;&#x4E3A;&#x660E;&#x663E;&#x7684;&#x53D8;&#x5316;&#x3002;<br>&#x9488;&#x5BF9;&#x8F6C;&#x6362;&#x6CE2;&#x9707;&#x76F8;&#x5230;&#x65F6;&#x968F;&#x5C04;&#x7EBF;&#x53C2;&#x6570;&#x7684;&#x53D8;&#x5316;&#xFF0C;&#x63A5;&#x6536;&#x51FD;&#x6570;&#x53E0;&#x52A0;&#x9700;&#x8981;&#x505A;&#x52A8;&#x6821;&#x6B63;&#xFF0C;&#x6216;&#x8005;&#x6309;&#x5C04;&#x7EBF;&#x53C2;&#x6570;&#x5206;&#x533A;&#x95F4;&#x53E0;&#x52A0;&#x3002;</p>
 <h2 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;"><a href="#&#x6CE8;&#x610F;&#x4E8B;&#x9879;" class="headerlink" title="&#x6CE8;&#x610F;&#x4E8B;&#x9879;"></a>&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h2><p><a href="/RF-raypara-01/rf_raypara.tgz">rf_raypara</a>&#x5305;&#x542B;&#x4E86;&#x672C;&#x6587;&#x9700;&#x8981;&#x7684;&#x6240;&#x6709;&#x7A0B;&#x5E8F;&#xFF0C;&#x5176;&#x4E2D;<code>Raypath</code>&#x7531;<code>Raypath.c</code>&#x7F16;&#x8BD1;&#x800C;&#x6765;&#xFF0C;&#x7F16;&#x8BD1;&#x547D;&#x4EE4;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc Raypath.c -o Raypath -lm -O4</span><br></pre></td></tr></table></figure></p>
-<p>&#x5982;&#x679C;&#x5BF9;&#x7A0B;&#x5E8F;&#x7531;&#x4EFB;&#x4F55;&#x7591;&#x95EE;&#xFF0C;&#x6216;&#x8005;&#x4EFB;&#x4F55;BUG&#xFF0C;&#x8BF7;&#x7559;&#x8A00;&#xFF0C;&#x6216;&#x8005;&#x7F6E;&#x4FE1;<code>wangsheng.cas@gmail.com</code>&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5BF9;&#x7A0B;&#x5E8F;&#x6709;&#x4EFB;&#x4F55;&#x7591;&#x95EE;&#xFF0C;&#x6216;&#x8005;&#x53D1;&#x73B0;&#x4EFB;&#x4F55;BUG&#xFF0C;&#x8BF7;&#x7559;&#x8A00;&#xFF0C;&#x6216;&#x8005;&#x7F6E;&#x4FE1;<code>wangsheng.cas@gmail.com</code>&#x3002;</p>
 ]]></content>
     </entry>
     
@@ -301,6 +301,12 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://sheng09.github.io/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>http://sheng09.github.io/old/hello-world.html</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -313,12 +319,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://sheng09.github.io/tags/index.html</url>
-      <content type="html"></content>
     </entry>
     
   
