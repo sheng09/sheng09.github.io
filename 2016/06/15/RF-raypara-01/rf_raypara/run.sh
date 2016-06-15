@@ -70,7 +70,7 @@ EOF
 
 plotnps -F7 -W10 -EPS -K < PRS001.PLT > rp_prf.eps
 rm PRS001.PLT  PRS001.CTL -rf
-ps2raster rp_prf.eps -A -Tj -E600
+ps2raster rp_prf.eps -A -Tj -E300
 ######
 ##    Plot using sac
 ######
