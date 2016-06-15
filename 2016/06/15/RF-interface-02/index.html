@@ -16,7 +16,7 @@
 <meta property="og:image" content="http://sheng09.github.io/2016/06/15/RF-interface-02/RHO.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/06/15/RF-interface-02/rf_prf.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/06/15/RF-interface-02/rf_rainbow.jpg">
-<meta property="og:updated_time" content="2016-06-15T12:04:38.659Z">
+<meta property="og:updated_time" content="2016-06-15T12:08:49.714Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="接收函数理论与实践（二）界面梯度对接收函数的影响">
 <meta name="twitter:description" content="&amp;#x63A5;&amp;#x6536;&amp;#x51FD;&amp;#x6570;&amp;#x901A;&amp;#x8FC7;&amp;#x53CD;&amp;#x8936;&amp;#x79EF;&amp;#x8BA1;&amp;#x7B97;&amp;#xFF0C;&amp;#x63D0;&amp;#x53D6;&amp;#x6CE2;&amp;#x573A;&amp;#x5728;&amp;#x754C;&amp;#x9762;&amp;#x5904;&amp;#x7684;&amp;#x8F6C;&amp;#x6362;&amp;#x6548;&amp;#x5E94;">
@@ -100,7 +100,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x63A5;&#x6536;&#x51FD;&#x6570;&#x901A;&#x8FC7;&#x53CD;&#x8936;&#x79EF;&#x8BA1;&#x7B97;&#xFF0C;&#x63D0;&#x53D6;&#x6CE2;&#x573A;&#x5728;&#x754C;&#x9762;&#x5904;&#x7684;&#x8F6C;&#x6362;&#x6548;&#x5E94;&#x3002;&#x5728;&#x5B9E;&#x9645;&#x95EE;&#x9898;&#x4E2D;&#xFF0C;&#x5E76;&#x4E0D;&#x5B58;&#x5728;&#x7EDD;&#x5BF9;&#x7684;&#x754C;&#x9762;&#xFF0C;&#x66F4;&#x4E3A;&#x51C6;&#x786E;&#x7684;&#x63CF;&#x8FF0;&#x5E94;&#x8BE5;&#x662F;&#x901F;&#x5EA6;&#x68AF;&#x5EA6;&#x8F83;&#x9AD8;&#x7684;&#x8FC7;&#x5EA6;&#x5E26;&#x3002;&#x4E3A;&#x5BF9;&#x6BD4;&#x68AF;&#x5EA6;&#x5E26;&#x7ED9;&#x63A5;&#x6536;&#x51FD;&#x6570;&#x6CE2;&#x5F62;&#x5E26;&#x6765;&#x7684;&#x5F71;&#x54CD;&#xFF0C;&#x53C2;&#x8003;<a href="http://www.eas.slu.edu/eqc/eqc_cps/TUTORIAL/RFTN2/index.html" target="_blank" rel="external">CPS Tutorials&#x90E8;&#x5206;&#x5185;&#x5BB9;</a>&#xFF0C;&#x672C;&#x6587;&#x9009;&#x62E9;&#x4E86;&#x8D70;&#x65F6;&#x76F8;&#x540C;&#xFF0C;&#x68AF;&#x5EA6;&#x53D8;&#x5316;&#x4E0D;&#x540C;&#x7684;&#x6A21;&#x578B;&#xFF0C;&#x7528;&#x4E8E;&#x63A5;&#x6536;&#x51FD;&#x6570;&#x6B63;&#x6F14;&#x8BA1;&#x7B97;&#x3002;</p>
+        <p>&#x63A5;&#x6536;&#x51FD;&#x6570;&#x901A;&#x8FC7;&#x53CD;&#x8936;&#x79EF;&#x8BA1;&#x7B97;&#xFF0C;&#x63D0;&#x53D6;&#x6CE2;&#x573A;&#x5728;&#x754C;&#x9762;&#x5904;&#x7684;&#x8F6C;&#x6362;&#x6548;&#x5E94;&#x3002;&#x5728;&#x5B9E;&#x9645;&#x95EE;&#x9898;&#x4E2D;&#xFF0C;&#x5E76;&#x4E0D;&#x5B58;&#x5728;&#x7EDD;&#x5BF9;&#x7684;&#x754C;&#x9762;&#xFF0C;&#x66F4;&#x4E3A;&#x51C6;&#x786E;&#x7684;&#x63CF;&#x8FF0;&#x5E94;&#x8BE5;&#x662F;&#x901F;&#x5EA6;&#x68AF;&#x5EA6;&#x8F83;&#x9AD8;&#x7684;&#x8FC7;&#x5EA6;&#x5E26;&#x3002;&#x4E3A;&#x5BF9;&#x6BD4;&#x68AF;&#x5EA6;&#x5E26;&#x7ED9;&#x63A5;&#x6536;&#x51FD;&#x6570;&#x6CE2;&#x5F62;&#x5E26;&#x6765;&#x7684;&#x5F71;&#x54CD;&#xFF0C;&#x53C2;&#x8003;<a href="http://www.eas.slu.edu/eqc/eqc_cps/TUTORIAL/RFTN2/index.html" target="_blank" rel="external">CPS Tutorials&#x90E8;&#x5206;&#x5185;&#x5BB9;</a>&#xFF0C;&#x672C;&#x6587;&#x9009;&#x62E9;&#x4E86;&#x8D70;&#x65F6;&#x76F8;&#x540C;&#xFF0C;&#x68AF;&#x5EA6;&#x53D8;&#x5316;&#x4E0D;&#x540C;&#x7684;&#x6A21;&#x578B;&#xFF0C;&#x7528;&#x4E8E;&#x63A5;&#x6536;&#x51FD;&#x6570;&#x6B63;&#x6F14;&#x8BA1;&#x7B97;&#x3002;<br><a id="more"></a></p>
 <!-- toc -->
 <ul>
 <li><a href="#&#x6A21;&#x578B;&#x8BBE;&#x5B9A;">&#x6A21;&#x578B;&#x8BBE;&#x5B9A;</a></li>
@@ -125,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/15/RF-interface-02/" data-id="cipgrv0q400058cfbk9ix512z" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/15/RF-interface-02/" data-id="cipgu3vwp00054qfbtb4mumvw" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/06/15/RF-interface-02/#disqus_thread" class="article-comment-link">Comments</a>
       
