@@ -4,6 +4,18 @@
   
     
     <entry>
+      <title><![CDATA[Hello]]></title>
+      <url>http://sheng09.github.io/2016/07/13/Hello/</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[接收函数理论与实践（三）低速层对接收函数的影响]]></title>
+      <url>http://sheng09.github.io/2016/06/15/RF-LVZ-03/</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[接收函数理论与实践（二）界面梯度对接收函数的影响]]></title>
       <url>http://sheng09.github.io/2016/06/15/RF-interface-02/</url>
       <content type="html"><![CDATA[<p>&#x63A5;&#x6536;&#x51FD;&#x6570;&#x901A;&#x8FC7;&#x53CD;&#x8936;&#x79EF;&#x8BA1;&#x7B97;&#xFF0C;&#x63D0;&#x53D6;&#x6CE2;&#x573A;&#x5728;&#x754C;&#x9762;&#x5904;&#x7684;&#x8F6C;&#x6362;&#x6548;&#x5E94;&#x3002;&#x5728;&#x5B9E;&#x9645;&#x95EE;&#x9898;&#x4E2D;&#xFF0C;&#x5E76;&#x4E0D;&#x5B58;&#x5728;&#x7EDD;&#x5BF9;&#x7684;&#x754C;&#x9762;&#xFF0C;&#x66F4;&#x4E3A;&#x51C6;&#x786E;&#x7684;&#x63CF;&#x8FF0;&#x5E94;&#x8BE5;&#x662F;&#x901F;&#x5EA6;&#x68AF;&#x5EA6;&#x8F83;&#x9AD8;&#x7684;&#x8FC7;&#x5EA6;&#x5E26;&#x3002;&#x4E3A;&#x5BF9;&#x6BD4;&#x68AF;&#x5EA6;&#x5E26;&#x7ED9;&#x63A5;&#x6536;&#x51FD;&#x6570;&#x6CE2;&#x5F62;&#x5E26;&#x6765;&#x7684;&#x5F71;&#x54CD;&#xFF0C;&#x53C2;&#x8003;<a href="http://www.eas.slu.edu/eqc/eqc_cps/TUTORIAL/RFTN2/index.html" target="_blank" rel="external">CPS Tutorials&#x90E8;&#x5206;&#x5185;&#x5BB9;</a>&#xFF0C;&#x672C;&#x6587;&#x9009;&#x62E9;&#x4E86;&#x8D70;&#x65F6;&#x76F8;&#x540C;&#xFF0C;&#x68AF;&#x5EA6;&#x53D8;&#x5316;&#x4E0D;&#x540C;&#x7684;&#x6A21;&#x578B;&#xFF0C;&#x7528;&#x4E8E;&#x63A5;&#x6536;&#x51FD;&#x6570;&#x6B63;&#x6F14;&#x8BA1;&#x7B97;&#x3002;<br><a id="more"></a></p>
@@ -183,7 +195,7 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <script type="math/tex; mode=display">
 \begin{equation}
   \hat{m}(t) = \sum_{i} m_i h(t-t_i) \label{superposition}
-\end{equation}</script><p>To determine $m_1$ and $t_1$, the error $\eqref{err_iter}$ should approach its minimal value. </p>
+\end{equation}</script><p>To determine $m_1$ and $t_1$, the error $\eqref{err_iter}$ should approach its minimal value.</p>
 <script type="math/tex; mode=display">
 \begin{equation}
   \Delta_1 = \int_{-\infty}^{+\infty}\{r(t) - m_1 h(t-t_1) \otimes s(t)\}^2dt \label{err_iter}
@@ -329,6 +341,12 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://sheng09.github.io/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>http://sheng09.github.io/old/hello-world.html</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -341,12 +359,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://sheng09.github.io/tags/index.html</url>
-      <content type="html"></content>
     </entry>
     
   
