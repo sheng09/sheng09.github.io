@@ -3,18 +3,18 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>tags | Sheng Wang</title>
+  <title>Boundary Conditions for Differential Equations | Sheng Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://sheng09.github.io/tags/index.html">
+  <meta name="description" content="There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and ass">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boundary Conditions for Differential Equations">
+<meta property="og:url" content="http://sheng09.github.io/2016/09/01/PDE-boundaries/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-06-09T07:07:17.021Z">
+<meta property="og:description" content="There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and ass">
+<meta property="og:updated_time" content="2016-08-31T20:26:33.060Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Boundary Conditions for Differential Equations">
+<meta name="twitter:description" content="There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and ass">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -68,12 +68,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-PDE-boundaries" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/tags/index.html" class="article-date">
-  <time datetime="2016-06-09T07:07:17.000Z" itemprop="datePublished">2016-06-09</time>
+    <a href="/2016/09/01/PDE-boundaries/" class="article-date">
+  <time datetime="2016-08-31T19:34:51.000Z" itemprop="datePublished">2016-09-01</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PDE/">PDE</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -82,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      tags
+      Boundary Conditions for Differential Equations
     </h1>
   
 
@@ -90,19 +94,94 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and associated equations.<br>Besides, this post also present the combination of Dirichlet and Neumann boundary conditions in construct absorbing boundary for solving wave eqution.<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#dirichlet-boundary-condition">Dirichlet Boundary Condition</a></li>
+<li><a href="#neumann-boundary-condition">Neumann Boundary Condition</a></li>
+<li><a href="#robin-boundary-condition">Robin Boundary Condition</a></li>
+<li><a href="#mixed-boundary-condition">Mixed Boundary Condition</a></li>
+<li><a href="#cauchy-boundary-condition">Cauchy Boundary Condition</a></li>
+<li><a href="#associated-problems-for-pde-of-wave-equation">Associated Problems for PDE of Wave Equation</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="dirichlet-boundary-condition"><a href="#Dirichlet-Boundary-Condition" class="headerlink" title="Dirichlet Boundary Condition"></a>Dirichlet Boundary Condition</h2><p>Given ODE or PDE, conditions that specify values of the solution along the boundary of the domain is Dirichlet boundary condition. <a href="https://en.wikipedia.org/wiki/Dirichlet_boundary_condition" target="_blank" rel="external">Wiki</a></p>
+<span>$$\begin{equation}
+  \begin{cases}
+    f(y&apos;&apos;,y) &amp; = &amp; 0 \\
+    y(\alpha) &amp; = &amp; 0 \\
+    y(\beta) &amp; = &amp; 0
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<span>$$\begin{equation}
+  \begin{cases}
+    f(\nabla^{2}G,G) &amp; = &amp; 0 \\
+    G|_{boundary} &amp; = &amp; g(x,y,z)
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<h2 id="neumann-boundary-condition"><a href="#Neumann-Boundary-Condition" class="headerlink" title="Neumann Boundary Condition"></a>Neumann Boundary Condition</h2><p>Being different to Dirichlet boundary condition, Neumann boundary condition specify the values of the derivative of the solution along the boundary. <a href="https://en.wikipedia.org/wiki/Neumann_boundary_condition" target="_blank" rel="external">Wiki</a><br><span>$$\begin{equation}
+  \begin{cases}
+    f(y&apos;&apos;,y) &amp; = &amp; 0 \\
+    y&apos;|_{x=\alpha} &amp; = &amp; 0 \\
+    y&apos;|_{x=\beta} &amp; = &amp; 0
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax --><br><span>$$\begin{equation}
+  \begin{cases}
+    f(G&apos;&apos;,G) &amp; = &amp; 0 \\
+    G&apos;|_{boundary} &amp; = &amp; g(x,y,z) \\
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax --></p>
+<h2 id="robin-boundary-condition"><a href="#Robin-Boundary-Condition" class="headerlink" title="Robin Boundary Condition"></a>Robin Boundary Condition</h2><p>Robin boundary condition is the combination of Dirichlet and Neumann boundary conditions.<a href="https://en.wikipedia.org/wiki/Robin_boundary_condition" target="_blank" rel="external">Wiki</a></p>
+<span>$$\begin{equation}
+  \begin{cases}
+    f(G&apos;&apos;,G) &amp; = &amp; 0 \\
+    G+G&apos;|_{boundary} &amp; = &amp; g(x)
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<h2 id="mixed-boundary-condition"><a href="#Mixed-Boundary-Condition" class="headerlink" title="Mixed Boundary Condition"></a>Mixed Boundary Condition</h2><p>Being different from Robin condition, Mixed condition means different types of condition along different subset of the boundary. It is much more complex than Robin condition.<a href="https://en.wikipedia.org/wiki/Mixed_boundary_condition" target="_blank" rel="external">Wiki</a></p>
+<span>$$\begin{equation}
+  \begin{cases}
+    f(G&apos;&apos;,G) &amp; = &amp; 0 \\
+    G|_{1st\ boundary\ subset} &amp; = &amp; g_1(x) \\
+    G&apos;|_{2nd\ boundary\ subset} &amp; = &amp; g_2(x)
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<h2 id="cauchy-boundary-condition"><a href="#Cauchy-Boundary-Condition" class="headerlink" title="Cauchy Boundary Condition"></a>Cauchy Boundary Condition</h2><p>In Cauchy boundary condition, Dirichlet and Neumann conditions are declared along the boundary to ensure the unique solution. <a href="https://en.wikipedia.org/wiki/Cauchy_boundary_condition" target="_blank" rel="external">Wiki</a></p>
+<span>$$\begin{equation}
+  \begin{cases}
+    f(G&apos;&apos;,G) &amp; = &amp; 0 \\
+    G|_{boundary} &amp; = &amp; g_1(x) \\
+    G&apos;|_{ boundary} &amp; = &amp; g_2(x)
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<h2 id="associated-problems-for-pde-of-wave-equation"><a href="#Associated-Problems-for-PDE-of-Wave-Equation" class="headerlink" title="Associated Problems for PDE of Wave Equation"></a>Associated Problems for PDE of Wave Equation</h2><p>Considering boundary conditions for wave equation, Dirichlet and Neumann conditions produce reflection that are opposite in sign. Thus, the summation of these two cases will cancel the reflection.[<a href="http://www.sciencedirect.com/science/article/pii/0021999174900758" target="_blank" rel="external">Smith 1974</a>]</p>
+<h2 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="http://www.sciencedirect.com/science/article/pii/0021999174900758" target="_blank" rel="external">Smith W D. A nonreflecting plane boundary for wave propagation problems[J]. Journal of Computational Physics, 1974, 15(4): 492-503.</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/tags/index.html" data-id="cisjbn9dl000abgfbp6e8sy7a" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/01/PDE-boundaries/" data-id="cisjbn9d10003bgfb2ba8pen3" class="article-share-link">Share</a>
       
-        <a href="http://sheng09.github.io/tags/index.html#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://sheng09.github.io/2016/09/01/PDE-boundaries/#disqus_thread" class="article-comment-link">Comments</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PDE/">PDE</a></li></ul>
+
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/13/Hello/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -211,7 +290,7 @@
 <script>
   var disqus_shortname = 'sheng09';
   
-  var disqus_url = 'http://sheng09.github.io/tags/index.html';
+  var disqus_url = 'http://sheng09.github.io/2016/09/01/PDE-boundaries/';
   
   (function(){
     var dsq = document.createElement('script');
@@ -237,6 +316,23 @@
 </div>
 <script src="/js/totop.js"></script>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>

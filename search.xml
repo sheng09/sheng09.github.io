@@ -4,6 +4,75 @@
   
     
     <entry>
+      <title><![CDATA[Boundary Conditions for Differential Equations]]></title>
+      <url>http://sheng09.github.io/2016/09/01/PDE-boundaries/</url>
+      <content type="html"><![CDATA[<p>There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and associated equations.<br>Besides, this post also present the combination of Dirichlet and Neumann boundary conditions in construct absorbing boundary for solving wave eqution.<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#dirichlet-boundary-condition">Dirichlet Boundary Condition</a></li>
+<li><a href="#neumann-boundary-condition">Neumann Boundary Condition</a></li>
+<li><a href="#robin-boundary-condition">Robin Boundary Condition</a></li>
+<li><a href="#mixed-boundary-condition">Mixed Boundary Condition</a></li>
+<li><a href="#cauchy-boundary-condition">Cauchy Boundary Condition</a></li>
+<li><a href="#associated-problems-for-pde-of-wave-equation">Associated Problems for PDE of Wave Equation</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="dirichlet-boundary-condition"><a href="#Dirichlet-Boundary-Condition" class="headerlink" title="Dirichlet Boundary Condition"></a>Dirichlet Boundary Condition</h2><p>Given ODE or PDE, conditions that specify values of the solution along the boundary of the domain is Dirichlet boundary condition. <a href="https://en.wikipedia.org/wiki/Dirichlet_boundary_condition" target="_blank" rel="external">Wiki</a></p>
+<span>$$\begin{equation}
+  \begin{cases}
+    f(y&apos;&apos;,y) &amp; = &amp; 0 \\
+    y(\alpha) &amp; = &amp; 0 \\
+    y(\beta) &amp; = &amp; 0
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<span>$$\begin{equation}
+  \begin{cases}
+    f(\nabla^{2}G,G) &amp; = &amp; 0 \\
+    G|_{boundary} &amp; = &amp; g(x,y,z)
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<h2 id="neumann-boundary-condition"><a href="#Neumann-Boundary-Condition" class="headerlink" title="Neumann Boundary Condition"></a>Neumann Boundary Condition</h2><p>Being different to Dirichlet boundary condition, Neumann boundary condition specify the values of the derivative of the solution along the boundary. <a href="https://en.wikipedia.org/wiki/Neumann_boundary_condition" target="_blank" rel="external">Wiki</a><br><span>$$\begin{equation}
+  \begin{cases}
+    f(y&apos;&apos;,y) &amp; = &amp; 0 \\
+    y&apos;|_{x=\alpha} &amp; = &amp; 0 \\
+    y&apos;|_{x=\beta} &amp; = &amp; 0
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax --><br><span>$$\begin{equation}
+  \begin{cases}
+    f(G&apos;&apos;,G) &amp; = &amp; 0 \\
+    G&apos;|_{boundary} &amp; = &amp; g(x,y,z) \\
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax --></p>
+<h2 id="robin-boundary-condition"><a href="#Robin-Boundary-Condition" class="headerlink" title="Robin Boundary Condition"></a>Robin Boundary Condition</h2><p>Robin boundary condition is the combination of Dirichlet and Neumann boundary conditions.<a href="https://en.wikipedia.org/wiki/Robin_boundary_condition" target="_blank" rel="external">Wiki</a></p>
+<span>$$\begin{equation}
+  \begin{cases}
+    f(G&apos;&apos;,G) &amp; = &amp; 0 \\
+    G+G&apos;|_{boundary} &amp; = &amp; g(x)
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<h2 id="mixed-boundary-condition"><a href="#Mixed-Boundary-Condition" class="headerlink" title="Mixed Boundary Condition"></a>Mixed Boundary Condition</h2><p>Being different from Robin condition, Mixed condition means different types of condition along different subset of the boundary. It is much more complex than Robin condition.<a href="https://en.wikipedia.org/wiki/Mixed_boundary_condition" target="_blank" rel="external">Wiki</a></p>
+<span>$$\begin{equation}
+  \begin{cases}
+    f(G&apos;&apos;,G) &amp; = &amp; 0 \\
+    G|_{1st\ boundary\ subset} &amp; = &amp; g_1(x) \\
+    G&apos;|_{2nd\ boundary\ subset} &amp; = &amp; g_2(x)
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<h2 id="cauchy-boundary-condition"><a href="#Cauchy-Boundary-Condition" class="headerlink" title="Cauchy Boundary Condition"></a>Cauchy Boundary Condition</h2><p>In Cauchy boundary condition, Dirichlet and Neumann conditions are declared along the boundary to ensure the unique solution. <a href="https://en.wikipedia.org/wiki/Cauchy_boundary_condition" target="_blank" rel="external">Wiki</a></p>
+<span>$$\begin{equation}
+  \begin{cases}
+    f(G&apos;&apos;,G) &amp; = &amp; 0 \\
+    G|_{boundary} &amp; = &amp; g_1(x) \\
+    G&apos;|_{ boundary} &amp; = &amp; g_2(x)
+  \end{cases}
+\end{equation}$$</span><!-- Has MathJax -->
+<h2 id="associated-problems-for-pde-of-wave-equation"><a href="#Associated-Problems-for-PDE-of-Wave-Equation" class="headerlink" title="Associated Problems for PDE of Wave Equation"></a>Associated Problems for PDE of Wave Equation</h2><p>Considering boundary conditions for wave equation, Dirichlet and Neumann conditions produce reflection that are opposite in sign. Thus, the summation of these two cases will cancel the reflection.[<a href="http://www.sciencedirect.com/science/article/pii/0021999174900758" target="_blank" rel="external">Smith 1974</a>]</p>
+<h2 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="http://www.sciencedirect.com/science/article/pii/0021999174900758" target="_blank" rel="external">Smith W D. A nonreflecting plane boundary for wave propagation problems[J]. Journal of Computational Physics, 1974, 15(4): 492-503.</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hello]]></title>
       <url>http://sheng09.github.io/2016/07/13/Hello/</url>
       <content type="html"></content>
@@ -341,12 +410,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://sheng09.github.io/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>http://sheng09.github.io/old/hello-world.html</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -359,6 +422,12 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://sheng09.github.io/tags/index.html</url>
+      <content type="html"></content>
     </entry>
     
   

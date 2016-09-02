@@ -5,10 +5,95 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-07-13T06:35:31.062Z</updated>
+  <updated>2016-08-31T20:26:33.060Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Boundary Conditions for Differential Equations</title>
+    <link href="http://sheng09.github.io/2016/09/01/PDE-boundaries/"/>
+    <id>http://sheng09.github.io/2016/09/01/PDE-boundaries/</id>
+    <published>2016-08-31T19:34:51.000Z</published>
+    <updated>2016-08-31T20:26:33.060Z</updated>
+    
+    <content type="html">&lt;p&gt;There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and associated equations.&lt;br&gt;Besides, this post also present the combination of Dirichlet and Neumann boundary conditions in construct absorbing boundary for solving wave eqution.&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#dirichlet-boundary-condition&quot;&gt;Dirichlet Boundary Condition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#neumann-boundary-condition&quot;&gt;Neumann Boundary Condition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#robin-boundary-condition&quot;&gt;Robin Boundary Condition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#mixed-boundary-condition&quot;&gt;Mixed Boundary Condition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#cauchy-boundary-condition&quot;&gt;Cauchy Boundary Condition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#associated-problems-for-pde-of-wave-equation&quot;&gt;Associated Problems for PDE of Wave Equation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#reference&quot;&gt;Reference&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
+&lt;h2 id=&quot;dirichlet-boundary-condition&quot;&gt;&lt;a href=&quot;#Dirichlet-Boundary-Condition&quot; class=&quot;headerlink&quot; title=&quot;Dirichlet Boundary Condition&quot;&gt;&lt;/a&gt;Dirichlet Boundary Condition&lt;/h2&gt;&lt;p&gt;Given ODE or PDE, conditions that specify values of the solution along the boundary of the domain is Dirichlet boundary condition. &lt;a href=&quot;https://en.wikipedia.org/wiki/Dirichlet_boundary_condition&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Wiki&lt;/a&gt;&lt;/p&gt;
+&lt;span&gt;$$\begin{equation}
+  \begin{cases}
+    f(y&amp;apos;&amp;apos;,y) &amp;amp; = &amp;amp; 0 \\
+    y(\alpha) &amp;amp; = &amp;amp; 0 \\
+    y(\beta) &amp;amp; = &amp;amp; 0
+  \end{cases}
+\end{equation}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;
+&lt;span&gt;$$\begin{equation}
+  \begin{cases}
+    f(\nabla^{2}G,G) &amp;amp; = &amp;amp; 0 \\
+    G|_{boundary} &amp;amp; = &amp;amp; g(x,y,z)
+  \end{cases}
+\end{equation}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;
+&lt;h2 id=&quot;neumann-boundary-condition&quot;&gt;&lt;a href=&quot;#Neumann-Boundary-Condition&quot; class=&quot;headerlink&quot; title=&quot;Neumann Boundary Condition&quot;&gt;&lt;/a&gt;Neumann Boundary Condition&lt;/h2&gt;&lt;p&gt;Being different to Dirichlet boundary condition, Neumann boundary condition specify the values of the derivative of the solution along the boundary. &lt;a href=&quot;https://en.wikipedia.org/wiki/Neumann_boundary_condition&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Wiki&lt;/a&gt;&lt;br&gt;&lt;span&gt;$$\begin{equation}
+  \begin{cases}
+    f(y&amp;apos;&amp;apos;,y) &amp;amp; = &amp;amp; 0 \\
+    y&amp;apos;|_{x=\alpha} &amp;amp; = &amp;amp; 0 \\
+    y&amp;apos;|_{x=\beta} &amp;amp; = &amp;amp; 0
+  \end{cases}
+\end{equation}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;&lt;br&gt;&lt;span&gt;$$\begin{equation}
+  \begin{cases}
+    f(G&amp;apos;&amp;apos;,G) &amp;amp; = &amp;amp; 0 \\
+    G&amp;apos;|_{boundary} &amp;amp; = &amp;amp; g(x,y,z) \\
+  \end{cases}
+\end{equation}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;&lt;/p&gt;
+&lt;h2 id=&quot;robin-boundary-condition&quot;&gt;&lt;a href=&quot;#Robin-Boundary-Condition&quot; class=&quot;headerlink&quot; title=&quot;Robin Boundary Condition&quot;&gt;&lt;/a&gt;Robin Boundary Condition&lt;/h2&gt;&lt;p&gt;Robin boundary condition is the combination of Dirichlet and Neumann boundary conditions.&lt;a href=&quot;https://en.wikipedia.org/wiki/Robin_boundary_condition&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Wiki&lt;/a&gt;&lt;/p&gt;
+&lt;span&gt;$$\begin{equation}
+  \begin{cases}
+    f(G&amp;apos;&amp;apos;,G) &amp;amp; = &amp;amp; 0 \\
+    G+G&amp;apos;|_{boundary} &amp;amp; = &amp;amp; g(x)
+  \end{cases}
+\end{equation}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;
+&lt;h2 id=&quot;mixed-boundary-condition&quot;&gt;&lt;a href=&quot;#Mixed-Boundary-Condition&quot; class=&quot;headerlink&quot; title=&quot;Mixed Boundary Condition&quot;&gt;&lt;/a&gt;Mixed Boundary Condition&lt;/h2&gt;&lt;p&gt;Being different from Robin condition, Mixed condition means different types of condition along different subset of the boundary. It is much more complex than Robin condition.&lt;a href=&quot;https://en.wikipedia.org/wiki/Mixed_boundary_condition&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Wiki&lt;/a&gt;&lt;/p&gt;
+&lt;span&gt;$$\begin{equation}
+  \begin{cases}
+    f(G&amp;apos;&amp;apos;,G) &amp;amp; = &amp;amp; 0 \\
+    G|_{1st\ boundary\ subset} &amp;amp; = &amp;amp; g_1(x) \\
+    G&amp;apos;|_{2nd\ boundary\ subset} &amp;amp; = &amp;amp; g_2(x)
+  \end{cases}
+\end{equation}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;
+&lt;h2 id=&quot;cauchy-boundary-condition&quot;&gt;&lt;a href=&quot;#Cauchy-Boundary-Condition&quot; class=&quot;headerlink&quot; title=&quot;Cauchy Boundary Condition&quot;&gt;&lt;/a&gt;Cauchy Boundary Condition&lt;/h2&gt;&lt;p&gt;In Cauchy boundary condition, Dirichlet and Neumann conditions are declared along the boundary to ensure the unique solution. &lt;a href=&quot;https://en.wikipedia.org/wiki/Cauchy_boundary_condition&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Wiki&lt;/a&gt;&lt;/p&gt;
+&lt;span&gt;$$\begin{equation}
+  \begin{cases}
+    f(G&amp;apos;&amp;apos;,G) &amp;amp; = &amp;amp; 0 \\
+    G|_{boundary} &amp;amp; = &amp;amp; g_1(x) \\
+    G&amp;apos;|_{ boundary} &amp;amp; = &amp;amp; g_2(x)
+  \end{cases}
+\end{equation}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;
+&lt;h2 id=&quot;associated-problems-for-pde-of-wave-equation&quot;&gt;&lt;a href=&quot;#Associated-Problems-for-PDE-of-Wave-Equation&quot; class=&quot;headerlink&quot; title=&quot;Associated Problems for PDE of Wave Equation&quot;&gt;&lt;/a&gt;Associated Problems for PDE of Wave Equation&lt;/h2&gt;&lt;p&gt;Considering boundary conditions for wave equation, Dirichlet and Neumann conditions produce reflection that are opposite in sign. Thus, the summation of these two cases will cancel the reflection.[&lt;a href=&quot;http://www.sciencedirect.com/science/article/pii/0021999174900758&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Smith 1974&lt;/a&gt;]&lt;/p&gt;
+&lt;h2 id=&quot;reference&quot;&gt;&lt;a href=&quot;#Reference&quot; class=&quot;headerlink&quot; title=&quot;Reference&quot;&gt;&lt;/a&gt;Reference&lt;/h2&gt;&lt;p&gt;[1] &lt;a href=&quot;http://www.sciencedirect.com/science/article/pii/0021999174900758&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Smith W D. A nonreflecting plane boundary for wave propagation problems[J]. Journal of Computational Physics, 1974, 15(4): 492-503.&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and associated equations.&lt;br&gt;Besides, this post also present the combination of Dirichlet and Neumann boundary conditions in construct absorbing boundary for solving wave eqution.&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
+    
+    
+      <category term="PDE" scheme="http://sheng09.github.io/tags/PDE/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello</title>
