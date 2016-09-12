@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://sheng09.github.io/2016/09/12/fft-endpoint/wrong_2t.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/09/12/fft-endpoint/frequency.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/09/12/fft-endpoint/2t.jpg">
-<meta property="og:updated_time" content="2016-09-12T03:20:25.606Z">
+<meta property="og:updated_time" content="2016-09-12T03:21:25.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFT终点截断引起的错误">
 <meta name="twitter:description" content="&amp;#x6211;&amp;#x770B;&amp;#x8FC7;&amp;#x5F88;&amp;#x591A;&amp;#x4F8B;FFT&amp;#x8BA1;&amp;#x7B97;&amp;#x4E2D;&amp;#x7AEF;&amp;#x70B9;&amp;#x5904;&amp;#x7406;&amp;#x7684;&amp;#x9519;&amp;#x8BEF;&amp;#xFF0C;&amp;#x5148;&amp;#x6765;&amp;#x770B;&amp;#x4EE5;&amp;#x4E0B;&amp;#x7684;&amp;#x4F8B;&amp;#x5B">
@@ -95,7 +95,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x6211;&#x770B;&#x8FC7;&#x5F88;&#x591A;&#x4F8B;FFT&#x8BA1;&#x7B97;&#x4E2D;&#x7AEF;&#x70B9;&#x5904;&#x7406;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x5148;&#x6765;&#x770B;&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#x3002;<br>1Hz&#x7684;&#x5468;&#x671F;&#x6B63;&#x5F26;&#x4FE1;&#x53F7;$sin(2\pi t)$&#xFF0C;&#x901A;&#x8FC7;FFT&#x8BA1;&#x7B97;&#xFF0C;&#x5176;&#x529F;&#x7387;&#x9891;&#x8C31;&#x4E2D;&#xFF0C;&#x5B58;&#x5728;1Hz&#x4EE5;&#x5916;&#x7684;&#x4FE1;&#x53F7;&#xFF0C;&#x8FD9;&#x663E;&#x7136;&#x662F;&#x4E0D;&#x5BF9;&#x7684;&#x3002;<br>&#x5728;&#x5F88;&#x591A;&#x6848;&#x4F8B;&#x4E2D;&#xFF0C;&#x8FD9;&#x4E00;&#x73B0;&#x8C61;&#x88AB;&#x5FFD;&#x89C6;&#xFF0C;&#x6216;&#x8005;&#x88AB;&#x89E3;&#x91CA;&#x4E3A;&#x8BA1;&#x7B97;&#x8BEF;&#x5DEE;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x5F53;&#x4FE1;&#x53F7;&#x7684;&#x5E8F;&#x5217;&#x8DB3;&#x591F;&#x957F;&#x65F6;&#xFF0C;&#x8FD9;&#x4E00;&#x7279;&#x5F81;&#x4F1A;&#x5341;&#x5206;&#x7684;&#x4E0D;&#x660E;&#x663E;&#x3002;&#x4EA6;&#x6709;&#x4E00;&#x90E8;&#x5206;&#x6848;&#x4F8B;&#x671F;&#x671B;&#x901A;&#x8FC7;&#x8865;&#x96F6;&#x6765;&#x4F18;&#x5316;&#x7ED3;&#x679C;&#x3002;<br><img src="/2016/09/12/fft-endpoint/wrong_frequency.jpg" alt=""></p>
+        <p>&#x6211;&#x770B;&#x8FC7;&#x5F88;&#x591A;&#x4F8B;FFT&#x8BA1;&#x7B97;&#x4E2D;&#x7AEF;&#x70B9;&#x5904;&#x7406;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x5148;&#x6765;&#x770B;&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;<br>&#x4E0B;&#x56FE;&#x4E2D;&#xFF0C;1Hz&#x7684;&#x5468;&#x671F;&#x6B63;&#x5F26;&#x4FE1;&#x53F7;$sin(2\pi t)$&#xFF0C;&#x901A;&#x8FC7;FFT&#x8BA1;&#x7B97;&#xFF0C;&#x5176;&#x529F;&#x7387;&#x9891;&#x8C31;&#x4E2D;&#xFF0C;&#x5B58;&#x5728;1Hz&#x4EE5;&#x5916;&#x7684;&#x4FE1;&#x53F7;&#xFF0C;&#x8FD9;&#x663E;&#x7136;&#x662F;&#x4E0D;&#x5BF9;&#x7684;&#x3002;<br>&#x5728;&#x5F88;&#x591A;&#x6848;&#x4F8B;&#x4E2D;&#xFF0C;&#x8FD9;&#x4E00;&#x73B0;&#x8C61;&#x88AB;&#x5FFD;&#x89C6;&#xFF0C;&#x6216;&#x8005;&#x88AB;&#x89E3;&#x91CA;&#x4E3A;&#x8BA1;&#x7B97;&#x8BEF;&#x5DEE;&#x3002;&#x7279;&#x522B;&#x662F;&#x5F53;&#x4FE1;&#x53F7;&#x7684;&#x5E8F;&#x5217;&#x8DB3;&#x591F;&#x957F;&#x65F6;&#xFF0C;&#x8FD9;&#x4E00;&#x7279;&#x5F81;&#x4F1A;&#x5341;&#x5206;&#x7684;&#x4E0D;&#x660E;&#x663E;&#x3002;&#x4EA6;&#x6709;&#x4E00;&#x90E8;&#x5206;&#x6848;&#x4F8B;&#x671F;&#x671B;&#x901A;&#x8FC7;&#x8865;&#x96F6;&#x6765;&#x4F18;&#x5316;&#x7ED3;&#x679C;&#x3002;<br><img src="/2016/09/12/fft-endpoint/wrong_frequency.jpg" alt=""></p>
 <a id="more"></a>
 <!-- toc -->
 <ul>
@@ -111,7 +111,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciszhf3kl001c3ufbu7rhtxn7" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciszhgass000s4tfb9xj4z1yu" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/12/fft-endpoint/#disqus_thread" class="article-comment-link">Comments</a>
       
