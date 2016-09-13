@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>一阶声波方程有线差分模拟 | Sheng Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#xFF0C;&amp;#x5E76;&amp;#x5229;&amp;#x7528;&amp;#x4E00;&amp;#x7EF4;&amp;#x6A21;&amp;#x578B;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一阶声波方程有线差分模拟">
+<meta property="og:url" content="http://sheng09.github.io/2016/09/13/fd-1d/index.html">
+<meta property="og:site_name" content="Sheng Wang">
+<meta property="og:description" content="&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#xFF0C;&amp;#x5E76;&amp;#x5229;&amp;#x7528;&amp;#x4E00;&amp;#x7EF4;&amp;#x6A21;&amp;#x578B;">
+<meta property="og:image" content="http://sheng09.github.io/2016/09/13/fd-1d/grid.jpg">
+<meta property="og:image" content="http://sheng09.github.io/2016/09/13/fd-1d/wave.gif">
+<meta property="og:updated_time" content="2016-09-13T02:02:19.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一阶声波方程有线差分模拟">
+<meta name="twitter:description" content="&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#xFF0C;&amp;#x5E76;&amp;#x5229;&amp;#x7528;&amp;#x4E00;&amp;#x7EF4;&amp;#x6A21;&amp;#x578B;">
+<meta name="twitter:image" content="http://sheng09.github.io/2016/09/13/fd-1d/grid.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sheng Wang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          
+            <a class="main-nav-link" href="/">Home</a>
+          
+        
+          
+            <a class="main-nav-link" href="/archives">Archives</a>
+          
+        
+          
+            <a class="main-nav-link st-search-show-outputs" href="/search">Search</a>
+          
+        
+        </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-fd-1d" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/13/fd-1d/" class="article-date">
+  <time datetime="2016-09-12T22:38:40.000Z" itemprop="datePublished">2016-09-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一阶声波方程有线差分模拟
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#xFF0C;&#x5E76;&#x5229;&#x7528;&#x4E00;&#x7EF4;&#x6A21;&#x578B;&#x4F8B;&#x5B50;&#x52A0;&#x4EE5;&#x8BF4;&#x660E;&#x3002;</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#&#x63A7;&#x5236;&#x65B9;&#x7A0B;">&#x63A7;&#x5236;&#x65B9;&#x7A0B;</a></li>
+<li><a href="#&#x4EA4;&#x9519;&#x7F51;&#x683C;">&#x4EA4;&#x9519;&#x7F51;&#x683C;</a></li>
+<li><a href="#&#x5B9E;&#x73B0;">&#x5B9E;&#x73B0;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="&#x63A7;&#x5236;&#x65B9;&#x7A0B;"><a href="#&#x63A7;&#x5236;&#x65B9;&#x7A0B;" class="headerlink" title="&#x63A7;&#x5236;&#x65B9;&#x7A0B;"></a>&#x63A7;&#x5236;&#x65B9;&#x7A0B;</h2><p>&#x4E00;&#x7EF4;&#x7A7A;&#x95F4;&#x4E0B;&#xFF0C;&#x4E00;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#x4EE5;&#x4E0B;&#x5F62;&#x5F0F;&#xFF1A;$ $</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        \frac{\partial p }{\partial t} & = & -\rho v^2\frac{\partial q}{\partial x} + f\\
+        \frac{\partial q }{\partial t} & = & -\frac{1}{\rho} \frac{\partial p}{\partial x} + q_0
+    \end{cases}
+\end{eqnarray}</script><p>&#x5728;&#x65E0;&#x5916;&#x529B;&#x4F5C;&#x7528;&#x65E0;&#x4FE1;&#x53F7;&#x8F93;&#x5165;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x53CA;&#x5176;&#x5DEE;&#x5206;&#x5F62;&#x5F0F;&#x4E3A;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        \frac{\partial p }{\partial t} & = & -\rho v^2\frac{\partial q}{\partial x}\\
+        \frac{\partial q }{\partial t} & = & -\frac{1}{\rho} \frac{\partial p}{\partial x}
+    \end{cases}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        D_t p_B & = & - \rho v^2 D_x q_B \\
+        D_t q_A & = & -\frac{1}{\rho}D_x p_A
+    \end{cases}
+\end{eqnarray}</script><h2 id="&#x4EA4;&#x9519;&#x7F51;&#x683C;"><a href="#&#x4EA4;&#x9519;&#x7F51;&#x683C;" class="headerlink" title="&#x4EA4;&#x9519;&#x7F51;&#x683C;"></a>&#x4EA4;&#x9519;&#x7F51;&#x683C;</h2><p>&#x53C2;&#x8003;Virieux(<a href="http://library.seg.org/doi/abs/10.1190/1.1441605" target="_blank" rel="external">1984</a>, <a href="http://library.seg.org/doi/abs/10.1190/1.1442147" target="_blank" rel="external">1986</a>)&#xFF0C;&#x6784;&#x5EFA;&#x4EA4;&#x9519;&#x7F51;&#x683C;&#x5982;&#x4E0B;&#xFF1A;<br><img src="/2016/09/13/fd-1d/grid.jpg" alt=""></p>
+<p>&#x5728;&#x4E8C;&#x9636;&#x5DEE;&#x5206;&#x7CBE;&#x5EA6;&#x4E0B;&#xFF0C;&#x5BF9;&#x4E8E;&#xFF22;&#x70B9;&#x53EF;&#x4EE5;&#x63A8;&#x5BFC;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+        D_t p_B & = & - \rho v^2 D_x q_B \\
+        \Rightarrow \frac{1}{\Delta t} [ p(x_i, t_{m+1/2}) - p(x_i, t_{m-1/2}) ] & = &  -\frac{\rho v^2}{\Delta x} [ q(x_{i+1/2}, t_m) - q(x_{i-1/2}, t_m) ]
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+        \Rightarrow p(x_i, t_{m+1/2}) & = & p(x_i, t_{m-1/2})  - \frac{\rho v^2 \Delta t}{\Delta x} [ q(x_{i+1/2}, t_m) - q(x_{i-1/2}, t_m)
+\end{eqnarray}</script><p>&#x540C;&#x6837;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x63A8;&#x5BFC;&#xFF21;&#x70B9;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t q_A & = & -\frac{1}{\rho}D_x p_A \\
+    \Rightarrow \frac{1}{\Delta t} [q(x_{i+1/2},t_{m+1})- q(x_{i+1/2},t_{m}) ]& = & -\frac{1}{\rho \Delta x} [p(x_{i+1}, t_{m+1/2}) - p(x_i, t_{m+1/2})]
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \Rightarrow q(x_{i+1/2},t_{m+1}) & = & q(x_{i+1/2},t_{m}) -\frac{\Delta t}{\rho \Delta x} [p(x_{i+1}, t_{m+1/2}) - p(x_i, t_{m+1/2})]
+\end{eqnarray}</script><p>&#x6545;&#x800C;&#xFF0C;&#x6CE2;&#x573A;&#x9012;&#x63A8;&#x5173;&#x7CFB;&#x4E3A;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  \begin{cases}
+    q(t=0) \\
+    p(t=\Delta t/2)
+  \end{cases}
+  \Rightarrow
+    \color{red}{q(t=\Delta t)}
+  \\\Rightarrow
+  \begin{cases}
+    \color{red}{q(t=\Delta t)} \\
+    p(t=\Delta t/2)
+  \end{cases}
+  \Rightarrow \color{blue}{p(t=3\Delta t/2)}
+  \\\Rightarrow
+  \begin{cases}
+    \color{red}{q(t=\Delta t)} \\
+    \color{blue}{p(t=3\Delta t/2)}\\
+  \end{cases}
+  \Rightarrow \color{green}{q(t=2\Delta t)}
+  \\\Rightarrow
+  \begin{cases}
+    \color{green}{q(t=2\Delta t)} \\
+    \color{blue}{p(t=3\Delta t/2)}
+  \end{cases}
+  \Rightarrow ............\\
+  ...
+
+  \end{equation}</script><h2 id="&#x5B9E;&#x73B0;"><a href="#&#x5B9E;&#x73B0;" class="headerlink" title="&#x5B9E;&#x73B0;"></a>&#x5B9E;&#x73B0;</h2><p><img src="/2016/09/13/fd-1d/wave.gif" width="600px"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Matlab</span></span><br><span class="line">clear;close all; clc</span><br><span class="line">nx = <span class="number">1000</span>;   dx  = <span class="number">10</span>; x = (<span class="number">0</span>:nx<span class="number">-1</span>) * dx;</span><br><span class="line">nt = <span class="number">2500</span>;   dt  = <span class="number">1.0e-2</span>;</span><br><span class="line">v  = <span class="number">1000.0</span>; rho = <span class="number">1500</span>;</span><br><span class="line"></span><br><span class="line">f_wave = <span class="number">0.5</span>*<span class="number">2.0</span> * <span class="built_in">pi</span> ;</span><br><span class="line">n_stop = <span class="built_in">floor</span>( <span class="number">2.0</span> * <span class="built_in">pi</span> / f_wave   / dt );</span><br><span class="line">src= [ sin( (<span class="number">0</span>:n_stop)*dt*f_wave) zeros(<span class="number">1</span>,nt) ]; <span class="comment">%source</span></span><br><span class="line"></span><br><span class="line">p  = <span class="built_in">zeros</span>(<span class="number">2</span>,nx); q  = <span class="built_in">zeros</span>(<span class="number">2</span>,nx<span class="number">-1</span>); <span class="comment">%initial conditions</span></span><br><span class="line">new = <span class="number">1</span>; old = <span class="number">2</span>;</span><br><span class="line">c_q = <span class="number">-1.0</span>*dt/rho/dx; c_p = <span class="number">-1.0</span>*rho*v*v*dt/dx;</span><br><span class="line">figure</span><br><span class="line"><span class="keyword">for</span> it = <span class="number">1</span>:nt</span><br><span class="line">    <span class="comment">%  1   2   3   4   5  ...</span></span><br><span class="line">    <span class="comment">%--q---q---q---q---q--...</span></span><br><span class="line">    <span class="comment">%p---p---p---p---p---p...</span></span><br><span class="line">    <span class="comment">%1   2   3   4   5   6...</span></span><br><span class="line">    p(old,<span class="number">501</span>) = src(it)+p(old,<span class="number">501</span>);</span><br><span class="line">    <span class="keyword">for</span> ix = <span class="number">1</span>:nx<span class="number">-1</span></span><br><span class="line">        q(new,ix) = q(old,ix) + c_q * ( p(old,ix+<span class="number">1</span>) - p(old,ix) );</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> ix = <span class="number">2</span>:nx<span class="number">-1</span></span><br><span class="line">        p(new,ix) = p(old,ix) + c_p * ( q(new,ix) - q(new,ix<span class="number">-1</span>) );</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    p(new,nx) = p(new,nx<span class="number">-1</span>); <span class="comment">% free boundary</span></span><br><span class="line">    p(new,<span class="number">1</span>)  = p(new,<span class="number">2</span>);</span><br><span class="line">    <span class="comment">%p(new,nx) = 0.0; % rigid boundary</span></span><br><span class="line">    <span class="comment">%p(new,1)  = 0.0;</span></span><br><span class="line">    plot(x,p(old,:));</span><br><span class="line">    axis( [<span class="number">0</span> nx*dx <span class="number">-1.5</span> <span class="number">1.5</span>] );</span><br><span class="line">    pause(<span class="number">0.001</span>);</span><br><span class="line">    tmp = old; old = new; new = tmp;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="cit0ozm6u000pgkfbgr7px9x7" class="article-share-link">Share</a>
+      
+        <a href="http://sheng09.github.io/2016/09/13/fd-1d/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FD/">FD</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/09/12/fft-endpoint/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">FFT终点截断引起的错误</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding-and-Compiling/">Coding and Compiling</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PDE/">PDE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/接收函数/">接收函数</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建科研工作环境/">搭建科研工作环境</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email-Alert/">Email Alert</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FD/">FD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Journals/">Journals</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PDE/">PDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swiftype/">Swiftype</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/射线参数/">射线参数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/接收函数/">接收函数</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/界面/">界面</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/09/13/fd-1d/">一阶声波方程有线差分模拟</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/12/fft-endpoint/">FFT终点截断引起的错误</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/01/PDE-boundaries/">Boundary Conditions for Differential Equations</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/13/Hello/">Hello</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/15/RF-LVZ-03/">接收函数理论与实践（三）低速层对接收函数的影响</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Sheng Wang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+    <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','4LRsoUZsCDnx-aTgg_f5','2.0.0');
+    </script>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/search" class="mobile-nav-link">Search</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'sheng09';
+  
+  var disqus_url = 'http://sheng09.github.io/2016/09/13/fd-1d/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:150px;right:20px;cursor: pointer;">
+	<a title="Back to top"><img src="/imgs/scrollup_arrow.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
