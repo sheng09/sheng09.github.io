@@ -168,19 +168,11 @@ pstext -JX -R -K -O >> ${PS1}<<EOF
 8.00 3.25 6 0 0 CM m+1/2
 EOF
 
-psxy -JX -R -Sc0.25c -GWHITE -W0.5p, -K -O >>${PS1}<<EOF
-3 5
-EOF
-
 psxy -JX -R -St0.3c -GWHITE -W0.5p,RED, -K -O >>${PS1}<<EOF
 3 5
 EOF
 
 psxy -JX -R -Sc0.25c -GWHITE -W0.5p, -K -O >>${PS1}<<EOF
-8 2
-EOF
-
-psxy -JX -R -St0.3c -GWHITE -W0.5p,RED, -K -O >>${PS1}<<EOF
 8 2
 EOF
 
