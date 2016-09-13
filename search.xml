@@ -13,6 +13,7 @@
 <li><a href="#&#x63A7;&#x5236;&#x65B9;&#x7A0B;">&#x63A7;&#x5236;&#x65B9;&#x7A0B;</a></li>
 <li><a href="#&#x4EA4;&#x9519;&#x7F51;&#x683C;">&#x4EA4;&#x9519;&#x7F51;&#x683C;</a></li>
 <li><a href="#&#x5B9E;&#x73B0;">&#x5B9E;&#x73B0;</a></li>
+<li><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;">&#x53C2;&#x8003;&#x6587;&#x732E;</a></li>
 </ul>
 <!-- tocstop -->
 <h2 id="&#x63A7;&#x5236;&#x65B9;&#x7A0B;"><a href="#&#x63A7;&#x5236;&#x65B9;&#x7A0B;" class="headerlink" title="&#x63A7;&#x5236;&#x65B9;&#x7A0B;"></a>&#x63A7;&#x5236;&#x65B9;&#x7A0B;</h2><p>&#x4E00;&#x7EF4;&#x7A7A;&#x95F4;&#x4E0B;&#xFF0C;&#x4E00;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#x4EE5;&#x4E0B;&#x5F62;&#x5F0F;&#xFF1A;$ $</p>
@@ -83,6 +84,7 @@
 
   \end{equation}</script><h2 id="&#x5B9E;&#x73B0;"><a href="#&#x5B9E;&#x73B0;" class="headerlink" title="&#x5B9E;&#x73B0;"></a>&#x5B9E;&#x73B0;</h2><p><img src="/2016/09/13/fd-1d/wave.gif" width="600px"></p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Matlab</span></span><br><span class="line">clear;close all; clc</span><br><span class="line">nx = <span class="number">1000</span>;   dx  = <span class="number">10</span>; x = (<span class="number">0</span>:nx<span class="number">-1</span>) * dx;</span><br><span class="line">nt = <span class="number">2500</span>;   dt  = <span class="number">1.0e-2</span>;</span><br><span class="line">v  = <span class="number">1000.0</span>; rho = <span class="number">1500</span>;</span><br><span class="line"></span><br><span class="line">f_wave = <span class="number">0.5</span>*<span class="number">2.0</span> * <span class="built_in">pi</span> ;</span><br><span class="line">n_stop = <span class="built_in">floor</span>( <span class="number">2.0</span> * <span class="built_in">pi</span> / f_wave   / dt );</span><br><span class="line">src= [ sin( (<span class="number">0</span>:n_stop)*dt*f_wave) zeros(<span class="number">1</span>,nt) ]; <span class="comment">%source</span></span><br><span class="line"></span><br><span class="line">p  = <span class="built_in">zeros</span>(<span class="number">2</span>,nx); q  = <span class="built_in">zeros</span>(<span class="number">2</span>,nx<span class="number">-1</span>); <span class="comment">%initial conditions</span></span><br><span class="line">new = <span class="number">1</span>; old = <span class="number">2</span>;</span><br><span class="line">c_q = <span class="number">-1.0</span>*dt/rho/dx; c_p = <span class="number">-1.0</span>*rho*v*v*dt/dx;</span><br><span class="line">figure</span><br><span class="line"><span class="keyword">for</span> it = <span class="number">1</span>:nt</span><br><span class="line">    <span class="comment">%  1   2   3   4   5  ...</span></span><br><span class="line">    <span class="comment">%--q---q---q---q---q--...</span></span><br><span class="line">    <span class="comment">%p---p---p---p---p---p...</span></span><br><span class="line">    <span class="comment">%1   2   3   4   5   6...</span></span><br><span class="line">    p(old,<span class="number">501</span>) = src(it)+p(old,<span class="number">501</span>);</span><br><span class="line">    <span class="keyword">for</span> ix = <span class="number">1</span>:nx<span class="number">-1</span></span><br><span class="line">        q(new,ix) = q(old,ix) + c_q * ( p(old,ix+<span class="number">1</span>) - p(old,ix) );</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> ix = <span class="number">2</span>:nx<span class="number">-1</span></span><br><span class="line">        p(new,ix) = p(old,ix) + c_p * ( q(new,ix) - q(new,ix<span class="number">-1</span>) );</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    p(new,nx) = p(new,nx<span class="number">-1</span>); <span class="comment">% free boundary</span></span><br><span class="line">    p(new,<span class="number">1</span>)  = p(new,<span class="number">2</span>);</span><br><span class="line">    <span class="comment">%p(new,nx) = 0.0; % rigid boundary</span></span><br><span class="line">    <span class="comment">%p(new,1)  = 0.0;</span></span><br><span class="line">    plot(x,p(old,:));</span><br><span class="line">    axis( [<span class="number">0</span> nx*dx <span class="number">-1.5</span> <span class="number">1.5</span>] );</span><br><span class="line">    pause(<span class="number">0.001</span>);</span><br><span class="line">    tmp = old; old = new; new = tmp;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x732E;"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</h2><p><a href="http://library.seg.org/doi/abs/10.1190/1.1441605" target="_blank" rel="external">Virieux J. SH-wave propagation in heterogeneous media: Velocity-stress finite-difference method[J]. Geophysics, 1984, 49(11): 1933-1942.</a> <a href="http://library.seg.org/doi/abs/10.1190/1.1442147" target="_blank" rel="external">Virieux J. P-SV wave propagation in heterogeneous media: Velocity-stress finite-difference method[J]. Geophysics, 1986, 51(4): 889-901.</a></p>
 ]]></content>
     </entry>
     
@@ -505,18 +507,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
-      <title><![CDATA[Categories]]></title>
-      <url>http://sheng09.github.io/categories/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://sheng09.github.io/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>http://sheng09.github.io/old/hello-world.html</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -529,6 +519,18 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://sheng09.github.io/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Categories]]></title>
+      <url>http://sheng09.github.io/categories/index.html</url>
+      <content type="html"></content>
     </entry>
     
   
