@@ -1,7 +1,7 @@
    % Matlab
     clear;close all; clc
     n_pml = 10;
-    nx = 1020; dx  = 10; x = (-n_pml:nx-1-n_pml) * dx; %(1:11) and (1011:1020) are PML zone
+    nx = 1020; dx  = 10; x = (-n_pml:nx-1-n_pml) * dx; %(1:11) and (1010:1020) are PML zone
     nt = 700;  dt  = 1.0e-2;
     v  = 1000.0; rho = 1500;
     R = 0.001; delta = n_pml * dx; d_const = (3.0*v/2.0/delta)*log(1.0/R) /(delta*delta);
@@ -61,5 +61,5 @@
             saveas(gcf,file,'jpg');
         end
 
-        
+
     end
