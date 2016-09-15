@@ -5,10 +5,242 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-09-13T04:22:10.821Z</updated>
+  <updated>2016-09-15T00:54:21.493Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一阶声波方程在二维下的实现</title>
+    <link href="http://sheng09.github.io/2016/09/15/fd-2d/"/>
+    <id>http://sheng09.github.io/2016/09/15/fd-2d/</id>
+    <published>2016-09-14T17:54:33.000Z</published>
+    <updated>2016-09-15T00:54:21.493Z</updated>
+    
+    <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x5728;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#x3002;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot;&gt;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&quot;&gt;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&quot;&gt;&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#q_x&amp;#x9012;&amp;#x63A8;&quot;&gt;$q_x$&amp;#x9012;&amp;#x63A8;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#q_z&amp;#x9012;&amp;#x63A8;&quot;&gt;$q_z$&amp;#x9012;&amp;#x63A8;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#p_x&amp;#x9012;&amp;#x63A8;&quot;&gt;$p_x$&amp;#x9012;&amp;#x63A8;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#p_z&amp;#x9012;&amp;#x63A8;&quot;&gt;$p_z$&amp;#x9012;&amp;#x63A8;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot;&gt;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
+&lt;h2 id=&quot;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot;&gt;&lt;a href=&quot;#&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot;&gt;&lt;/a&gt;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&lt;/h2&gt;&lt;p&gt;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x4E0D;&amp;#x8003;&amp;#x8651;&amp;#x8F93;&amp;#x51FA;&amp;#x6E90;&amp;#xFF0C;&amp;#x4E8C;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x4E3A;&amp;#xFF1A;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \frac{\partial^2 p}{\partial x^2} +
+        \frac{\partial^2 p}{\partial z^2} &amp; = &amp;
+        \frac{1}{v^2} \frac{\partial^2 p}{\partial t^2} \\
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;&amp;#x5BF9;&amp;#x5E94;&amp;#x7684;&amp;#x4E00;&amp;#x9636;&amp;#x538B;&amp;#x5F3A;-&amp;#x901F;&amp;#x5EA6;&amp;#x65B9;&amp;#x7A0B;&amp;#x53EF;&amp;#x4EE5;&amp;#x5199;&amp;#x6210;&amp;#xFF1A;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{cases}
+        \frac{\partial p}{\partial t} &amp; = &amp; -\rho v^2(
+            \frac{\partial q_x}{\partial x} +
+            \frac{\partial q_z}{\partial z}
+            )\\
+        \frac{\partial q_x}{\partial t} &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial p}{\partial x}\\
+        \frac{\partial q_z}{\partial t} &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial p}{\partial z}
+    \end{cases}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;&amp;#x5C06;&amp;#x538B;&amp;#x5F3A;$p$&amp;#x5199;&amp;#x4F5C;$p_x+p_y$&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x83B7;&amp;#x5F97;&amp;#xFF1A;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{cases}
+        p &amp; = &amp; p_x + p_z\\
+        \frac{\partial p_x}{\partial t} &amp; = &amp; -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+        \frac{\partial p_z}{\partial_t} &amp; = &amp; -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+        \frac{\partial q_x}{\partial t} &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+        \frac{\partial q_z}{\partial t} &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&quot;&gt;&lt;a href=&quot;#&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&quot;&gt;&lt;/a&gt;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&lt;/h2&gt;&lt;p&gt;&amp;#x6784;&amp;#x5EFA;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x7684;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/09/15/fd-2d/grid1.jpg&quot; width=&quot;400&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&amp;#x5BF9;&amp;#x4E8E;&amp;#x4EA4;&amp;#x9519;&amp;#x8282;&amp;#x70B9;&amp;#xFF0C;$p$,$q_x$,$q_z$&amp;#x9012;&amp;#x63A8;&amp;#x5173;&amp;#x7CFB;&amp;#x5982;&amp;#x4E0B;&amp;#x56FE;&amp;#xFF1A;&lt;/p&gt;
+&lt;table&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/2016/09/15/fd-2d/p1.jpg&quot; width=&quot;200&quot;&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;/2016/09/15/fd-2d/q_x1.jpg&quot; width=&quot;200&quot;&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;/2016/09/15/fd-2d/q_z1.jpg&quot; width=&quot;200&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&quot;&gt;&lt;a href=&quot;#&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&quot;&gt;&lt;/a&gt;&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&lt;/h2&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{cases}
+        p &amp; = &amp; p_x + p_z\\
+        \frac{\partial p_x}{\partial t} &amp; = &amp; -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+        \frac{\partial p_z}{\partial_t} &amp; = &amp; -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+        \frac{\partial q_x}{\partial t} &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+        \frac{\partial q_z}{\partial t} &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        p &amp; = &amp; p_x + p_z \\
+        D_t p_x &amp; = &amp; -\rho v^2 D_x q_x \\
+        D_t p_z &amp; = &amp; -\rho v^2 D_z q_z \\
+        D_t q_x &amp; = &amp; - \frac{1}{\rho}  D_x (p_x+p_z)\\
+        D_t q_z &amp; = &amp; - \frac{1}{\rho}  D_z (p_x+p_z)
+    \end{cases}
+\end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;q_x&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#q-x-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$q_x$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$q_x$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/15/fd-2d/q_x1.jpg&quot; width=&quot;200&quot;&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    D_t q_x(A) &amp; = &amp; - \frac{1}{\rho}  D_x p(A)
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \frac{1}{\Delta t}[q_x(D) - q_x(C)] &amp; = &amp; - \frac{1}{\rho \Delta x} [p(F) - p(E)]
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}[q_x(x_{i+1/2},z_{j},t_{m+1} )  - &amp; q_x(x_{i+1/2},z_j,t_{m})] \\&amp; =
+    - \frac{1}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+        q_x(x_{i+1/2},z_{j},t_{m+1} ) = &amp; q_x(x_{i+1/2},z_j,t_{m}) \\
+        &amp;- \frac{\Delta t}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;q_z&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#q-z-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$q_z$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$q_z$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/15/fd-2d/q_z1.jpg&quot; width=&quot;200&quot;&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    D_t q_z(B) &amp; = &amp; - \frac{1}{\rho}  D_z p(B)
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \frac{1}{\Delta t}[q_z(J) - q_z(H)] &amp; = &amp; - \frac{1}{\rho \Delta x} [p(G) - p(E)]
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}[q_z(x_{i},z_{j+1/2},t_{m+1} ) - &amp; q_z(x_{i},z_{j+1/2},t_{m})] \\&amp; =
+    - \frac{1}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    q_z(x_{i},z_{j+1/2},t_{m+1} ) = &amp; q_z(x_{i},z_{j+1/2},t_{m}) \\
+    &amp;- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;p_x&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#p-x-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$p_x$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$p_x$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/15/fd-2d/p1.jpg&quot; width=&quot;400&quot;&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    D_t p_x &amp; = &amp; -\rho v^2 D_x q_x
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t} [p_x(x_i,z_j,t_{m+1/2}) - &amp; p_x(x_i,z_j,t_{m-1/2})] \\
+    &amp; = -\frac{\rho v^2}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    p_x(x_i,z_j,t_{m+1/2}) = &amp; p_x(x_i,z_j,t_{m-1/2})\\
+    &amp;  -\frac{\rho v^2\Delta t}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;p_z&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#p-z-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$p_z$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$p_z$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/15/fd-2d/p1.jpg&quot; width=&quot;400&quot;&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    D_t p_z &amp; = &amp; -\rho v^2 D_z q_z
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t} [p_z(x_i,z_j,t_{m+1/2}) - &amp; p_z(x_i,z_j,t_{m-1/2})] \\
+    &amp; = -\frac{\rho v^2}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    p_z(x_i,z_j,t_{m+1/2}) = &amp; p_z(x_i,z_j,t_{m-1/2}) \\
+    &amp;  -\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot;&gt;&lt;a href=&quot;#&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot;&gt;&lt;/a&gt;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&lt;/h2&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+        \begin{cases}
+            q_x(x_{i+1/2},z_{j},t_{m+1} ) = &amp; q_x(x_{i+1/2},z_j,t_{m}) \\
+                &amp;- \frac{\Delta t}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+                \\
+            q_z(x_{i},z_{j+1/2},t_{m+1} ) = &amp; q_z(x_{i},z_{j+1/2},t_{m}) \\
+                &amp;- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+                \\
+            p_x(x_i,z_j,t_{m+1/2}) = &amp; p_x(x_i,z_j,t_{m-1/2})\\
+                &amp;-\frac{\rho v^2\Delta t}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]
+                \\
+            p_z(x_i,z_j,t_{m+1/2}) = &amp; p_z(x_i,z_j,t_{m-1/2}) \\
+                &amp;-\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]
+        \end{cases}
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;&amp;#x6545;&amp;#x800C;&amp;#xFF0C;&amp;#x6CE2;&amp;#x573A;&amp;#x9012;&amp;#x63A8;&amp;#x5173;&amp;#x7CFB;&amp;#x4E3A;&amp;#xFF1A;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{cases}
+        q_x(t=0)\\
+        q_z(t=0)\\
+        p(t=\Delta /2)
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+    \end{cases}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+        p(t=\Delta /2)
+    \end{cases}
+    \Rightarrow
+        \color{blue}{p(t=3\Delta /2)}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+        \color{blue}{p(t=3\Delta /2)}
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        \color{green}{q_x(t=2\Delta t)}\\
+        \color{green}{q_z(t=2\Delta t)}\\
+    \end{cases}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{green}{q_x(t=2\Delta t)}\\
+        \color{green}{q_z(t=2\Delta t)}\\
+        \color{blue}{p(t=3\Delta /2)}
+    \end{cases}
+    \Rightarrow
+    ............
+    \\ \\
+    ... ...
+\end{equation}&lt;/script&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x5728;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#x3002;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
+    
+  </entry>
   
   <entry>
     <title>声波方程PML吸收边界有线差分模拟</title>

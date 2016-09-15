@@ -4,6 +4,224 @@
   
     
     <entry>
+      <title><![CDATA[一阶声波方程在二维下的实现]]></title>
+      <url>http://sheng09.github.io/2016/09/15/fd-2d/</url>
+      <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x5728;&#x4E8C;&#x7EF4;&#x4E0B;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#x3002;</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#&#x63A7;&#x5236;&#x65B9;&#x7A0B;">&#x63A7;&#x5236;&#x65B9;&#x7A0B;</a></li>
+<li><a href="#&#x4EA4;&#x9519;&#x7F51;&#x683C;">&#x4EA4;&#x9519;&#x7F51;&#x683C;</a></li>
+<li><a href="#&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;">&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;</a><ul>
+<li><a href="#q_x&#x9012;&#x63A8;">$q_x$&#x9012;&#x63A8;</a></li>
+<li><a href="#q_z&#x9012;&#x63A8;">$q_z$&#x9012;&#x63A8;</a></li>
+<li><a href="#p_x&#x9012;&#x63A8;">$p_x$&#x9012;&#x63A8;</a></li>
+<li><a href="#p_z&#x9012;&#x63A8;">$p_z$&#x9012;&#x63A8;</a></li>
+</ul>
+</li>
+<li><a href="#&#x9012;&#x63A8;&#x6C47;&#x603B;">&#x9012;&#x63A8;&#x6C47;&#x603B;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="&#x63A7;&#x5236;&#x65B9;&#x7A0B;"><a href="#&#x63A7;&#x5236;&#x65B9;&#x7A0B;" class="headerlink" title="&#x63A7;&#x5236;&#x65B9;&#x7A0B;"></a>&#x63A7;&#x5236;&#x65B9;&#x7A0B;</h2><p>&#x4E8C;&#x7EF4;&#x4E0B;&#x4E0D;&#x8003;&#x8651;&#x8F93;&#x51FA;&#x6E90;&#xFF0C;&#x4E8C;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x4E3A;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{\partial^2 p}{\partial x^2} +
+        \frac{\partial^2 p}{\partial z^2} & = &
+        \frac{1}{v^2} \frac{\partial^2 p}{\partial t^2} \\
+\end{eqnarray}</script><p>&#x5BF9;&#x5E94;&#x7684;&#x4E00;&#x9636;&#x538B;&#x5F3A;-&#x901F;&#x5EA6;&#x65B9;&#x7A0B;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        \frac{\partial p}{\partial t} & = & -\rho v^2(
+            \frac{\partial q_x}{\partial x} +
+            \frac{\partial q_z}{\partial z}
+            )\\
+        \frac{\partial q_x}{\partial t} & = &
+            - \frac{1}{\rho} \frac{\partial p}{\partial x}\\
+        \frac{\partial q_z}{\partial t} & = &
+            - \frac{1}{\rho} \frac{\partial p}{\partial z}
+    \end{cases}
+\end{eqnarray}</script><p>&#x5C06;&#x538B;&#x5F3A;$p$&#x5199;&#x4F5C;$p_x+p_y$&#xFF0C;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        p & = & p_x + p_z\\
+        \frac{\partial p_x}{\partial t} & = & -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+        \frac{\partial p_z}{\partial_t} & = & -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+        \frac{\partial q_x}{\partial t} & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+        \frac{\partial q_z}{\partial t} & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+\end{eqnarray}</script><h2 id="&#x4EA4;&#x9519;&#x7F51;&#x683C;"><a href="#&#x4EA4;&#x9519;&#x7F51;&#x683C;" class="headerlink" title="&#x4EA4;&#x9519;&#x7F51;&#x683C;"></a>&#x4EA4;&#x9519;&#x7F51;&#x683C;</h2><p>&#x6784;&#x5EFA;&#x4E8C;&#x7EF4;&#x4E0B;&#x7684;&#x4EA4;&#x9519;&#x7F51;&#x683C;&#x3002;<br><img src="/2016/09/15/fd-2d/grid1.jpg" width="400"></p>
+<p>&#x5BF9;&#x4E8E;&#x4EA4;&#x9519;&#x8282;&#x70B9;&#xFF0C;$p$,$q_x$,$q_z$&#x9012;&#x63A8;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<table>
+    <tr>
+      <td><img src="/2016/09/15/fd-2d/p1.jpg" width="200"></td>
+      <td><img src="/2016/09/15/fd-2d/q_x1.jpg" width="200"></td>
+      <td><img src="/2016/09/15/fd-2d/q_z1.jpg" width="200"></td>
+    </tr>
+</table>
+
+<h2 id="&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;"><a href="#&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;" class="headerlink" title="&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;"></a>&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;</h2><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        p & = & p_x + p_z\\
+        \frac{\partial p_x}{\partial t} & = & -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+        \frac{\partial p_z}{\partial_t} & = & -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+        \frac{\partial q_x}{\partial t} & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+        \frac{\partial q_z}{\partial t} & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        p & = & p_x + p_z \\
+        D_t p_x & = & -\rho v^2 D_x q_x \\
+        D_t p_z & = & -\rho v^2 D_z q_z \\
+        D_t q_x & = & - \frac{1}{\rho}  D_x (p_x+p_z)\\
+        D_t q_z & = & - \frac{1}{\rho}  D_z (p_x+p_z)
+    \end{cases}
+\end{eqnarray}</script><h3 id="q_x&#x9012;&#x63A8;"><a href="#q-x-&#x9012;&#x63A8;" class="headerlink" title="$q_x$&#x9012;&#x63A8;"></a>$q_x$&#x9012;&#x63A8;</h3><p><img src="/2016/09/15/fd-2d/q_x1.jpg" width="200"></p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t q_x(A) & = & - \frac{1}{\rho}  D_x p(A)
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{1}{\Delta t}[q_x(D) - q_x(C)] & = & - \frac{1}{\rho \Delta x} [p(F) - p(E)]
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}[q_x(x_{i+1/2},z_{j},t_{m+1} )  - & q_x(x_{i+1/2},z_j,t_{m})] \\& =
+    - \frac{1}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+        q_x(x_{i+1/2},z_{j},t_{m+1} ) = & q_x(x_{i+1/2},z_j,t_{m}) \\
+        &- \frac{\Delta t}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+    \end{aligned}
+\end{eqnarray}</script><h3 id="q_z&#x9012;&#x63A8;"><a href="#q-z-&#x9012;&#x63A8;" class="headerlink" title="$q_z$&#x9012;&#x63A8;"></a>$q_z$&#x9012;&#x63A8;</h3><p><img src="/2016/09/15/fd-2d/q_z1.jpg" width="200"></p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t q_z(B) & = & - \frac{1}{\rho}  D_z p(B)
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{1}{\Delta t}[q_z(J) - q_z(H)] & = & - \frac{1}{\rho \Delta x} [p(G) - p(E)]
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}[q_z(x_{i},z_{j+1/2},t_{m+1} ) - & q_z(x_{i},z_{j+1/2},t_{m})] \\& =
+    - \frac{1}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    q_z(x_{i},z_{j+1/2},t_{m+1} ) = & q_z(x_{i},z_{j+1/2},t_{m}) \\
+    &- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}</script><h3 id="p_x&#x9012;&#x63A8;"><a href="#p-x-&#x9012;&#x63A8;" class="headerlink" title="$p_x$&#x9012;&#x63A8;"></a>$p_x$&#x9012;&#x63A8;</h3><p><img src="/2016/09/15/fd-2d/p1.jpg" width="400"></p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t p_x & = & -\rho v^2 D_x q_x
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t} [p_x(x_i,z_j,t_{m+1/2}) - & p_x(x_i,z_j,t_{m-1/2})] \\
+    & = -\frac{\rho v^2}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    p_x(x_i,z_j,t_{m+1/2}) = & p_x(x_i,z_j,t_{m-1/2})\\
+    &  -\frac{\rho v^2\Delta t}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+\end{aligned}
+\end{eqnarray}</script><h3 id="p_z&#x9012;&#x63A8;"><a href="#p-z-&#x9012;&#x63A8;" class="headerlink" title="$p_z$&#x9012;&#x63A8;"></a>$p_z$&#x9012;&#x63A8;</h3><p><img src="/2016/09/15/fd-2d/p1.jpg" width="400"></p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t p_z & = & -\rho v^2 D_z q_z
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t} [p_z(x_i,z_j,t_{m+1/2}) - & p_z(x_i,z_j,t_{m-1/2})] \\
+    & = -\frac{\rho v^2}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    p_z(x_i,z_j,t_{m+1/2}) = & p_z(x_i,z_j,t_{m-1/2}) \\
+    &  -\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+\end{aligned}
+\end{eqnarray}</script><h2 id="&#x9012;&#x63A8;&#x6C47;&#x603B;"><a href="#&#x9012;&#x63A8;&#x6C47;&#x603B;" class="headerlink" title="&#x9012;&#x63A8;&#x6C47;&#x603B;"></a>&#x9012;&#x63A8;&#x6C47;&#x603B;</h2><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+        \begin{cases}
+            q_x(x_{i+1/2},z_{j},t_{m+1} ) = & q_x(x_{i+1/2},z_j,t_{m}) \\
+                &- \frac{\Delta t}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+                \\
+            q_z(x_{i},z_{j+1/2},t_{m+1} ) = & q_z(x_{i},z_{j+1/2},t_{m}) \\
+                &- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+                \\
+            p_x(x_i,z_j,t_{m+1/2}) = & p_x(x_i,z_j,t_{m-1/2})\\
+                &-\frac{\rho v^2\Delta t}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]
+                \\
+            p_z(x_i,z_j,t_{m+1/2}) = & p_z(x_i,z_j,t_{m-1/2}) \\
+                &-\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]
+        \end{cases}
+    \end{aligned}
+\end{eqnarray}</script><p>&#x6545;&#x800C;&#xFF0C;&#x6CE2;&#x573A;&#x9012;&#x63A8;&#x5173;&#x7CFB;&#x4E3A;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{cases}
+        q_x(t=0)\\
+        q_z(t=0)\\
+        p(t=\Delta /2)
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+    \end{cases}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+        p(t=\Delta /2)
+    \end{cases}
+    \Rightarrow
+        \color{blue}{p(t=3\Delta /2)}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+        \color{blue}{p(t=3\Delta /2)}
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        \color{green}{q_x(t=2\Delta t)}\\
+        \color{green}{q_z(t=2\Delta t)}\\
+    \end{cases}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{green}{q_x(t=2\Delta t)}\\
+        \color{green}{q_z(t=2\Delta t)}\\
+        \color{blue}{p(t=3\Delta /2)}
+    \end{cases}
+    \Rightarrow
+    ............
+    \\ \\
+    ... ...
+\end{equation}</script>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[声波方程PML吸收边界有线差分模拟]]></title>
       <url>http://sheng09.github.io/2016/09/13/fd-1d-PML/</url>
       <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x7684;PML&#x5438;&#x6536;&#x8FB9;&#x754C;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#xFF0C;&#x5E76;&#x5229;&#x7528;&#x4E00;&#x7EF4;&#x6A21;&#x578B;&#x4F8B;&#x5B50;&#x52A0;&#x4EE5;&#x8BF4;&#x660E;&#x3002;</p>
