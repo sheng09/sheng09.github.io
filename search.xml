@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[二维声波方程PML吸收边界有线差分模拟]]></title>
+      <title><![CDATA[PML边界-一阶声波方程有线差分模拟在二维下的实现]]></title>
       <url>http://sheng09.github.io/2016/09/17/fd-2d-PML/</url>
       <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E8C;&#x7EF4;&#x4E0B;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;PML&#x5438;&#x6536;&#x8FB9;&#x754C;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;&#x3002;</p>
 <a id="more"></a>
@@ -281,7 +281,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2</script><p>$R$&#x
     </entry>
     
     <entry>
-      <title><![CDATA[一阶声波方程在二维下的实现]]></title>
+      <title><![CDATA[一阶声波方程有线差分模拟在二维下的实现]]></title>
       <url>http://sheng09.github.io/2016/09/15/fd-2d/</url>
       <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x5728;&#x4E8C;&#x7EF4;&#x4E0B;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#x3002;</p>
 <a id="more"></a>
@@ -502,7 +502,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2</script><p>$R$&#x
     </entry>
     
     <entry>
-      <title><![CDATA[声波方程PML吸收边界有线差分模拟]]></title>
+      <title><![CDATA[PML边界-一阶声波方程有线差分模拟]]></title>
       <url>http://sheng09.github.io/2016/09/13/fd-1d-PML/</url>
       <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x7684;PML&#x5438;&#x6536;&#x8FB9;&#x754C;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#xFF0C;&#x5E76;&#x5229;&#x7528;&#x4E00;&#x7EF4;&#x6A21;&#x578B;&#x4F8B;&#x5B50;&#x52A0;&#x4EE5;&#x8BF4;&#x660E;&#x3002;</p>
 <a id="more"></a>
