@@ -4,6 +4,283 @@
   
     
     <entry>
+      <title><![CDATA[二维声波方程PML吸收边界有线差分模拟]]></title>
+      <url>http://sheng09.github.io/2016/09/17/fd-2d-PML/</url>
+      <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E8C;&#x7EF4;&#x4E0B;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;PML&#x5438;&#x6536;&#x8FB9;&#x754C;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;&#x3002;</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#pml&#x533A;&#x57DF;&#x63A7;&#x5236;&#x65B9;&#x7A0B;">PML&#x533A;&#x57DF;&#x63A7;&#x5236;&#x65B9;&#x7A0B;</a></li>
+<li><a href="#dx&#x7684;&#x9009;&#x62E9;">$d(x)$&#x7684;&#x9009;&#x62E9;</a></li>
+<li><a href="#&#x4EA4;&#x9519;&#x7F51;&#x683C;">&#x4EA4;&#x9519;&#x7F51;&#x683C;</a></li>
+<li><a href="#&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;">&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;</a><ul>
+<li><a href="#q_x&#x9012;&#x63A8;">$q_x$&#x9012;&#x63A8;</a></li>
+<li><a href="#q_z&#x9012;&#x63A8;">$q_z$&#x9012;&#x63A8;</a></li>
+<li><a href="#p_x&#x9012;&#x63A8;">$p_x$&#x9012;&#x63A8;</a></li>
+<li><a href="#p_z&#x9012;&#x63A8;">$p_z$&#x9012;&#x63A8;</a></li>
+</ul>
+</li>
+<li><a href="#&#x9012;&#x63A8;&#x6C47;&#x603B;">&#x9012;&#x63A8;&#x6C47;&#x603B;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="pml&#x533A;&#x57DF;&#x63A7;&#x5236;&#x65B9;&#x7A0B;"><a href="#PML&#x533A;&#x57DF;&#x63A7;&#x5236;&#x65B9;&#x7A0B;" class="headerlink" title="PML&#x533A;&#x57DF;&#x63A7;&#x5236;&#x65B9;&#x7A0B;"></a>PML&#x533A;&#x57DF;&#x63A7;&#x5236;&#x65B9;&#x7A0B;</h2><p>&#x4E8C;&#x7EF4;&#x4E0B;&#x4E0D;&#x8003;&#x8651;&#x8F93;&#x51FA;&#x6E90;&#xFF0C;&#x4E8C;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x4E3A;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{\partial^2 p}{\partial x^2} +
+        \frac{\partial^2 p}{\partial z^2} & = &
+        \frac{1}{v^2} \frac{\partial^2 p}{\partial t^2} \\
+\end{eqnarray}</script><p>&#x5BF9;&#x5E94;&#x7684;&#x4E00;&#x9636;&#x538B;&#x5F3A;-&#x901F;&#x5EA6;&#x65B9;&#x7A0B;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        p & = & p_x + p_z\\
+        \frac{\partial p_x}{\partial t} & = & -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+        \frac{\partial p_z}{\partial_t} & = & -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+        \frac{\partial q_x}{\partial t} & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+        \frac{\partial q_z}{\partial t} & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+\end{eqnarray}</script><p>&#x9488;&#x5BF9;PML&#x533A;&#x57DF;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        p & = & p_x + p_z \\
+        \frac{\partial p_x}{\partial t} + d(x)p_x & = & -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+        \frac{\partial p_z}{\partial_t} + d(z)p_z & = & -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+        \frac{\partial q_x}{\partial t} + d(x)q_x & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+        \frac{\partial q_y}{\partial t} + d(z)q_z & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+\end{eqnarray}</script><h2 id="dx&#x7684;&#x9009;&#x62E9;"><a href="#d-x-&#x7684;&#x9009;&#x62E9;" class="headerlink" title="$d(x)$&#x7684;&#x9009;&#x62E9;"></a>$d(x)$&#x7684;&#x9009;&#x62E9;</h2><script type="math/tex; mode=display">
+d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2</script><p>$R$&#x63A8;&#x8350;&#x53D6;0.001&#xFF0C;$\delta$&#x4E3A;PML&#x5C42;&#x539A;[<a href="http://library.seg.org/doi/abs/10.1190/1.1444908" target="_blank" rel="external">Collino and Tsogka 2001</a>]&#x3002;</p>
+<h2 id="&#x4EA4;&#x9519;&#x7F51;&#x683C;"><a href="#&#x4EA4;&#x9519;&#x7F51;&#x683C;" class="headerlink" title="&#x4EA4;&#x9519;&#x7F51;&#x683C;"></a>&#x4EA4;&#x9519;&#x7F51;&#x683C;</h2><p>&#x6784;&#x5EFA;&#x4E8C;&#x7EF4;&#x4E0B;&#x7684;&#x4EA4;&#x9519;&#x7F51;&#x683C;&#x3002;<br><img src="/2016/09/17/fd-2d-PML/grid1.jpg" width="400"></p>
+<p>&#x5BF9;&#x4E8E;&#x4EA4;&#x9519;&#x8282;&#x70B9;&#xFF0C;$p$,$q_x$,$q_z$&#x9012;&#x63A8;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<table>
+    <tr>
+      <td><img src="/2016/09/17/fd-2d-PML/p1.jpg" width="200"></td>
+      <td><img src="/2016/09/17/fd-2d-PML/q_x1.jpg" width="200"></td>
+      <td><img src="/2016/09/17/fd-2d-PML/q_z1.jpg" width="200"></td>
+    </tr>
+</table>
+
+<h2 id="&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;"><a href="#&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;" class="headerlink" title="&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;"></a>&#x4E8C;&#x9636;&#x7CBE;&#x5EA6;&#x6709;&#x73B0;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;</h2><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        p & = & p_x + p_z \\
+
+        \frac{\partial p_x}{\partial t} + d(x)p_x & = & -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+
+        \frac{\partial p_z}{\partial_t} + d(z)p_z & = & -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+
+        \frac{\partial q_x}{\partial t} + d(x)q_x & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+
+        \frac{\partial q_y}{\partial t} + d(z)q_z & = &
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        p & = & p_x + p_z \\
+        D_t p_x + d(x)p_x & = & -\rho v^2 D_x q_x \\
+        D_t p_z + d(z)p_z & = & -\rho v^2 D_z q_z \\
+        D_t q_x + d(x)q_x & = & - \frac{1}{\rho}  D_x (p_x+p_z)\\
+        D_t q_z + d(z)q_z & = & - \frac{1}{\rho}  D_z (p_x+p_z)
+    \end{cases}
+\end{eqnarray}</script><h3 id="q_x&#x9012;&#x63A8;"><a href="#q-x-&#x9012;&#x63A8;" class="headerlink" title="$q_x$&#x9012;&#x63A8;"></a>$q_x$&#x9012;&#x63A8;</h3><p><img src="/2016/09/17/fd-2d-PML/q_x1.jpg" width="200"></p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t q_x(A) + d(A) q_x(A) & = & - \frac{1}{\rho}  D_x p(A)
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{1}{\Delta t}[q_x(D) - q_x(C)] + \frac{d(A)}{2} [q_x(D) + q_x(C)] & = & - \frac{1}{\rho \Delta x} [p(F) - p(E)]
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}[q_x(x_{i+1/2},z_{j},t_{m+1} )  - & q_x(x_{i+1/2},z_j,t_{m})] + \\
+    \frac{d(x_{i+1/2},z_j,t_{m+1/2})}{2}    [q_x(x_{i+1/2},z_{j},t_{m+1} )  + & q_x(x_{i+1/2},z_j,t_{m})] \\
+    = - \frac{1}{\rho \Delta x} [ p(&x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+    q_x(x_{i+1/2},z_{j},t_{m+1} )  = & c_{qx1} q_x(x_{i+1/2},z_j,t_{m}) \\ &+ c_{qx2} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ] \\
+    \end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{qx1}  =  \frac{ 2- \Delta t d(x_{i+1/2},z_j,t_{m+1/2})  }{2 + \Delta t d(x_{i+1/2},z_j,t_{m+1/2}) } \\
+        c_{qx2}  =  -\frac{2 \Delta t}{\rho \Delta x [2 + \Delta t d(x_{i+1/2},z_j,t_{m+1/2})]}
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}</script><h3 id="q_z&#x9012;&#x63A8;"><a href="#q-z-&#x9012;&#x63A8;" class="headerlink" title="$q_z$&#x9012;&#x63A8;"></a>$q_z$&#x9012;&#x63A8;</h3><p><img src="/2016/09/17/fd-2d-PML/q_z1.jpg" width="200"></p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t q_z(B) + d(B)q_z(B) & = & - \frac{1}{\rho}  D_z p(B)
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{1}{\Delta t}[q_z(J) - q_z(H)] + \frac{d(B)}{2}[q_z(J) + q_z(H)] & = & - \frac{1}{\rho \Delta z} [p(G) - p(E)]
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}[q_z(x_{i},z_{j+1/2},t_{m+1} ) - & q_z(x_{i},z_{j+1/2},t_{m})]\\ +
+    \frac{d(x_{i},z_{j+1/2},t_{m+1/2} )}{2}[q_z(x_{i},z_{j+1/2},t_{m+1} ) + & q_z(x_{i},z_{j+1/2},t_{m})] \\
+    = - \frac{1}{\rho \Delta z} [ p(&x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    q_z(x_{i},z_{j+1/2},t_{m+1} ) = & c_{qz1} q_z(x_{i},z_{j+1/2},t_{m}) \\
+    &+c_{qz2} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{qz1}  =  \frac{ 2- \Delta t d(x_{i},z_{j+1/2},t_{m+1/2})  }{2 + \Delta t d(x_{i},z_{j+1/2},t_{m+1/2}) } \\
+        c_{qz2}  =  -\frac{2 \Delta t}{\rho \Delta z [2 + \Delta t d(x_{i},z_{j+1/2},t_{m+1/2})]}
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}</script><h3 id="p_x&#x9012;&#x63A8;"><a href="#p-x-&#x9012;&#x63A8;" class="headerlink" title="$p_x$&#x9012;&#x63A8;"></a>$p_x$&#x9012;&#x63A8;</h3><p><img src="/2016/09/17/fd-2d-PML/p1.jpg" width="400"></p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t p_x + d(x)p_x & = & -\rho v^2 D_x q_x
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t} [p_x(x_i,z_j,t_{m+1/2}) - & p_x(x_i,z_j,t_{m-1/2})]  \\
+    +\frac{d(x_i,z_j,t_m)}{2} [p_x(x_i,z_j,t_{m+1/2}) + & p_x(x_i,z_j,t_{m-1/2})] \\
+    = - &\frac{\rho v^2}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    p_x(x_i,z_j,t_{m+1/2}) = & c_{px1} p_x(x_i,z_j,t_{m-1/2})\\
+    &  +c_{px2} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{px1}  =  \frac{ 2- \Delta t d(x_i,z_j,t_m)  }
+                         {2 + \Delta t d(x_i,z_j,t_m) } \\
+        c_{px2}  =  -\frac{2 \rho v^2 \Delta t}{\Delta x [2 + \Delta t d(x_i,z_j,t_m)]}
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}</script><h3 id="p_z&#x9012;&#x63A8;"><a href="#p-z-&#x9012;&#x63A8;" class="headerlink" title="$p_z$&#x9012;&#x63A8;"></a>$p_z$&#x9012;&#x63A8;</h3><p><img src="/2016/09/17/fd-2d-PML/p1.jpg" width="400"></p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    D_t p_z + d(z)p_z & = & -\rho v^2 D_z q_z
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}      [p_z(x_i,z_j,t_{m+1/2}) - & p_z(x_i,z_j,t_{m-1/2})] \\
+    \frac{d(x_i,z_j,t_m)}{2}[p_z(x_i,z_j,t_{m+1/2}) + & p_z(x_i,z_j,t_{m-1/2})] \\
+    = -&\frac{\rho v^2}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+\begin{aligned}
+    p_z(x_i,z_j,t_{m+1/2}) = & c_{pz1} p_z(x_i,z_j,t_{m-1/2}) \\
+    &  +c_{pz2} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+\end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{pz1}  =  \frac{ 2- \Delta t d(x_i,z_j,t_m)  }
+                         {2 + \Delta t d(x_i,z_j,t_m) } \\
+        c_{pz2}  =  -\frac{2 \rho v^2 \Delta t}{\Delta z [2 + \Delta t d(x_i,z_j,t_m)]}
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}</script><h2 id="&#x9012;&#x63A8;&#x6C47;&#x603B;"><a href="#&#x9012;&#x63A8;&#x6C47;&#x603B;" class="headerlink" title="&#x9012;&#x63A8;&#x6C47;&#x603B;"></a>&#x9012;&#x63A8;&#x6C47;&#x603B;</h2><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+        \begin{cases}
+            q_x(x_{i+1/2},z_{j},t_{m+1} ) & = & c_{qx1} q_x(x_{i+1/2},z_j,t_{m}) \\
+            &&+ c_{qx2} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ] \\
+
+            q_z(x_{i},z_{j+1/2},t_{m+1} )& = & c_{qz1} q_z(x_{i},z_{j+1/2},t_{m}) \\
+            &&+c_{qz2} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ] \\
+
+            p_x(x_i,z_j,t_{m+1/2}) & = & c_{px1} p_x(x_i,z_j,t_{m-1/2})\\
+            &&+c_{px2} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+
+            p_z(x_i,z_j,t_{m+1/2}) & = & c_{pz1} p_z(x_i,z_j,t_{m-1/2}) \\
+            &&+c_{pz2} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+        \end{cases}
+    \end{aligned}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{qx1}  &= &  \frac{ 2- \Delta t d(x_{i+1/2},z_j,t_{m+1/2})  }{2 + \Delta t d(x_{i+1/2},z_j,t_{m+1/2}) } \\
+        c_{qx2}  &= &  -\frac{2 \Delta t}{\rho \Delta x [2 + \Delta t d(x_{i+1/2},z_j,t_{m+1/2})]}\\
+        c_{qz1}  &= &  \frac{ 2- \Delta t d(x_{i},z_{j+1/2},t_{m+1/2})  }{2 + \Delta t d(x_{i},z_{j+1/2},t_{m+1/2}) } \\
+        c_{qz2}  &= &  -\frac{2 \Delta t}{\rho \Delta z [2 + \Delta t d(x_{i},z_{j+1/2},t_{m+1/2})]}\\
+        c_{px1}  &= &  \frac{ 2- \Delta t d(x_i,z_j,t_m)  } {2 + \Delta t d(x_i,z_j,t_m) } \\
+        c_{px2}  &= &  -\frac{2 \rho v^2 \Delta t}{\Delta x [2 + \Delta t d(x_i,z_j,t_m)]}\\
+        c_{pz1}  &= &  \frac{ 2- \Delta t d(x_i,z_j,t_m)  } {2 + \Delta t d(x_i,z_j,t_m) } \\
+        c_{pz2}  &= &  -\frac{2 \rho v^2 \Delta t}{\Delta z [2 + \Delta t d(x_i,z_j,t_m)]}\\
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}</script><p>&#x6545;&#x800C;&#xFF0C;&#x6CE2;&#x573A;&#x9012;&#x63A8;&#x5173;&#x7CFB;&#x4E3A;&#xFF1A;</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{cases}
+        q_x(t=0)\\
+        q_z(t=0)\\
+        p(t=\Delta /2)
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+    \end{cases}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+        p(t=\Delta /2)
+    \end{cases}
+    \Rightarrow
+        \color{blue}{p(t=3\Delta /2)}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+        \color{blue}{p(t=3\Delta /2)}
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        \color{green}{q_x(t=2\Delta t)}\\
+        \color{green}{q_z(t=2\Delta t)}\\
+    \end{cases}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{green}{q_x(t=2\Delta t)}\\
+        \color{green}{q_z(t=2\Delta t)}\\
+        \color{blue}{p(t=3\Delta /2)}
+    \end{cases}
+    \Rightarrow
+    ............
+    \\ \\
+    ... ...
+\end{equation}</script>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[一阶声波方程在二维下的实现]]></title>
       <url>http://sheng09.github.io/2016/09/15/fd-2d/</url>
       <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x5728;&#x4E8C;&#x7EF4;&#x4E0B;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#x3002;</p>
@@ -112,18 +389,18 @@
     D_t q_z(B) & = & - \frac{1}{\rho}  D_z p(B)
 \end{eqnarray}</script><script type="math/tex; mode=display">
 \begin{eqnarray}
-    \frac{1}{\Delta t}[q_z(J) - q_z(H)] & = & - \frac{1}{\rho \Delta x} [p(G) - p(E)]
+    \frac{1}{\Delta t}[q_z(J) - q_z(H)] & = & - \frac{1}{\rho \Delta z} [p(G) - p(E)]
 \end{eqnarray}</script><script type="math/tex; mode=display">
 \begin{eqnarray}
 \begin{aligned}
     \frac{1}{\Delta t}[q_z(x_{i},z_{j+1/2},t_{m+1} ) - & q_z(x_{i},z_{j+1/2},t_{m})] \\& =
-    - \frac{1}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+    - \frac{1}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
 \end{aligned}
 \end{eqnarray}</script><script type="math/tex; mode=display">
 \begin{eqnarray}
 \begin{aligned}
     q_z(x_{i},z_{j+1/2},t_{m+1} ) = & q_z(x_{i},z_{j+1/2},t_{m}) \\
-    &- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+    &- \frac{\Delta t}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
 \end{aligned}
 \end{eqnarray}</script><h3 id="p_x&#x9012;&#x63A8;"><a href="#p-x-&#x9012;&#x63A8;" class="headerlink" title="$p_x$&#x9012;&#x63A8;"></a>$p_x$&#x9012;&#x63A8;</h3><p><img src="/2016/09/15/fd-2d/p1.jpg" width="400"></p>
 <script type="math/tex; mode=display">
@@ -149,13 +426,13 @@
 \begin{eqnarray}
 \begin{aligned}
     \frac{1}{\Delta t} [p_z(x_i,z_j,t_{m+1/2}) - & p_z(x_i,z_j,t_{m-1/2})] \\
-    & = -\frac{\rho v^2}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+    & = -\frac{\rho v^2}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
 \end{aligned}
 \end{eqnarray}</script><script type="math/tex; mode=display">
 \begin{eqnarray}
 \begin{aligned}
     p_z(x_i,z_j,t_{m+1/2}) = & p_z(x_i,z_j,t_{m-1/2}) \\
-    &  -\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+    &  -\frac{\rho v^2\Delta t}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
 \end{aligned}
 \end{eqnarray}</script><h2 id="&#x9012;&#x63A8;&#x6C47;&#x603B;"><a href="#&#x9012;&#x63A8;&#x6C47;&#x603B;" class="headerlink" title="&#x9012;&#x63A8;&#x6C47;&#x603B;"></a>&#x9012;&#x63A8;&#x6C47;&#x603B;</h2><script type="math/tex; mode=display">
 \begin{eqnarray}
@@ -165,13 +442,13 @@
                 &- \frac{\Delta t}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
                 \\
             q_z(x_{i},z_{j+1/2},t_{m+1} ) = & q_z(x_{i},z_{j+1/2},t_{m}) \\
-                &- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+                &- \frac{\Delta t}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
                 \\
             p_x(x_i,z_j,t_{m+1/2}) = & p_x(x_i,z_j,t_{m-1/2})\\
                 &-\frac{\rho v^2\Delta t}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]
                 \\
             p_z(x_i,z_j,t_{m+1/2}) = & p_z(x_i,z_j,t_{m-1/2}) \\
-                &-\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]
+                &-\frac{\rho v^2\Delta t}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]
         \end{cases}
     \end{aligned}
 \end{eqnarray}</script><p>&#x6545;&#x800C;&#xFF0C;&#x6CE2;&#x573A;&#x9012;&#x63A8;&#x5173;&#x7CFB;&#x4E3A;&#xFF1A;</p>
@@ -220,7 +497,8 @@
     \\ \\
     ... ...
 \end{equation}</script><h2 id="implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p><img src="/2016/09/15/fd-2d/wave_field.jpg" alt=""></p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%Matlab</span></span><br><span class="line">    close all; clear; clc;</span><br><span class="line">    <span class="comment">%Parameters</span></span><br><span class="line">    nx = <span class="number">300</span>; nz = <span class="number">300</span>; dx = <span class="number">5.0</span>; dz = <span class="number">5.0</span>;</span><br><span class="line">    x  = (<span class="number">0</span>:nx<span class="number">-1</span>) *dx; z  = (<span class="number">0</span>:nz<span class="number">-1</span>) *dz;</span><br><span class="line">    dt = <span class="number">1.0e-3</span>; nt = <span class="number">2000</span>; t  = (<span class="number">0</span>:nt<span class="number">-1</span>)*dt;</span><br><span class="line">    v = <span class="built_in">zeros</span>(<span class="number">300</span>,<span class="number">300</span>)+<span class="number">800.0</span>;v(<span class="number">101</span>:<span class="number">200</span>,:) = <span class="number">1500.0</span>;v(<span class="number">201</span>:<span class="number">300</span>,:) = <span class="number">2000.0</span>;</span><br><span class="line">    v2 =  v.^<span class="number">2</span>; rho = <span class="number">1000.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">%Coefficients</span></span><br><span class="line">    a_qx= dt/dx/rho; a_qz= dt/dz/rho;</span><br><span class="line">    a_px= dt*rho/dx; a_pz= dt*rho/dz;</span><br><span class="line">    <span class="comment">%Initial condition</span></span><br><span class="line">    p   = <span class="built_in">zeros</span>(nx,nz);</span><br><span class="line">    p_x = <span class="built_in">zeros</span>(nx,  nz); p_z = <span class="built_in">zeros</span>(nx,  nz);</span><br><span class="line">    q_x = <span class="built_in">zeros</span>(nx<span class="number">-1</span>,nz); q_z = <span class="built_in">zeros</span>(nx,nz<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">%Receiver</span></span><br><span class="line">    rec = <span class="built_in">zeros</span>(nt,nx); trace=<span class="built_in">zeros</span>(nt,<span class="number">9</span>);</span><br><span class="line">    trace(:,<span class="number">1</span>) = <span class="number">-4</span>; trace(:,<span class="number">2</span>) = <span class="number">-3</span>; trace(:,<span class="number">3</span>) = <span class="number">-2</span>; trace(:,<span class="number">4</span>) = <span class="number">-1</span>;</span><br><span class="line">    trace(:,<span class="number">5</span>) =  <span class="number">0</span>; trace(:,<span class="number">6</span>) =  <span class="number">1</span>; trace(:,<span class="number">7</span>) =  <span class="number">2</span>; trace(:,<span class="number">8</span>) =  <span class="number">3</span>;</span><br><span class="line">    trace(:,<span class="number">9</span>) =  <span class="number">4</span>; trace_fill = trace;</span><br><span class="line">    <span class="comment">%Source</span></span><br><span class="line">    src = [ <span class="number">2.0</span>*mexihat(<span class="number">-5</span>,<span class="number">5</span>,<span class="number">200</span>) zeros(<span class="number">1</span>,nt)]; ix_src = <span class="number">1</span>; iz_src = <span class="number">150</span>;</span><br><span class="line"></span><br><span class="line">    figure</span><br><span class="line">    <span class="comment">%Main loop</span></span><br><span class="line">    <span class="keyword">for</span> it = <span class="number">1</span>:nt</span><br><span class="line"></span><br><span class="line">        <span class="comment">%     1   2   3   4   5</span></span><br><span class="line">        <span class="comment">%   --q---q---q---q---q--...</span></span><br><span class="line">        <span class="comment">%   p---p---p---p---p---p...</span></span><br><span class="line">        <span class="comment">%   1   2   3   4   5   6</span></span><br><span class="line">        p_x(ix_src, iz_src) = p_x(ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        p_z(ix_src, iz_src) = p_z(ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        p(  ix_src, iz_src) = p(  ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        <span class="keyword">for</span> ix = <span class="number">1</span>:nx<span class="number">-1</span> <span class="comment">%q_x</span></span><br><span class="line">            <span class="keyword">for</span> iz = <span class="number">1</span>:nz</span><br><span class="line">                q_x(ix,iz) = q_x(ix,iz) - a_qx *( p(ix+<span class="number">1</span>,iz) - p(ix,iz) );</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">for</span> iz = <span class="number">1</span>:nz<span class="number">-1</span> <span class="comment">%q_z</span></span><br><span class="line">            <span class="keyword">for</span> ix = <span class="number">1</span>:nx</span><br><span class="line">                q_z(ix,iz) = q_z(ix,iz) - a_qz *( p(ix,iz+<span class="number">1</span>) - p(ix,iz) );</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">for</span> ix = <span class="number">2</span>:nx<span class="number">-1</span> <span class="comment">%p_x</span></span><br><span class="line">            <span class="keyword">for</span> iz = <span class="number">2</span>:nz<span class="number">-1</span></span><br><span class="line">                p_x(ix,iz) = p_x(ix,iz) - a_px *v2(ix,iz)*( q_x(ix,iz) - q_x(ix-    <span class="number">1</span>,iz) );</span><br><span class="line">                p_z(ix,iz) = p_z(ix,iz) - a_pz *v2(ix,iz)*( q_z(ix,iz) - q_z(ix,iz- <span class="number">1</span>) );</span><br><span class="line">                p(ix,iz)   = p_x(ix,iz) + p_z(ix,iz);</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">%Free boundary at z = 0</span></span><br><span class="line">        p(<span class="number">1</span>,:)    = p(<span class="number">2</span>,:); p_x(<span class="number">1</span>,:)  = p_x(<span class="number">2</span>,:); p_z(<span class="number">1</span>,:)  = p_z(<span class="number">2</span>,:);</span><br><span class="line"></span><br><span class="line">        <span class="comment">%Plot</span></span><br><span class="line">        rec(it,:)   = p(<span class="number">1</span>,:);</span><br><span class="line">        p_trace = <span class="number">20.0</span>* [p(<span class="number">1</span>,<span class="number">30</span>) p(<span class="number">1</span>,<span class="number">60</span>) p(<span class="number">1</span>,<span class="number">90</span>) p(<span class="number">1</span>,<span class="number">120</span>) p(<span class="number">1</span>,<span class="number">149</span>) p(<span class="number">1</span>,<span class="number">180</span>) p(<span class="number">1</span>,<span class="number">210</span> ) p(<span class="number">1</span>,<span class="number">240</span>) p(<span class="number">1</span>,<span class="number">270</span>)];</span><br><span class="line">        trace(it,:) = trace(it,:) + p_trace;</span><br><span class="line">        trace_fill(it,:) = trace_fill(it,:) + <span class="number">0.5</span>*(p_trace + <span class="built_in">abs</span>(p_trace) );</span><br><span class="line">        pmax = max(max( <span class="built_in">abs</span>(p) ));</span><br><span class="line"></span><br><span class="line">        subplot(<span class="number">221</span>),imagesc(x, z, p/pmax );</span><br><span class="line">        colormap(<span class="string">&apos;gray&apos;</span>);</span><br><span class="line">        axis square;</span><br><span class="line"></span><br><span class="line">        w_max = max(max( <span class="built_in">abs</span>(rec) ));</span><br><span class="line">        subplot(<span class="number">122</span>),imagesc(x,t,rec./w_max);</span><br><span class="line">        colormap(<span class="string">&apos;gray&apos;</span>);</span><br><span class="line"></span><br><span class="line">        subplot(<span class="number">223</span>),fill(t, trace_fill ,<span class="string">&apos;r&apos;</span>);</span><br><span class="line">        hold on;</span><br><span class="line">        subplot(<span class="number">223</span>),plot(t,trace,<span class="string">&apos;k&apos;</span>);</span><br><span class="line">        hold off;</span><br><span class="line">        pause(<span class="number">0.001</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%Matlab</span></span><br><span class="line">    close all; clear; clc;</span><br><span class="line">    <span class="comment">%Parameters</span></span><br><span class="line">    nx = <span class="number">300</span>; nz = <span class="number">300</span>; dx = <span class="number">5.0</span>; dz = <span class="number">5.0</span>;</span><br><span class="line">    x  = (<span class="number">0</span>:nx<span class="number">-1</span>) *dx; z  = (<span class="number">0</span>:nz<span class="number">-1</span>) *dz;</span><br><span class="line">    dt = <span class="number">1.0e-3</span>; nt = <span class="number">2000</span>; t  = (<span class="number">0</span>:nt<span class="number">-1</span>)*dt;</span><br><span class="line">    v = <span class="built_in">zeros</span>(<span class="number">300</span>,<span class="number">300</span>)+<span class="number">800.0</span>;v(<span class="number">101</span>:<span class="number">200</span>,:) = <span class="number">1500.0</span>;v(<span class="number">201</span>:<span class="number">300</span>,:) = <span class="number">2000.0</span>;</span><br><span class="line">    v2 =  v.^<span class="number">2</span>; rho = <span class="number">1000.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">%Coefficients</span></span><br><span class="line">    a_qx= dt/dx/rho; a_qz= dt/dz/rho;</span><br><span class="line">    a_px= dt*rho/dx; a_pz= dt*rho/dz;</span><br><span class="line">    <span class="comment">%Initial condition</span></span><br><span class="line">    p   = <span class="built_in">zeros</span>(nx,nz);</span><br><span class="line">    p_x = <span class="built_in">zeros</span>(nx,  nz); p_z = <span class="built_in">zeros</span>(nx,  nz);</span><br><span class="line">    q_x = <span class="built_in">zeros</span>(nx<span class="number">-1</span>,nz); q_z = <span class="built_in">zeros</span>(nx,nz<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">%Receiver</span></span><br><span class="line">    rec = <span class="built_in">zeros</span>(nt,nx); trace=<span class="built_in">zeros</span>(nt,<span class="number">9</span>);</span><br><span class="line">    trace(:,<span class="number">1</span>) = <span class="number">-4</span>; trace(:,<span class="number">2</span>) = <span class="number">-3</span>; trace(:,<span class="number">3</span>) = <span class="number">-2</span>; trace(:,<span class="number">4</span>) = <span class="number">-1</span>;</span><br><span class="line">    trace(:,<span class="number">5</span>) =  <span class="number">0</span>; trace(:,<span class="number">6</span>) =  <span class="number">1</span>; trace(:,<span class="number">7</span>) =  <span class="number">2</span>; trace(:,<span class="number">8</span>) =  <span class="number">3</span>;</span><br><span class="line">    trace(:,<span class="number">9</span>) =  <span class="number">4</span>; trace_fill = trace;</span><br><span class="line">    <span class="comment">%Source</span></span><br><span class="line">    src = [ <span class="number">2.0</span>*mexihat(<span class="number">-5</span>,<span class="number">5</span>,<span class="number">200</span>) zeros(<span class="number">1</span>,nt)]; ix_src = <span class="number">1</span>; iz_src = <span class="number">150</span>;</span><br><span class="line"></span><br><span class="line">    figure</span><br><span class="line">    <span class="comment">%Main loop</span></span><br><span class="line">    <span class="keyword">for</span> it = <span class="number">1</span>:nt</span><br><span class="line"></span><br><span class="line">        <span class="comment">%     1   2   3   4   5</span></span><br><span class="line">        <span class="comment">%   --q---q---q---q---q--...</span></span><br><span class="line">        <span class="comment">%   p---p---p---p---p---p...</span></span><br><span class="line">        <span class="comment">%   1   2   3   4   5   6</span></span><br><span class="line">        p_x(ix_src, iz_src) = p_x(ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        p_z(ix_src, iz_src) = p_z(ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        p(  ix_src, iz_src) = p(  ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        <span class="keyword">for</span> ix = <span class="number">1</span>:nx<span class="number">-1</span> <span class="comment">%q_x</span></span><br><span class="line">            <span class="keyword">for</span> iz = <span class="number">1</span>:nz</span><br><span class="line">                q_x(ix,iz) = q_x(ix,iz) - a_qx *( p(ix+<span class="number">1</span>,iz) - p(ix,iz) );</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">for</span> iz = <span class="number">1</span>:nz<span class="number">-1</span> <span class="comment">%q_z</span></span><br><span class="line">            <span class="keyword">for</span> ix = <span class="number">1</span>:nx</span><br><span class="line">                q_z(ix,iz) = q_z(ix,iz) - a_qz *( p(ix,iz+<span class="number">1</span>) - p(ix,iz) );</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">for</span> ix = <span class="number">2</span>:nx<span class="number">-1</span> <span class="comment">%p_x</span></span><br><span class="line">            <span class="keyword">for</span> iz = <span class="number">2</span>:nz<span class="number">-1</span></span><br><span class="line">                p_x(ix,iz) = p_x(ix,iz) - a_px *v2(ix,iz)*( q_x(ix,iz) - q_x(ix-    <span class="number">1</span>,iz) );</span><br><span class="line">                p_z(ix,iz) = p_z(ix,iz) - a_pz *v2(ix,iz)*( q_z(ix,iz) - q_z(ix,iz- <span class="number">1</span>) );</span><br><span class="line">                p(ix,iz)   = p_x(ix,iz) + p_z(ix,iz);</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">%Free boundary at z = 0</span></span><br><span class="line">        p(<span class="number">1</span>,:)    = p(<span class="number">2</span>,:); p_x(<span class="number">1</span>,:)  = p_x(<span class="number">2</span>,:); p_z(<span class="number">1</span>,:)  = p_z(<span class="number">2</span>,:);</span><br><span class="line"></span><br><span class="line">        <span class="comment">%Plot</span></span><br><span class="line">        rec(it,:)   = p(<span class="number">1</span>,:);</span><br><span class="line">        p_trace = <span class="number">20.0</span>* [p(<span class="number">1</span>,<span class="number">30</span>) p(<span class="number">1</span>,<span class="number">60</span>) p(<span class="number">1</span>,<span class="number">90</span>) p(<span class="number">1</span>,<span class="number">120</span>) p(<span class="number">1</span>,<span class="number">149</span>) p(<span class="number">1</span>,<span class="number">180</span>) p(<span class="number">1</span>,<span class="number">210</span> ) p(<span class="number">1</span>,<span class="number">240</span>) p(<span class="number">1</span>,<span class="number">270</span>)];</span><br><span class="line">        trace(it,:) = trace(it,:) + p_trace;</span><br><span class="line">        trace_fill(it,:) = trace_fill(it,:) + <span class="number">0.5</span>*(p_trace + <span class="built_in">abs</span>(p_trace) );</span><br><span class="line">        pmax = max(max( <span class="built_in">abs</span>(p) ));</span><br><span class="line"></span><br><span class="line">        subplot(<span class="number">221</span>),imagesc(x, z, p/pmax );</span><br><span class="line">        colormap(<span class="string">&apos;gray&apos;</span>);</span><br><span class="line">        axis square;</span><br><span class="line"></span><br><span class="line">        w_max = max(max( <span class="built_in">abs</span>(rec) ));</span><br><span class="line">        subplot(<span class="number">122</span>),imagesc(x,t,rec./w_max);</span><br><span class="line">        colormap(<span class="string">&apos;gray&apos;</span>);</span><br><span class="line"></span><br><span class="line">        subplot(<span class="number">223</span>),fill(t, trace_fill ,<span class="string">&apos;r&apos;</span>);</span><br><span class="line">        hold on;</span><br><span class="line">        subplot(<span class="number">223</span>),plot(t,trace,<span class="string">&apos;k&apos;</span>);</span><br><span class="line">        hold off;</span><br><span class="line">        pause(<span class="number">0.001</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+]]></content>
     </entry>
     
     <entry>

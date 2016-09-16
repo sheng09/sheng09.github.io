@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://sheng09.github.io/2016/09/15/fd-2d/p1.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/09/15/fd-2d/p1.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/09/15/fd-2d/wave_field.jpg">
-<meta property="og:updated_time" content="2016-09-16T03:08:52.234Z">
+<meta property="og:updated_time" content="2016-09-16T22:28:57.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一阶声波方程在二维下的实现">
 <meta name="twitter:description" content="&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x5728;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#x3002;">
@@ -206,18 +206,18 @@
     D_t q_z(B) & = & - \frac{1}{\rho}  D_z p(B)
 \end{eqnarray}</script><script type="math/tex; mode=display">
 \begin{eqnarray}
-    \frac{1}{\Delta t}[q_z(J) - q_z(H)] & = & - \frac{1}{\rho \Delta x} [p(G) - p(E)]
+    \frac{1}{\Delta t}[q_z(J) - q_z(H)] & = & - \frac{1}{\rho \Delta z} [p(G) - p(E)]
 \end{eqnarray}</script><script type="math/tex; mode=display">
 \begin{eqnarray}
 \begin{aligned}
     \frac{1}{\Delta t}[q_z(x_{i},z_{j+1/2},t_{m+1} ) - & q_z(x_{i},z_{j+1/2},t_{m})] \\& =
-    - \frac{1}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+    - \frac{1}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
 \end{aligned}
 \end{eqnarray}</script><script type="math/tex; mode=display">
 \begin{eqnarray}
 \begin{aligned}
     q_z(x_{i},z_{j+1/2},t_{m+1} ) = & q_z(x_{i},z_{j+1/2},t_{m}) \\
-    &- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+    &- \frac{\Delta t}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
 \end{aligned}
 \end{eqnarray}</script><h3 id="p_x&#x9012;&#x63A8;"><a href="#p-x-&#x9012;&#x63A8;" class="headerlink" title="$p_x$&#x9012;&#x63A8;"></a>$p_x$&#x9012;&#x63A8;</h3><p><img src="/2016/09/15/fd-2d/p1.jpg" width="400"></p>
 <script type="math/tex; mode=display">
@@ -243,13 +243,13 @@
 \begin{eqnarray}
 \begin{aligned}
     \frac{1}{\Delta t} [p_z(x_i,z_j,t_{m+1/2}) - & p_z(x_i,z_j,t_{m-1/2})] \\
-    & = -\frac{\rho v^2}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+    & = -\frac{\rho v^2}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
 \end{aligned}
 \end{eqnarray}</script><script type="math/tex; mode=display">
 \begin{eqnarray}
 \begin{aligned}
     p_z(x_i,z_j,t_{m+1/2}) = & p_z(x_i,z_j,t_{m-1/2}) \\
-    &  -\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+    &  -\frac{\rho v^2\Delta t}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
 \end{aligned}
 \end{eqnarray}</script><h2 id="&#x9012;&#x63A8;&#x6C47;&#x603B;"><a href="#&#x9012;&#x63A8;&#x6C47;&#x603B;" class="headerlink" title="&#x9012;&#x63A8;&#x6C47;&#x603B;"></a>&#x9012;&#x63A8;&#x6C47;&#x603B;</h2><script type="math/tex; mode=display">
 \begin{eqnarray}
@@ -259,13 +259,13 @@
                 &- \frac{\Delta t}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
                 \\
             q_z(x_{i},z_{j+1/2},t_{m+1} ) = & q_z(x_{i},z_{j+1/2},t_{m}) \\
-                &- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+                &- \frac{\Delta t}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
                 \\
             p_x(x_i,z_j,t_{m+1/2}) = & p_x(x_i,z_j,t_{m-1/2})\\
                 &-\frac{\rho v^2\Delta t}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]
                 \\
             p_z(x_i,z_j,t_{m+1/2}) = & p_z(x_i,z_j,t_{m-1/2}) \\
-                &-\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]
+                &-\frac{\rho v^2\Delta t}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]
         \end{cases}
     \end{aligned}
 \end{eqnarray}</script><p>&#x6545;&#x800C;&#xFF0C;&#x6CE2;&#x573A;&#x9012;&#x63A8;&#x5173;&#x7CFB;&#x4E3A;&#xFF1A;</p>
@@ -315,10 +315,11 @@
     ... ...
 \end{equation}</script><h2 id="implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p><img src="/2016/09/15/fd-2d/wave_field.jpg" alt=""></p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%Matlab</span></span><br><span class="line">    close all; clear; clc;</span><br><span class="line">    <span class="comment">%Parameters</span></span><br><span class="line">    nx = <span class="number">300</span>; nz = <span class="number">300</span>; dx = <span class="number">5.0</span>; dz = <span class="number">5.0</span>;</span><br><span class="line">    x  = (<span class="number">0</span>:nx<span class="number">-1</span>) *dx; z  = (<span class="number">0</span>:nz<span class="number">-1</span>) *dz;</span><br><span class="line">    dt = <span class="number">1.0e-3</span>; nt = <span class="number">2000</span>; t  = (<span class="number">0</span>:nt<span class="number">-1</span>)*dt;</span><br><span class="line">    v = <span class="built_in">zeros</span>(<span class="number">300</span>,<span class="number">300</span>)+<span class="number">800.0</span>;v(<span class="number">101</span>:<span class="number">200</span>,:) = <span class="number">1500.0</span>;v(<span class="number">201</span>:<span class="number">300</span>,:) = <span class="number">2000.0</span>;</span><br><span class="line">    v2 =  v.^<span class="number">2</span>; rho = <span class="number">1000.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">%Coefficients</span></span><br><span class="line">    a_qx= dt/dx/rho; a_qz= dt/dz/rho;</span><br><span class="line">    a_px= dt*rho/dx; a_pz= dt*rho/dz;</span><br><span class="line">    <span class="comment">%Initial condition</span></span><br><span class="line">    p   = <span class="built_in">zeros</span>(nx,nz);</span><br><span class="line">    p_x = <span class="built_in">zeros</span>(nx,  nz); p_z = <span class="built_in">zeros</span>(nx,  nz);</span><br><span class="line">    q_x = <span class="built_in">zeros</span>(nx<span class="number">-1</span>,nz); q_z = <span class="built_in">zeros</span>(nx,nz<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">%Receiver</span></span><br><span class="line">    rec = <span class="built_in">zeros</span>(nt,nx); trace=<span class="built_in">zeros</span>(nt,<span class="number">9</span>);</span><br><span class="line">    trace(:,<span class="number">1</span>) = <span class="number">-4</span>; trace(:,<span class="number">2</span>) = <span class="number">-3</span>; trace(:,<span class="number">3</span>) = <span class="number">-2</span>; trace(:,<span class="number">4</span>) = <span class="number">-1</span>;</span><br><span class="line">    trace(:,<span class="number">5</span>) =  <span class="number">0</span>; trace(:,<span class="number">6</span>) =  <span class="number">1</span>; trace(:,<span class="number">7</span>) =  <span class="number">2</span>; trace(:,<span class="number">8</span>) =  <span class="number">3</span>;</span><br><span class="line">    trace(:,<span class="number">9</span>) =  <span class="number">4</span>; trace_fill = trace;</span><br><span class="line">    <span class="comment">%Source</span></span><br><span class="line">    src = [ <span class="number">2.0</span>*mexihat(<span class="number">-5</span>,<span class="number">5</span>,<span class="number">200</span>) zeros(<span class="number">1</span>,nt)]; ix_src = <span class="number">1</span>; iz_src = <span class="number">150</span>;</span><br><span class="line"></span><br><span class="line">    figure</span><br><span class="line">    <span class="comment">%Main loop</span></span><br><span class="line">    <span class="keyword">for</span> it = <span class="number">1</span>:nt</span><br><span class="line"></span><br><span class="line">        <span class="comment">%     1   2   3   4   5</span></span><br><span class="line">        <span class="comment">%   --q---q---q---q---q--...</span></span><br><span class="line">        <span class="comment">%   p---p---p---p---p---p...</span></span><br><span class="line">        <span class="comment">%   1   2   3   4   5   6</span></span><br><span class="line">        p_x(ix_src, iz_src) = p_x(ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        p_z(ix_src, iz_src) = p_z(ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        p(  ix_src, iz_src) = p(  ix_src,iz_src) + src(it)/<span class="number">2.0</span>;</span><br><span class="line">        <span class="keyword">for</span> ix = <span class="number">1</span>:nx<span class="number">-1</span> <span class="comment">%q_x</span></span><br><span class="line">            <span class="keyword">for</span> iz = <span class="number">1</span>:nz</span><br><span class="line">                q_x(ix,iz) = q_x(ix,iz) - a_qx *( p(ix+<span class="number">1</span>,iz) - p(ix,iz) );</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">for</span> iz = <span class="number">1</span>:nz<span class="number">-1</span> <span class="comment">%q_z</span></span><br><span class="line">            <span class="keyword">for</span> ix = <span class="number">1</span>:nx</span><br><span class="line">                q_z(ix,iz) = q_z(ix,iz) - a_qz *( p(ix,iz+<span class="number">1</span>) - p(ix,iz) );</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">for</span> ix = <span class="number">2</span>:nx<span class="number">-1</span> <span class="comment">%p_x</span></span><br><span class="line">            <span class="keyword">for</span> iz = <span class="number">2</span>:nz<span class="number">-1</span></span><br><span class="line">                p_x(ix,iz) = p_x(ix,iz) - a_px *v2(ix,iz)*( q_x(ix,iz) - q_x(ix-    <span class="number">1</span>,iz) );</span><br><span class="line">                p_z(ix,iz) = p_z(ix,iz) - a_pz *v2(ix,iz)*( q_z(ix,iz) - q_z(ix,iz- <span class="number">1</span>) );</span><br><span class="line">                p(ix,iz)   = p_x(ix,iz) + p_z(ix,iz);</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">%Free boundary at z = 0</span></span><br><span class="line">        p(<span class="number">1</span>,:)    = p(<span class="number">2</span>,:); p_x(<span class="number">1</span>,:)  = p_x(<span class="number">2</span>,:); p_z(<span class="number">1</span>,:)  = p_z(<span class="number">2</span>,:);</span><br><span class="line"></span><br><span class="line">        <span class="comment">%Plot</span></span><br><span class="line">        rec(it,:)   = p(<span class="number">1</span>,:);</span><br><span class="line">        p_trace = <span class="number">20.0</span>* [p(<span class="number">1</span>,<span class="number">30</span>) p(<span class="number">1</span>,<span class="number">60</span>) p(<span class="number">1</span>,<span class="number">90</span>) p(<span class="number">1</span>,<span class="number">120</span>) p(<span class="number">1</span>,<span class="number">149</span>) p(<span class="number">1</span>,<span class="number">180</span>) p(<span class="number">1</span>,<span class="number">210</span> ) p(<span class="number">1</span>,<span class="number">240</span>) p(<span class="number">1</span>,<span class="number">270</span>)];</span><br><span class="line">        trace(it,:) = trace(it,:) + p_trace;</span><br><span class="line">        trace_fill(it,:) = trace_fill(it,:) + <span class="number">0.5</span>*(p_trace + <span class="built_in">abs</span>(p_trace) );</span><br><span class="line">        pmax = max(max( <span class="built_in">abs</span>(p) ));</span><br><span class="line"></span><br><span class="line">        subplot(<span class="number">221</span>),imagesc(x, z, p/pmax );</span><br><span class="line">        colormap(<span class="string">&apos;gray&apos;</span>);</span><br><span class="line">        axis square;</span><br><span class="line"></span><br><span class="line">        w_max = max(max( <span class="built_in">abs</span>(rec) ));</span><br><span class="line">        subplot(<span class="number">122</span>),imagesc(x,t,rec./w_max);</span><br><span class="line">        colormap(<span class="string">&apos;gray&apos;</span>);</span><br><span class="line"></span><br><span class="line">        subplot(<span class="number">223</span>),fill(t, trace_fill ,<span class="string">&apos;r&apos;</span>);</span><br><span class="line">        hold on;</span><br><span class="line">        subplot(<span class="number">223</span>),plot(t,trace,<span class="string">&apos;k&apos;</span>);</span><br><span class="line">        hold off;</span><br><span class="line">        pause(<span class="number">0.001</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="cit569mgk000tzefblisp1925" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="cit6ab3u7001gctfbgqa1ryvv" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/15/fd-2d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -330,6 +331,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/09/17/fd-2d-PML/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          二维声波方程PML吸收边界有线差分模拟
+        
+      </div>
+    </a>
   
   
     <a href="/2016/09/13/fd-1d-PML/" id="article-nav-older" class="article-nav-link-wrap">
@@ -366,7 +376,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email-Alert/">Email Alert</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FD/">FD</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Journals/">Journals</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PDE/">PDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swiftype/">Swiftype</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/射线参数/">射线参数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/接收函数/">接收函数</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/界面/">界面</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email-Alert/">Email Alert</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FD/">FD</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Journals/">Journals</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PDE/">PDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swiftype/">Swiftype</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/射线参数/">射线参数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/接收函数/">接收函数</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/界面/">界面</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -376,7 +386,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -387,6 +397,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/09/17/fd-2d-PML/">二维声波方程PML吸收边界有线差分模拟</a>
+          </li>
         
           <li>
             <a href="/2016/09/15/fd-2d/">一阶声波方程在二维下的实现</a>
@@ -402,10 +416,6 @@
         
           <li>
             <a href="/2016/09/12/fft-endpoint/">FFT终点截断引起的错误</a>
-          </li>
-        
-          <li>
-            <a href="/2016/09/01/PDE-boundaries/">Boundary Conditions for Differential Equations</a>
           </li>
         
       </ul>

@@ -5,17 +5,308 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-09-16T03:08:52.234Z</updated>
+  <updated>2016-09-16T22:31:31.513Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>二维声波方程PML吸收边界有线差分模拟</title>
+    <link href="http://sheng09.github.io/2016/09/17/fd-2d-PML/"/>
+    <id>http://sheng09.github.io/2016/09/17/fd-2d-PML/</id>
+    <published>2016-09-16T17:54:33.000Z</published>
+    <updated>2016-09-16T22:31:31.513Z</updated>
+    
+    <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;PML&amp;#x5438;&amp;#x6536;&amp;#x8FB9;&amp;#x754C;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#pml&amp;#x533A;&amp;#x57DF;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot;&gt;PML&amp;#x533A;&amp;#x57DF;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#dx&amp;#x7684;&amp;#x9009;&amp;#x62E9;&quot;&gt;$d(x)$&amp;#x7684;&amp;#x9009;&amp;#x62E9;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&quot;&gt;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&quot;&gt;&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#q_x&amp;#x9012;&amp;#x63A8;&quot;&gt;$q_x$&amp;#x9012;&amp;#x63A8;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#q_z&amp;#x9012;&amp;#x63A8;&quot;&gt;$q_z$&amp;#x9012;&amp;#x63A8;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#p_x&amp;#x9012;&amp;#x63A8;&quot;&gt;$p_x$&amp;#x9012;&amp;#x63A8;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#p_z&amp;#x9012;&amp;#x63A8;&quot;&gt;$p_z$&amp;#x9012;&amp;#x63A8;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot;&gt;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
+&lt;h2 id=&quot;pml&amp;#x533A;&amp;#x57DF;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot;&gt;&lt;a href=&quot;#PML&amp;#x533A;&amp;#x57DF;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot; class=&quot;headerlink&quot; title=&quot;PML&amp;#x533A;&amp;#x57DF;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot;&gt;&lt;/a&gt;PML&amp;#x533A;&amp;#x57DF;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&lt;/h2&gt;&lt;p&gt;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x4E0D;&amp;#x8003;&amp;#x8651;&amp;#x8F93;&amp;#x51FA;&amp;#x6E90;&amp;#xFF0C;&amp;#x4E8C;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x4E3A;&amp;#xFF1A;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \frac{\partial^2 p}{\partial x^2} +
+        \frac{\partial^2 p}{\partial z^2} &amp; = &amp;
+        \frac{1}{v^2} \frac{\partial^2 p}{\partial t^2} \\
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;&amp;#x5BF9;&amp;#x5E94;&amp;#x7684;&amp;#x4E00;&amp;#x9636;&amp;#x538B;&amp;#x5F3A;-&amp;#x901F;&amp;#x5EA6;&amp;#x65B9;&amp;#x7A0B;&amp;#x53EF;&amp;#x4EE5;&amp;#x5199;&amp;#x6210;&amp;#xFF1A;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{cases}
+        p &amp; = &amp; p_x + p_z\\
+        \frac{\partial p_x}{\partial t} &amp; = &amp; -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+        \frac{\partial p_z}{\partial_t} &amp; = &amp; -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+        \frac{\partial q_x}{\partial t} &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+        \frac{\partial q_z}{\partial t} &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;&amp;#x9488;&amp;#x5BF9;PML&amp;#x533A;&amp;#x57DF;&amp;#xFF1A;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{cases}
+        p &amp; = &amp; p_x + p_z \\
+        \frac{\partial p_x}{\partial t} + d(x)p_x &amp; = &amp; -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+        \frac{\partial p_z}{\partial_t} + d(z)p_z &amp; = &amp; -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+        \frac{\partial q_x}{\partial t} + d(x)q_x &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+        \frac{\partial q_y}{\partial t} + d(z)q_z &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;dx&amp;#x7684;&amp;#x9009;&amp;#x62E9;&quot;&gt;&lt;a href=&quot;#d-x-&amp;#x7684;&amp;#x9009;&amp;#x62E9;&quot; class=&quot;headerlink&quot; title=&quot;$d(x)$&amp;#x7684;&amp;#x9009;&amp;#x62E9;&quot;&gt;&lt;/a&gt;$d(x)$&amp;#x7684;&amp;#x9009;&amp;#x62E9;&lt;/h2&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt;p&gt;$R$&amp;#x63A8;&amp;#x8350;&amp;#x53D6;0.001&amp;#xFF0C;$\delta$&amp;#x4E3A;PML&amp;#x5C42;&amp;#x539A;[&lt;a href=&quot;http://library.seg.org/doi/abs/10.1190/1.1444908&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Collino and Tsogka 2001&lt;/a&gt;]&amp;#x3002;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&quot;&gt;&lt;a href=&quot;#&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&quot;&gt;&lt;/a&gt;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&lt;/h2&gt;&lt;p&gt;&amp;#x6784;&amp;#x5EFA;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x7684;&amp;#x4EA4;&amp;#x9519;&amp;#x7F51;&amp;#x683C;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/grid1.jpg&quot; width=&quot;400&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&amp;#x5BF9;&amp;#x4E8E;&amp;#x4EA4;&amp;#x9519;&amp;#x8282;&amp;#x70B9;&amp;#xFF0C;$p$,$q_x$,$q_z$&amp;#x9012;&amp;#x63A8;&amp;#x5173;&amp;#x7CFB;&amp;#x5982;&amp;#x4E0B;&amp;#x56FE;&amp;#xFF1A;&lt;/p&gt;
+&lt;table&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/p1.jpg&quot; width=&quot;200&quot;&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/q_x1.jpg&quot; width=&quot;200&quot;&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/q_z1.jpg&quot; width=&quot;200&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&quot;&gt;&lt;a href=&quot;#&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&quot;&gt;&lt;/a&gt;&amp;#x4E8C;&amp;#x9636;&amp;#x7CBE;&amp;#x5EA6;&amp;#x6709;&amp;#x73B0;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&lt;/h2&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{cases}
+        p &amp; = &amp; p_x + p_z \\
+
+        \frac{\partial p_x}{\partial t} + d(x)p_x &amp; = &amp; -\rho v^2
+            \frac{\partial q_x}{\partial x}\\
+
+        \frac{\partial p_z}{\partial_t} + d(z)p_z &amp; = &amp; -\rho v^2
+            \frac{\partial q_z}{\partial z}\\
+
+        \frac{\partial q_x}{\partial t} + d(x)q_x &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial x}\\
+
+        \frac{\partial q_y}{\partial t} + d(z)q_z &amp; = &amp;
+            - \frac{1}{\rho} \frac{\partial (p_x+p_z)}{\partial z}
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        p &amp; = &amp; p_x + p_z \\
+        D_t p_x + d(x)p_x &amp; = &amp; -\rho v^2 D_x q_x \\
+        D_t p_z + d(z)p_z &amp; = &amp; -\rho v^2 D_z q_z \\
+        D_t q_x + d(x)q_x &amp; = &amp; - \frac{1}{\rho}  D_x (p_x+p_z)\\
+        D_t q_z + d(z)q_z &amp; = &amp; - \frac{1}{\rho}  D_z (p_x+p_z)
+    \end{cases}
+\end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;q_x&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#q-x-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$q_x$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$q_x$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/q_x1.jpg&quot; width=&quot;200&quot;&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    D_t q_x(A) + d(A) q_x(A) &amp; = &amp; - \frac{1}{\rho}  D_x p(A)
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \frac{1}{\Delta t}[q_x(D) - q_x(C)] + \frac{d(A)}{2} [q_x(D) + q_x(C)] &amp; = &amp; - \frac{1}{\rho \Delta x} [p(F) - p(E)]
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}[q_x(x_{i+1/2},z_{j},t_{m+1} )  - &amp; q_x(x_{i+1/2},z_j,t_{m})] + \\
+    \frac{d(x_{i+1/2},z_j,t_{m+1/2})}{2}    [q_x(x_{i+1/2},z_{j},t_{m+1} )  + &amp; q_x(x_{i+1/2},z_j,t_{m})] \\
+    = - \frac{1}{\rho \Delta x} [ p(&amp;x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+    q_x(x_{i+1/2},z_{j},t_{m+1} )  = &amp; c_{qx1} q_x(x_{i+1/2},z_j,t_{m}) \\ &amp;+ c_{qx2} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ] \\
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{qx1}  =  \frac{ 2- \Delta t d(x_{i+1/2},z_j,t_{m+1/2})  }{2 + \Delta t d(x_{i+1/2},z_j,t_{m+1/2}) } \\
+        c_{qx2}  =  -\frac{2 \Delta t}{\rho \Delta x [2 + \Delta t d(x_{i+1/2},z_j,t_{m+1/2})]}
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;q_z&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#q-z-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$q_z$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$q_z$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/q_z1.jpg&quot; width=&quot;200&quot;&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    D_t q_z(B) + d(B)q_z(B) &amp; = &amp; - \frac{1}{\rho}  D_z p(B)
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \frac{1}{\Delta t}[q_z(J) - q_z(H)] + \frac{d(B)}{2}[q_z(J) + q_z(H)] &amp; = &amp; - \frac{1}{\rho \Delta z} [p(G) - p(E)]
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}[q_z(x_{i},z_{j+1/2},t_{m+1} ) - &amp; q_z(x_{i},z_{j+1/2},t_{m})]\\ +
+    \frac{d(x_{i},z_{j+1/2},t_{m+1/2} )}{2}[q_z(x_{i},z_{j+1/2},t_{m+1} ) + &amp; q_z(x_{i},z_{j+1/2},t_{m})] \\
+    = - \frac{1}{\rho \Delta z} [ p(&amp;x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    q_z(x_{i},z_{j+1/2},t_{m+1} ) = &amp; c_{qz1} q_z(x_{i},z_{j+1/2},t_{m}) \\
+    &amp;+c_{qz2} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{qz1}  =  \frac{ 2- \Delta t d(x_{i},z_{j+1/2},t_{m+1/2})  }{2 + \Delta t d(x_{i},z_{j+1/2},t_{m+1/2}) } \\
+        c_{qz2}  =  -\frac{2 \Delta t}{\rho \Delta z [2 + \Delta t d(x_{i},z_{j+1/2},t_{m+1/2})]}
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;p_x&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#p-x-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$p_x$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$p_x$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/p1.jpg&quot; width=&quot;400&quot;&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    D_t p_x + d(x)p_x &amp; = &amp; -\rho v^2 D_x q_x
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t} [p_x(x_i,z_j,t_{m+1/2}) - &amp; p_x(x_i,z_j,t_{m-1/2})]  \\
+    +\frac{d(x_i,z_j,t_m)}{2} [p_x(x_i,z_j,t_{m+1/2}) + &amp; p_x(x_i,z_j,t_{m-1/2})] \\
+    = - &amp;\frac{\rho v^2}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    p_x(x_i,z_j,t_{m+1/2}) = &amp; c_{px1} p_x(x_i,z_j,t_{m-1/2})\\
+    &amp;  +c_{px2} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{px1}  =  \frac{ 2- \Delta t d(x_i,z_j,t_m)  }
+                         {2 + \Delta t d(x_i,z_j,t_m) } \\
+        c_{px2}  =  -\frac{2 \rho v^2 \Delta t}{\Delta x [2 + \Delta t d(x_i,z_j,t_m)]}
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;p_z&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#p-z-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$p_z$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$p_z$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/p1.jpg&quot; width=&quot;400&quot;&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    D_t p_z + d(z)p_z &amp; = &amp; -\rho v^2 D_z q_z
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    \frac{1}{\Delta t}      [p_z(x_i,z_j,t_{m+1/2}) - &amp; p_z(x_i,z_j,t_{m-1/2})] \\
+    \frac{d(x_i,z_j,t_m)}{2}[p_z(x_i,z_j,t_{m+1/2}) + &amp; p_z(x_i,z_j,t_{m-1/2})] \\
+    = -&amp;\frac{\rho v^2}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+\begin{aligned}
+    p_z(x_i,z_j,t_{m+1/2}) = &amp; c_{pz1} p_z(x_i,z_j,t_{m-1/2}) \\
+    &amp;  +c_{pz2} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+\end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{pz1}  =  \frac{ 2- \Delta t d(x_i,z_j,t_m)  }
+                         {2 + \Delta t d(x_i,z_j,t_m) } \\
+        c_{pz2}  =  -\frac{2 \rho v^2 \Delta t}{\Delta z [2 + \Delta t d(x_i,z_j,t_m)]}
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot;&gt;&lt;a href=&quot;#&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot;&gt;&lt;/a&gt;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&lt;/h2&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+        \begin{cases}
+            q_x(x_{i+1/2},z_{j},t_{m+1} ) &amp; = &amp; c_{qx1} q_x(x_{i+1/2},z_j,t_{m}) \\
+            &amp;&amp;+ c_{qx2} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ] \\
+
+            q_z(x_{i},z_{j+1/2},t_{m+1} )&amp; = &amp; c_{qz1} q_z(x_{i},z_{j+1/2},t_{m}) \\
+            &amp;&amp;+c_{qz2} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ] \\
+
+            p_x(x_i,z_j,t_{m+1/2}) &amp; = &amp; c_{px1} p_x(x_i,z_j,t_{m-1/2})\\
+            &amp;&amp;+c_{px2} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]\\
+
+            p_z(x_i,z_j,t_{m+1/2}) &amp; = &amp; c_{pz1} p_z(x_i,z_j,t_{m-1/2}) \\
+            &amp;&amp;+c_{pz2} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+        \end{cases}
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{aligned}
+      \begin{cases}
+        c_{qx1}  &amp;= &amp;  \frac{ 2- \Delta t d(x_{i+1/2},z_j,t_{m+1/2})  }{2 + \Delta t d(x_{i+1/2},z_j,t_{m+1/2}) } \\
+        c_{qx2}  &amp;= &amp;  -\frac{2 \Delta t}{\rho \Delta x [2 + \Delta t d(x_{i+1/2},z_j,t_{m+1/2})]}\\
+        c_{qz1}  &amp;= &amp;  \frac{ 2- \Delta t d(x_{i},z_{j+1/2},t_{m+1/2})  }{2 + \Delta t d(x_{i},z_{j+1/2},t_{m+1/2}) } \\
+        c_{qz2}  &amp;= &amp;  -\frac{2 \Delta t}{\rho \Delta z [2 + \Delta t d(x_{i},z_{j+1/2},t_{m+1/2})]}\\
+        c_{px1}  &amp;= &amp;  \frac{ 2- \Delta t d(x_i,z_j,t_m)  } {2 + \Delta t d(x_i,z_j,t_m) } \\
+        c_{px2}  &amp;= &amp;  -\frac{2 \rho v^2 \Delta t}{\Delta x [2 + \Delta t d(x_i,z_j,t_m)]}\\
+        c_{pz1}  &amp;= &amp;  \frac{ 2- \Delta t d(x_i,z_j,t_m)  } {2 + \Delta t d(x_i,z_j,t_m) } \\
+        c_{pz2}  &amp;= &amp;  -\frac{2 \rho v^2 \Delta t}{\Delta z [2 + \Delta t d(x_i,z_j,t_m)]}\\
+      \end{cases}
+    \end{aligned}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;&amp;#x6545;&amp;#x800C;&amp;#xFF0C;&amp;#x6CE2;&amp;#x573A;&amp;#x9012;&amp;#x63A8;&amp;#x5173;&amp;#x7CFB;&amp;#x4E3A;&amp;#xFF1A;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{cases}
+        q_x(t=0)\\
+        q_z(t=0)\\
+        p(t=\Delta /2)
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+    \end{cases}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+        p(t=\Delta /2)
+    \end{cases}
+    \Rightarrow
+        \color{blue}{p(t=3\Delta /2)}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{red}{q_x(t=\Delta t)}\\
+        \color{red}{q_z(t=\Delta t)}\\
+        \color{blue}{p(t=3\Delta /2)}
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        \color{green}{q_x(t=2\Delta t)}\\
+        \color{green}{q_z(t=2\Delta t)}\\
+    \end{cases}
+    \\
+    \Rightarrow
+    \begin{cases}
+        \color{green}{q_x(t=2\Delta t)}\\
+        \color{green}{q_z(t=2\Delta t)}\\
+        \color{blue}{p(t=3\Delta /2)}
+    \end{cases}
+    \Rightarrow
+    ............
+    \\ \\
+    ... ...
+\end{equation}&lt;/script&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;PML&amp;#x5438;&amp;#x6536;&amp;#x8FB9;&amp;#x754C;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
+    
+  </entry>
   
   <entry>
     <title>一阶声波方程在二维下的实现</title>
     <link href="http://sheng09.github.io/2016/09/15/fd-2d/"/>
     <id>http://sheng09.github.io/2016/09/15/fd-2d/</id>
     <published>2016-09-14T17:54:33.000Z</published>
-    <updated>2016-09-16T03:08:52.234Z</updated>
+    <updated>2016-09-16T22:28:57.780Z</updated>
     
     <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x5728;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#x3002;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -123,18 +414,18 @@
     D_t q_z(B) &amp; = &amp; - \frac{1}{\rho}  D_z p(B)
 \end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
-    \frac{1}{\Delta t}[q_z(J) - q_z(H)] &amp; = &amp; - \frac{1}{\rho \Delta x} [p(G) - p(E)]
+    \frac{1}{\Delta t}[q_z(J) - q_z(H)] &amp; = &amp; - \frac{1}{\rho \Delta z} [p(G) - p(E)]
 \end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
 \begin{aligned}
     \frac{1}{\Delta t}[q_z(x_{i},z_{j+1/2},t_{m+1} ) - &amp; q_z(x_{i},z_{j+1/2},t_{m})] \\&amp; =
-    - \frac{1}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+    - \frac{1}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
 \end{aligned}
 \end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
 \begin{aligned}
     q_z(x_{i},z_{j+1/2},t_{m+1} ) = &amp; q_z(x_{i},z_{j+1/2},t_{m}) \\
-    &amp;- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+    &amp;- \frac{\Delta t}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
 \end{aligned}
 \end{eqnarray}&lt;/script&gt;&lt;h3 id=&quot;p_x&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;a href=&quot;#p-x-&amp;#x9012;&amp;#x63A8;&quot; class=&quot;headerlink&quot; title=&quot;$p_x$&amp;#x9012;&amp;#x63A8;&quot;&gt;&lt;/a&gt;$p_x$&amp;#x9012;&amp;#x63A8;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/15/fd-2d/p1.jpg&quot; width=&quot;400&quot;&gt;&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
@@ -160,13 +451,13 @@
 \begin{eqnarray}
 \begin{aligned}
     \frac{1}{\Delta t} [p_z(x_i,z_j,t_{m+1/2}) - &amp; p_z(x_i,z_j,t_{m-1/2})] \\
-    &amp; = -\frac{\rho v^2}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+    &amp; = -\frac{\rho v^2}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
 \end{aligned}
 \end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
 \begin{aligned}
     p_z(x_i,z_j,t_{m+1/2}) = &amp; p_z(x_i,z_j,t_{m-1/2}) \\
-    &amp;  -\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
+    &amp;  -\frac{\rho v^2\Delta t}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]\\
 \end{aligned}
 \end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot;&gt;&lt;a href=&quot;#&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&quot;&gt;&lt;/a&gt;&amp;#x9012;&amp;#x63A8;&amp;#x6C47;&amp;#x603B;&lt;/h2&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
@@ -176,13 +467,13 @@
                 &amp;- \frac{\Delta t}{\rho \Delta x} [ p(x_{i+1},z_j,t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
                 \\
             q_z(x_{i},z_{j+1/2},t_{m+1} ) = &amp; q_z(x_{i},z_{j+1/2},t_{m}) \\
-                &amp;- \frac{\Delta t}{\rho \Delta x} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
+                &amp;- \frac{\Delta t}{\rho \Delta z} [ p(x_i,z_{j+1},t_{m+1/2}) - p(x_{i},z_j,t_{m+1/2}) ]
                 \\
             p_x(x_i,z_j,t_{m+1/2}) = &amp; p_x(x_i,z_j,t_{m-1/2})\\
                 &amp;-\frac{\rho v^2\Delta t}{\Delta x} [ q_x(x_{i+1/2},z_j,t_m) - q_x(x_{i-1/2,z_j,t_m}) ]
                 \\
             p_z(x_i,z_j,t_{m+1/2}) = &amp; p_z(x_i,z_j,t_{m-1/2}) \\
-                &amp;-\frac{\rho v^2\Delta t}{\Delta x} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]
+                &amp;-\frac{\rho v^2\Delta t}{\Delta z} [ q_z(x_i,z_{j+1/2},t_m) - q_z(x_i,z_{j-1/2},t_m) ]
         \end{cases}
     \end{aligned}
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;&amp;#x6545;&amp;#x800C;&amp;#xFF0C;&amp;#x6CE2;&amp;#x573A;&amp;#x9012;&amp;#x63A8;&amp;#x5173;&amp;#x7CFB;&amp;#x4E3A;&amp;#xFF1A;&lt;/p&gt;
@@ -231,7 +522,8 @@
     \\ \\
     ... ...
 \end{equation}&lt;/script&gt;&lt;h2 id=&quot;implementation&quot;&gt;&lt;a href=&quot;#Implementation&quot; class=&quot;headerlink&quot; title=&quot;Implementation&quot;&gt;&lt;/a&gt;Implementation&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2016/09/15/fd-2d/wave_field.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight matlab&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;77&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;%Matlab&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    close all; clear; clc;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Parameters&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    nx = &lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;; nz = &lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;; dx = &lt;span class=&quot;number&quot;&gt;5.0&lt;/span&gt;; dz = &lt;span class=&quot;number&quot;&gt;5.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    x  = (&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:nx&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;) *dx; z  = (&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:nz&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;) *dz;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dt = &lt;span class=&quot;number&quot;&gt;1.0e-3&lt;/span&gt;; nt = &lt;span class=&quot;number&quot;&gt;2000&lt;/span&gt;; t  = (&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:nt&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;)*dt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    v = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;)+&lt;span class=&quot;number&quot;&gt;800.0&lt;/span&gt;;v(&lt;span class=&quot;number&quot;&gt;101&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;,:) = &lt;span class=&quot;number&quot;&gt;1500.0&lt;/span&gt;;v(&lt;span class=&quot;number&quot;&gt;201&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;,:) = &lt;span class=&quot;number&quot;&gt;2000.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    v2 =  v.^&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;; rho = &lt;span class=&quot;number&quot;&gt;1000.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Coefficients&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    a_qx= dt/dx/rho; a_qz= dt/dz/rho;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    a_px= dt*rho/dx; a_pz= dt*rho/dz;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Initial condition&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    p   = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx,nz);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    p_x = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx,  nz); p_z = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx,  nz);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    q_x = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;,nz); q_z = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx,nz&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Receiver&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rec = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nt,nx); trace=&lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nt,&lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    trace(:,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) = &lt;span class=&quot;number&quot;&gt;-4&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;) = &lt;span class=&quot;number&quot;&gt;-3&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;) = &lt;span class=&quot;number&quot;&gt;-2&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;) = &lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    trace(:,&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;6&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    trace(:,&lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;; trace_fill = trace;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Source&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    src = [ &lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;*mexihat(&lt;span class=&quot;number&quot;&gt;-5&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;) zeros(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,nt)]; ix_src = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;; iz_src = &lt;span class=&quot;number&quot;&gt;150&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    figure&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Main loop&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; it = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%     1   2   3   4   5&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%   --q---q---q---q---q--...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%   p---p---p---p---p---p...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%   1   2   3   4   5   6&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p_x(ix_src, iz_src) = p_x(ix_src,iz_src) + src(it)/&lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p_z(ix_src, iz_src) = p_z(ix_src,iz_src) + src(it)/&lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p(  ix_src, iz_src) = p(  ix_src,iz_src) + src(it)/&lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; ix = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nx&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;%q_x&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; iz = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                q_x(ix,iz) = q_x(ix,iz) - a_qx *( p(ix+&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,iz) - p(ix,iz) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; iz = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nz&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;%q_z&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; ix = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nx&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                q_z(ix,iz) = q_z(ix,iz) - a_qz *( p(ix,iz+&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) - p(ix,iz) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; ix = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:nx&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;%p_x&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; iz = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:nz&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                p_x(ix,iz) = p_x(ix,iz) - a_px *v2(ix,iz)*( q_x(ix,iz) - q_x(ix-    &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,iz) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                p_z(ix,iz) = p_z(ix,iz) - a_pz *v2(ix,iz)*( q_z(ix,iz) - q_z(ix,iz- &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                p(ix,iz)   = p_x(ix,iz) + p_z(ix,iz);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%Free boundary at z = 0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,:)    = p(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,:); p_x(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,:)  = p_x(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,:); p_z(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,:)  = p_z(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,:);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%Plot&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        rec(it,:)   = p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,:);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p_trace = &lt;span class=&quot;number&quot;&gt;20.0&lt;/span&gt;* [p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;30&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;60&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;90&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;120&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;149&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;180&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;210&lt;/span&gt; ) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;240&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;270&lt;/span&gt;)];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        trace(it,:) = trace(it,:) + p_trace;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        trace_fill(it,:) = trace_fill(it,:) + &lt;span class=&quot;number&quot;&gt;0.5&lt;/span&gt;*(p_trace + &lt;span class=&quot;built_in&quot;&gt;abs&lt;/span&gt;(p_trace) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pmax = max(max( &lt;span class=&quot;built_in&quot;&gt;abs&lt;/span&gt;(p) ));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        subplot(&lt;span class=&quot;number&quot;&gt;221&lt;/span&gt;),imagesc(x, z, p/pmax );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        colormap(&lt;span class=&quot;string&quot;&gt;&amp;apos;gray&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        axis square;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        w_max = max(max( &lt;span class=&quot;built_in&quot;&gt;abs&lt;/span&gt;(rec) ));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        subplot(&lt;span class=&quot;number&quot;&gt;122&lt;/span&gt;),imagesc(x,t,rec./w_max);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        colormap(&lt;span class=&quot;string&quot;&gt;&amp;apos;gray&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        subplot(&lt;span class=&quot;number&quot;&gt;223&lt;/span&gt;),fill(t, trace_fill ,&lt;span class=&quot;string&quot;&gt;&amp;apos;r&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        hold on;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        subplot(&lt;span class=&quot;number&quot;&gt;223&lt;/span&gt;),plot(t,trace,&lt;span class=&quot;string&quot;&gt;&amp;apos;k&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        hold off;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pause(&lt;span class=&quot;number&quot;&gt;0.001&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+&lt;figure class=&quot;highlight matlab&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;77&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;%Matlab&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    close all; clear; clc;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Parameters&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    nx = &lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;; nz = &lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;; dx = &lt;span class=&quot;number&quot;&gt;5.0&lt;/span&gt;; dz = &lt;span class=&quot;number&quot;&gt;5.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    x  = (&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:nx&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;) *dx; z  = (&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:nz&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;) *dz;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dt = &lt;span class=&quot;number&quot;&gt;1.0e-3&lt;/span&gt;; nt = &lt;span class=&quot;number&quot;&gt;2000&lt;/span&gt;; t  = (&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:nt&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;)*dt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    v = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;)+&lt;span class=&quot;number&quot;&gt;800.0&lt;/span&gt;;v(&lt;span class=&quot;number&quot;&gt;101&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;,:) = &lt;span class=&quot;number&quot;&gt;1500.0&lt;/span&gt;;v(&lt;span class=&quot;number&quot;&gt;201&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;,:) = &lt;span class=&quot;number&quot;&gt;2000.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    v2 =  v.^&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;; rho = &lt;span class=&quot;number&quot;&gt;1000.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Coefficients&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    a_qx= dt/dx/rho; a_qz= dt/dz/rho;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    a_px= dt*rho/dx; a_pz= dt*rho/dz;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Initial condition&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    p   = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx,nz);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    p_x = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx,  nz); p_z = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx,  nz);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    q_x = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;,nz); q_z = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nx,nz&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Receiver&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rec = &lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nt,nx); trace=&lt;span class=&quot;built_in&quot;&gt;zeros&lt;/span&gt;(nt,&lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    trace(:,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) = &lt;span class=&quot;number&quot;&gt;-4&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;) = &lt;span class=&quot;number&quot;&gt;-3&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;) = &lt;span class=&quot;number&quot;&gt;-2&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;) = &lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    trace(:,&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;6&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;; trace(:,&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    trace(:,&lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;) =  &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;; trace_fill = trace;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Source&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    src = [ &lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;*mexihat(&lt;span class=&quot;number&quot;&gt;-5&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;) zeros(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,nt)]; ix_src = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;; iz_src = &lt;span class=&quot;number&quot;&gt;150&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    figure&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;%Main loop&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; it = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%     1   2   3   4   5&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%   --q---q---q---q---q--...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%   p---p---p---p---p---p...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%   1   2   3   4   5   6&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p_x(ix_src, iz_src) = p_x(ix_src,iz_src) + src(it)/&lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p_z(ix_src, iz_src) = p_z(ix_src,iz_src) + src(it)/&lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p(  ix_src, iz_src) = p(  ix_src,iz_src) + src(it)/&lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; ix = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nx&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;%q_x&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; iz = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                q_x(ix,iz) = q_x(ix,iz) - a_qx *( p(ix+&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,iz) - p(ix,iz) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; iz = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nz&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;%q_z&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; ix = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:nx&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                q_z(ix,iz) = q_z(ix,iz) - a_qz *( p(ix,iz+&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) - p(ix,iz) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; ix = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:nx&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;%p_x&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; iz = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:nz&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                p_x(ix,iz) = p_x(ix,iz) - a_px *v2(ix,iz)*( q_x(ix,iz) - q_x(ix-    &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,iz) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                p_z(ix,iz) = p_z(ix,iz) - a_pz *v2(ix,iz)*( q_z(ix,iz) - q_z(ix,iz- &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                p(ix,iz)   = p_x(ix,iz) + p_z(ix,iz);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%Free boundary at z = 0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,:)    = p(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,:); p_x(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,:)  = p_x(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,:); p_z(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,:)  = p_z(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,:);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;%Plot&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        rec(it,:)   = p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,:);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p_trace = &lt;span class=&quot;number&quot;&gt;20.0&lt;/span&gt;* [p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;30&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;60&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;90&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;120&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;149&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;180&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;210&lt;/span&gt; ) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;240&lt;/span&gt;) p(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;270&lt;/span&gt;)];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        trace(it,:) = trace(it,:) + p_trace;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        trace_fill(it,:) = trace_fill(it,:) + &lt;span class=&quot;number&quot;&gt;0.5&lt;/span&gt;*(p_trace + &lt;span class=&quot;built_in&quot;&gt;abs&lt;/span&gt;(p_trace) );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pmax = max(max( &lt;span class=&quot;built_in&quot;&gt;abs&lt;/span&gt;(p) ));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        subplot(&lt;span class=&quot;number&quot;&gt;221&lt;/span&gt;),imagesc(x, z, p/pmax );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        colormap(&lt;span class=&quot;string&quot;&gt;&amp;apos;gray&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        axis square;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        w_max = max(max( &lt;span class=&quot;built_in&quot;&gt;abs&lt;/span&gt;(rec) ));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        subplot(&lt;span class=&quot;number&quot;&gt;122&lt;/span&gt;),imagesc(x,t,rec./w_max);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        colormap(&lt;span class=&quot;string&quot;&gt;&amp;apos;gray&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        subplot(&lt;span class=&quot;number&quot;&gt;223&lt;/span&gt;),fill(t, trace_fill ,&lt;span class=&quot;string&quot;&gt;&amp;apos;r&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        hold on;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        subplot(&lt;span class=&quot;number&quot;&gt;223&lt;/span&gt;),plot(t,trace,&lt;span class=&quot;string&quot;&gt;&amp;apos;k&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        hold off;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pause(&lt;span class=&quot;number&quot;&gt;0.001&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
     
     <summary type="html">
     
