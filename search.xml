@@ -6,8 +6,7 @@
     <entry>
       <title><![CDATA[PML边界-一阶声波方程有线差分模拟在二维下的实现]]></title>
       <url>http://sheng09.github.io/2016/09/17/fd-2d-PML/</url>
-      <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E8C;&#x7EF4;&#x4E0B;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;PML&#x5438;&#x6536;&#x8FB9;&#x754C;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;&#x3002;</p>
-<a id="more"></a>
+      <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E8C;&#x7EF4;&#x4E0B;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;PML&#x5438;&#x6536;&#x8FB9;&#x754C;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;&#x3002;<br><img src="/2016/09/17/fd-2d-PML/wave_field.jpg" width="600px"><br><a id="more"></a></p>
 <!-- toc -->
 <ul>
 <li><a href="#pml&#x533A;&#x57DF;&#x63A7;&#x5236;&#x65B9;&#x7A0B;">PML&#x533A;&#x57DF;&#x63A7;&#x5236;&#x65B9;&#x7A0B;</a></li>
@@ -1113,6 +1112,12 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://sheng09.github.io/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Categories]]></title>
       <url>http://sheng09.github.io/categories/index.html</url>
       <content type="html"></content>
@@ -1131,12 +1136,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://sheng09.github.io/tags/index.html</url>
-      <content type="html"></content>
     </entry>
     
   

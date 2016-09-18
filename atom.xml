@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-09-16T22:35:49.354Z</updated>
+  <updated>2016-09-18T03:25:03.229Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,10 +15,9 @@
     <link href="http://sheng09.github.io/2016/09/17/fd-2d-PML/"/>
     <id>http://sheng09.github.io/2016/09/17/fd-2d-PML/</id>
     <published>2016-09-16T17:54:33.000Z</published>
-    <updated>2016-09-16T22:35:49.354Z</updated>
+    <updated>2016-09-18T03:25:03.229Z</updated>
     
-    <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;PML&amp;#x5438;&amp;#x6536;&amp;#x8FB9;&amp;#x754C;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+    <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;PML&amp;#x5438;&amp;#x6536;&amp;#x8FB9;&amp;#x754C;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/wave_field.jpg&quot; width=&quot;600px&quot;&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;!-- toc --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#pml&amp;#x533A;&amp;#x57DF;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&quot;&gt;PML&amp;#x533A;&amp;#x57DF;&amp;#x63A7;&amp;#x5236;&amp;#x65B9;&amp;#x7A0B;&lt;/a&gt;&lt;/li&gt;
@@ -292,7 +291,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     
     <summary type="html">
     
-      &lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;PML&amp;#x5438;&amp;#x6536;&amp;#x8FB9;&amp;#x754C;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&lt;/p&gt;
+      &lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;PML&amp;#x5438;&amp;#x6536;&amp;#x8FB9;&amp;#x754C;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/wave_field.jpg&quot; width=&quot;600px&quot;&gt;&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
