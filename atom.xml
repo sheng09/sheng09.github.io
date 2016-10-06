@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-06T22:45:09.694Z</updated>
+  <updated>2016-10-06T22:49:03.099Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,9 +15,9 @@
     <link href="http://sheng09.github.io/2016/10/07/BitComputing/"/>
     <id>http://sheng09.github.io/2016/10/07/BitComputing/</id>
     <published>2016-10-06T21:17:17.000Z</published>
-    <updated>2016-10-06T22:45:09.694Z</updated>
+    <updated>2016-10-06T22:49:03.099Z</updated>
     
-    <content type="html">&lt;p&gt;&amp;#x4F17;&amp;#x6240;&amp;#x5468;&amp;#x77E5;&amp;#xFF0C;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x6765;&amp;#x5B58;&amp;#x50A8;&amp;#x6570;&amp;#x636E;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5B9E;&amp;#x73B0;&amp;#x7A7A;&amp;#x95F4;&amp;#x6700;&amp;#x4F18;&amp;#x5316;&amp;#x3002;&amp;#x6B64;&amp;#x5916;&amp;#xFF0C;&amp;#x7531;&amp;#x4E8E;CPU&amp;#x6307;&amp;#x4EE4;&amp;#x96C6;&amp;#x53EF;&amp;#x4EE5;&amp;#x4E00;&amp;#x6B21;&amp;#x6027;&amp;#x64CD;&amp;#x4F5C;&amp;#x591A;&amp;#x4E2A;Bit&amp;#xFF0C;&amp;#x6545;&amp;#x8FD9;&amp;#x4E00;&amp;#x65B9;&amp;#x6CD5;&amp;#x53EF;&amp;#x4EE5;&amp;#x907F;&amp;#x514D;&amp;#x5BF9;&amp;#x6570;&amp;#x636E;&amp;#x5143;&amp;#x7D20;&amp;#x7684;&amp;#x5FAA;&amp;#x73AF;&amp;#x904D;&amp;#x5386;&amp;#x64CD;&amp;#x4F5C;&amp;#xFF0C;&amp;#x4ECE;&amp;#x800C;&amp;#x5B9E;&amp;#x73B0;&amp;#x52A0;&amp;#x901F;&amp;#x3002;&lt;/p&gt;
+    <content type="html">&lt;p&gt;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x6765;&amp;#x5B58;&amp;#x50A8;&amp;#x6570;&amp;#x636E;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5B9E;&amp;#x73B0;&amp;#x7A7A;&amp;#x95F4;&amp;#x6700;&amp;#x4F18;&amp;#x5316;&amp;#x3002;&amp;#x6B64;&amp;#x5916;&amp;#xFF0C;&amp;#x7531;&amp;#x4E8E;CPU&amp;#x6307;&amp;#x4EE4;&amp;#x96C6;&amp;#x53EF;&amp;#x4EE5;&amp;#x4E00;&amp;#x6B21;&amp;#x6027;&amp;#x64CD;&amp;#x4F5C;&amp;#x591A;&amp;#x4E2A;Bit&amp;#xFF0C;&amp;#x6545;&amp;#x8FD9;&amp;#x4E00;&amp;#x65B9;&amp;#x6CD5;&amp;#x53EF;&amp;#x4EE5;&amp;#x907F;&amp;#x514D;&amp;#x5BF9;&amp;#x6570;&amp;#x636E;&amp;#x5143;&amp;#x7D20;&amp;#x7684;&amp;#x5FAA;&amp;#x73AF;&amp;#x904D;&amp;#x5386;&amp;#x64CD;&amp;#x4F5C;&amp;#xFF0C;&amp;#x4ECE;&amp;#x800C;&amp;#x5B9E;&amp;#x73B0;&amp;#x52A0;&amp;#x901F;&amp;#x3002;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;!-- toc --&gt;
 &lt;ul&gt;
@@ -42,7 +42,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&amp;#x4F17;&amp;#x6240;&amp;#x5468;&amp;#x77E5;&amp;#xFF0C;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x6765;&amp;#x5B58;&amp;#x50A8;&amp;#x6570;&amp;#x636E;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5B9E;&amp;#x73B0;&amp;#x7A7A;&amp;#x95F4;&amp;#x6700;&amp;#x4F18;&amp;#x5316;&amp;#x3002;&amp;#x6B64;&amp;#x5916;&amp;#xFF0C;&amp;#x7531;&amp;#x4E8E;CPU&amp;#x6307;&amp;#x4EE4;&amp;#x96C6;&amp;#x53EF;&amp;#x4EE5;&amp;#x4E00;&amp;#x6B21;&amp;#x6027;&amp;#x64CD;&amp;#x4F5C;&amp;#x591A;&amp;#x4E2A;Bit&amp;#xFF0C;&amp;#x6545;&amp;#x8FD9;&amp;#x4E00;&amp;#x65B9;&amp;#x6CD5;&amp;#x53EF;&amp;#x4EE5;&amp;#x907F;&amp;#x514D;&amp;#x5BF9;&amp;#x6570;&amp;#x636E;&amp;#x5143;&amp;#x7D20;&amp;#x7684;&amp;#x5FAA;&amp;#x73AF;&amp;#x904D;&amp;#x5386;&amp;#x64CD;&amp;#x4F5C;&amp;#xFF0C;&amp;#x4ECE;&amp;#x800C;&amp;#x5B9E;&amp;#x73B0;&amp;#x52A0;&amp;#x901F;&amp;#x3002;&lt;/p&gt;
+      &lt;p&gt;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x6765;&amp;#x5B58;&amp;#x50A8;&amp;#x6570;&amp;#x636E;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5B9E;&amp;#x73B0;&amp;#x7A7A;&amp;#x95F4;&amp;#x6700;&amp;#x4F18;&amp;#x5316;&amp;#x3002;&amp;#x6B64;&amp;#x5916;&amp;#xFF0C;&amp;#x7531;&amp;#x4E8E;CPU&amp;#x6307;&amp;#x4EE4;&amp;#x96C6;&amp;#x53EF;&amp;#x4EE5;&amp;#x4E00;&amp;#x6B21;&amp;#x6027;&amp;#x64CD;&amp;#x4F5C;&amp;#x591A;&amp;#x4E2A;Bit&amp;#xFF0C;&amp;#x6545;&amp;#x8FD9;&amp;#x4E00;&amp;#x65B9;&amp;#x6CD5;&amp;#x53EF;&amp;#x4EE5;&amp;#x907F;&amp;#x514D;&amp;#x5BF9;&amp;#x6570;&amp;#x636E;&amp;#x5143;&amp;#x7D20;&amp;#x7684;&amp;#x5FAA;&amp;#x73AF;&amp;#x904D;&amp;#x5386;&amp;#x64CD;&amp;#x4F5C;&amp;#xFF0C;&amp;#x4ECE;&amp;#x800C;&amp;#x5B9E;&amp;#x73B0;&amp;#x52A0;&amp;#x901F;&amp;#x3002;&lt;/p&gt;
     
     </summary>
     

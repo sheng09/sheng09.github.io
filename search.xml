@@ -6,7 +6,7 @@
     <entry>
       <title><![CDATA[位运算]]></title>
       <url>http://sheng09.github.io/2016/10/07/BitComputing/</url>
-      <content type="html"><![CDATA[<p>&#x4F17;&#x6240;&#x5468;&#x77E5;&#xFF0C;1&#x4E2A;Byte&#x7531;8&#x4E2A;Bit&#x6784;&#x6210;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;Bit&#x4E3A;0&#x6216;1&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#xFF0C;&#x5229;&#x7528;&#x4F4D;&#x6765;&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x7A7A;&#x95F4;&#x6700;&#x4F18;&#x5316;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x7531;&#x4E8E;CPU&#x6307;&#x4EE4;&#x96C6;&#x53EF;&#x4EE5;&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;&#x591A;&#x4E2A;Bit&#xFF0C;&#x6545;&#x8FD9;&#x4E00;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5BF9;&#x6570;&#x636E;&#x5143;&#x7D20;&#x7684;&#x5FAA;&#x73AF;&#x904D;&#x5386;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x52A0;&#x901F;&#x3002;</p>
+      <content type="html"><![CDATA[<p>1&#x4E2A;Byte&#x7531;8&#x4E2A;Bit&#x6784;&#x6210;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;Bit&#x4E3A;0&#x6216;1&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#xFF0C;&#x5229;&#x7528;&#x4F4D;&#x6765;&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x7A7A;&#x95F4;&#x6700;&#x4F18;&#x5316;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x7531;&#x4E8E;CPU&#x6307;&#x4EE4;&#x96C6;&#x53EF;&#x4EE5;&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;&#x591A;&#x4E2A;Bit&#xFF0C;&#x6545;&#x8FD9;&#x4E00;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5BF9;&#x6570;&#x636E;&#x5143;&#x7D20;&#x7684;&#x5FAA;&#x73AF;&#x904D;&#x5386;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x52A0;&#x901F;&#x3002;</p>
 <a id="more"></a>
 <!-- toc -->
 <ul>
@@ -1134,24 +1134,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
-      <title><![CDATA[about]]></title>
-      <url>http://sheng09.github.io/about/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Categories]]></title>
-      <url>http://sheng09.github.io/categories/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://sheng09.github.io/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>http://sheng09.github.io/old/hello-world.html</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -1164,6 +1146,24 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://sheng09.github.io/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[about]]></title>
+      <url>http://sheng09.github.io/about/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Categories]]></title>
+      <url>http://sheng09.github.io/categories/index.html</url>
+      <content type="html"></content>
     </entry>
     
   

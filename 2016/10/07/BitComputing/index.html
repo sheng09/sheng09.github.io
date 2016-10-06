@@ -5,16 +5,16 @@
   
   <title>位运算 | Sheng Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#x4F17;&amp;#x6240;&amp;#x5468;&amp;#x77E5;&amp;#xFF0C;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#">
+  <meta name="description" content="1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x6765;&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="位运算">
 <meta property="og:url" content="http://sheng09.github.io/2016/10/07/BitComputing/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="&amp;#x4F17;&amp;#x6240;&amp;#x5468;&amp;#x77E5;&amp;#xFF0C;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#">
-<meta property="og:updated_time" content="2016-10-06T22:45:09.694Z">
+<meta property="og:description" content="1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x6765;&amp;#">
+<meta property="og:updated_time" content="2016-10-06T22:49:03.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="位运算">
-<meta name="twitter:description" content="&amp;#x4F17;&amp;#x6240;&amp;#x5468;&amp;#x77E5;&amp;#xFF0C;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#">
+<meta name="twitter:description" content="1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x6765;&amp;#">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -90,7 +90,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x4F17;&#x6240;&#x5468;&#x77E5;&#xFF0C;1&#x4E2A;Byte&#x7531;8&#x4E2A;Bit&#x6784;&#x6210;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;Bit&#x4E3A;0&#x6216;1&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#xFF0C;&#x5229;&#x7528;&#x4F4D;&#x6765;&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x7A7A;&#x95F4;&#x6700;&#x4F18;&#x5316;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x7531;&#x4E8E;CPU&#x6307;&#x4EE4;&#x96C6;&#x53EF;&#x4EE5;&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;&#x591A;&#x4E2A;Bit&#xFF0C;&#x6545;&#x8FD9;&#x4E00;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5BF9;&#x6570;&#x636E;&#x5143;&#x7D20;&#x7684;&#x5FAA;&#x73AF;&#x904D;&#x5386;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x52A0;&#x901F;&#x3002;</p>
+        <p>1&#x4E2A;Byte&#x7531;8&#x4E2A;Bit&#x6784;&#x6210;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;Bit&#x4E3A;0&#x6216;1&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#xFF0C;&#x5229;&#x7528;&#x4F4D;&#x6765;&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x7A7A;&#x95F4;&#x6700;&#x4F18;&#x5316;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x7531;&#x4E8E;CPU&#x6307;&#x4EE4;&#x96C6;&#x53EF;&#x4EE5;&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;&#x591A;&#x4E2A;Bit&#xFF0C;&#x6545;&#x8FD9;&#x4E00;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5BF9;&#x6570;&#x636E;&#x5143;&#x7D20;&#x7684;&#x5FAA;&#x73AF;&#x904D;&#x5386;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x52A0;&#x901F;&#x3002;</p>
 <a id="more"></a>
 <!-- toc -->
 <ul>
@@ -115,7 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="cityxkavk0006pjfbwaol9ju2" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="cityxq98l0001umfbufgy8k6d" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/07/BitComputing/#disqus_thread" class="article-comment-link">Comments</a>
       
