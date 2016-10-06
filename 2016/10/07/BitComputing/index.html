@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://sheng09.github.io/2016/10/07/BitComputing/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="&amp;#x4F17;&amp;#x6240;&amp;#x5468;&amp;#x77E5;&amp;#xFF0C;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#">
-<meta property="og:updated_time" content="2016-10-06T22:43:55.789Z">
+<meta property="og:updated_time" content="2016-10-06T22:45:09.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="位运算">
 <meta name="twitter:description" content="&amp;#x4F17;&amp;#x6240;&amp;#x5468;&amp;#x77E5;&amp;#xFF0C;1&amp;#x4E2A;Byte&amp;#x7531;8&amp;#x4E2A;Bit&amp;#x6784;&amp;#x6210;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;Bit&amp;#x4E3A;0&amp;#x6216;1&amp;#x3002;&amp;#x9488;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E00;&amp;#x7279;&amp;#x6027;&amp;#">
@@ -92,7 +92,17 @@
       
         <p>&#x4F17;&#x6240;&#x5468;&#x77E5;&#xFF0C;1&#x4E2A;Byte&#x7531;8&#x4E2A;Bit&#x6784;&#x6210;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;Bit&#x4E3A;0&#x6216;1&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#xFF0C;&#x5229;&#x7528;&#x4F4D;&#x6765;&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x7A7A;&#x95F4;&#x6700;&#x4F18;&#x5316;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x7531;&#x4E8E;CPU&#x6307;&#x4EE4;&#x96C6;&#x53EF;&#x4EE5;&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;&#x591A;&#x4E2A;Bit&#xFF0C;&#x6545;&#x8FD9;&#x4E00;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5BF9;&#x6570;&#x636E;&#x5143;&#x7D20;&#x7684;&#x5FAA;&#x73AF;&#x904D;&#x5386;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x52A0;&#x901F;&#x3002;</p>
 <a id="more"></a>
-<!--toc-->
+<!-- toc -->
+<ul>
+<li><a href="#&#x4F4D;">&#x4F4D;</a></li>
+<li><a href="#&#x4F4D;&#x64CD;&#x4F5C;">&#x4F4D;&#x64CD;&#x4F5C;</a><ul>
+<li><a href="#&#x4F4D;&#x903B;&#x8F91;&#x8FD0;&#x7B97;-~">&#x4F4D;&#x903B;&#x8F91;&#x8FD0;&#x7B97;<code>&amp; | ~ ^</code></a></li>
+<li><a href="#&#x79FB;&#x4F4D;&#x8FD0;&#x7B97;">&#x79FB;&#x4F4D;&#x8FD0;&#x7B97; <code>&lt;&lt;</code> <code>&gt;&gt;</code></a></li>
+<li><a href="#bit-mask">bit mask</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
 <h2 id="&#x4F4D;"><a href="#&#x4F4D;" class="headerlink" title="&#x4F4D;"></a>&#x4F4D;</h2><p>&#x9488;&#x5BF9;&#x67D0;&#x4E00;&#x6570;&#x636E;&#xFF0C;&#x83B7;&#x53D6;&#x5176;&#x4F4D;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x51FD;&#x6570;<code>getBits()</code>&#xFF1A;<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//getBits.cpp</span></span><br><span class="line"><span class="comment">//Compile: g++ getBits.cpp -c -std=c++11 -o getBits</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">getBits</span><span class="params">(T _x)</span></span><br><span class="line"></span>{</span><br><span class="line">  <span class="keyword">long</span> len   = <span class="keyword">sizeof</span>(T) * <span class="number">8</span> - <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> str = <span class="string">&apos;[&apos;</span> + <span class="built_in">std</span>::to_string(len+<span class="number">1</span>) + <span class="string">&quot;bits]&quot;</span>;</span><br><span class="line">  <span class="keyword">long</span> x = *( (<span class="keyword">long</span>*)(&amp;_x) );</span><br><span class="line">  <span class="keyword">while</span>( len-- != <span class="number">0</span> ) {</span><br><span class="line">    <span class="keyword">if</span>( (x &gt;&gt; len) &amp; <span class="number">1</span> )</span><br><span class="line">      str+= <span class="string">&apos;1&apos;</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      str+= <span class="string">&apos;0&apos;</span>;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> str;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
 <h2 id="&#x4F4D;&#x64CD;&#x4F5C;"><a href="#&#x4F4D;&#x64CD;&#x4F5C;" class="headerlink" title="&#x4F4D;&#x64CD;&#x4F5C;"></a>&#x4F4D;&#x64CD;&#x4F5C;</h2><h4 id="&#x4F4D;&#x903B;&#x8F91;&#x8FD0;&#x7B97;-~"><a href="#&#x4F4D;&#x903B;&#x8F91;&#x8FD0;&#x7B97;-amp" class="headerlink" title="&#x4F4D;&#x903B;&#x8F91;&#x8FD0;&#x7B97;&amp; | ~ ^"></a>&#x4F4D;&#x903B;&#x8F91;&#x8FD0;&#x7B97;<code>&amp; | ~ ^</code></h4><p>&#x4E0D;&#x540C;&#x4E8E;&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x7B26;&#x4E2D;&#x7684;&#x201C;&#x4E0E;&#x201D;&#x201C;&#x6216;&#x201D;&#x201C;&#x975E;&#x201D;&#x201C;&#x4EA6;&#x6216;&#x201D;&#xFF0C;&#x4F4D;&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x5E76;&#x4E0D;&#x5BF9;&#x6570;&#x636E;&#x7684;&#x201C;TRUE&#x201D;&#x6216;&#x201C;FALSE&#x201D;&#xFF0C;&#x800C;&#x662F;&#x9488;&#x5BF9;&#x6BCF;&#x4E00;&#x4F4D;&#x7684;&#x201C;0&#x201D;&#x6216;&#x201C;1&#x201D;&#x505A;&#x903B;&#x8F91;&#x64CD;&#x4F5C;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">00010100 &amp; 00001100 = 00000100</span><br><span class="line">00010100 | 00001100 = 00000100</span><br><span class="line">00010100 ^ 00001100 = 00011000</span><br><span class="line">~00000010 = 11111101</span><br></pre></td></tr></table></figure>
@@ -105,7 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="cityxjqq50006onfbtht5u7zv" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="cityxkavk0006pjfbwaol9ju2" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/07/BitComputing/#disqus_thread" class="article-comment-link">Comments</a>
       
