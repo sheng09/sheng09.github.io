@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://sheng09.github.io/2016/06/09/unpack-in-linux/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="&amp;#x6B64;&amp;#x6587;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;">
-<meta property="og:updated_time" content="2016-10-10T01:53:46.161Z">
+<meta property="og:updated_time" content="2016-10-10T01:54:16.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怎么在linux下压缩和解压文件">
 <meta name="twitter:description" content="&amp;#x6B64;&amp;#x6587;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;">
@@ -98,9 +98,9 @@
 <h2 id="targz"><a href="#tar-gz" class="headerlink" title="tar.gz"></a>tar.gz</h2><p>1.&#x4F7F;&#x7528;tar&#x6253;&#x5305;&#x5E76;&#x538B;&#x7F29;&#x6587;&#x4EF6;(&#x5939;)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -cvzf  test.tar.gz  <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>&#x53EF;&#x4EE5;&#x5C06;test&#x6253;&#x5305;&#x538B;&#x7F29;&#x5E76;&#x751F;&#x4EA7;test.tar.gz&#xFF0C;test&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x5939;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x3002;<br>&#x5207;&#x8BB0;&#xFF0C;&#x88AB;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x4E0E;&#x538B;&#x7F29;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x4E0D;&#x8981;&#x5199;&#x53CD;&#x4E86;&#xFF0C;&#x5426;&#x5219;&#x88AB;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x4F1A;&#x88AB;&#x8986;&#x76D6;&#x4ECE;&#x800C;&#x4E22;&#x5931;&#xFF01;</p>
 <p>2.&#x89E3;&#x5305;&#x5E76;&#x89E3;&#x538B; .tar.gz<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xvzf  test.tar.gz</span><br></pre></td></tr></table></figure></p>
-<h2 id="tarbz2"><a href="#tar-bz2" class="headerlink" title="tar.bz2"></a>tar.bz2</h2><p>1.&#x4F7F;&#x7528;tar&#x6253;&#x5305;&#x5E76;&#x538B;&#x7F29;&#x6587;&#x4EF6;(&#x5939;)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -cjzf  test.tar.bz  <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="tarbz2"><a href="#tar-bz2" class="headerlink" title="tar.bz2"></a>tar.bz2</h2><p>1.&#x4F7F;&#x7528;tar&#x6253;&#x5305;&#x5E76;&#x538B;&#x7F29;&#x6587;&#x4EF6;(&#x5939;)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -cjzf  test.tar.bz2  <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>&#x53EF;&#x4EE5;&#x5C06;test&#x6253;&#x5305;&#x538B;&#x7F29;&#x5E76;&#x751F;&#x4EA7;test.tar.bz&#xFF0C;test&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x5939;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x3002;</p>
-<p>2.&#x89E3;&#x5305;&#x5E76;&#x89E3;&#x538B; .tar.bz<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xjzf  test.tar.bz</span><br></pre></td></tr></table></figure></p>
+<p>2.&#x89E3;&#x5305;&#x5E76;&#x89E3;&#x538B; .tar.bz<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xjzf  test.tar.bz2</span><br></pre></td></tr></table></figure></p>
 <h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><p>1.&#x4F7F;&#x7528;zip&#x538B;&#x7F29;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ zip  -r  test.zip   <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>&#x5C06;test&#x6253;&#x5305;&#x538B;&#x7F29;&#x5E76;&#x751F;&#x4EA7;test.zip&#xFF0C;test&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#x5939;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x6587;&#x4EF6;&#xFF1B;</p>
 <p>2.&#x89E3;&#x538B;zip<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ unzip   test.zip</span><br></pre></td></tr></table></figure></p>
@@ -113,7 +113,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/09/unpack-in-linux/" data-id="ciu3engjf001iedfbmczf04cg" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/06/09/unpack-in-linux/" data-id="ciu3eo2al001pfrfbo2eois7u" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/06/09/unpack-in-linux/#disqus_thread" class="article-comment-link">Comments</a>
       
