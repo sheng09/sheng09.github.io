@@ -90,7 +90,7 @@
     <link href="http://sheng09.github.io/2016/09/17/fd-2d-PML/"/>
     <id>http://sheng09.github.io/2016/09/17/fd-2d-PML/</id>
     <published>2016-09-16T17:54:33.000Z</published>
-    <updated>2016-10-10T01:32:42.244Z</updated>
+    <updated>2016-10-10T01:44:37.452Z</updated>
     
     <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;PML&amp;#x5438;&amp;#x6536;&amp;#x8FB9;&amp;#x754C;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/09/17/fd-2d-PML/wave_field.jpg&quot; width=&quot;600px&quot;&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;!-- toc --&gt;
@@ -372,7 +372,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     
     </summary>
     
-      <category term="FD" scheme="http://sheng09.github.io/categories/FD/"/>
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
     
     
       <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
@@ -388,7 +388,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     <link href="http://sheng09.github.io/2016/09/15/fd-2d/"/>
     <id>http://sheng09.github.io/2016/09/15/fd-2d/</id>
     <published>2016-09-14T17:54:33.000Z</published>
-    <updated>2016-10-10T01:31:23.184Z</updated>
+    <updated>2016-10-10T01:44:49.916Z</updated>
     
     <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x5728;&amp;#x4E8C;&amp;#x7EF4;&amp;#x4E0B;&amp;#x7684;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/09/15/fd-2d/wave_field.jpg&quot; width=&quot;600px&quot;&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;!-- toc --&gt;
@@ -612,7 +612,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     
     </summary>
     
-      <category term="FD" scheme="http://sheng09.github.io/categories/FD/"/>
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
     
     
       <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
@@ -628,7 +628,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     <link href="http://sheng09.github.io/2016/09/13/fd-1d-PML/"/>
     <id>http://sheng09.github.io/2016/09/13/fd-1d-PML/</id>
     <published>2016-09-13T02:38:40.000Z</published>
-    <updated>2016-10-10T01:31:19.000Z</updated>
+    <updated>2016-10-10T01:44:46.296Z</updated>
     
     <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x7684;PML&amp;#x5438;&amp;#x6536;&amp;#x8FB9;&amp;#x754C;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#xFF0C;&amp;#x5E76;&amp;#x5229;&amp;#x7528;&amp;#x4E00;&amp;#x7EF4;&amp;#x6A21;&amp;#x578B;&amp;#x4F8B;&amp;#x5B50;&amp;#x52A0;&amp;#x4EE5;&amp;#x8BF4;&amp;#x660E;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/09/13/fd-1d-PML/wave.gif&quot; width=&quot;600px&quot;&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;!-- toc --&gt;
@@ -741,7 +741,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     
     </summary>
     
-      <category term="FD" scheme="http://sheng09.github.io/categories/FD/"/>
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
     
     
       <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
@@ -757,7 +757,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     <link href="http://sheng09.github.io/2016/09/13/fd-1d/"/>
     <id>http://sheng09.github.io/2016/09/13/fd-1d/</id>
     <published>2016-09-12T22:38:40.000Z</published>
-    <updated>2016-10-10T01:31:12.228Z</updated>
+    <updated>2016-10-10T01:44:43.044Z</updated>
     
     <content type="html">&lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x4E00;&amp;#x9636;&amp;#x58F0;&amp;#x6CE2;&amp;#x65B9;&amp;#x7A0B;&amp;#x6709;&amp;#x9650;&amp;#x5DEE;&amp;#x5206;&amp;#x6A21;&amp;#x62DF;&amp;#xFF0C;&amp;#x5E76;&amp;#x5229;&amp;#x7528;&amp;#x4E00;&amp;#x7EF4;&amp;#x6A21;&amp;#x578B;&amp;#x4F8B;&amp;#x5B50;&amp;#x52A0;&amp;#x4EE5;&amp;#x8BF4;&amp;#x660E;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/09/13/fd-1d/wave.gif&quot; width=&quot;600px&quot;&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -846,7 +846,7 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     
     </summary>
     
-      <category term="FD" scheme="http://sheng09.github.io/categories/FD/"/>
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
     
     
       <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
