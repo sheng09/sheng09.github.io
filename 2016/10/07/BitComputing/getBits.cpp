@@ -3,7 +3,7 @@
 template <typename T> std::string getBits(T _x)
 {
   long len   = sizeof(T) * 8 - 1;
-  std::string str = '['+std::to_string(len+1)+"bits]";
+  std::string str = '[' + std::to_string(len+1) + "bits]";
   long x = *( (long*)(&_x) );
   #ifdef DEBUG
     std::cout << x <<'\n';

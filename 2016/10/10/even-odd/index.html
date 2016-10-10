@@ -3,17 +3,18 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>Sheng Wang</title>
+  <title>位运算--快速判断奇偶性 | Sheng Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sheng Wang">
-<meta property="og:url" content="http://sheng09.github.io/index.html">
+  <meta name="description" content="&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x8FD0;&amp;#x7B97;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5FEB;&amp;#x901F;&amp;#x7684;&amp;#x5224;&amp;#x65AD;&amp;#x6574;&amp;#x6570;&amp;#x7684;&amp;#x5947;&amp;#x5076;&amp;#x6027;&amp;#x3002;&amp;#x6574;&amp;#x6570;&amp;#x4F4D;&amp;#x5B58;&amp;#x50A8;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="位运算--快速判断奇偶性">
+<meta property="og:url" content="http://sheng09.github.io/2016/10/10/even-odd/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description">
+<meta property="og:description" content="&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x8FD0;&amp;#x7B97;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5FEB;&amp;#x901F;&amp;#x7684;&amp;#x5224;&amp;#x65AD;&amp;#x6574;&amp;#x6570;&amp;#x7684;&amp;#x5947;&amp;#x5076;&amp;#x6027;&amp;#x3002;&amp;#x6574;&amp;#x6570;&amp;#x4F4D;&amp;#x5B58;&amp;#x50A8;">
+<meta property="og:updated_time" content="2016-10-10T01:19:42.800Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sheng Wang">
-<meta name="twitter:description">
+<meta name="twitter:title" content="位运算--快速判断奇偶性">
+<meta name="twitter:description" content="&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x8FD0;&amp;#x7B97;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5FEB;&amp;#x901F;&amp;#x7684;&amp;#x5224;&amp;#x65AD;&amp;#x6574;&amp;#x6570;&amp;#x7684;&amp;#x5947;&amp;#x5076;&amp;#x6027;&amp;#x3002;&amp;#x6574;&amp;#x6570;&amp;#x4F4D;&amp;#x5B58;&amp;#x50A8;">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -67,9 +68,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-even-odd" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-even-odd" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/10/10/even-odd/" class="article-date">
   <time datetime="2016-10-10T01:03:10.000Z" itemprop="datePublished">2016-10-10</time>
@@ -86,8 +85,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/10/even-odd/">位运算--快速判断奇偶性</a>
+    <h1 class="article-title" itemprop="name">
+      位运算--快速判断奇偶性
     </h1>
   
 
@@ -113,414 +112,26 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-BitComputing" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/07/BitComputing/" class="article-date">
-  <time datetime="2016-10-06T21:17:17.000Z" itemprop="datePublished">2016-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/07/BitComputing/">位运算</a>
-    </h1>
+    <a href="/2016/10/07/BitComputing/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">位运算</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1&#x4E2A;Byte&#x7531;8&#x4E2A;Bit&#x6784;&#x6210;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;Bit&#x4E3A;0&#x6216;1&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#xFF0C;&#x5229;&#x7528;&#x4F4D;&#x6765;&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x7A7A;&#x95F4;&#x6700;&#x4F18;&#x5316;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x7531;&#x4E8E;CPU&#x6307;&#x4EE4;&#x96C6;&#x53EF;&#x4EE5;&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;&#x591A;&#x4E2A;Bit&#xFF0C;&#x6545;&#x8FD9;&#x4E00;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5BF9;&#x6570;&#x636E;&#x5143;&#x7D20;&#x7684;&#x5FAA;&#x73AF;&#x904D;&#x5386;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x52A0;&#x901F;&#x3002;</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/10/07/BitComputing/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu3d83aa00036gfbicrenfla" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/10/07/BitComputing/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
 
 
-  
-    <article id="post-fd-2d-PML" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/17/fd-2d-PML/" class="article-date">
-  <time datetime="2016-09-16T17:54:33.000Z" itemprop="datePublished">2016-09-17</time>
-</a>
-    
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/17/fd-2d-PML/">PML边界-一阶声波方程有线差分模拟在二维下的实现</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E8C;&#x7EF4;&#x4E0B;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;PML&#x5438;&#x6536;&#x8FB9;&#x754C;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x5B9E;&#x73B0;&#x3002;<br><img src="/2016/09/17/fd-2d-PML/wave_field.jpg" width="600px"><br></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/17/fd-2d-PML/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu3d83be00166gfb7azrzj9t" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/09/17/fd-2d-PML/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FD/">FD</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-fd-2d" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/15/fd-2d/" class="article-date">
-  <time datetime="2016-09-14T17:54:33.000Z" itemprop="datePublished">2016-09-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/15/fd-2d/">一阶声波方程有线差分模拟在二维下的实现</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x5728;&#x4E8C;&#x7EF4;&#x4E0B;&#x7684;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#x3002;<br><img src="/2016/09/15/fd-2d/wave_field.jpg" width="600px"><br></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/15/fd-2d/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu3d83bg00186gfbjbnv3myr" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/09/15/fd-2d/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FD/">FD</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-fd-1d-PML" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/13/fd-1d-PML/" class="article-date">
-  <time datetime="2016-09-13T02:38:40.000Z" itemprop="datePublished">2016-09-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/13/fd-1d-PML/">PML边界-一阶声波方程有线差分模拟</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x7684;PML&#x5438;&#x6536;&#x8FB9;&#x754C;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#xFF0C;&#x5E76;&#x5229;&#x7528;&#x4E00;&#x7EF4;&#x6A21;&#x578B;&#x4F8B;&#x5B50;&#x52A0;&#x4EE5;&#x8BF4;&#x660E;&#x3002;<br><img src="/2016/09/13/fd-1d-PML/wave.gif" width="600px"><br></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/13/fd-1d-PML/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu3d83bb000z6gfb9seim1ow" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/09/13/fd-1d-PML/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FD/">FD</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-fd-1d" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/13/fd-1d/" class="article-date">
-  <time datetime="2016-09-12T22:38:40.000Z" itemprop="datePublished">2016-09-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/13/fd-1d/">一阶声波方程有线差分模拟</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x9636;&#x58F0;&#x6CE2;&#x65B9;&#x7A0B;&#x6709;&#x9650;&#x5DEE;&#x5206;&#x6A21;&#x62DF;&#xFF0C;&#x5E76;&#x5229;&#x7528;&#x4E00;&#x7EF4;&#x6A21;&#x578B;&#x4F8B;&#x5B50;&#x52A0;&#x4EE5;&#x8BF4;&#x660E;&#x3002;<br><img src="/2016/09/13/fd-1d/wave.gif" width="600px"></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/13/fd-1d/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu3d83bd00126gfb1h43snhg" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/09/13/fd-1d/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FD/">FD</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-fft-endpoint" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/12/fft-endpoint/" class="article-date">
-  <time datetime="2016-09-12T01:55:07.000Z" itemprop="datePublished">2016-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/12/fft-endpoint/">FFT终点截断引起的错误</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&#x6211;&#x770B;&#x8FC7;&#x5F88;&#x591A;&#x4F8B;FFT&#x8BA1;&#x7B97;&#x4E2D;&#x7AEF;&#x70B9;&#x5904;&#x7406;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x5148;&#x6765;&#x770B;&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;<br>&#x4E0B;&#x56FE;&#x4E2D;&#xFF0C;1Hz&#x7684;&#x5468;&#x671F;&#x6B63;&#x5F26;&#x4FE1;&#x53F7;$sin(2\pi t)$&#xFF0C;&#x901A;&#x8FC7;FFT&#x8BA1;&#x7B97;&#xFF0C;&#x5176;&#x529F;&#x7387;&#x9891;&#x8C31;&#x4E2D;&#xFF0C;&#x5B58;&#x5728;1Hz&#x4EE5;&#x5916;&#x7684;&#x4FE1;&#x53F7;&#xFF0C;&#x8FD9;&#x663E;&#x7136;&#x662F;&#x4E0D;&#x5BF9;&#x7684;&#x3002;<br>&#x5728;&#x5F88;&#x591A;&#x6848;&#x4F8B;&#x4E2D;&#xFF0C;&#x8FD9;&#x4E00;&#x73B0;&#x8C61;&#x88AB;&#x5FFD;&#x89C6;&#xFF0C;&#x6216;&#x8005;&#x88AB;&#x89E3;&#x91CA;&#x4E3A;&#x8BA1;&#x7B97;&#x8BEF;&#x5DEE;&#x3002;&#x7279;&#x522B;&#x662F;&#x5F53;&#x4FE1;&#x53F7;&#x7684;&#x5E8F;&#x5217;&#x8DB3;&#x591F;&#x957F;&#x65F6;&#xFF0C;&#x8FD9;&#x4E00;&#x7279;&#x5F81;&#x4F1A;&#x5341;&#x5206;&#x7684;&#x4E0D;&#x660E;&#x663E;&#x3002;&#x4EA6;&#x6709;&#x4E00;&#x90E8;&#x5206;&#x6848;&#x4F8B;&#x671F;&#x671B;&#x901A;&#x8FC7;&#x8865;&#x96F6;&#x6765;&#x4F18;&#x5316;&#x7ED3;&#x679C;&#x3002;<br><img src="/2016/09/12/fft-endpoint/wrong_frequency.jpg" alt=""></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/12/fft-endpoint/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu3d83bh001d6gfbjsxgevuy" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/09/12/fft-endpoint/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-PDE-boundaries" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/01/PDE-boundaries/" class="article-date">
-  <time datetime="2016-08-31T19:34:51.000Z" itemprop="datePublished">2016-09-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/PDE/">PDE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/01/PDE-boundaries/">Boundary Conditions for Differential Equations</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and associated equations.<br>Besides, this post also present the combination of Dirichlet and Neumann boundary conditions in construct absorbing boundary for solving wave eqution.<br></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/01/PDE-boundaries/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/01/PDE-boundaries/" data-id="ciu3d83ao000b6gfbrx4e4273" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/09/01/PDE-boundaries/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PDE/">PDE</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Hello" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/07/13/Hello/" class="article-date">
-  <time datetime="2016-07-13T06:35:31.000Z" itemprop="datePublished">2016-07-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/13/Hello/">Hello</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/07/13/Hello/" data-id="ciu3d83ad00056gfb5ozzy99b" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/07/13/Hello/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-RF-LVZ-03" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/06/15/RF-LVZ-03/" class="article-date">
-  <time datetime="2016-06-15T12:12:25.000Z" itemprop="datePublished">2016-06-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/接收函数/">接收函数</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/15/RF-LVZ-03/">接收函数理论与实践（三）低速层对接收函数的影响</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/06/15/RF-LVZ-03/" data-id="ciu3d83aq000d6gfbja358dmo" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/06/15/RF-LVZ-03/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/接收函数/">接收函数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/界面/">界面</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
-
+</section>
 </section>
         
           <aside id="sidebar">
@@ -620,11 +231,13 @@
 <script>
   var disqus_shortname = 'sheng09';
   
+  var disqus_url = 'http://sheng09.github.io/2016/10/10/even-odd/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
@@ -644,23 +257,6 @@
 </div>
 <script src="/js/totop.js"></script>
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
