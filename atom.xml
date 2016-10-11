@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-11T18:24:33.120Z</updated>
+  <updated>2016-10-11T18:27:53.912Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/11/fast-permutation/"/>
     <id>http://sheng09.github.io/2016/10/11/fast-permutation/</id>
     <published>2016-10-11T15:59:02.000Z</published>
-    <updated>2016-10-11T18:24:33.120Z</updated>
+    <updated>2016-10-11T18:27:53.912Z</updated>
     
     <content type="html">&lt;p&gt;&amp;#x5229;&amp;#x7528;&amp;#x4F4D;&amp;#x8FD0;&amp;#x7B97;&amp;#xFF0C;&amp;#x5FEB;&amp;#x901F;&amp;#x5B9E;&amp;#x73B0;&amp;#x6392;&amp;#x5217;&amp;#x3002;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;!-- toc --&gt;
@@ -42,6 +42,14 @@
     
     </summary>
     
+      <category term="programming" scheme="http://sheng09.github.io/categories/programming/"/>
+    
+    
+      <category term="bit" scheme="http://sheng09.github.io/tags/bit/"/>
+    
+      <category term="programming" scheme="http://sheng09.github.io/tags/programming/"/>
+    
+      <category term="algorithm" scheme="http://sheng09.github.io/tags/algorithm/"/>
     
   </entry>
   
