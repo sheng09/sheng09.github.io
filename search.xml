@@ -4,16 +4,6 @@
   
     
     <entry>
-      <title></title>
-      <url>http://sheng09.github.io/2016/10/12/fast-permutation/README/</url>
-      <content type="html"><![CDATA[<h2 id="fast-algorithm-for-permutation"><a href="#Fast-Algorithm-for-permutation" class="headerlink" title="Fast Algorithm for permutation"></a>Fast Algorithm for permutation</h2><p>This repository contains programs for generate permutation of <code>permutation1, permutation2,
-permutation3, permutation4, permutation5</code>, and each one is faster than the previous.\<br>Bit operations is the key point of acceleration in <code>permutation3, permutation4, permutation5</code>.</p>
-<h4 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><h4 id="compile"><a href="#Compile" class="headerlink" title="Compile"></a>Compile</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash&gt; make</span><br></pre></td></tr></table></figure>
-<h4 id="clean"><a href="#Clean" class="headerlink" title="Clean"></a>Clean</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash&gt; make clean</span><br></pre></td></tr></table></figure>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[快速排列]]></title>
       <url>http://sheng09.github.io/2016/10/11/fast-permutation/</url>
       <content type="html"><![CDATA[<p>&#x5229;&#x7528;&#x4F4D;&#x8FD0;&#x7B97;&#xFF0C;&#x5FEB;&#x901F;&#x5B9E;&#x73B0;&#x6392;&#x5217;&#x3002;<br><a id="more"></a></p>
@@ -1189,14 +1179,20 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
-      <title><![CDATA[Categories]]></title>
-      <url>http://sheng09.github.io/categories/index.html</url>
+      <title><![CDATA[about]]></title>
+      <url>http://sheng09.github.io/about/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[about]]></title>
-      <url>http://sheng09.github.io/about/index.html</url>
+      <title><![CDATA[tags]]></title>
+      <url>http://sheng09.github.io/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Categories]]></title>
+      <url>http://sheng09.github.io/categories/index.html</url>
       <content type="html"></content>
     </entry>
     
@@ -1213,12 +1209,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://sheng09.github.io/tags/index.html</url>
-      <content type="html"></content>
     </entry>
     
   
