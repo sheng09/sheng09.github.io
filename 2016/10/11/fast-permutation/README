@@ -5,6 +5,7 @@ permutation3, permutation4, permutation5`, and each one is faster than the previ
 Bit operations is the key point of acceleration in `permutation3, permutation4, permutation5`.
 
 #### Reference
+http://sheng09.github.io/2016/10/11/fast-permutation/
 
 #### Compile
 ``` bash
