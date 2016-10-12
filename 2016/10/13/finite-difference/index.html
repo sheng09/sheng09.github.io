@@ -16,9 +16,10 @@ Higher Order Accuracy
 (2) $f&amp;#x2019;&amp;#x2019;(x)$
 
 
+Conclusion
 
 
-Taylor expansionAccording to Taylor expa">
+Taylor expansionAccording to">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta property="og:url" content="http://sheng09.github.io/2016/10/13/finite-difference/index.html">
@@ -34,10 +35,11 @@ Higher Order Accuracy
 (2) $f&amp;#x2019;&amp;#x2019;(x)$
 
 
+Conclusion
 
 
-Taylor expansionAccording to Taylor expa">
-<meta property="og:updated_time" content="2016-10-12T23:34:33.307Z">
+Taylor expansionAccording to">
+<meta property="og:updated_time" content="2016-10-12T23:56:32.025Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta name="twitter:description" content="Taylor expansion
@@ -51,9 +53,10 @@ Higher Order Accuracy
 (2) $f&amp;#x2019;&amp;#x2019;(x)$
 
 
+Conclusion
 
 
-Taylor expansionAccording to Taylor expa">
+Taylor expansionAccording to">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -142,6 +145,7 @@ Taylor expansionAccording to Taylor expa">
 <li><a href="#2-fx">(2) $f&#x2019;&#x2019;(x)$</a></li>
 </ul>
 </li>
+<li><a href="#conclusion">Conclusion</a></li>
 </ul>
 <!-- tocstop -->
 <h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
@@ -226,17 +230,16 @@ Taylor expansionAccording to Taylor expa">
 <script type="math/tex; mode=display">
 \begin{equation}
 \begin{aligned}
-    f'(x) = &\sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} }\\
+    f'(x) = &\sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } + O(\delta^{2i}) \\
             & - \frac{\delta^2 f^{(3)}(x) }{3!} \sum \limits_{k=1}^N {C_k k^2}
               - \frac{\delta^4 f^{(5)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^4}
               - ...
-              - \frac{\delta^{2i} f^{(2i+1)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^{2i}}
-              + O(\delta^{2i+2}) \\
+              - \frac{\delta^{2i-2} f^{(2i-1)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^{2i-2}}
 \end{aligned}
 \end{equation}</script><script type="math/tex; mode=display">
 \begin{equation}
 C_1+C_2+C_3+...+C_N = 1
-\end{equation}</script><p>so, if we want to have 2Nth order accuracy, then conditions below are required:</p>
+\end{equation}</script><p>so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {C_k k^{**}}$ must have value of zero. Besides, to determine the value of $C_1,C_2,&#x2026;,C_N$, $i$ should equals to $N$. So we arrive at an linear equation of $C$:</p>
 <script type="math/tex; mode=display">
 \begin{equation}
     \begin{bmatrix}
@@ -254,7 +257,9 @@ C_1+C_2+C_3+...+C_N = 1
     \begin{bmatrix}
         1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
     \end{bmatrix}
-\end{equation}</script><h4 id="2-fx"><a href="#2-f&#x2019;&#x2019;-x" class="headerlink" title="(2) $f&#x2019;&#x2019;(x)$"></a>(2) $f&#x2019;&#x2019;(x)$</h4><p>For step of $\delta$, $2\delta$, $3\delta$&#x2026;etc, we have:</p>
+    \label{M_C}
+\end{equation}</script><p>By calculation, $C_1,C_2,C_3,&#x2026;,C_N$ have the value of:</p>
+<h4 id="2-fx"><a href="#2-f&#x2019;&#x2019;-x" class="headerlink" title="(2) $f&#x2019;&#x2019;(x)$"></a>(2) $f&#x2019;&#x2019;(x)$</h4><p>For step of $\delta$, $2\delta$, $3\delta$&#x2026;etc, we have:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     \begin{cases}
@@ -283,17 +288,16 @@ f''(x;N\delta)  & = & \frac{f(x+N\delta) + f(x-N\delta) - 2f(x)}{N^2 \delta^2}
 <script type="math/tex; mode=display">
 \begin{equation}
     \begin{aligned}
-        f''(x) = & \sum \limits_{k=1}^N F_K \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
+        f''(x) = & \sum \limits_{k=1}^N F_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} +O( \delta^{2i}) \\
                 & - \frac{2 \delta^2}{4!} f^{(4)}(x) \sum \limits_{k=1}^N F_k k^2
                   - \frac{2 \delta^4}{6!} f^{(6)}(x) \sum \limits_{k=1}^N F_k k^4
                   ...
                   - \frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x) \sum \limits_{k=1}^N F_k k^{2i-2}
-                  +O( \delta^{2i})
     \end{aligned}
 \end{equation}</script><script type="math/tex; mode=display">
 \begin{equation}
 F_1+F_2+F_3+...+F_N = 1
-\end{equation}</script><p>so, if we want to have 2Nth order accuracy, then conditions below are required:</p>
+\end{equation}</script><p>so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {F_k k^{**}}$ must have value of zero. Besides, to determine the value of $F_1,F_2,&#x2026;,F_N$, $i$ should equals to $N$. So we arrive at an linear equation of $F$, which is same as $\eqref{M_C}$</p>
 <script type="math/tex; mode=display">
 \begin{equation}
     \begin{bmatrix}
@@ -311,11 +315,18 @@ F_1+F_2+F_3+...+F_N = 1
     \begin{bmatrix}
         1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
     \end{bmatrix}
-\end{equation}</script>
+    \label{M_F}
+\end{equation}</script><h2 id="conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>To sum up, finite difference of 2Nth order accuracy for first or second order derivative are:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+D  [f(x)]   & = & \sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } \\
+D^2[f(x)]   & = & \sum \limits_{k=1}^N C_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
+C_k         & = &
+\end{eqnarray}</script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7jzyni001neofb3me808mg" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7k26650032qifb0xgslpc8" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       

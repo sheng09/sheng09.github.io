@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-12T23:34:33.307Z</updated>
+  <updated>2016-10-12T23:56:32.025Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-12T23:34:33.307Z</updated>
+    <updated>2016-10-12T23:56:32.025Z</updated>
     
     <content type="html">&lt;!-- toc --&gt;
 &lt;ul&gt;
@@ -30,6 +30,7 @@
 &lt;li&gt;&lt;a href=&quot;#2-fx&quot;&gt;(2) $f&amp;#x2019;&amp;#x2019;(x)$&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- tocstop --&gt;
 &lt;h2 id=&quot;taylor-expansion&quot;&gt;&lt;a href=&quot;#Taylor-expansion&quot; class=&quot;headerlink&quot; title=&quot;Taylor expansion&quot;&gt;&lt;/a&gt;Taylor expansion&lt;/h2&gt;&lt;p&gt;According to Taylor expansion, we have:&lt;/p&gt;
@@ -114,17 +115,16 @@
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
 \begin{aligned}
-    f&#39;(x) = &amp;\sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} }\\
+    f&#39;(x) = &amp;\sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } + O(\delta^{2i}) \\
             &amp; - \frac{\delta^2 f^{(3)}(x) }{3!} \sum \limits_{k=1}^N {C_k k^2}
               - \frac{\delta^4 f^{(5)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^4}
               - ...
-              - \frac{\delta^{2i} f^{(2i+1)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^{2i}}
-              + O(\delta^{2i+2}) \\
+              - \frac{\delta^{2i-2} f^{(2i-1)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^{2i-2}}
 \end{aligned}
 \end{equation}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
 C_1+C_2+C_3+...+C_N = 1
-\end{equation}&lt;/script&gt;&lt;p&gt;so, if we want to have 2Nth order accuracy, then conditions below are required:&lt;/p&gt;
+\end{equation}&lt;/script&gt;&lt;p&gt;so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {C_k k^{**}}$ must have value of zero. Besides, to determine the value of $C_1,C_2,&amp;#x2026;,C_N$, $i$ should equals to $N$. So we arrive at an linear equation of $C$:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
     \begin{bmatrix}
@@ -142,7 +142,9 @@ C_1+C_2+C_3+...+C_N = 1
     \begin{bmatrix}
         1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
     \end{bmatrix}
-\end{equation}&lt;/script&gt;&lt;h4 id=&quot;2-fx&quot;&gt;&lt;a href=&quot;#2-f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;(2) $f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;(2) $f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;&lt;p&gt;For step of $\delta$, $2\delta$, $3\delta$&amp;#x2026;etc, we have:&lt;/p&gt;
+    \label{M_C}
+\end{equation}&lt;/script&gt;&lt;p&gt;By calculation, $C_1,C_2,C_3,&amp;#x2026;,C_N$ have the value of:&lt;/p&gt;
+&lt;h4 id=&quot;2-fx&quot;&gt;&lt;a href=&quot;#2-f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;(2) $f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;(2) $f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;&lt;p&gt;For step of $\delta$, $2\delta$, $3\delta$&amp;#x2026;etc, we have:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     \begin{cases}
@@ -171,17 +173,16 @@ f&#39;&#39;(x;N\delta)  &amp; = &amp; \frac{f(x+N\delta) + f(x-N\delta) - 2f(x)}
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
     \begin{aligned}
-        f&#39;&#39;(x) = &amp; \sum \limits_{k=1}^N F_K \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
+        f&#39;&#39;(x) = &amp; \sum \limits_{k=1}^N F_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} +O( \delta^{2i}) \\
                 &amp; - \frac{2 \delta^2}{4!} f^{(4)}(x) \sum \limits_{k=1}^N F_k k^2
                   - \frac{2 \delta^4}{6!} f^{(6)}(x) \sum \limits_{k=1}^N F_k k^4
                   ...
                   - \frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x) \sum \limits_{k=1}^N F_k k^{2i-2}
-                  +O( \delta^{2i})
     \end{aligned}
 \end{equation}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
 F_1+F_2+F_3+...+F_N = 1
-\end{equation}&lt;/script&gt;&lt;p&gt;so, if we want to have 2Nth order accuracy, then conditions below are required:&lt;/p&gt;
+\end{equation}&lt;/script&gt;&lt;p&gt;so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {F_k k^{**}}$ must have value of zero. Besides, to determine the value of $F_1,F_2,&amp;#x2026;,F_N$, $i$ should equals to $N$. So we arrive at an linear equation of $F$, which is same as $\eqref{M_C}$&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
     \begin{bmatrix}
@@ -199,7 +200,14 @@ F_1+F_2+F_3+...+F_N = 1
     \begin{bmatrix}
         1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
     \end{bmatrix}
-\end{equation}&lt;/script&gt;</content>
+    \label{M_F}
+\end{equation}&lt;/script&gt;&lt;h2 id=&quot;conclusion&quot;&gt;&lt;a href=&quot;#Conclusion&quot; class=&quot;headerlink&quot; title=&quot;Conclusion&quot;&gt;&lt;/a&gt;Conclusion&lt;/h2&gt;&lt;p&gt;To sum up, finite difference of 2Nth order accuracy for first or second order derivative are:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+D  [f(x)]   &amp; = &amp; \sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } \\
+D^2[f(x)]   &amp; = &amp; \sum \limits_{k=1}^N C_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
+C_k         &amp; = &amp;
+\end{eqnarray}&lt;/script&gt;</content>
     
     <summary type="html">
     
