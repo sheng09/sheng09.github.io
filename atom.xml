@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-12T20:51:27.998Z</updated>
+  <updated>2016-10-12T20:54:54.640Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-12T20:51:27.998Z</updated>
+    <updated>2016-10-12T20:54:54.640Z</updated>
     
     <content type="html">&lt;!-- toc --&gt;
 &lt;ul&gt;
@@ -86,7 +86,22 @@
                                                     + O( \delta^{2i})
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;&amp;#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.&lt;/p&gt;
 &lt;h2 id=&quot;higher-order-accuracy&quot;&gt;&lt;a href=&quot;#Higher-Order-Accuracy&quot; class=&quot;headerlink&quot; title=&quot;Higher Order Accuracy&quot;&gt;&lt;/a&gt;Higher Order Accuracy&lt;/h2&gt;&lt;p&gt;To increase the accuracy, $f&amp;#x2019;(x;\delta)$, $f&amp;#x2019;(x;2\delta)$, $f&amp;#x2019;(x;3\delta)$&amp;#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&amp;#x2026;etc. This method works for $f&amp;#x2019;&amp;#x2019;(x)$ as well.&lt;/p&gt;
-&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;(x)$&lt;/h4&gt;&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;</content>
+&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;(x)$&lt;/h4&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{cases}
+        f&#39;(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
+                                                        - \frac{1}{3!} \delta^2 f^{(3)}(x)
+                                                        - \frac{1}{5!} \delta^4 f^{(5)}(x)
+                                                        - \frac{1}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                        + O(\delta^{2i+2})\\
+
+        f&#39;(x;2\delta) = \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
+                                                - \frac{2^2}{3!} \delta^2 f^{(3)}(x)
+                                                - \frac{2^4}{5!} \delta^4 f^{(5)}(x)
+                                                - \frac{2^{2i}}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                + O(\delta^{2i+2})
+    \end{cases}
+\begin{eqnarray}&lt;/script&gt;&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;</content>
     
     <summary type="html">
     

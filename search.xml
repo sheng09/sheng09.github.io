@@ -75,7 +75,22 @@
                                                     + O( \delta^{2i})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
 <h2 id="higher-order-accuracy"><a href="#Higher-Order-Accuracy" class="headerlink" title="Higher Order Accuracy"></a>Higher Order Accuracy</h2><p>To increase the accuracy, $f&#x2019;(x;\delta)$, $f&#x2019;(x;2\delta)$, $f&#x2019;(x;3\delta)$&#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&#x2026;etc. This method works for $f&#x2019;&#x2019;(x)$ as well.</p>
-<h4 id="fx"><a href="#f&#x2019;-x" class="headerlink" title="$f&#x2019;(x)$"></a>$f&#x2019;(x)$</h4><h4 id="fx"><a href="#f&#x2019;&#x2019;-x" class="headerlink" title="$f&#x2019;&#x2019;(x)$"></a>$f&#x2019;&#x2019;(x)$</h4>]]></content>
+<h4 id="fx"><a href="#f&#x2019;-x" class="headerlink" title="$f&#x2019;(x)$"></a>$f&#x2019;(x)$</h4><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
+                                                        - \frac{1}{3!} \delta^2 f^{(3)}(x)
+                                                        - \frac{1}{5!} \delta^4 f^{(5)}(x)
+                                                        - \frac{1}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                        + O(\delta^{2i+2})\\
+
+        f'(x;2\delta) = \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
+                                                - \frac{2^2}{3!} \delta^2 f^{(3)}(x)
+                                                - \frac{2^4}{5!} \delta^4 f^{(5)}(x)
+                                                - \frac{2^{2i}}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                + O(\delta^{2i+2})
+    \end{cases}
+\begin{eqnarray}</script><h4 id="fx"><a href="#f&#x2019;&#x2019;-x" class="headerlink" title="$f&#x2019;&#x2019;(x)$"></a>$f&#x2019;&#x2019;(x)$</h4>]]></content>
     </entry>
     
     <entry>
