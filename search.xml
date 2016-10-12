@@ -4,6 +4,71 @@
   
     
     <entry>
+      <title><![CDATA[Finite Difference of Derivatives(微分的有限差分实现)]]></title>
+      <url>http://sheng09.github.io/2016/10/13/finite-difference/</url>
+      <content type="html"><![CDATA[<h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f(x+\delta ) & = & f(x) +  \delta  f'(x) +
+                            \frac{1}{2!} \delta ^2 f''(x)  +
+                            \frac{1}{3!} \delta ^3 f^{(3)} (x)  +
+                            ... +
+                            \frac{1}{i!} \delta ^i f^{(i)} (x)  +
+                            \frac{1}{n!} \delta ^n f^{(n)} (x)  +
+                            o(\delta^n)\\
+    f(x-\delta ) & = & f(x) -  \delta  f'(x) +
+                        \frac{1}{2!} \delta ^2 f''(x)  -
+                        \frac{1}{3!} \delta ^3 f^{(3)} (x)  +
+                        ... +
+                        \frac{(-1)^i}{i!} \delta ^i f^{(i)} (x)  +
+                        \frac{(-1)^n}{n!} \delta ^n f^{(n)} (x)  +
+                        o(\delta^n)
+\end{eqnarray}</script><p>The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{f(x+\delta) + f(x-\delta)}{2} & = & f(x) +    \frac{1}{2!} \delta^2 f''(x) +
+                                                        \frac{1}{4!} \delta^4 f^{(4)}(x) +
+                                                        %\frac{1}{6!} \delta^6 f^{(6)}(x) +
+                                                        \frac{1}{(2i)!} \delta^{2i} f^{(2i)}(x) +
+                                                        O( \delta^{2i+2})
+                                                        \label{second} \\
+    \frac{f(x+\delta) - f(x-\delta)}{2} & = & \delta f'(x) +
+                                            \frac{1}{3!} \delta^3 f^{(3)}(x) +
+                                            \frac{1}{5!} \delta^5 f^{(5)}(x) +
+                                            %\frac{1}{7!} \delta^5 f^{(7)}(x) +
+                                            \frac{1}{(2i+1)!} \delta^{2i+1} f^{(2i+1)}(x) +
+                                            O(\delta^{2i+3})
+                                            \label{first}
+
+\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
+<h4 id="first-order-derivative"><a href="#First-order-derivative" class="headerlink" title="First order derivative"></a>First order derivative</h4><p>According to $\eqref{first}$, $f&#x2019;(x)$ should be:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
+                                                        - \frac{1}{3!} \delta^2 f^{(3)}(x)
+                                                        - \frac{1}{5!} \delta^4 f^{(5)}(x)
+                                                        - \frac{1}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                        + O(\delta^{2i+2})
+\end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.</p>
+<h4 id="second-order-derivative"><a href="#Second-order-derivative" class="headerlink" title="Second order derivative"></a>Second order derivative</h4><p>In the same way, $f&#x2019;&#x2019;(x)$ is derived from $\eqref{second}$</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+ f''(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
+                                                    - \frac{2}{4!} \delta^2 f^{(4)}(x)
+                                                    - \frac{2}{6!} \delta^4 f^{(6)}(x)
+                                                    - \frac{2}{(2i)!} \delta^{2i-2} f^{(2i)}(x)
+                                                    + O( \delta^{2i})
+\end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[combination]]></title>
+      <url>http://sheng09.github.io/2016/10/12/combination/</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[快速排列]]></title>
       <url>http://sheng09.github.io/2016/10/11/fast-permutation/</url>
       <content type="html"><![CDATA[<p>&#x5229;&#x7528;&#x4F4D;&#x8FD0;&#x7B97;&#xFF0C;&#x5FEB;&#x901F;&#x5B9E;&#x73B0;&#x6392;&#x5217;&#x3002;<br><a id="more"></a></p>
@@ -1180,6 +1245,12 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
+      <title><![CDATA[about]]></title>
+      <url>http://sheng09.github.io/about/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Categories]]></title>
       <url>http://sheng09.github.io/categories/index.html</url>
       <content type="html"></content>
@@ -1198,12 +1269,6 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
 <h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[about]]></title>
-      <url>http://sheng09.github.io/about/index.html</url>
-      <content type="html"></content>
     </entry>
     
     <entry>

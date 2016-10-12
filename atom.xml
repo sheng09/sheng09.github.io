@@ -5,10 +5,97 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-11T18:27:53.912Z</updated>
+  <updated>2016-10-12T20:41:29.353Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Finite Difference of Derivatives(微分的有限差分实现)</title>
+    <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
+    <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
+    <published>2016-10-12T19:53:58.000Z</published>
+    <updated>2016-10-12T20:41:29.353Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;taylor-expansion&quot;&gt;&lt;a href=&quot;#Taylor-expansion&quot; class=&quot;headerlink&quot; title=&quot;Taylor expansion&quot;&gt;&lt;/a&gt;Taylor expansion&lt;/h2&gt;&lt;p&gt;According to Taylor expansion, we have:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&#39;(x) +
+                            \frac{1}{2!} \delta ^2 f&#39;&#39;(x)  +
+                            \frac{1}{3!} \delta ^3 f^{(3)} (x)  +
+                            ... +
+                            \frac{1}{i!} \delta ^i f^{(i)} (x)  +
+                            \frac{1}{n!} \delta ^n f^{(n)} (x)  +
+                            o(\delta^n)\\
+    f(x-\delta ) &amp; = &amp; f(x) -  \delta  f&#39;(x) +
+                        \frac{1}{2!} \delta ^2 f&#39;&#39;(x)  -
+                        \frac{1}{3!} \delta ^3 f^{(3)} (x)  +
+                        ... +
+                        \frac{(-1)^i}{i!} \delta ^i f^{(i)} (x)  +
+                        \frac{(-1)^n}{n!} \delta ^n f^{(n)} (x)  +
+                        o(\delta^n)
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \frac{f(x+\delta) + f(x-\delta)}{2} &amp; = &amp; f(x) +    \frac{1}{2!} \delta^2 f&#39;&#39;(x) +
+                                                        \frac{1}{4!} \delta^4 f^{(4)}(x) +
+                                                        %\frac{1}{6!} \delta^6 f^{(6)}(x) +
+                                                        \frac{1}{(2i)!} \delta^{2i} f^{(2i)}(x) +
+                                                        O( \delta^{2i+2})
+                                                        \label{second} \\
+    \frac{f(x+\delta) - f(x-\delta)}{2} &amp; = &amp; \delta f&#39;(x) +
+                                            \frac{1}{3!} \delta^3 f^{(3)}(x) +
+                                            \frac{1}{5!} \delta^5 f^{(5)}(x) +
+                                            %\frac{1}{7!} \delta^5 f^{(7)}(x) +
+                                            \frac{1}{(2i+1)!} \delta^{2i+1} f^{(2i+1)}(x) +
+                                            O(\delta^{2i+3})
+                                            \label{first}
+
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;derivatives&quot;&gt;&lt;a href=&quot;#Derivatives&quot; class=&quot;headerlink&quot; title=&quot;Derivatives&quot;&gt;&lt;/a&gt;Derivatives&lt;/h2&gt;&lt;p&gt;For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.&lt;/p&gt;
+&lt;h4 id=&quot;first-order-derivative&quot;&gt;&lt;a href=&quot;#First-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;First order derivative&quot;&gt;&lt;/a&gt;First order derivative&lt;/h4&gt;&lt;p&gt;According to $\eqref{first}$, $f&amp;#x2019;(x)$ should be:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f&#39;(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
+                                                        - \frac{1}{3!} \delta^2 f^{(3)}(x)
+                                                        - \frac{1}{5!} \delta^4 f^{(5)}(x)
+                                                        - \frac{1}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                        + O(\delta^{2i+2})
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.&lt;/p&gt;
+&lt;h4 id=&quot;second-order-derivative&quot;&gt;&lt;a href=&quot;#Second-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;Second order derivative&quot;&gt;&lt;/a&gt;Second order derivative&lt;/h4&gt;&lt;p&gt;In the same way, $f&amp;#x2019;&amp;#x2019;(x)$ is derived from $\eqref{second}$&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+ f&#39;&#39;(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
+                                                    - \frac{2}{4!} \delta^2 f^{(4)}(x)
+                                                    - \frac{2}{6!} \delta^4 f^{(6)}(x)
+                                                    - \frac{2}{(2i)!} \delta^{2i-2} f^{(2i)}(x)
+                                                    + O( \delta^{2i})
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;&amp;#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;taylor-expansion&quot;&gt;&lt;a href=&quot;#Taylor-expansion&quot; class=&quot;headerlink&quot; title=&quot;Taylor expansion&quot;&gt;&lt;/a&gt;Taylor expansion&lt;/h2&gt;&lt;p&gt;According to T
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>combination</title>
+    <link href="http://sheng09.github.io/2016/10/12/combination/"/>
+    <id>http://sheng09.github.io/2016/10/12/combination/</id>
+    <published>2016-10-11T18:30:34.000Z</published>
+    <updated>2016-10-11T18:30:34.537Z</updated>
+    
+    <content type="html"></content>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>快速排列</title>
@@ -1409,95 +1496,6 @@ R(\omega) S&#39;(\omega) &amp; = &amp; M(\omega) S(\omega) S&#39;(\omega) + N(\o
       <category term="Linux" scheme="http://sheng09.github.io/tags/Linux/"/>
     
       <category term="Compiling" scheme="http://sheng09.github.io/tags/Compiling/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>怎么在linux下压缩和解压文件</title>
-    <link href="http://sheng09.github.io/2016/06/09/unpack-in-linux/"/>
-    <id>http://sheng09.github.io/2016/06/09/unpack-in-linux/</id>
-    <published>2016-06-08T16:34:36.000Z</published>
-    <updated>2016-10-10T01:55:18.396Z</updated>
-    
-    <content type="html">&lt;p&gt;&amp;#x6B64;&amp;#x6587;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;!-- toc --&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#targz&quot;&gt;tar.gz&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#tarbz2&quot;&gt;tar.bz2&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#zip&quot;&gt;zip&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#rar&quot;&gt;rar&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x8BF4;&amp;#x660E;&quot;&gt;&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x8BF4;&amp;#x660E;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- tocstop --&gt;
-&lt;h2 id=&quot;targz&quot;&gt;&lt;a href=&quot;#tar-gz&quot; class=&quot;headerlink&quot; title=&quot;tar.gz&quot;&gt;&lt;/a&gt;tar.gz&lt;/h2&gt;&lt;p&gt;1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;(&amp;#x5939;)&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ tar -cvzf  test.tar.gz  &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x53EF;&amp;#x4EE5;&amp;#x5C06;test&amp;#x6253;&amp;#x5305;&amp;#x538B;&amp;#x7F29;&amp;#x5E76;&amp;#x751F;&amp;#x4EA7;test.tar.gz&amp;#xFF0C;test&amp;#x53EF;&amp;#x4EE5;&amp;#x662F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939;&amp;#x4E5F;&amp;#x53EF;&amp;#x4EE5;&amp;#x662F;&amp;#x6587;&amp;#x4EF6;&amp;#x3002;&lt;br&gt;&amp;#x5207;&amp;#x8BB0;&amp;#xFF0C;&amp;#x88AB;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;&amp;#x4E0E;&amp;#x538B;&amp;#x7F29;&amp;#x8F93;&amp;#x51FA;&amp;#x6587;&amp;#x4EF6;&amp;#x4E0D;&amp;#x8981;&amp;#x5199;&amp;#x53CD;&amp;#x4E86;&amp;#xFF0C;&amp;#x5426;&amp;#x5219;&amp;#x88AB;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;&amp;#x4F1A;&amp;#x88AB;&amp;#x8986;&amp;#x76D6;&amp;#x4ECE;&amp;#x800C;&amp;#x4E22;&amp;#x5931;&amp;#xFF01;&lt;/p&gt;
-&lt;p&gt;2.&amp;#x89E3;&amp;#x5305;&amp;#x5E76;&amp;#x89E3;&amp;#x538B; .tar.gz&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ tar -xvzf  test.tar.gz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;tarbz2&quot;&gt;&lt;a href=&quot;#tar-bz2&quot; class=&quot;headerlink&quot; title=&quot;tar.bz2&quot;&gt;&lt;/a&gt;tar.bz2&lt;/h2&gt;&lt;p&gt;1.&amp;#x4F7F;&amp;#x7528;tar&amp;#x6253;&amp;#x5305;&amp;#x5E76;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;(&amp;#x5939;)&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ tar -cjzf  test.tar.bz2  &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x53EF;&amp;#x4EE5;&amp;#x5C06;test&amp;#x6253;&amp;#x5305;&amp;#x538B;&amp;#x7F29;&amp;#x5E76;&amp;#x751F;&amp;#x4EA7;test.tar.bz&amp;#xFF0C;test&amp;#x53EF;&amp;#x4EE5;&amp;#x662F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939;&amp;#x4E5F;&amp;#x53EF;&amp;#x4EE5;&amp;#x662F;&amp;#x6587;&amp;#x4EF6;&amp;#x3002;&lt;/p&gt;
-&lt;p&gt;2.&amp;#x89E3;&amp;#x5305;&amp;#x5E76;&amp;#x89E3;&amp;#x538B; .tar.bz&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ tar -xjzf  test.tar.bz2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;zip&quot;&gt;&lt;a href=&quot;#zip&quot; class=&quot;headerlink&quot; title=&quot;zip&quot;&gt;&lt;/a&gt;zip&lt;/h2&gt;&lt;p&gt;1.&amp;#x4F7F;&amp;#x7528;zip&amp;#x538B;&amp;#x7F29;&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ zip  -r  test.zip   &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x5C06;test&amp;#x6253;&amp;#x5305;&amp;#x538B;&amp;#x7F29;&amp;#x5E76;&amp;#x751F;&amp;#x4EA7;test.zip&amp;#xFF0C;test&amp;#x53EF;&amp;#x4EE5;&amp;#x662F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939;&amp;#x4E5F;&amp;#x53EF;&amp;#x4EE5;&amp;#x662F;&amp;#x6587;&amp;#x4EF6;&amp;#xFF1B;&lt;/p&gt;
-&lt;p&gt;2.&amp;#x89E3;&amp;#x538B;zip&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ unzip   test.zip&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;rar&quot;&gt;&lt;a href=&quot;#rar&quot; class=&quot;headerlink&quot; title=&quot;rar&quot;&gt;&lt;/a&gt;rar&lt;/h2&gt;&lt;p&gt;&amp;#x6700;&amp;#x597D;&amp;#x4E0D;&amp;#x8981;&amp;#x7528;rar&amp;#xFF0C;rar&amp;#x538B;&amp;#x7F29;&amp;#x7B97;&amp;#x6CD5;&amp;#x4E0D;&amp;#x662F;&amp;#x5F00;&amp;#x6E90;&amp;#x7684;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;linux&amp;#x4E2D;&amp;#x9ED8;&amp;#x8BA4;&amp;#x53EF;&amp;#x80FD;&amp;#x6CA1;&amp;#x6709;&amp;#x5904;&amp;#x7406;rar&amp;#x7684;&amp;#x5DE5;&amp;#x5177;&amp;#x3002;&amp;#x5018;&amp;#x82E5;&amp;#x5F3A;&amp;#x884C;&amp;#x9700;&amp;#x6C42;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5148;&amp;#x5B89;&amp;#x88C5;rar&lt;br&gt;ubuntu&amp;#x4E2D;&amp;#x5B89;&amp;#x88C5;&amp;#x547D;&amp;#x4EE4;&amp;#x5982;&amp;#x4E0B;&amp;#xFF1A;&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo apt-get install rar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;1.&amp;#x4F7F;&amp;#x7528;rar&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;&amp;#x6216;&amp;#x6587;&amp;#x4EF6;&amp;#x5939;&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ rar  a  test.rar  &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x53EF;&amp;#x4EE5;&amp;#x5C06;test&amp;#x6253;&amp;#x5305;&amp;#x538B;&amp;#x7F29;&amp;#x5E76;&amp;#x751F;&amp;#x4EA7;test.rar&amp;#xFF0C;test&amp;#x53EF;&amp;#x4EE5;&amp;#x662F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939;&amp;#x4E5F;&amp;#x53EF;&amp;#x4EE5;&amp;#x662F;&amp;#x6587;&amp;#x4EF6;&amp;#xFF1B;&lt;/p&gt;
-&lt;p&gt;2.&amp;#x89E3;&amp;#x538B;rar&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ rar  x  test.rar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x8BF4;&amp;#x660E;&quot;&gt;&lt;a href=&quot;#&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x8BF4;&amp;#x660E;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x8BF4;&amp;#x660E;&quot;&gt;&lt;/a&gt;&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x8BF4;&amp;#x660E;&lt;/h2&gt;&lt;p&gt;&amp;#x4E00;&amp;#x822C;&amp;#x60C5;&amp;#x51B5;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x901A;&amp;#x8FC7;&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x6765;&amp;#x5224;&amp;#x65AD;&amp;#x9700;&amp;#x8981;&amp;#x7528;&amp;#x4EC0;&amp;#x4E48;&amp;#x8F6F;&amp;#x4EF6;&amp;#x6765;&amp;#x89E3;&amp;#x538B;&amp;#x3002;.tar.gz &amp;#x6216;&amp;#x8005;.tgz&amp;#x7684;&amp;#x540E;&amp;#x7F00;&amp;#x90FD;&amp;#x662F;&amp;#x7528;tar&amp;#x64CD;&amp;#x4F5C;&amp;#x7684;&amp;#x3002; &amp;#x800C;.zip&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x663E;&amp;#x7136;&amp;#x662F;zip&amp;#x64CD;&amp;#x4F5C;&amp;#x7684;&amp;#x3002; .rar&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x663E;&amp;#x7136;&amp;#x662F;rar&amp;#x64CD;&amp;#x4F5C;&amp;#x7684;&lt;br&gt;&amp;#x81EA;&amp;#x5DF1;&amp;#x6253;&amp;#x5305;&amp;#x538B;&amp;#x7F29;&amp;#x6587;&amp;#x4EF6;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x4E00;&amp;#x5B9A;&amp;#x8981;&amp;#x5199;&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#xFF0C;&amp;#x5176;&amp;#x4ED6;&amp;#x4EBA;&amp;#x770B;&amp;#x5230;&amp;#x540E;&amp;#x7F00;&amp;#x540D;&amp;#x5C31;&amp;#x53EF;&amp;#x4EE5;&amp;#x77E5;&amp;#x9053;&amp;#x5E94;&amp;#x8BE5;&amp;#x7528;&amp;#x90A3;&amp;#x4E2A;&amp;#x89E3;&amp;#x538B;&amp;#x5DE5;&amp;#x5177;&amp;#x3002;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&amp;#x6B64;&amp;#x6587;&amp;#x662F;&amp;#x5199;&amp;#x7ED9;&amp;#x5446;&amp;#x840C;&amp;#x5973;&amp;#x670B;&amp;#x53CB;&amp;#x7684;&amp;#x3002;&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux工具及配置" scheme="http://sheng09.github.io/categories/Linux%E5%B7%A5%E5%85%B7%E5%8F%8A%E9%85%8D%E7%BD%AE/"/>
-    
-    
-      <category term="Linux" scheme="http://sheng09.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux终端美化</title>
-    <link href="http://sheng09.github.io/2016/06/08/fancy-terminal/"/>
-    <id>http://sheng09.github.io/2016/06/08/fancy-terminal/</id>
-    <published>2016-06-08T15:29:05.000Z</published>
-    <updated>2016-06-14T14:08:58.681Z</updated>
-    
-    <content type="html">&lt;p&gt;&amp;#x4E0D;&amp;#x77E5;&amp;#x9053;&amp;#x4F60;&amp;#x662F;&amp;#x4E0D;&amp;#x662F;&amp;#x53D7;&amp;#x591F;&amp;#x4E86;Linux&amp;#x7EC8;&amp;#x7AEF;&amp;#x7684;&amp;#x4E11;&amp;#x964B;&amp;#x3002;&amp;#x9ED1;&amp;#x8272;&amp;#x886C;&amp;#x5E95;&amp;#x914D;&amp;#x4E0A;&amp;#x523A;&amp;#x773C;&amp;#x7684;&amp;#x989C;&amp;#x8272;&amp;#x548C;&amp;#x5947;&amp;#x602A;&amp;#x7684;&amp;#x5B57;&amp;#x4F53;&amp;#xFF0C;&amp;#x662F;&amp;#x9ED8;&amp;#x8BA4;Linux&amp;#x7684;&amp;#x7EC8;&amp;#x7AEF;&amp;#x5916;&amp;#x89C2;&amp;#x3002;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x957F;&amp;#x671F;&amp;#x9700;&amp;#x8981;&amp;#x5728;Linux&amp;#x4E0B;&amp;#x4F5C;&amp;#x4E1A;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x4E00;&amp;#x4E2A;&amp;#x517B;&amp;#x773C;&amp;#x7684;&amp;#x7EC8;&amp;#x7AEF;&amp;#x5E26;&amp;#x6765;&amp;#x7684;&amp;#x5C06;&amp;#x662F;&amp;#x8EAB;&amp;#x5FC3;&amp;#x6109;&amp;#x60A6;&amp;#xFF0C;&amp;#x6548;&amp;#x7387;&amp;#x7FFB;&amp;#x500D;&amp;#xFF0C;&amp;#x6BD5;&amp;#x7ADF;&amp;#x8FD9;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x51E1;&amp;#x4E8B;&amp;#x770B;&amp;#x8138;&amp;#x7684;&amp;#x65F6;&amp;#x4EE3;&amp;#xFF0C;&amp;#x989C;&amp;#x5373;&amp;#x6B63;&amp;#x4E49;&amp;#x3002;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;!-- toc --&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x914D;&amp;#x8272;&amp;#x65B9;&amp;#x6848;&quot;&gt;&amp;#x914D;&amp;#x8272;&amp;#x65B9;&amp;#x6848;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&quot;&gt;&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x7EC8;&amp;#x7AEF;&amp;#x80CC;&amp;#x666F;&quot;&gt;&amp;#x7EC8;&amp;#x7AEF;&amp;#x80CC;&amp;#x666F;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x53C2;&amp;#x8003;&quot;&gt;&amp;#x53C2;&amp;#x8003;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- tocstop --&gt;
-&lt;h2 id=&quot;&amp;#x914D;&amp;#x8272;&amp;#x65B9;&amp;#x6848;&quot;&gt;&lt;a href=&quot;#&amp;#x914D;&amp;#x8272;&amp;#x65B9;&amp;#x6848;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x914D;&amp;#x8272;&amp;#x65B9;&amp;#x6848;&quot;&gt;&lt;/a&gt;&amp;#x914D;&amp;#x8272;&amp;#x65B9;&amp;#x6848;&lt;/h2&gt;&lt;p&gt;&amp;#x9ED8;&amp;#x8BA4;&amp;#x914D;&amp;#x8272;&amp;#x5927;&amp;#x591A;&amp;#x6307;&amp;#x5411;16&amp;#x4F4D;&amp;#x8272;&amp;#x5F69;&amp;#x65B9;&amp;#x6848;&amp;#xFF0C;&amp;#x5728;&amp;#x5E26;&amp;#x7ED9;&amp;#x65B0;&amp;#x4EBA;&amp;#x4E00;&amp;#x79CD;geek&amp;#x7684;&amp;#x611F;&amp;#x89C9;&amp;#x4E4B;&amp;#x540E;&amp;#xFF0C;&amp;#x65F6;&amp;#x523B;&amp;#x51B2;&amp;#x51FB;&amp;#x7740;&amp;#x7528;&amp;#x6237;&amp;#x89C6;&amp;#x89C9;&amp;#x795E;&amp;#x7ECF;&amp;#x3002;&amp;#x90A3;&amp;#x4E48;&amp;#x6765;&amp;#x8BD5;&amp;#x8BD5;&lt;a href=&quot;https://github.com/seebi/dircolors-solarized&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;dircolors-solarized&lt;/code&gt;&lt;/a&gt;&amp;#x5427;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/06/08/fancy-terminal/img/screen-dircolors-in-iTerm2-solarized_dark.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x5728;&lt;a href=&quot;https://github.com/seebi/dircolors-solarized&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;dircolors-solarized&lt;/code&gt;&lt;/a&gt;&amp;#x9879;&amp;#x76EE;&amp;#x4E3B;&amp;#x9875;&amp;#x4E0B;&amp;#x8F7D;&amp;#x914D;&amp;#x8272;&amp;#x65B9;&amp;#x6848;&amp;#x3002;&amp;#x89E3;&amp;#x538B;&amp;#x540E;&amp;#x53EF;&amp;#x4EE5;&amp;#x53D1;&amp;#x73B0;&amp;#x6587;&amp;#x4EF6;&amp;#x5939;&amp;#x5185;&amp;#x5305;&amp;#x542B;&amp;#x4E86;&amp;#x4E0D;&amp;#x540C;&amp;#x7684;&amp;#x914D;&amp;#x8272;&amp;#x8BBE;&amp;#x7F6E;&amp;#x6587;&amp;#x4EF6;&amp;#xFF0C;&amp;#x4EE5;&amp;#x5176;&amp;#x4E2D;&amp;#x7684;&lt;code&gt;dircolors.ansi-dark&lt;/code&gt;&amp;#x4E3A;&amp;#x4F8B;&amp;#xFF0C;&amp;#x5728;&lt;code&gt;~/.basrc&lt;/code&gt;(&amp;#x6216;&amp;#x8005;&lt;code&gt;~/.profile&lt;/code&gt;)&amp;#x4E2D;&amp;#x6DFB;&amp;#x52A0;&amp;#x4EE5;&amp;#x4E0B;&amp;#x5185;&amp;#x5BB9;&amp;#xFF1A;&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;eval&lt;/span&gt; `dircolors /path/to/your/dircolors.ansi-dark`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&amp;#x5728;&amp;#x7EC8;&amp;#x7AEF;&amp;#x4E2D;&lt;code&gt;source&lt;/code&gt;&amp;#x4E00;&amp;#x4E0B;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x5173;&amp;#x95ED;&amp;#x91CD;&amp;#x542F;&amp;#x4EE5;&amp;#x4E0B;&amp;#x7EC8;&amp;#x7AEF;&amp;#xFF0C;&amp;#x914D;&amp;#x8272;&amp;#x662F;&amp;#x4E0D;&amp;#x662F;&amp;#x53D8;&amp;#x4E86;&amp;#xFF1F;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&quot;&gt;&lt;a href=&quot;#&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&quot;&gt;&lt;/a&gt;&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&lt;/h2&gt;&lt;p&gt;&amp;#x5728;&amp;#x7EC8;&amp;#x7AEF;&amp;#x91CC;&amp;#xFF0C;&amp;#x9ED8;&amp;#x8BA4;&amp;#x7684;&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&amp;#x5305;&amp;#x542B;&amp;#x4E86;&amp;#x5F53;&amp;#x524D;&amp;#x8DEF;&amp;#x5F84;&amp;#x53CA;&amp;#x7528;&amp;#x6237;&amp;#x767B;&amp;#x9646;&amp;#x4FE1;&amp;#x606F;&amp;#xFF0C;&amp;#x81C3;&amp;#x80BF;&amp;#x800C;&amp;#x53C8;&amp;#x96BE;&amp;#x770B;&amp;#x3002;&amp;#x8BD5;&amp;#x8BD5;&amp;#x518D;&lt;code&gt;~/.basrc&lt;/code&gt;(&amp;#x6216;&amp;#x8005;&lt;code&gt;~/.profile&lt;/code&gt;)&amp;#x4E2D;&amp;#x6DFB;&amp;#x52A0;&amp;#x4EE5;&amp;#x4E0B;&amp;#x5185;&amp;#x5BB9;&amp;#xFF1A;&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;PS1=&lt;span class=&quot;string&quot;&gt;&amp;apos;`a=$?;if [ $a -ne 0 ]; then a=&amp;quot;  &amp;quot;$a; echo -ne &amp;quot;\[\e[s\e[1A\e[$((COLUMNS-2))G\e[31m\e[0;41m${a:(-3)}\e[u\]\[\e[0m\e[7m\e[2m\]&amp;quot;; fi`\[\e[1;35m\]Fa\[\e[1;33m\]nc\[\e[1;32m\]y \[\e[0m\e[1;36m\]\u \[\e[0;34m\]\$ \[\e[0m\]&amp;apos;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x5728;&amp;#x7EC8;&amp;#x7AEF;&amp;#x4E2D;&lt;code&gt;source&lt;/code&gt;&amp;#x4E00;&amp;#x4E0B;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x5173;&amp;#x95ED;&amp;#x91CD;&amp;#x542F;&amp;#x4EE5;&amp;#x4E0B;&amp;#x7EC8;&amp;#x7AEF;&amp;#xFF0C;&amp;#x770B;&amp;#x4E00;&amp;#x770B;&amp;#x65B0;&amp;#x7684;&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&amp;#x3002;&lt;br&gt;&amp;#x4EE5;&lt;code&gt;\[\e[1;35m\]Fa&lt;/code&gt;&amp;#x4E3A;&amp;#x4F8B;&amp;#xFF0C;&amp;#x5B57;&amp;#x6BB5;&amp;#xFF0C;&amp;#x5B57;&amp;#x6BB5;&lt;code&gt;1;35&lt;/code&gt;&amp;#x5206;&amp;#x522B;&amp;#x58F0;&amp;#x660E;&amp;#x4E86;&lt;code&gt;Fa&lt;/code&gt;&amp;#x7684;&amp;#x989C;&amp;#x8272;&amp;#x4E0E;&amp;#x5B57;&amp;#x4F53;&amp;#x65B9;&amp;#x6848;&amp;#x3002;&lt;br&gt;&amp;#x9664;&amp;#x4E86;&amp;#x4F7F;&amp;#x7528;&amp;#x7C7B;&amp;#x4F3C;&amp;#x4E8E;&lt;code&gt;Fa&lt;/code&gt;&amp;#x7684;&amp;#x666E;&amp;#x901A;&amp;#x6587;&amp;#x672C;&amp;#x5185;&amp;#x5BB9;&amp;#xFF0C;&amp;#x8FD8;&amp;#x6709;&amp;#x4EE5;&amp;#x4E0B;&amp;#x7279;&amp;#x6B8A;&amp;#x7B26;&amp;#x53F7;&amp;#xFF1A;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\d&lt;/code&gt; :&amp;#x4EE3;&amp;#x8868;&amp;#x65E5;&amp;#x671F;&amp;#xFF0C;&amp;#x683C;&amp;#x5F0F;&amp;#x4E3A;weekday month date&amp;#xFF0C;&amp;#x4F8B;&amp;#x5982;&amp;#xFF1A;&amp;#x201D;Mon Aug 1&amp;#x201D;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\H&lt;/code&gt; :&amp;#x5B8C;&amp;#x6574;&amp;#x7684;&amp;#x4E3B;&amp;#x673A;&amp;#x540D;&amp;#x79F0;&amp;#x3002;&amp;#x4F8B;&amp;#x5982;&amp;#xFF1A;&amp;#x6211;&amp;#x7684;&amp;#x673A;&amp;#x5668;&amp;#x540D;&amp;#x79F0;&amp;#x4E3A;&amp;#xFF1A;fc4.linux&amp;#xFF0C;&amp;#x5219;&amp;#x8FD9;&amp;#x4E2A;&amp;#x540D;&amp;#x79F0;&amp;#x5C31;&amp;#x662F;fc4.linux&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\h&lt;/code&gt; :&amp;#x4EC5;&amp;#x53D6;&amp;#x4E3B;&amp;#x673A;&amp;#x7684;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x540D;&amp;#x5B57;&amp;#xFF0C;&amp;#x5982;&amp;#x4E0A;&amp;#x4F8B;&amp;#xFF0C;&amp;#x5219;&amp;#x4E3A;fc4&amp;#xFF0C;.linux&amp;#x5219;&amp;#x88AB;&amp;#x7701;&amp;#x7565;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\t&lt;/code&gt; :&amp;#x663E;&amp;#x793A;&amp;#x65F6;&amp;#x95F4;&amp;#x4E3A;24&amp;#x5C0F;&amp;#x65F6;&amp;#x683C;&amp;#x5F0F;&amp;#xFF0C;&amp;#x5982;&amp;#xFF1A;HH&amp;#xFF1A;MM&amp;#xFF1A;SS&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\T&lt;/code&gt; :&amp;#x663E;&amp;#x793A;&amp;#x65F6;&amp;#x95F4;&amp;#x4E3A;12&amp;#x5C0F;&amp;#x65F6;&amp;#x683C;&amp;#x5F0F;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\A&lt;/code&gt; :&amp;#x663E;&amp;#x793A;&amp;#x65F6;&amp;#x95F4;&amp;#x4E3A;24&amp;#x5C0F;&amp;#x65F6;&amp;#x683C;&amp;#x5F0F;&amp;#xFF1A;HH&amp;#xFF1A;MM&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\u&lt;/code&gt; :&amp;#x5F53;&amp;#x524D;&amp;#x7528;&amp;#x6237;&amp;#x7684;&amp;#x8D26;&amp;#x53F7;&amp;#x540D;&amp;#x79F0;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\v&lt;/code&gt; :BASH&amp;#x7684;&amp;#x7248;&amp;#x672C;&amp;#x4FE1;&amp;#x606F;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\w&lt;/code&gt; :&amp;#x5B8C;&amp;#x6574;&amp;#x7684;&amp;#x5DE5;&amp;#x4F5C;&amp;#x76EE;&amp;#x5F55;&amp;#x540D;&amp;#x79F0;&amp;#x3002;&amp;#x5BB6;&amp;#x76EE;&amp;#x5F55;&amp;#x4F1A;&amp;#x4EE5; ~&amp;#x4EE3;&amp;#x66FF;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\W&lt;/code&gt; :&amp;#x5229;&amp;#x7528;basename&amp;#x53D6;&amp;#x5F97;&amp;#x5DE5;&amp;#x4F5C;&amp;#x76EE;&amp;#x5F55;&amp;#x540D;&amp;#x79F0;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;&amp;#x53EA;&amp;#x4F1A;&amp;#x5217;&amp;#x51FA;&amp;#x6700;&amp;#x540E;&amp;#x4E00;&amp;#x4E2A;&amp;#x76EE;&amp;#x5F55;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\#&lt;/code&gt; :&amp;#x4E0B;&amp;#x8FBE;&amp;#x7684;&amp;#x7B2C;&amp;#x51E0;&amp;#x4E2A;&amp;#x547D;&amp;#x4EE4;&lt;br&gt;&amp;#x3000;&amp;#x3000;&lt;code&gt;\$&lt;/code&gt; :&amp;#x63D0;&amp;#x793A;&amp;#x5B57;&amp;#x7B26;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x662F;root&amp;#x65F6;&amp;#xFF0C;&amp;#x63D0;&amp;#x793A;&amp;#x7B26;&amp;#x4E3A;&amp;#xFF1A;# &amp;#xFF0C;&amp;#x666E;&amp;#x901A;&amp;#x7528;&amp;#x6237;&amp;#x5219;&amp;#x4E3A;&amp;#xFF1A;$&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x7EC8;&amp;#x7AEF;&amp;#x80CC;&amp;#x666F;&quot;&gt;&lt;a href=&quot;#&amp;#x7EC8;&amp;#x7AEF;&amp;#x80CC;&amp;#x666F;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x7EC8;&amp;#x7AEF;&amp;#x80CC;&amp;#x666F;&quot;&gt;&lt;/a&gt;&amp;#x7EC8;&amp;#x7AEF;&amp;#x80CC;&amp;#x666F;&lt;/h2&gt;&lt;p&gt;&amp;#x7EC8;&amp;#x7AEF;&amp;#x80CC;&amp;#x666F;&amp;#x4E00;&amp;#x822C;&amp;#x9ED8;&amp;#x8BA4;&amp;#x7EAF;&amp;#x8272;&amp;#xFF0C;&amp;#x4E14;&amp;#x5927;&amp;#x591A;&amp;#x4E3A;&amp;#x9ED1;&amp;#x8272;&amp;#x548C;&amp;#x767D;&amp;#x8272;&amp;#x3002;&amp;#x53EF;&amp;#x4EE5;&amp;#x518D;&amp;#x7EC8;&amp;#x7AEF;&amp;#x7684;&amp;#x201C;&amp;#x8BBE;&amp;#x7F6E;&amp;#x201D;&amp;#x4E2D;&amp;#x5F00;&amp;#x542F;&amp;#x80CC;&amp;#x666F;&amp;#x900F;&amp;#x660E;&amp;#xFF0C;&amp;#x5E76;&amp;#x9009;&amp;#x62E9;&amp;#x5408;&amp;#x9002;&amp;#x7684;&amp;#x900F;&amp;#x660E;&amp;#x5EA6;&amp;#xFF0C;&amp;#x518D;&amp;#x6311;&amp;#x9009;&amp;#x4E00;&amp;#x5F20;&amp;#x7B80;&amp;#x7EA6;&amp;#x7684;&amp;#x6DF1;&amp;#x8272;&amp;#x56FE;&amp;#x7247;&amp;#x505A;&amp;#x684C;&amp;#x9762;&amp;#x80CC;&amp;#x666F;&amp;#x3002;&lt;/p&gt;
-&lt;p&gt;&amp;#x901A;&amp;#x8FC7;&amp;#x4EE5;&amp;#x4E0A;&amp;#x7684;&amp;#x8BBE;&amp;#x7F6E;&amp;#xFF0C;&amp;#x662F;&amp;#x4E0D;&amp;#x662F;&amp;#x53D1;&amp;#x73B0;&amp;#x7EC8;&amp;#x7AEF;&amp;#x597D;&amp;#x770B;&amp;#x4E86;&amp;#x5F88;&amp;#x591A;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x6709;&amp;#x5F97;&amp;#x610F;&amp;#x7684;&amp;#x7F8E;&amp;#x5316;&amp;#x65B9;&amp;#x6848;&amp;#x914D;&amp;#x7F6E;&amp;#xFF0C;&amp;#x8BF7;&amp;#x81F4;&amp;#x4FE1;&lt;code&gt;wangsheng.cas@gmail.com&lt;/code&gt;&amp;#x8BA8;&amp;#x8BBA;&amp;#x4EA4;&amp;#x6D41;&amp;#x3002;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x53C2;&amp;#x8003;&quot;&gt;&lt;a href=&quot;#&amp;#x53C2;&amp;#x8003;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x53C2;&amp;#x8003;&quot;&gt;&lt;/a&gt;&amp;#x53C2;&amp;#x8003;&lt;/h2&gt;&lt;p&gt;linux PS1 &amp;#x63D0;&amp;#x793A;&amp;#x7B26;&amp;#x5B9A;&amp;#x4E49;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/starspace/archive/2009/02/21/1395382.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/starspace/archive/2009/02/21/1395382.html&lt;/a&gt;&lt;br&gt;dircolors-solarized&amp;#x9879;&amp;#x76EE;&amp;#x4E3B;&amp;#x9875;&lt;br&gt;&lt;a href=&quot;https://github.com/seebi/dircolors-solarized&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/seebi/dircolors-solarized&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&amp;#x4E0D;&amp;#x77E5;&amp;#x9053;&amp;#x4F60;&amp;#x662F;&amp;#x4E0D;&amp;#x662F;&amp;#x53D7;&amp;#x591F;&amp;#x4E86;Linux&amp;#x7EC8;&amp;#x7AEF;&amp;#x7684;&amp;#x4E11;&amp;#x964B;&amp;#x3002;&amp;#x9ED1;&amp;#x8272;&amp;#x886C;&amp;#x5E95;&amp;#x914D;&amp;#x4E0A;&amp;#x523A;&amp;#x773C;&amp;#x7684;&amp;#x989C;&amp;#x8272;&amp;#x548C;&amp;#x5947;&amp;#x602A;&amp;#x7684;&amp;#x5B57;&amp;#x4F53;&amp;#xFF0C;&amp;#x662F;&amp;#x9ED8;&amp;#x8BA4;Linux&amp;#x7684;&amp;#x7EC8;&amp;#x7AEF;&amp;#x5916;&amp;#x89C2;&amp;#x3002;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x957F;&amp;#x671F;&amp;#x9700;&amp;#x8981;&amp;#x5728;Linux&amp;#x4E0B;&amp;#x4F5C;&amp;#x4E1A;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x4E00;&amp;#x4E2A;&amp;#x517B;&amp;#x773C;&amp;#x7684;&amp;#x7EC8;&amp;#x7AEF;&amp;#x5E26;&amp;#x6765;&amp;#x7684;&amp;#x5C06;&amp;#x662F;&amp;#x8EAB;&amp;#x5FC3;&amp;#x6109;&amp;#x60A6;&amp;#xFF0C;&amp;#x6548;&amp;#x7387;&amp;#x7FFB;&amp;#x500D;&amp;#xFF0C;&amp;#x6BD5;&amp;#x7ADF;&amp;#x8FD9;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x51E1;&amp;#x4E8B;&amp;#x770B;&amp;#x8138;&amp;#x7684;&amp;#x65F6;&amp;#x4EE3;&amp;#xFF0C;&amp;#x989C;&amp;#x5373;&amp;#x6B63;&amp;#x4E49;&amp;#x3002;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux工具及配置" scheme="http://sheng09.github.io/categories/Linux%E5%B7%A5%E5%85%B7%E5%8F%8A%E9%85%8D%E7%BD%AE/"/>
-    
-    
-      <category term="Linux" scheme="http://sheng09.github.io/tags/Linux/"/>
-    
-      <category term="Terminal" scheme="http://sheng09.github.io/tags/Terminal/"/>
     
   </entry>
   

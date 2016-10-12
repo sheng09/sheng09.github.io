@@ -69,6 +69,135 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-finite-difference" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/13/finite-difference/" class="article-date">
+  <time datetime="2016-10-12T19:53:58.000Z" itemprop="datePublished">2016-10-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/13/finite-difference/">Finite Difference of Derivatives(微分的有限差分实现)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f(x+\delta ) & = & f(x) +  \delta  f'(x) +
+                            \frac{1}{2!} \delta ^2 f''(x)  +
+                            \frac{1}{3!} \delta ^3 f^{(3)} (x)  +
+                            ... +
+                            \frac{1}{i!} \delta ^i f^{(i)} (x)  +
+                            \frac{1}{n!} \delta ^n f^{(n)} (x)  +
+                            o(\delta^n)\\
+    f(x-\delta ) & = & f(x) -  \delta  f'(x) +
+                        \frac{1}{2!} \delta ^2 f''(x)  -
+                        \frac{1}{3!} \delta ^3 f^{(3)} (x)  +
+                        ... +
+                        \frac{(-1)^i}{i!} \delta ^i f^{(i)} (x)  +
+                        \frac{(-1)^n}{n!} \delta ^n f^{(n)} (x)  +
+                        o(\delta^n)
+\end{eqnarray}</script><p>The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{f(x+\delta) + f(x-\delta)}{2} & = & f(x) +    \frac{1}{2!} \delta^2 f''(x) +
+                                                        \frac{1}{4!} \delta^4 f^{(4)}(x) +
+                                                        %\frac{1}{6!} \delta^6 f^{(6)}(x) +
+                                                        \frac{1}{(2i)!} \delta^{2i} f^{(2i)}(x) +
+                                                        O( \delta^{2i+2})
+                                                        \label{second} \\
+    \frac{f(x+\delta) - f(x-\delta)}{2} & = & \delta f'(x) +
+                                            \frac{1}{3!} \delta^3 f^{(3)}(x) +
+                                            \frac{1}{5!} \delta^5 f^{(5)}(x) +
+                                            %\frac{1}{7!} \delta^5 f^{(7)}(x) +
+                                            \frac{1}{(2i+1)!} \delta^{2i+1} f^{(2i+1)}(x) +
+                                            O(\delta^{2i+3})
+                                            \label{first}
+
+\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
+<h4 id="first-order-derivative"><a href="#First-order-derivative" class="headerlink" title="First order derivative"></a>First order derivative</h4><p>According to $\eqref{first}$, $f&#x2019;(x)$ should be:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
+                                                        - \frac{1}{3!} \delta^2 f^{(3)}(x)
+                                                        - \frac{1}{5!} \delta^4 f^{(5)}(x)
+                                                        - \frac{1}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                        + O(\delta^{2i+2})
+\end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.</p>
+<h4 id="second-order-derivative"><a href="#Second-order-derivative" class="headerlink" title="Second order derivative"></a>Second order derivative</h4><p>In the same way, $f&#x2019;&#x2019;(x)$ is derived from $\eqref{second}$</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+ f''(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
+                                                    - \frac{2}{4!} \delta^2 f^{(4)}(x)
+                                                    - \frac{2}{6!} \delta^4 f^{(6)}(x)
+                                                    - \frac{2}{(2i)!} \delta^{2i-2} f^{(2i)}(x)
+                                                    + O( \delta^{2i})
+\end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7c7lyw001ft7fb1ld2uru3" class="article-share-link">Share</a>
+      
+        <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-combination" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/12/combination/" class="article-date">
+  <time datetime="2016-10-11T18:30:34.000Z" itemprop="datePublished">2016-10-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/12/combination/">combination</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciu7c7lye000ot7fb6salrzue" class="article-share-link">Share</a>
+      
+        <a href="http://sheng09.github.io/2016/10/12/combination/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-fast-permutation" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/10/11/fast-permutation/" class="article-date">
@@ -104,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciu5tlr8k0013rzfbdntja5ze" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciu7c7lyo0010t7fblkhrkkvo" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/11/fast-permutation/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -152,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciu5tlr8e000zrzfbnc6pqli8" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciu7c7lyn000zt7fbp78viqp4" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/10/even-odd/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -201,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu5tlr7i0006rzfb5f9yl53c" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu7c7lxp0003t7fb9cxxin6j" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/07/BitComputing/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -250,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu5tlr8s001frzfb2h6opfi7" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu7c7lyr0017t7fbezfprafj" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/17/fd-2d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -299,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu5tlr8v001jrzfbcbc8oyiu" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu7c7lyy001jt7fb4h24p7ol" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/15/fd-2d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -348,7 +477,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu5tlr8n0017rzfbvgd2obvx" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu7c7lyp0013t7fburpbhf8f" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/13/fd-1d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -397,7 +526,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu5tlr8q001brzfb0sb8rzy8" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu7c7lz6001pt7fbcltmjmjg" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/13/fd-1d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -446,100 +575,13 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu5tlr8y001mrzfbdnvfw12y" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu7c7lz1001mt7fb1ji5zf1m" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/12/fft-endpoint/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FFT/">FFT</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-PDE-boundaries" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/01/PDE-boundaries/" class="article-date">
-  <time datetime="2016-08-31T19:34:51.000Z" itemprop="datePublished">2016-09-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/PDE/">PDE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/01/PDE-boundaries/">Boundary Conditions for Differential Equations</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>There are different types of boundary conditions for ODE(Oridinary Differential Equation) and PDE(Partial Differential Equation). This post present all collections of these boundary conditions and associated equations.<br>Besides, this post also present the combination of Dirichlet and Neumann boundary conditions in construct absorbing boundary for solving wave eqution.<br></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/01/PDE-boundaries/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/01/PDE-boundaries/" data-id="ciu5tlr7t000erzfbt4qozntx" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/09/01/PDE-boundaries/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PDE/">PDE</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Hello" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/07/13/Hello/" class="article-date">
-  <time datetime="2016-07-13T06:35:31.000Z" itemprop="datePublished">2016-07-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/13/Hello/">Hello</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/07/13/Hello/" data-id="ciu5tlr7l0008rzfbezzxgpfy" class="article-share-link">Share</a>
-      
-        <a href="http://sheng09.github.io/2016/07/13/Hello/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
     </footer>
   </div>
   
@@ -582,7 +624,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -595,6 +637,14 @@
       <ul>
         
           <li>
+            <a href="/2016/10/13/finite-difference/">Finite Difference of Derivatives(微分的有限差分实现)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/12/combination/">combination</a>
+          </li>
+        
+          <li>
             <a href="/2016/10/11/fast-permutation/">快速排列</a>
           </li>
         
@@ -604,14 +654,6 @@
         
           <li>
             <a href="/2016/10/07/BitComputing/">位运算</a>
-          </li>
-        
-          <li>
-            <a href="/2016/09/17/fd-2d-PML/">PML边界-一阶声波方程有线差分模拟在二维下的实现</a>
-          </li>
-        
-          <li>
-            <a href="/2016/09/15/fd-2d/">一阶声波方程有线差分模拟在二维下的实现</a>
           </li>
         
       </ul>
