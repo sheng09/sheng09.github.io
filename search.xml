@@ -49,8 +49,8 @@
     \frac{f(x+\delta) - f(x-\delta)}{2} & = & \delta f'(x) +
                                             \frac{\delta^3}{3!} f^{(3)}(x) +
                                             \frac{\delta^5}{5!} f^{(5)}(x) +
-                                            \frac{\delta^{2i+1}}{(2i+1)!} f^{(2i+1)}(x) +
-                                            O(\delta^{2i+3})
+                                            \frac{\delta^{2i-1}}{(2i-1)!} f^{(2i-1)}(x) +
+                                            O(\delta^{2i+1})
                                             \label{first}
 
 \end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
@@ -60,8 +60,8 @@
     f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
                                                         - \frac{\delta^2}{3!} f^{(3)}(x)
                                                         - \frac{\delta^4}{5!} f^{(5)}(x)
-                                                        - \frac{\delta^{2i}}{(2i+1)!} f^{(2i+1)}(x)
-                                                        + O(\delta^{2i+2})
+                                                        - \frac{\delta^{2i-2}}{(2i-1)!} f^{(2i-1)}(x)
+                                                        + O(\delta^{2i})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.</p>
 <h4 id="2-second-order-derivative"><a href="#2-Second-order-derivative" class="headerlink" title="(2) Second order derivative"></a>(2) Second order derivative</h4><p>In the same way, $f&#x2019;&#x2019;(x)$ is derived from $\eqref{second}$</p>
 <script type="math/tex; mode=display">
@@ -80,24 +80,24 @@
         f'(x; \delta) & = & \frac{f(x+\delta) - f(x-\delta)}{2\delta}
                                         - \frac{\delta^2}{3!} f^{(3)}(x)
                                         - \frac{\delta^4}{5!} f^{(5)}(x)
-                                        - \frac{\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                        + O(\delta^{2i+2})\\
+                                        - \frac{\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
+                                        + O(\delta^{2i})\\
         f'(x;2\delta) & = & \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
                                         - \frac{2^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                        + O(\delta^{2i+2}) \\
+                                        - \frac{2^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
+                                        + O(\delta^{2i}) \\
         f'(x;3\delta) & = & \frac{f(x+3\delta) - f(x-3\delta)}{2 (3\delta)}
                                         - \frac{3^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{3^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{3^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                        + O(\delta^{2i+2}) \\
+                                        - \frac{3^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
+                                        + O(\delta^{2i}) \\
         ...\\
         f'(x;N\delta) & = & \frac{f(x+N\delta) - f(x-N\delta)}{2 (N\delta)}
                                         - \frac{N^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{N^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{N^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                        + O(\delta^{2i+2}) \\
+                                        - \frac{N^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
+                                        + O(\delta^{2i}) \\
     \end{cases}
 \end{eqnarray}</script><p>summing all these items proportionally from $f&#x2019;(x;\delta)$ to $f&#x2019;(x;N\delta)$ leads to:</p>
 <script type="math/tex; mode=display">

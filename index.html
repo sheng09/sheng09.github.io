@@ -134,8 +134,8 @@
     \frac{f(x+\delta) - f(x-\delta)}{2} & = & \delta f'(x) +
                                             \frac{\delta^3}{3!} f^{(3)}(x) +
                                             \frac{\delta^5}{5!} f^{(5)}(x) +
-                                            \frac{\delta^{2i+1}}{(2i+1)!} f^{(2i+1)}(x) +
-                                            O(\delta^{2i+3})
+                                            \frac{\delta^{2i-1}}{(2i-1)!} f^{(2i-1)}(x) +
+                                            O(\delta^{2i+1})
                                             \label{first}
 
 \end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
@@ -145,8 +145,8 @@
     f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
                                                         - \frac{\delta^2}{3!} f^{(3)}(x)
                                                         - \frac{\delta^4}{5!} f^{(5)}(x)
-                                                        - \frac{\delta^{2i}}{(2i+1)!} f^{(2i+1)}(x)
-                                                        + O(\delta^{2i+2})
+                                                        - \frac{\delta^{2i-2}}{(2i-1)!} f^{(2i-1)}(x)
+                                                        + O(\delta^{2i})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.</p>
 <h4 id="2-second-order-derivative"><a href="#2-Second-order-derivative" class="headerlink" title="(2) Second order derivative"></a>(2) Second order derivative</h4><p>In the same way, $f&#x2019;&#x2019;(x)$ is derived from $\eqref{second}$</p>
 <script type="math/tex; mode=display">
@@ -165,24 +165,24 @@
         f'(x; \delta) & = & \frac{f(x+\delta) - f(x-\delta)}{2\delta}
                                         - \frac{\delta^2}{3!} f^{(3)}(x)
                                         - \frac{\delta^4}{5!} f^{(5)}(x)
-                                        - \frac{\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                        + O(\delta^{2i+2})\\
+                                        - \frac{\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
+                                        + O(\delta^{2i})\\
         f'(x;2\delta) & = & \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
                                         - \frac{2^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                        + O(\delta^{2i+2}) \\
+                                        - \frac{2^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
+                                        + O(\delta^{2i}) \\
         f'(x;3\delta) & = & \frac{f(x+3\delta) - f(x-3\delta)}{2 (3\delta)}
                                         - \frac{3^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{3^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{3^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                        + O(\delta^{2i+2}) \\
+                                        - \frac{3^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
+                                        + O(\delta^{2i}) \\
         ...\\
         f'(x;N\delta) & = & \frac{f(x+N\delta) - f(x-N\delta)}{2 (N\delta)}
                                         - \frac{N^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{N^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{N^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                        + O(\delta^{2i+2}) \\
+                                        - \frac{N^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
+                                        + O(\delta^{2i}) \\
     \end{cases}
 \end{eqnarray}</script><p>summing all these items proportionally from $f&#x2019;(x;\delta)$ to $f&#x2019;(x;N\delta)$ leads to:</p>
 <script type="math/tex; mode=display">
@@ -277,7 +277,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7jwtgu001rdofb12qmt7s1" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7jzyni001neofb3me808mg" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -315,7 +315,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciu7jwtg2000udofbol3llj9t" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciu7jzymq000qeofb7xf9z5kq" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/12/combination/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -362,7 +362,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciu7jwtgc0016dofbirub6bpl" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciu7jzyn20012eofbvlf4nqk4" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/11/fast-permutation/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -410,7 +410,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciu7jwtg70010dofb6t12v2ky" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciu7jzymz000weofbrnel43lx" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/10/even-odd/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -459,7 +459,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu7jwtf00006dofbua9mpvws" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu7jzyls0001eofbjzyncgsw" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/07/BitComputing/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -508,7 +508,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu7jwtgk001idofb5jof0nov" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu7jzyn8001eeofbq1yksrp5" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/17/fd-2d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -557,7 +557,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu7jwtgq001ldofbtpmajgwb" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu7jzynb001heofb1bl707fv" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/15/fd-2d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -606,7 +606,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu7jwtgf001adofbvlqxbxtt" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu7jzyn40016eofbdg7ibmmv" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/13/fd-1d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -655,7 +655,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu7jwtgh001edofbk9spy1ps" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu7jzyn6001aeofbenn4g0lu" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/13/fd-1d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -704,7 +704,7 @@ F_1+F_2+F_3+...+F_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu7jwtgs001odofbypg37e9s" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu7jzync001keofbs8ifmzd4" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/12/fft-endpoint/#disqus_thread" class="article-comment-link">Comments</a>
       
