@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-12T20:54:54.640Z</updated>
+  <updated>2016-10-12T22:02:44.509Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-12T20:54:54.640Z</updated>
+    <updated>2016-10-12T22:02:44.509Z</updated>
     
     <content type="html">&lt;!-- toc --&gt;
 &lt;ul&gt;
@@ -36,33 +36,31 @@
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&#39;(x) +
-                            \frac{1}{2!} \delta ^2 f&#39;&#39;(x)  +
-                            \frac{1}{3!} \delta ^3 f^{(3)} (x)  +
+                            \frac{\delta ^2}{2!}  f&#39;&#39;(x)  +
+                            \frac{\delta ^3}{3!}  f^{(3)} (x)  +
                             ... +
-                            \frac{1}{i!} \delta ^i f^{(i)} (x)  +
-                            \frac{1}{n!} \delta ^n f^{(n)} (x)  +
+                            \frac{\delta ^i}{i!}  f^{(i)} (x)  +
+                            \frac{\delta ^n}{n!}  f^{(n)} (x)  +
                             o(\delta^n)\\
     f(x-\delta ) &amp; = &amp; f(x) -  \delta  f&#39;(x) +
-                        \frac{1}{2!} \delta ^2 f&#39;&#39;(x)  -
-                        \frac{1}{3!} \delta ^3 f^{(3)} (x)  +
+                        \frac{\delta ^2}{2!}  f&#39;&#39;(x)  -
+                        \frac{\delta ^3}{3!}  f^{(3)} (x)  +
                         ... +
-                        \frac{(-1)^i}{i!} \delta ^i f^{(i)} (x)  +
-                        \frac{(-1)^n}{n!} \delta ^n f^{(n)} (x)  +
+                        \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
+                        \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
                         o(\delta^n)
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
-    \frac{f(x+\delta) + f(x-\delta)}{2} &amp; = &amp; f(x) +    \frac{1}{2!} \delta^2 f&#39;&#39;(x) +
-                                                        \frac{1}{4!} \delta^4 f^{(4)}(x) +
-                                                        %\frac{1}{6!} \delta^6 f^{(6)}(x) +
-                                                        \frac{1}{(2i)!} \delta^{2i} f^{(2i)}(x) +
+    \frac{f(x+\delta) + f(x-\delta)}{2} &amp; = &amp; f(x) +    \frac{\delta^2}{2!} f&#39;&#39;(x) +
+                                                        \frac{\delta^4}{4!} f^{(4)}(x) +
+                                                        \frac{\delta^{2i}}{(2i)!} f^{(2i)}(x) +
                                                         O( \delta^{2i+2})
                                                         \label{second} \\
     \frac{f(x+\delta) - f(x-\delta)}{2} &amp; = &amp; \delta f&#39;(x) +
-                                            \frac{1}{3!} \delta^3 f^{(3)}(x) +
-                                            \frac{1}{5!} \delta^5 f^{(5)}(x) +
-                                            %\frac{1}{7!} \delta^5 f^{(7)}(x) +
-                                            \frac{1}{(2i+1)!} \delta^{2i+1} f^{(2i+1)}(x) +
+                                            \frac{\delta^3}{3!} f^{(3)}(x) +
+                                            \frac{\delta^5}{5!} f^{(5)}(x) +
+                                            \frac{\delta^{2i+1}}{(2i+1)!} f^{(2i+1)}(x) +
                                             O(\delta^{2i+3})
                                             \label{first}
 
@@ -71,18 +69,18 @@
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     f&#39;(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
-                                                        - \frac{1}{3!} \delta^2 f^{(3)}(x)
-                                                        - \frac{1}{5!} \delta^4 f^{(5)}(x)
-                                                        - \frac{1}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                        - \frac{\delta^2}{3!} f^{(3)}(x)
+                                                        - \frac{\delta^4}{5!} f^{(5)}(x)
+                                                        - \frac{\delta^{2i}}{(2i+1)!} f^{(2i+1)}(x)
                                                         + O(\delta^{2i+2})
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.&lt;/p&gt;
 &lt;h4 id=&quot;second-order-derivative&quot;&gt;&lt;a href=&quot;#Second-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;Second order derivative&quot;&gt;&lt;/a&gt;Second order derivative&lt;/h4&gt;&lt;p&gt;In the same way, $f&amp;#x2019;&amp;#x2019;(x)$ is derived from $\eqref{second}$&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
  f&#39;&#39;(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
-                                                    - \frac{2}{4!} \delta^2 f^{(4)}(x)
-                                                    - \frac{2}{6!} \delta^4 f^{(6)}(x)
-                                                    - \frac{2}{(2i)!} \delta^{2i-2} f^{(2i)}(x)
+                                                    - \frac{\delta^2}{4!} f^{(4)}(x)
+                                                    - \frac{\delta^4}{6!} f^{(6)}(x)
+                                                    - \frac{\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
                                                     + O( \delta^{2i})
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;&amp;#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.&lt;/p&gt;
 &lt;h2 id=&quot;higher-order-accuracy&quot;&gt;&lt;a href=&quot;#Higher-Order-Accuracy&quot; class=&quot;headerlink&quot; title=&quot;Higher Order Accuracy&quot;&gt;&lt;/a&gt;Higher Order Accuracy&lt;/h2&gt;&lt;p&gt;To increase the accuracy, $f&amp;#x2019;(x;\delta)$, $f&amp;#x2019;(x;2\delta)$, $f&amp;#x2019;(x;3\delta)$&amp;#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&amp;#x2026;etc. This method works for $f&amp;#x2019;&amp;#x2019;(x)$ as well.&lt;/p&gt;
@@ -90,18 +88,17 @@
 \begin{eqnarray}
     \begin{cases}
         f&#39;(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
-                                                        - \frac{1}{3!} \delta^2 f^{(3)}(x)
-                                                        - \frac{1}{5!} \delta^4 f^{(5)}(x)
-                                                        - \frac{1}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                        - \frac{\delta^2}{3!} f^{(3)}(x)
+                                                        - \frac{\delta^4}{5!} f^{(5)}(x)
+                                                        - \frac{\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                                         + O(\delta^{2i+2})\\
-
         f&#39;(x;2\delta) = \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
-                                                - \frac{2^2}{3!} \delta^2 f^{(3)}(x)
-                                                - \frac{2^4}{5!} \delta^4 f^{(5)}(x)
-                                                - \frac{2^{2i}}{(2i+1)!} \delta^{2i} f^{(2i+1)}(x)
+                                                - \frac{2^2\delta^2}{3!}  f^{(3)}(x)
+                                                - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
+                                                - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                                 + O(\delta^{2i+2})
     \end{cases}
-\begin{eqnarray}&lt;/script&gt;&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;</content>
+\end{eqnarray}&lt;/script&gt;&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;</content>
     
     <summary type="html">
     
