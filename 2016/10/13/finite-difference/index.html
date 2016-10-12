@@ -7,53 +7,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Taylor expansion
 Derivatives
-First order derivative
-Second order derivative
+(1) First order derivative
+(2) Second order derivative
 
 
 Higher Order Accuracy
-$f&amp;#x2019;(x)$
-$f&amp;#x2019;&amp;#x2019;(x)$
+(1) $f&amp;#x2019;(x)$
+(2) $f&amp;#x2019;&amp;#x2019;(x)$
 
 
 
 
-Taylor expansionAccording to Taylor expansion, we have:">
+Taylor expansionAccording to Taylor expa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta property="og:url" content="http://sheng09.github.io/2016/10/13/finite-difference/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="Taylor expansion
 Derivatives
-First order derivative
-Second order derivative
+(1) First order derivative
+(2) Second order derivative
 
 
 Higher Order Accuracy
-$f&amp;#x2019;(x)$
-$f&amp;#x2019;&amp;#x2019;(x)$
+(1) $f&amp;#x2019;(x)$
+(2) $f&amp;#x2019;&amp;#x2019;(x)$
 
 
 
 
-Taylor expansionAccording to Taylor expansion, we have:">
-<meta property="og:updated_time" content="2016-10-12T22:10:38.086Z">
+Taylor expansionAccording to Taylor expa">
+<meta property="og:updated_time" content="2016-10-12T23:27:28.769Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta name="twitter:description" content="Taylor expansion
 Derivatives
-First order derivative
-Second order derivative
+(1) First order derivative
+(2) Second order derivative
 
 
 Higher Order Accuracy
-$f&amp;#x2019;(x)$
-$f&amp;#x2019;&amp;#x2019;(x)$
+(1) $f&amp;#x2019;(x)$
+(2) $f&amp;#x2019;&amp;#x2019;(x)$
 
 
 
 
-Taylor expansionAccording to Taylor expansion, we have:">
+Taylor expansionAccording to Taylor expa">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -133,13 +133,13 @@ Taylor expansionAccording to Taylor expansion, we have:">
 <ul>
 <li><a href="#taylor-expansion">Taylor expansion</a></li>
 <li><a href="#derivatives">Derivatives</a><ul>
-<li><a href="#first-order-derivative">First order derivative</a></li>
-<li><a href="#second-order-derivative">Second order derivative</a></li>
+<li><a href="#1-first-order-derivative">(1) First order derivative</a></li>
+<li><a href="#2-second-order-derivative">(2) Second order derivative</a></li>
 </ul>
 </li>
 <li><a href="#higher-order-accuracy">Higher Order Accuracy</a><ul>
-<li><a href="#fx">$f&#x2019;(x)$</a></li>
-<li><a href="#fx">$f&#x2019;&#x2019;(x)$</a></li>
+<li><a href="#1-fx">(1) $f&#x2019;(x)$</a></li>
+<li><a href="#2-fx">(2) $f&#x2019;&#x2019;(x)$</a></li>
 </ul>
 </li>
 </ul>
@@ -177,7 +177,7 @@ Taylor expansionAccording to Taylor expansion, we have:">
                                             \label{first}
 
 \end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
-<h4 id="first-order-derivative"><a href="#First-order-derivative" class="headerlink" title="First order derivative"></a>First order derivative</h4><p>According to $\eqref{first}$, $f&#x2019;(x)$ should be:</p>
+<h4 id="1-first-order-derivative"><a href="#1-First-order-derivative" class="headerlink" title="(1) First order derivative"></a>(1) First order derivative</h4><p>According to $\eqref{first}$, $f&#x2019;(x)$ should be:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
@@ -186,7 +186,7 @@ Taylor expansionAccording to Taylor expansion, we have:">
                                                         - \frac{\delta^{2i}}{(2i+1)!} f^{(2i+1)}(x)
                                                         + O(\delta^{2i+2})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.</p>
-<h4 id="second-order-derivative"><a href="#Second-order-derivative" class="headerlink" title="Second order derivative"></a>Second order derivative</h4><p>In the same way, $f&#x2019;&#x2019;(x)$ is derived from $\eqref{second}$</p>
+<h4 id="2-second-order-derivative"><a href="#2-Second-order-derivative" class="headerlink" title="(2) Second order derivative"></a>(2) Second order derivative</h4><p>In the same way, $f&#x2019;&#x2019;(x)$ is derived from $\eqref{second}$</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
  f''(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
@@ -196,7 +196,8 @@ Taylor expansionAccording to Taylor expansion, we have:">
                                                     + O( \delta^{2i})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
 <h2 id="higher-order-accuracy"><a href="#Higher-Order-Accuracy" class="headerlink" title="Higher Order Accuracy"></a>Higher Order Accuracy</h2><p>To increase the accuracy, $f&#x2019;(x;\delta)$, $f&#x2019;(x;2\delta)$, $f&#x2019;(x;3\delta)$&#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&#x2026;etc. This method works for $f&#x2019;&#x2019;(x)$ as well.</p>
-<h4 id="fx"><a href="#f&#x2019;-x" class="headerlink" title="$f&#x2019;(x)$"></a>$f&#x2019;(x)$</h4><script type="math/tex; mode=display">
+<h4 id="1-fx"><a href="#1-f&#x2019;-x" class="headerlink" title="(1) $f&#x2019;(x)$"></a>(1) $f&#x2019;(x)$</h4><p>For step of $\delta$, $2\delta$, $3\delta$&#x2026;etc, we have:</p>
+<script type="math/tex; mode=display">
 \begin{eqnarray}
     \begin{cases}
         f'(x; \delta) & = & \frac{f(x+\delta) - f(x-\delta)}{2\delta}
@@ -209,22 +210,112 @@ Taylor expansionAccording to Taylor expansion, we have:">
                                         - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
                                         - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                         + O(\delta^{2i+2}) \\
-        f'(x;3\delta) & = & \frac{f(x+2\delta) - f(x-2\delta)}{2 (3\delta)}
+        f'(x;3\delta) & = & \frac{f(x+3\delta) - f(x-3\delta)}{2 (3\delta)}
                                         - \frac{3^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{3^4\delta^4}{5!}  f^{(5)}(x)
                                         - \frac{3^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                         + O(\delta^{2i+2}) \\
-        f'(x;N\delta) & = & \frac{f(x+2\delta) - f(x-2\delta)}{2 (N\delta)}
+        ...\\
+        f'(x;N\delta) & = & \frac{f(x+N\delta) - f(x-N\delta)}{2 (N\delta)}
                                         - \frac{N^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{N^4\delta^4}{5!}  f^{(5)}(x)
                                         - \frac{N^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                         + O(\delta^{2i+2}) \\
     \end{cases}
-\end{eqnarray}</script><h4 id="fx"><a href="#f&#x2019;&#x2019;-x" class="headerlink" title="$f&#x2019;&#x2019;(x)$"></a>$f&#x2019;&#x2019;(x)$</h4>
+\end{eqnarray}</script><p>summing all these items proportionally from $f&#x2019;(x;\delta)$ to $f&#x2019;(x;N\delta)$ leads to:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+    f'(x) = &\sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} }\\
+            & - \frac{\delta^2 f^{(3)}(x) }{3!} \sum \limits_{k=1}^N {C_k k^2}
+              - \frac{\delta^4 f^{(5)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^4}
+              - ...
+              - \frac{\delta^{2i} f^{(2i+1)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^{2i}}
+              + O(\delta^{2i+2}) \\
+\end{aligned}
+\end{equation}</script><script type="math/tex; mode=display">
+\begin{equation}
+C_1+C_2+C_3+...+C_N = 1
+\end{equation}</script><p>so, if we want to have 2Nth order accuracy, then conditions below are required:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{bmatrix}
+        1        & 1        & 1        & ... & 1        \\
+        1^2      & 2^2      & 3^2      & ... & N^2      \\
+        1^4      & 2^4      & 3^4      & ... & N^4      \\
+        1^6      & 2^6      & 3^6      & ... & N^6      \\
+        ... \\
+        1^{2N-2} & 2^{2N-2} & 3^{2N-2} & ... & N^{2N-2}
+    \end{bmatrix}
+    \begin{bmatrix}
+        C_1 \\ C_2 \\ C_3 \\ C_4 \\ ... \\ C_N
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
+    \end{bmatrix}
+\end{equation}</script><h4 id="2-fx"><a href="#2-f&#x2019;&#x2019;-x" class="headerlink" title="(2) $f&#x2019;&#x2019;(x)$"></a>(2) $f&#x2019;&#x2019;(x)$</h4><p>For step of $\delta$, $2\delta$, $3\delta$&#x2026;etc, we have:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+        f''(x; \delta)  & = & \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
+                                                            - \frac{2\delta^2}{4!} f^{(4)}(x)
+                                                            - \frac{2\delta^4}{6!} f^{(6)}(x)
+                                                            - \frac{2\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                            + O( \delta^{2i}) \\
+f''(x;2\delta)  & = & \frac{f(x+2\delta) + f(x-2\delta) - 2f(x)}{ 2^2\delta^2}
+                                                    - 2^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
+                                                    - 2^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
+                                                    - 2^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    + O( \delta^{2i}) \\
+f''(x;3\delta)  & = & \frac{f(x+3\delta) + f(x-3\delta) - 2f(x)}{3^2 \delta^2}
+                                                    - 3^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
+                                                    - 3^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
+                                                    - 3^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    + O( \delta^{2i}) \\
+f''(x;N\delta)  & = & \frac{f(x+N\delta) + f(x-N\delta) - 2f(x)}{N^2 \delta^2}
+                                                    - N^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
+                                                    - N^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
+                                                    - N^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    + O( \delta^{2i})
+    \end{cases}
+\end{eqnarray}</script><p>summing all these items proportionally from $f&#x2019;(x;\delta)$ to $f&#x2019;(x;N\delta)$ leads to:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{aligned}
+        f''(x) = & \sum \limits_{k=1}^N F_K \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
+                & - \frac{2 \delta^2}{4!} f^{(4)}(x) \sum \limits_{k=1}^N F_k k^2
+                  - \frac{2 \delta^4}{6!} f^{(6)}(x) \sum \limits_{k=1}^N F_k k^4
+                  ...
+                  - \frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x) \sum \limits_{k=1}^N F_k k^{2i-2}
+                  +O( \delta^{2i})
+    \end{aligned}
+\end{equation}</script><script type="math/tex; mode=display">
+\begin{equation}
+C_1+C_2+C_3+...+C_N = 1
+\end{equation}</script><p>so, if we want to have 2Nth order accuracy, then conditions below are required:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{bmatrix}
+        1        & 1        & 1        & ... & 1        \\
+        1^2      & 2^2      & 3^2      & ... & N^2      \\
+        1^4      & 2^4      & 3^4      & ... & N^4      \\
+        1^6      & 2^6      & 3^6      & ... & N^6      \\
+        ... \\
+        1^{2N-2} & 2^{2N-2} & 3^{2N-2} & ... & N^{2N-2}
+    \end{bmatrix}
+    \begin{bmatrix}
+        C_1 \\ C_2 \\ C_3 \\ C_4 \\ ... \\ C_N
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
+    \end{bmatrix}
+\end{equation}</script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7h024v001rcsfbeky1zj04" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7h5qu0003ceqfbjq94c0yp" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-12T22:10:38.086Z</updated>
+  <updated>2016-10-12T23:27:28.769Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,19 +15,19 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-12T22:10:38.086Z</updated>
+    <updated>2016-10-12T23:27:28.769Z</updated>
     
     <content type="html">&lt;!-- toc --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#taylor-expansion&quot;&gt;Taylor expansion&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#derivatives&quot;&gt;Derivatives&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#first-order-derivative&quot;&gt;First order derivative&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#second-order-derivative&quot;&gt;Second order derivative&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1-first-order-derivative&quot;&gt;(1) First order derivative&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-second-order-derivative&quot;&gt;(2) Second order derivative&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#higher-order-accuracy&quot;&gt;Higher Order Accuracy&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#fx&quot;&gt;$f&amp;#x2019;(x)$&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#fx&quot;&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1-fx&quot;&gt;(1) $f&amp;#x2019;(x)$&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-fx&quot;&gt;(2) $f&amp;#x2019;&amp;#x2019;(x)$&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -65,7 +65,7 @@
                                             \label{first}
 
 \end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;derivatives&quot;&gt;&lt;a href=&quot;#Derivatives&quot; class=&quot;headerlink&quot; title=&quot;Derivatives&quot;&gt;&lt;/a&gt;Derivatives&lt;/h2&gt;&lt;p&gt;For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.&lt;/p&gt;
-&lt;h4 id=&quot;first-order-derivative&quot;&gt;&lt;a href=&quot;#First-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;First order derivative&quot;&gt;&lt;/a&gt;First order derivative&lt;/h4&gt;&lt;p&gt;According to $\eqref{first}$, $f&amp;#x2019;(x)$ should be:&lt;/p&gt;
+&lt;h4 id=&quot;1-first-order-derivative&quot;&gt;&lt;a href=&quot;#1-First-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;(1) First order derivative&quot;&gt;&lt;/a&gt;(1) First order derivative&lt;/h4&gt;&lt;p&gt;According to $\eqref{first}$, $f&amp;#x2019;(x)$ should be:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     f&#39;(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
@@ -74,7 +74,7 @@
                                                         - \frac{\delta^{2i}}{(2i+1)!} f^{(2i+1)}(x)
                                                         + O(\delta^{2i+2})
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.&lt;/p&gt;
-&lt;h4 id=&quot;second-order-derivative&quot;&gt;&lt;a href=&quot;#Second-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;Second order derivative&quot;&gt;&lt;/a&gt;Second order derivative&lt;/h4&gt;&lt;p&gt;In the same way, $f&amp;#x2019;&amp;#x2019;(x)$ is derived from $\eqref{second}$&lt;/p&gt;
+&lt;h4 id=&quot;2-second-order-derivative&quot;&gt;&lt;a href=&quot;#2-Second-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;(2) Second order derivative&quot;&gt;&lt;/a&gt;(2) Second order derivative&lt;/h4&gt;&lt;p&gt;In the same way, $f&amp;#x2019;&amp;#x2019;(x)$ is derived from $\eqref{second}$&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
  f&#39;&#39;(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
@@ -84,7 +84,8 @@
                                                     + O( \delta^{2i})
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;&amp;#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.&lt;/p&gt;
 &lt;h2 id=&quot;higher-order-accuracy&quot;&gt;&lt;a href=&quot;#Higher-Order-Accuracy&quot; class=&quot;headerlink&quot; title=&quot;Higher Order Accuracy&quot;&gt;&lt;/a&gt;Higher Order Accuracy&lt;/h2&gt;&lt;p&gt;To increase the accuracy, $f&amp;#x2019;(x;\delta)$, $f&amp;#x2019;(x;2\delta)$, $f&amp;#x2019;(x;3\delta)$&amp;#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&amp;#x2026;etc. This method works for $f&amp;#x2019;&amp;#x2019;(x)$ as well.&lt;/p&gt;
-&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;(x)$&lt;/h4&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+&lt;h4 id=&quot;1-fx&quot;&gt;&lt;a href=&quot;#1-f&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;(1) $f&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;(1) $f&amp;#x2019;(x)$&lt;/h4&gt;&lt;p&gt;For step of $\delta$, $2\delta$, $3\delta$&amp;#x2026;etc, we have:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     \begin{cases}
         f&#39;(x; \delta) &amp; = &amp; \frac{f(x+\delta) - f(x-\delta)}{2\delta}
@@ -97,18 +98,108 @@
                                         - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
                                         - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                         + O(\delta^{2i+2}) \\
-        f&#39;(x;3\delta) &amp; = &amp; \frac{f(x+2\delta) - f(x-2\delta)}{2 (3\delta)}
+        f&#39;(x;3\delta) &amp; = &amp; \frac{f(x+3\delta) - f(x-3\delta)}{2 (3\delta)}
                                         - \frac{3^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{3^4\delta^4}{5!}  f^{(5)}(x)
                                         - \frac{3^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                         + O(\delta^{2i+2}) \\
-        f&#39;(x;N\delta) &amp; = &amp; \frac{f(x+2\delta) - f(x-2\delta)}{2 (N\delta)}
+        ...\\
+        f&#39;(x;N\delta) &amp; = &amp; \frac{f(x+N\delta) - f(x-N\delta)}{2 (N\delta)}
                                         - \frac{N^2\delta^2}{3!}  f^{(3)}(x)
                                         - \frac{N^4\delta^4}{5!}  f^{(5)}(x)
                                         - \frac{N^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                         + O(\delta^{2i+2}) \\
     \end{cases}
-\end{eqnarray}&lt;/script&gt;&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;</content>
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;summing all these items proportionally from $f&amp;#x2019;(x;\delta)$ to $f&amp;#x2019;(x;N\delta)$ leads to:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+\begin{aligned}
+    f&#39;(x) = &amp;\sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} }\\
+            &amp; - \frac{\delta^2 f^{(3)}(x) }{3!} \sum \limits_{k=1}^N {C_k k^2}
+              - \frac{\delta^4 f^{(5)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^4}
+              - ...
+              - \frac{\delta^{2i} f^{(2i+1)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^{2i}}
+              + O(\delta^{2i+2}) \\
+\end{aligned}
+\end{equation}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+C_1+C_2+C_3+...+C_N = 1
+\end{equation}&lt;/script&gt;&lt;p&gt;so, if we want to have 2Nth order accuracy, then conditions below are required:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{bmatrix}
+        1        &amp; 1        &amp; 1        &amp; ... &amp; 1        \\
+        1^2      &amp; 2^2      &amp; 3^2      &amp; ... &amp; N^2      \\
+        1^4      &amp; 2^4      &amp; 3^4      &amp; ... &amp; N^4      \\
+        1^6      &amp; 2^6      &amp; 3^6      &amp; ... &amp; N^6      \\
+        ... \\
+        1^{2N-2} &amp; 2^{2N-2} &amp; 3^{2N-2} &amp; ... &amp; N^{2N-2}
+    \end{bmatrix}
+    \begin{bmatrix}
+        C_1 \\ C_2 \\ C_3 \\ C_4 \\ ... \\ C_N
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
+    \end{bmatrix}
+\end{equation}&lt;/script&gt;&lt;h4 id=&quot;2-fx&quot;&gt;&lt;a href=&quot;#2-f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;(2) $f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;(2) $f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;&lt;p&gt;For step of $\delta$, $2\delta$, $3\delta$&amp;#x2026;etc, we have:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{cases}
+        f&#39;&#39;(x; \delta)  &amp; = &amp; \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
+                                                            - \frac{2\delta^2}{4!} f^{(4)}(x)
+                                                            - \frac{2\delta^4}{6!} f^{(6)}(x)
+                                                            - \frac{2\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                            + O( \delta^{2i}) \\
+f&#39;&#39;(x;2\delta)  &amp; = &amp; \frac{f(x+2\delta) + f(x-2\delta) - 2f(x)}{ 2^2\delta^2}
+                                                    - 2^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
+                                                    - 2^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
+                                                    - 2^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    + O( \delta^{2i}) \\
+f&#39;&#39;(x;3\delta)  &amp; = &amp; \frac{f(x+3\delta) + f(x-3\delta) - 2f(x)}{3^2 \delta^2}
+                                                    - 3^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
+                                                    - 3^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
+                                                    - 3^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    + O( \delta^{2i}) \\
+f&#39;&#39;(x;N\delta)  &amp; = &amp; \frac{f(x+N\delta) + f(x-N\delta) - 2f(x)}{N^2 \delta^2}
+                                                    - N^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
+                                                    - N^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
+                                                    - N^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    + O( \delta^{2i})
+    \end{cases}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;summing all these items proportionally from $f&amp;#x2019;(x;\delta)$ to $f&amp;#x2019;(x;N\delta)$ leads to:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{aligned}
+        f&#39;&#39;(x) = &amp; \sum \limits_{k=1}^N F_K \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
+                &amp; - \frac{2 \delta^2}{4!} f^{(4)}(x) \sum \limits_{k=1}^N F_k k^2
+                  - \frac{2 \delta^4}{6!} f^{(6)}(x) \sum \limits_{k=1}^N F_k k^4
+                  ...
+                  - \frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x) \sum \limits_{k=1}^N F_k k^{2i-2}
+                  +O( \delta^{2i})
+    \end{aligned}
+\end{equation}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+C_1+C_2+C_3+...+C_N = 1
+\end{equation}&lt;/script&gt;&lt;p&gt;so, if we want to have 2Nth order accuracy, then conditions below are required:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{bmatrix}
+        1        &amp; 1        &amp; 1        &amp; ... &amp; 1        \\
+        1^2      &amp; 2^2      &amp; 3^2      &amp; ... &amp; N^2      \\
+        1^4      &amp; 2^4      &amp; 3^4      &amp; ... &amp; N^4      \\
+        1^6      &amp; 2^6      &amp; 3^6      &amp; ... &amp; N^6      \\
+        ... \\
+        1^{2N-2} &amp; 2^{2N-2} &amp; 3^{2N-2} &amp; ... &amp; N^{2N-2}
+    \end{bmatrix}
+    \begin{bmatrix}
+        C_1 \\ C_2 \\ C_3 \\ C_4 \\ ... \\ C_N
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
+    \end{bmatrix}
+\end{equation}&lt;/script&gt;</content>
     
     <summary type="html">
     
@@ -116,7 +207,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#taylor-expansion&quot;&gt;Taylor expansion&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#derivatives&quot;&gt;Derivatives&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#fir
+&lt;li&gt;&lt;a href=&quot;#1-f
     
     </summary>
     
