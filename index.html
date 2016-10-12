@@ -115,14 +115,14 @@
                             ... +
                             \frac{\delta ^i}{i!}  f^{(i)} (x)  +
                             \frac{\delta ^n}{n!}  f^{(n)} (x)  +
-                            o(\delta^n)\\
+                            O(\delta^{n+1})\\
     f(x-\delta ) & = & f(x) -  \delta  f'(x) +
                         \frac{\delta ^2}{2!}  f''(x)  -
                         \frac{\delta ^3}{3!}  f^{(3)} (x)  +
                         ... +
                         \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
                         \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
-                        o(\delta^n)
+                        O(\delta^{n+1})
 \end{eqnarray}</script><p>The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
@@ -152,9 +152,9 @@
 <script type="math/tex; mode=display">
 \begin{eqnarray}
  f''(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
-                                                    - \frac{\delta^2}{4!} f^{(4)}(x)
-                                                    - \frac{\delta^4}{6!} f^{(6)}(x)
-                                                    - \frac{\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    - \frac{2\delta^2}{4!} f^{(4)}(x)
+                                                    - \frac{2\delta^4}{6!} f^{(6)}(x)
+                                                    - \frac{2\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
                                                     + O( \delta^{2i})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
 <h2 id="higher-order-accuracy"><a href="#Higher-Order-Accuracy" class="headerlink" title="Higher Order Accuracy"></a>Higher Order Accuracy</h2><p>To increase the accuracy, $f&#x2019;(x;\delta)$, $f&#x2019;(x;2\delta)$, $f&#x2019;(x;3\delta)$&#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&#x2026;etc. This method works for $f&#x2019;&#x2019;(x)$ as well.</p>
@@ -176,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7gjys8001r62fby55s7gxj" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7gq4lr001r9bfbuudckuxy" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -214,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciu7gjyrf000u62fbw9b16mvy" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciu7gq4l1000u9bfbobcbzfys" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/12/combination/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -261,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciu7gjyrq001662fbk5bmrloi" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciu7gq4lb00169bfbf43vpm4l" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/11/fast-permutation/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -309,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciu7gjyrm001062fbxzldos4p" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciu7gq4l700109bfbp9qk8li5" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/10/even-odd/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -358,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu7gjyqk000662fb3dy0e551" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu7gq4kf00069bfb771svab1" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/07/BitComputing/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -407,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu7gjyry001i62fbp2aejv5i" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu7gq4li001i9bfbnqns6hpo" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/17/fd-2d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -456,7 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu7gjys0001l62fbmvlb0l2y" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu7gq4ll001l9bfbr1rq2z8d" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/15/fd-2d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -505,7 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu7gjyrs001a62fb50o3j1rt" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu7gq4ld001a9bfbowpl38dd" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/13/fd-1d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -554,7 +554,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu7gjyru001e62fbjtljs0gs" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu7gq4lf001e9bfbetnj4ek6" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/13/fd-1d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -603,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu7gjys2001o62fbqx6kfjwa" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu7gq4lm001o9bfbbjbgy5nr" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/12/fft-endpoint/#disqus_thread" class="article-comment-link">Comments</a>
       

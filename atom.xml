@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-12T22:02:44.509Z</updated>
+  <updated>2016-10-12T22:05:58.813Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-12T22:02:44.509Z</updated>
+    <updated>2016-10-12T22:05:58.813Z</updated>
     
     <content type="html">&lt;!-- toc --&gt;
 &lt;ul&gt;
@@ -41,14 +41,14 @@
                             ... +
                             \frac{\delta ^i}{i!}  f^{(i)} (x)  +
                             \frac{\delta ^n}{n!}  f^{(n)} (x)  +
-                            o(\delta^n)\\
+                            O(\delta^{n+1})\\
     f(x-\delta ) &amp; = &amp; f(x) -  \delta  f&#39;(x) +
                         \frac{\delta ^2}{2!}  f&#39;&#39;(x)  -
                         \frac{\delta ^3}{3!}  f^{(3)} (x)  +
                         ... +
                         \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
                         \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
-                        o(\delta^n)
+                        O(\delta^{n+1})
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
@@ -78,9 +78,9 @@
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
  f&#39;&#39;(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
-                                                    - \frac{\delta^2}{4!} f^{(4)}(x)
-                                                    - \frac{\delta^4}{6!} f^{(6)}(x)
-                                                    - \frac{\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    - \frac{2\delta^2}{4!} f^{(4)}(x)
+                                                    - \frac{2\delta^4}{6!} f^{(6)}(x)
+                                                    - \frac{2\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
                                                     + O( \delta^{2i})
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;&amp;#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.&lt;/p&gt;
 &lt;h2 id=&quot;higher-order-accuracy&quot;&gt;&lt;a href=&quot;#Higher-Order-Accuracy&quot; class=&quot;headerlink&quot; title=&quot;Higher Order Accuracy&quot;&gt;&lt;/a&gt;Higher Order Accuracy&lt;/h2&gt;&lt;p&gt;To increase the accuracy, $f&amp;#x2019;(x;\delta)$, $f&amp;#x2019;(x;2\delta)$, $f&amp;#x2019;(x;3\delta)$&amp;#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&amp;#x2026;etc. This method works for $f&amp;#x2019;&amp;#x2019;(x)$ as well.&lt;/p&gt;

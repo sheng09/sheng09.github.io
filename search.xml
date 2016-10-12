@@ -30,14 +30,14 @@
                             ... +
                             \frac{\delta ^i}{i!}  f^{(i)} (x)  +
                             \frac{\delta ^n}{n!}  f^{(n)} (x)  +
-                            o(\delta^n)\\
+                            O(\delta^{n+1})\\
     f(x-\delta ) & = & f(x) -  \delta  f'(x) +
                         \frac{\delta ^2}{2!}  f''(x)  -
                         \frac{\delta ^3}{3!}  f^{(3)} (x)  +
                         ... +
                         \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
                         \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
-                        o(\delta^n)
+                        O(\delta^{n+1})
 \end{eqnarray}</script><p>The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
@@ -67,9 +67,9 @@
 <script type="math/tex; mode=display">
 \begin{eqnarray}
  f''(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
-                                                    - \frac{\delta^2}{4!} f^{(4)}(x)
-                                                    - \frac{\delta^4}{6!} f^{(6)}(x)
-                                                    - \frac{\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
+                                                    - \frac{2\delta^2}{4!} f^{(4)}(x)
+                                                    - \frac{2\delta^4}{6!} f^{(6)}(x)
+                                                    - \frac{2\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
                                                     + O( \delta^{2i})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
 <h2 id="higher-order-accuracy"><a href="#Higher-Order-Accuracy" class="headerlink" title="Higher Order Accuracy"></a>Higher Order Accuracy</h2><p>To increase the accuracy, $f&#x2019;(x;\delta)$, $f&#x2019;(x;2\delta)$, $f&#x2019;(x;3\delta)$&#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&#x2026;etc. This method works for $f&#x2019;&#x2019;(x)$ as well.</p>
