@@ -169,7 +169,7 @@ f''(x;N\delta)  & = & \frac{f(x+N\delta) + f(x-N\delta) - 2f(x)}{N^2 \delta^2}
     \end{aligned}
 \end{equation}</script><script type="math/tex; mode=display">
 \begin{equation}
-C_1+C_2+C_3+...+C_N = 1
+F_1+F_2+F_3+...+F_N = 1
 \end{equation}</script><p>so, if we want to have 2Nth order accuracy, then conditions below are required:</p>
 <script type="math/tex; mode=display">
 \begin{equation}
@@ -182,7 +182,7 @@ C_1+C_2+C_3+...+C_N = 1
         1^{2N-2} & 2^{2N-2} & 3^{2N-2} & ... & N^{2N-2}
     \end{bmatrix}
     \begin{bmatrix}
-        C_1 \\ C_2 \\ C_3 \\ C_4 \\ ... \\ C_N
+        F_1 \\ F_2 \\ F_3 \\ F_4 \\ ... \\ F_N
     \end{bmatrix}
     =
     \begin{bmatrix}

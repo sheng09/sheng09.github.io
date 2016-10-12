@@ -37,7 +37,7 @@ Higher Order Accuracy
 
 
 Taylor expansionAccording to Taylor expa">
-<meta property="og:updated_time" content="2016-10-12T23:27:28.769Z">
+<meta property="og:updated_time" content="2016-10-12T23:32:07.454Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta name="twitter:description" content="Taylor expansion
@@ -292,7 +292,7 @@ f''(x;N\delta)  & = & \frac{f(x+N\delta) + f(x-N\delta) - 2f(x)}{N^2 \delta^2}
     \end{aligned}
 \end{equation}</script><script type="math/tex; mode=display">
 \begin{equation}
-C_1+C_2+C_3+...+C_N = 1
+F_1+F_2+F_3+...+F_N = 1
 \end{equation}</script><p>so, if we want to have 2Nth order accuracy, then conditions below are required:</p>
 <script type="math/tex; mode=display">
 \begin{equation}
@@ -305,7 +305,7 @@ C_1+C_2+C_3+...+C_N = 1
         1^{2N-2} & 2^{2N-2} & 3^{2N-2} & ... & N^{2N-2}
     \end{bmatrix}
     \begin{bmatrix}
-        C_1 \\ C_2 \\ C_3 \\ C_4 \\ ... \\ C_N
+        F_1 \\ F_2 \\ F_3 \\ F_4 \\ ... \\ F_N
     \end{bmatrix}
     =
     \begin{bmatrix}
@@ -315,7 +315,7 @@ C_1+C_2+C_3+...+C_N = 1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7h5qu0003ceqfbjq94c0yp" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7jwtgu001rdofb12qmt7s1" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
