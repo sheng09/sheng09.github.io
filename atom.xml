@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-12T22:05:58.813Z</updated>
+  <updated>2016-10-12T22:09:52.526Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-12T22:05:58.813Z</updated>
+    <updated>2016-10-12T22:09:52.526Z</updated>
     
     <content type="html">&lt;!-- toc --&gt;
 &lt;ul&gt;
@@ -87,16 +87,21 @@
 &lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;(x)$&lt;/h4&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     \begin{cases}
-        f&#39;(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
-                                                        - \frac{\delta^2}{3!} f^{(3)}(x)
-                                                        - \frac{\delta^4}{5!} f^{(5)}(x)
-                                                        - \frac{\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                                        + O(\delta^{2i+2})\\
-        f&#39;(x;2\delta) = \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
-                                                - \frac{2^2\delta^2}{3!}  f^{(3)}(x)
-                                                - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
-                                                - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                                + O(\delta^{2i+2})
+        f&#39;(x; \delta) &amp; = &amp; \frac{f(x+\delta) - f(x-\delta)}{2\delta}
+                                        - \frac{\delta^2}{3!} f^{(3)}(x)
+                                        - \frac{\delta^4}{5!} f^{(5)}(x)
+                                        - \frac{\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
+                                        + O(\delta^{2i+2})\\
+        f&#39;(x;2\delta) &amp; = &amp; \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
+                                        - \frac{2^2\delta^2}{3!}  f^{(3)}(x)
+                                        - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
+                                        - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
+                                        + O(\delta^{2i+2}) \\
+        f&#39;(x;3\delta) &amp; = &amp; \frac{f(x+2\delta) - f(x-2\delta)}{2 (3\delta)}
+                                        - \frac{3^2\delta^2}{3!}  f^{(3)}(x)
+                                        - \frac{3^4\delta^4}{5!}  f^{(5)}(x)
+                                        - \frac{3^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
+                                        + O(\delta^{2i+2}) \\
     \end{cases}
 \end{eqnarray}&lt;/script&gt;&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;</content>
     

@@ -37,7 +37,7 @@ $f&amp;#x2019;&amp;#x2019;(x)$
 
 
 Taylor expansionAccording to Taylor expansion, we have:">
-<meta property="og:updated_time" content="2016-10-12T22:05:58.813Z">
+<meta property="og:updated_time" content="2016-10-12T22:09:52.526Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta name="twitter:description" content="Taylor expansion
@@ -199,22 +199,27 @@ Taylor expansionAccording to Taylor expansion, we have:">
 <h4 id="fx"><a href="#f&#x2019;-x" class="headerlink" title="$f&#x2019;(x)$"></a>$f&#x2019;(x)$</h4><script type="math/tex; mode=display">
 \begin{eqnarray}
     \begin{cases}
-        f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
-                                                        - \frac{\delta^2}{3!} f^{(3)}(x)
-                                                        - \frac{\delta^4}{5!} f^{(5)}(x)
-                                                        - \frac{\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                                        + O(\delta^{2i+2})\\
-        f'(x;2\delta) = \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
-                                                - \frac{2^2\delta^2}{3!}  f^{(3)}(x)
-                                                - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
-                                                - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
-                                                + O(\delta^{2i+2})
+        f'(x; \delta) & = & \frac{f(x+\delta) - f(x-\delta)}{2\delta}
+                                        - \frac{\delta^2}{3!} f^{(3)}(x)
+                                        - \frac{\delta^4}{5!} f^{(5)}(x)
+                                        - \frac{\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
+                                        + O(\delta^{2i+2})\\
+        f'(x;2\delta) & = & \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
+                                        - \frac{2^2\delta^2}{3!}  f^{(3)}(x)
+                                        - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
+                                        - \frac{2^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
+                                        + O(\delta^{2i+2}) \\
+        f'(x;3\delta) & = & \frac{f(x+2\delta) - f(x-2\delta)}{2 (3\delta)}
+                                        - \frac{3^2\delta^2}{3!}  f^{(3)}(x)
+                                        - \frac{3^4\delta^4}{5!}  f^{(5)}(x)
+                                        - \frac{3^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
+                                        + O(\delta^{2i+2}) \\
     \end{cases}
 \end{eqnarray}</script><h4 id="fx"><a href="#f&#x2019;&#x2019;-x" class="headerlink" title="$f&#x2019;&#x2019;(x)$"></a>$f&#x2019;&#x2019;(x)$</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7gq4lr001r9bfbuudckuxy" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7gua4q001rapfbwr6yylve" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
