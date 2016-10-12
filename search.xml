@@ -91,6 +91,11 @@
                                         - \frac{3^4\delta^4}{5!}  f^{(5)}(x)
                                         - \frac{3^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
                                         + O(\delta^{2i+2}) \\
+        f'(x;N\delta) & = & \frac{f(x+2\delta) - f(x-2\delta)}{2 (N\delta)}
+                                        - \frac{N^2\delta^2}{3!}  f^{(3)}(x)
+                                        - \frac{N^4\delta^4}{5!}  f^{(5)}(x)
+                                        - \frac{N^{2i}\delta^{2i}}{(2i+1)!}  f^{(2i+1)}(x)
+                                        + O(\delta^{2i+2}) \\
     \end{cases}
 \end{eqnarray}</script><h4 id="fx"><a href="#f&#x2019;&#x2019;-x" class="headerlink" title="$f&#x2019;&#x2019;(x)$"></a>$f&#x2019;&#x2019;(x)$</h4>]]></content>
     </entry>
