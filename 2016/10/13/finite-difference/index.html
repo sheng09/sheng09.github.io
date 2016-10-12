@@ -5,28 +5,55 @@
   
   <title>Finite Difference of Derivatives(微分的有限差分实现) | Sheng Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Taylor expansionAccording to Taylor expansion, we have:
+  <meta name="description" content="Taylor expansion
+Derivatives
+First order derivative
+Second order derivative
 
-\begin{eqnarray}
-    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&apos;(x) +
-                            \frac{1}{2!} \delta ^2 f&apos;&apos;(x)  +">
+
+Higher Order Accuracy
+$f&amp;#x2019;(x)$
+$f&amp;#x2019;&amp;#x2019;(x)$
+
+
+
+
+Taylor expansionAccording to Taylor expansion, we have:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta property="og:url" content="http://sheng09.github.io/2016/10/13/finite-difference/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="Taylor expansionAccording to Taylor expansion, we have:
+<meta property="og:description" content="Taylor expansion
+Derivatives
+First order derivative
+Second order derivative
 
-\begin{eqnarray}
-    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&apos;(x) +
-                            \frac{1}{2!} \delta ^2 f&apos;&apos;(x)  +">
-<meta property="og:updated_time" content="2016-10-12T20:41:29.353Z">
+
+Higher Order Accuracy
+$f&amp;#x2019;(x)$
+$f&amp;#x2019;&amp;#x2019;(x)$
+
+
+
+
+Taylor expansionAccording to Taylor expansion, we have:">
+<meta property="og:updated_time" content="2016-10-12T20:51:27.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
-<meta name="twitter:description" content="Taylor expansionAccording to Taylor expansion, we have:
+<meta name="twitter:description" content="Taylor expansion
+Derivatives
+First order derivative
+Second order derivative
 
-\begin{eqnarray}
-    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&apos;(x) +
-                            \frac{1}{2!} \delta ^2 f&apos;&apos;(x)  +">
+
+Higher Order Accuracy
+$f&amp;#x2019;(x)$
+$f&amp;#x2019;&amp;#x2019;(x)$
+
+
+
+
+Taylor expansionAccording to Taylor expansion, we have:">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -102,7 +129,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
+        <!-- toc -->
+<ul>
+<li><a href="#taylor-expansion">Taylor expansion</a></li>
+<li><a href="#derivatives">Derivatives</a><ul>
+<li><a href="#first-order-derivative">First order derivative</a></li>
+<li><a href="#second-order-derivative">Second order derivative</a></li>
+</ul>
+</li>
+<li><a href="#higher-order-accuracy">Higher Order Accuracy</a><ul>
+<li><a href="#fx">$f&#x2019;(x)$</a></li>
+<li><a href="#fx">$f&#x2019;&#x2019;(x)$</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     f(x+\delta ) & = & f(x) +  \delta  f'(x) +
@@ -155,11 +197,12 @@
                                                     - \frac{2}{(2i)!} \delta^{2i-2} f^{(2i)}(x)
                                                     + O( \delta^{2i})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
-
+<h2 id="higher-order-accuracy"><a href="#Higher-Order-Accuracy" class="headerlink" title="Higher Order Accuracy"></a>Higher Order Accuracy</h2><p>To increase the accuracy, $f&#x2019;(x;\delta)$, $f&#x2019;(x;2\delta)$, $f&#x2019;(x;3\delta)$&#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&#x2026;etc. This method works for $f&#x2019;&#x2019;(x)$ as well.</p>
+<h4 id="fx"><a href="#f&#x2019;-x" class="headerlink" title="$f&#x2019;(x)$"></a>$f&#x2019;(x)$</h4><h4 id="fx"><a href="#f&#x2019;&#x2019;-x" class="headerlink" title="$f&#x2019;&#x2019;(x)$"></a>$f&#x2019;&#x2019;(x)$</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7c7lyw001ft7fb1ld2uru3" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7e2oo5001itmfbsdmax1w2" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       

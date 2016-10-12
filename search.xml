@@ -6,7 +6,22 @@
     <entry>
       <title><![CDATA[Finite Difference of Derivatives(微分的有限差分实现)]]></title>
       <url>http://sheng09.github.io/2016/10/13/finite-difference/</url>
-      <content type="html"><![CDATA[<h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
+      <content type="html"><![CDATA[<!-- toc -->
+<ul>
+<li><a href="#taylor-expansion">Taylor expansion</a></li>
+<li><a href="#derivatives">Derivatives</a><ul>
+<li><a href="#first-order-derivative">First order derivative</a></li>
+<li><a href="#second-order-derivative">Second order derivative</a></li>
+</ul>
+</li>
+<li><a href="#higher-order-accuracy">Higher Order Accuracy</a><ul>
+<li><a href="#fx">$f&#x2019;(x)$</a></li>
+<li><a href="#fx">$f&#x2019;&#x2019;(x)$</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     f(x+\delta ) & = & f(x) +  \delta  f'(x) +
@@ -59,7 +74,8 @@
                                                     - \frac{2}{(2i)!} \delta^{2i-2} f^{(2i)}(x)
                                                     + O( \delta^{2i})
 \end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
-]]></content>
+<h2 id="higher-order-accuracy"><a href="#Higher-Order-Accuracy" class="headerlink" title="Higher Order Accuracy"></a>Higher Order Accuracy</h2><p>To increase the accuracy, $f&#x2019;(x;\delta)$, $f&#x2019;(x;2\delta)$, $f&#x2019;(x;3\delta)$&#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&#x2026;etc. This method works for $f&#x2019;&#x2019;(x)$ as well.</p>
+<h4 id="fx"><a href="#f&#x2019;-x" class="headerlink" title="$f&#x2019;(x)$"></a>$f&#x2019;(x)$</h4><h4 id="fx"><a href="#f&#x2019;&#x2019;-x" class="headerlink" title="$f&#x2019;&#x2019;(x)$"></a>$f&#x2019;&#x2019;(x)$</h4>]]></content>
     </entry>
     
     <entry>

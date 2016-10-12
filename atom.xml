@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-12T20:41:29.353Z</updated>
+  <updated>2016-10-12T20:51:27.998Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,9 +15,24 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-12T20:41:29.353Z</updated>
+    <updated>2016-10-12T20:51:27.998Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;taylor-expansion&quot;&gt;&lt;a href=&quot;#Taylor-expansion&quot; class=&quot;headerlink&quot; title=&quot;Taylor expansion&quot;&gt;&lt;/a&gt;Taylor expansion&lt;/h2&gt;&lt;p&gt;According to Taylor expansion, we have:&lt;/p&gt;
+    <content type="html">&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#taylor-expansion&quot;&gt;Taylor expansion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#derivatives&quot;&gt;Derivatives&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#first-order-derivative&quot;&gt;First order derivative&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#second-order-derivative&quot;&gt;Second order derivative&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#higher-order-accuracy&quot;&gt;Higher Order Accuracy&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#fx&quot;&gt;$f&amp;#x2019;(x)$&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#fx&quot;&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
+&lt;h2 id=&quot;taylor-expansion&quot;&gt;&lt;a href=&quot;#Taylor-expansion&quot; class=&quot;headerlink&quot; title=&quot;Taylor expansion&quot;&gt;&lt;/a&gt;Taylor expansion&lt;/h2&gt;&lt;p&gt;According to Taylor expansion, we have:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&#39;(x) +
@@ -70,11 +85,16 @@
                                                     - \frac{2}{(2i)!} \delta^{2i-2} f^{(2i)}(x)
                                                     + O( \delta^{2i})
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;omitting tail items leads to $f&amp;#x2019;&amp;#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.&lt;/p&gt;
-</content>
+&lt;h2 id=&quot;higher-order-accuracy&quot;&gt;&lt;a href=&quot;#Higher-Order-Accuracy&quot; class=&quot;headerlink&quot; title=&quot;Higher Order Accuracy&quot;&gt;&lt;/a&gt;Higher Order Accuracy&lt;/h2&gt;&lt;p&gt;To increase the accuracy, $f&amp;#x2019;(x;\delta)$, $f&amp;#x2019;(x;2\delta)$, $f&amp;#x2019;(x;3\delta)$&amp;#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&amp;#x2026;etc. This method works for $f&amp;#x2019;&amp;#x2019;(x)$ as well.&lt;/p&gt;
+&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;(x)$&lt;/h4&gt;&lt;h4 id=&quot;fx&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;&amp;#x2019;-x&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;&amp;#x2019;(x)$&quot;&gt;&lt;/a&gt;$f&amp;#x2019;&amp;#x2019;(x)$&lt;/h4&gt;</content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;taylor-expansion&quot;&gt;&lt;a href=&quot;#Taylor-expansion&quot; class=&quot;headerlink&quot; title=&quot;Taylor expansion&quot;&gt;&lt;/a&gt;Taylor expansion&lt;/h2&gt;&lt;p&gt;According to T
+      &lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#taylor-expansion&quot;&gt;Taylor expansion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#derivatives&quot;&gt;Derivatives&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#fir
     
     </summary>
     
