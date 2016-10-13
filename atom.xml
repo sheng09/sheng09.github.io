@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-13T00:01:52.655Z</updated>
+  <updated>2016-10-13T00:05:33.320Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,9 +15,9 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-13T00:01:52.655Z</updated>
+    <updated>2016-10-13T00:05:33.320Z</updated>
     
-    <content type="html">&lt;p&gt;This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
+    <content type="html">&lt;p&gt;This post derived the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;!-- toc --&gt;
 &lt;ul&gt;
@@ -214,7 +214,7 @@ C_k         &amp; = &amp;
     
     <summary type="html">
     
-      &lt;p&gt;This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
+      &lt;p&gt;This post derived the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
     
     </summary>
     
