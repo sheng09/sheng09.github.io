@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sheng09.github.io/2016/10/10/even-odd/</loc>
+    
+    <lastmod>2016-10-13T19:14:34.939Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://sheng09.github.io/2016/10/13/finite-difference/</loc>
     
     <lastmod>2016-10-13T19:08:12.217Z</lastmod>
@@ -75,13 +82,6 @@
     <loc>http://sheng09.github.io/2016/10/07/BitComputing/</loc>
     
     <lastmod>2016-10-10T01:30:22.896Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://sheng09.github.io/2016/10/10/even-odd/</loc>
-    
-    <lastmod>2016-10-10T01:29:07.413Z</lastmod>
     
   </url>
   
