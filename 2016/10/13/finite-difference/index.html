@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://sheng09.github.io/2016/10/13/finite-difference/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="This post derived the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify">
-<meta property="og:updated_time" content="2016-10-13T00:09:08.126Z">
+<meta property="og:updated_time" content="2016-10-13T18:19:01.112Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta name="twitter:description" content="This post derived the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify">
@@ -106,7 +106,6 @@
 </ul>
 </li>
 <li><a href="#conclusion">Conclusion</a></li>
-<li><a href="#test">Test</a></li>
 </ul>
 <!-- tocstop -->
 <h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
@@ -199,7 +198,7 @@
 \end{equation}</script><script type="math/tex; mode=display">
 \begin{equation}
 C_1+C_2+C_3+...+C_N = 1
-\end{equation}</script><p>so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {C_k k^{**}}$ must have value of zero. Besides, to determine the value of $C_1,C_2,&#x2026;,C_N$, $i$ should equals to $N$. So we arrive at an linear equation of $C$:</p>
+\end{equation}</script><p>so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {C_k k^{**}}$ must have value of zero. Besides, to determine the value of $C_1,C_2,&#x2026;,C_N$, $i$ should equals to $N$. So we arrive at a linear equation of $C$:</p>
 <script type="math/tex; mode=display">
 \begin{equation}
     \begin{bmatrix}
@@ -257,7 +256,7 @@ f''(x;N\delta)  & = & \frac{f(x+N\delta) + f(x-N\delta) - 2f(x)}{N^2 \delta^2}
 \end{equation}</script><script type="math/tex; mode=display">
 \begin{equation}
 F_1+F_2+F_3+...+F_N = 1
-\end{equation}</script><p>so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {F_k k^{**}}$ must have value of zero. Besides, to determine the value of $F_1,F_2,&#x2026;,F_N$, $i$ should equals to $N$. So we arrive at an linear equation of $F$, which is same as $\eqref{M_C}$</p>
+\end{equation}</script><p>so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {F_k k^{**}}$ must have value of zero. Besides, to determine the value of $F_1,F_2,&#x2026;,F_N$, $i$ should equals to $N$. So we arrive at a linear equation of $F$, which is same as $\eqref{M_C}$.</p>
 <script type="math/tex; mode=display">
 \begin{equation}
     \begin{bmatrix}
@@ -282,11 +281,123 @@ F_1+F_2+F_3+...+F_N = 1
 D  [f(x)]   & = & \sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } \\
 D^2[f(x)]   & = & \sum \limits_{k=1}^N C_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
 C_k         & = &
-\end{eqnarray}</script><h2 id="test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2>
+\end{eqnarray}</script><p>by simplifying:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+D  [f(x)]   & = & \frac{1}{\delta} \sum \limits_{k=1}^N  c_k[f(x+k\delta) - f(x-k\delta)] \\
+D^2[f(x)]   & = & \frac{1}{\delta^2} \sum \limits_{k=1}^N f_k[f(x+k\delta) - f(x-l\delta) - 2f(x)]  \\
+c_k         & = & \frac{C_k}{2k} \\
+f_k         & = & \frac{C_k}{k^2}
+\end{eqnarray}</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>N</th>
+<th>$C_1$</th>
+<th>$C_2$</th>
+<th>$C_3$</th>
+<th>$C_4$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>$\frac{4}{3}$</td>
+<td>-$\frac{1}{3}$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>$\frac{1}{2}$</td>
+<td>-$\frac{3}{5}$</td>
+<td>$\frac{1}{10}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>N</th>
+<th>$c_1$</th>
+<th>$c_2$</th>
+<th>$c_3$</th>
+<th>$c_4$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>$\frac{1}{2}$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>$\frac{4}{6}$</td>
+<td>-$\frac{1}{12}$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>$\frac{1}{4}$</td>
+<td>-$\frac{3}{20}$</td>
+<td>$\frac{1}{60}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>N</th>
+<th>$f_1$</th>
+<th>$f_2$</th>
+<th>$f_3$</th>
+<th>$f_4$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>$\frac{4}{3}$</td>
+<td>-$\frac{1}{12}$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>$\frac{1}{2}$</td>
+<td>-$\frac{3}{20}$</td>
+<td>$\frac{1}{90}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7l8epj001r83fb0ibmtuhk" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu8n9ita001oolfbkazlhb46" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
