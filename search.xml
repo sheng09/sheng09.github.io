@@ -42,8 +42,7 @@
                         \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
                         \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
                         O(\delta^{n+1})
-\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>In physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
-<p>adding and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
+\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>In physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to the first and second order derivatives.<br>Adding and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     \frac{f(x+\delta) + f(x-\delta)}{2} & = & f(x) +    \frac{\delta^2}{2!} f''(x) +
@@ -1385,14 +1384,14 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
-      <title><![CDATA[Categories]]></title>
-      <url>http://sheng09.github.io/categories/index.html</url>
+      <title><![CDATA[about]]></title>
+      <url>http://sheng09.github.io/about/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[about]]></title>
-      <url>http://sheng09.github.io/about/index.html</url>
+      <title><![CDATA[Categories]]></title>
+      <url>http://sheng09.github.io/categories/index.html</url>
       <content type="html"></content>
     </entry>
     

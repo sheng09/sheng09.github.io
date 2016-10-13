@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://sheng09.github.io/2016/10/13/finite-difference/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="This post derived the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify">
-<meta property="og:updated_time" content="2016-10-13T00:07:29.033Z">
+<meta property="og:updated_time" content="2016-10-13T00:09:08.126Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta name="twitter:description" content="This post derived the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify">
@@ -126,8 +126,7 @@
                         \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
                         \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
                         O(\delta^{n+1})
-\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>In physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
-<p>adding and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
+\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>In physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to the first and second order derivatives.<br>Adding and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     \frac{f(x+\delta) + f(x-\delta)}{2} & = & f(x) +    \frac{\delta^2}{2!} f''(x) +
@@ -287,7 +286,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7l6ai3001r6sfb9epe3kke" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7l8epj001r83fb0ibmtuhk" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
