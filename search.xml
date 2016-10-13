@@ -42,7 +42,8 @@
                         \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
                         \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
                         O(\delta^{n+1})
-\end{eqnarray}</script><p>The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
+\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>In physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
+<p>adding and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     \frac{f(x+\delta) + f(x-\delta)}{2} & = & f(x) +    \frac{\delta^2}{2!} f''(x) +
@@ -57,8 +58,7 @@
                                             O(\delta^{2i+1})
                                             \label{first}
 
-\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
-<h4 id="1-first-order-derivative"><a href="#1-First-order-derivative" class="headerlink" title="(1) First order derivative"></a>(1) First order derivative</h4><p>According to $\eqref{first}$, $f&#x2019;(x)$ should be:</p>
+\end{eqnarray}</script><h4 id="1-first-order-derivative"><a href="#1-First-order-derivative" class="headerlink" title="(1) First order derivative"></a>(1) First order derivative</h4><p>According to $\eqref{first}$, $f&#x2019;(x)$ should be:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
@@ -1385,14 +1385,14 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
-      <title><![CDATA[about]]></title>
-      <url>http://sheng09.github.io/about/index.html</url>
+      <title><![CDATA[Categories]]></title>
+      <url>http://sheng09.github.io/categories/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[Categories]]></title>
-      <url>http://sheng09.github.io/categories/index.html</url>
+      <title><![CDATA[about]]></title>
+      <url>http://sheng09.github.io/about/index.html</url>
       <content type="html"></content>
     </entry>
     

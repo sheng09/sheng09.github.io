@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-13T00:05:33.320Z</updated>
+  <updated>2016-10-13T00:07:29.033Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-13T00:05:33.320Z</updated>
+    <updated>2016-10-13T00:07:29.033Z</updated>
     
     <content type="html">&lt;p&gt;This post derived the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -53,7 +53,8 @@
                         \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
                         \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
                         O(\delta^{n+1})
-\end{eqnarray}&lt;/script&gt;&lt;p&gt;The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:&lt;/p&gt;
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;derivatives&quot;&gt;&lt;a href=&quot;#Derivatives&quot; class=&quot;headerlink&quot; title=&quot;Derivatives&quot;&gt;&lt;/a&gt;Derivatives&lt;/h2&gt;&lt;p&gt;In physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.&lt;/p&gt;
+&lt;p&gt;adding and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     \frac{f(x+\delta) + f(x-\delta)}{2} &amp; = &amp; f(x) +    \frac{\delta^2}{2!} f&#39;&#39;(x) +
@@ -68,8 +69,7 @@
                                             O(\delta^{2i+1})
                                             \label{first}
 
-\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;derivatives&quot;&gt;&lt;a href=&quot;#Derivatives&quot; class=&quot;headerlink&quot; title=&quot;Derivatives&quot;&gt;&lt;/a&gt;Derivatives&lt;/h2&gt;&lt;p&gt;For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.&lt;/p&gt;
-&lt;h4 id=&quot;1-first-order-derivative&quot;&gt;&lt;a href=&quot;#1-First-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;(1) First order derivative&quot;&gt;&lt;/a&gt;(1) First order derivative&lt;/h4&gt;&lt;p&gt;According to $\eqref{first}$, $f&amp;#x2019;(x)$ should be:&lt;/p&gt;
+\end{eqnarray}&lt;/script&gt;&lt;h4 id=&quot;1-first-order-derivative&quot;&gt;&lt;a href=&quot;#1-First-order-derivative&quot; class=&quot;headerlink&quot; title=&quot;(1) First order derivative&quot;&gt;&lt;/a&gt;(1) First order derivative&lt;/h4&gt;&lt;p&gt;According to $\eqref{first}$, $f&amp;#x2019;(x)$ should be:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     f&#39;(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
