@@ -5,17 +5,17 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-13T19:06:22.456Z</updated>
+  <updated>2016-10-13T19:08:12.217Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Central Finite Difference of Derivatives(中心微分的有限差分实现)</title>
+    <title>Central Finite Difference of Derivatives(中心有限差分)</title>
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-13T19:06:22.456Z</updated>
+    <updated>2016-10-13T19:08:12.217Z</updated>
     
     <content type="html">&lt;p&gt;This post derived the method of central finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -336,6 +336,14 @@ f_k         &amp; = &amp; \frac{C_k}{k^2}
     
     </summary>
     
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
+    
+    
+      <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
+    
+      <category term="modeling" scheme="http://sheng09.github.io/tags/modeling/"/>
+    
+      <category term="error" scheme="http://sheng09.github.io/tags/error/"/>
     
   </entry>
   
