@@ -5,58 +5,16 @@
   
   <title>Finite Difference of Derivatives(微分的有限差分实现) | Sheng Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Taylor expansion
-Derivatives
-(1) First order derivative
-(2) Second order derivative
-
-
-Higher Order Accuracy
-(1) $f&amp;#x2019;(x)$
-(2) $f&amp;#x2019;&amp;#x2019;(x)$
-
-
-Conclusion
-
-
-Taylor expansionAccording to">
+  <meta name="description" content="This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
 <meta property="og:url" content="http://sheng09.github.io/2016/10/13/finite-difference/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="Taylor expansion
-Derivatives
-(1) First order derivative
-(2) Second order derivative
-
-
-Higher Order Accuracy
-(1) $f&amp;#x2019;(x)$
-(2) $f&amp;#x2019;&amp;#x2019;(x)$
-
-
-Conclusion
-
-
-Taylor expansionAccording to">
-<meta property="og:updated_time" content="2016-10-12T23:56:32.025Z">
+<meta property="og:description" content="This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify t">
+<meta property="og:updated_time" content="2016-10-13T00:01:52.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Finite Difference of Derivatives(微分的有限差分实现)">
-<meta name="twitter:description" content="Taylor expansion
-Derivatives
-(1) First order derivative
-(2) Second order derivative
-
-
-Higher Order Accuracy
-(1) $f&amp;#x2019;(x)$
-(2) $f&amp;#x2019;&amp;#x2019;(x)$
-
-
-Conclusion
-
-
-Taylor expansionAccording to">
+<meta name="twitter:description" content="This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify t">
   
     <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
   
@@ -132,7 +90,9 @@ Taylor expansionAccording to">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- toc -->
+        <p>This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.</p>
+<a id="more"></a>
+<!-- toc -->
 <ul>
 <li><a href="#taylor-expansion">Taylor expansion</a></li>
 <li><a href="#derivatives">Derivatives</a><ul>
@@ -146,6 +106,7 @@ Taylor expansionAccording to">
 </ul>
 </li>
 <li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#test">Test</a></li>
 </ul>
 <!-- tocstop -->
 <h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
@@ -322,11 +283,11 @@ F_1+F_2+F_3+...+F_N = 1
 D  [f(x)]   & = & \sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } \\
 D^2[f(x)]   & = & \sum \limits_{k=1}^N C_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
 C_k         & = &
-\end{eqnarray}</script>
+\end{eqnarray}</script><h2 id="test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7k26650032qifb0xgslpc8" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7kz2q0001r2dfbt975ec05" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       

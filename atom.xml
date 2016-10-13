@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-12T23:56:32.025Z</updated>
+  <updated>2016-10-13T00:01:52.655Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,9 +15,11 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-12T23:56:32.025Z</updated>
+    <updated>2016-10-13T00:01:52.655Z</updated>
     
-    <content type="html">&lt;!-- toc --&gt;
+    <content type="html">&lt;p&gt;This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;!-- toc --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#taylor-expansion&quot;&gt;Taylor expansion&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#derivatives&quot;&gt;Derivatives&lt;/a&gt;&lt;ul&gt;
@@ -31,6 +33,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#test&quot;&gt;Test&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- tocstop --&gt;
 &lt;h2 id=&quot;taylor-expansion&quot;&gt;&lt;a href=&quot;#Taylor-expansion&quot; class=&quot;headerlink&quot; title=&quot;Taylor expansion&quot;&gt;&lt;/a&gt;Taylor expansion&lt;/h2&gt;&lt;p&gt;According to Taylor expansion, we have:&lt;/p&gt;
@@ -207,15 +210,11 @@ F_1+F_2+F_3+...+F_N = 1
 D  [f(x)]   &amp; = &amp; \sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } \\
 D^2[f(x)]   &amp; = &amp; \sum \limits_{k=1}^N C_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
 C_k         &amp; = &amp;
-\end{eqnarray}&lt;/script&gt;</content>
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;test&quot;&gt;&lt;a href=&quot;#Test&quot; class=&quot;headerlink&quot; title=&quot;Test&quot;&gt;&lt;/a&gt;Test&lt;/h2&gt;</content>
     
     <summary type="html">
     
-      &lt;!-- toc --&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#taylor-expansion&quot;&gt;Taylor expansion&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#derivatives&quot;&gt;Derivatives&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#1-f
+      &lt;p&gt;This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
     
     </summary>
     

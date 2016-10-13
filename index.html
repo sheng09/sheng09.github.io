@@ -91,201 +91,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- toc -->
-<ul>
-<li><a href="#taylor-expansion">Taylor expansion</a></li>
-<li><a href="#derivatives">Derivatives</a><ul>
-<li><a href="#1-first-order-derivative">(1) First order derivative</a></li>
-<li><a href="#2-second-order-derivative">(2) Second order derivative</a></li>
-</ul>
-</li>
-<li><a href="#higher-order-accuracy">Higher Order Accuracy</a><ul>
-<li><a href="#1-fx">(1) $f&#x2019;(x)$</a></li>
-<li><a href="#2-fx">(2) $f&#x2019;&#x2019;(x)$</a></li>
-</ul>
-</li>
-<li><a href="#conclusion">Conclusion</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-    f(x+\delta ) & = & f(x) +  \delta  f'(x) +
-                            \frac{\delta ^2}{2!}  f''(x)  +
-                            \frac{\delta ^3}{3!}  f^{(3)} (x)  +
-                            ... +
-                            \frac{\delta ^i}{i!}  f^{(i)} (x)  +
-                            \frac{\delta ^n}{n!}  f^{(n)} (x)  +
-                            O(\delta^{n+1})\\
-    f(x-\delta ) & = & f(x) -  \delta  f'(x) +
-                        \frac{\delta ^2}{2!}  f''(x)  -
-                        \frac{\delta ^3}{3!}  f^{(3)} (x)  +
-                        ... +
-                        \frac{(-\delta)^i}{i!}  f^{(i)} (x)  +
-                        \frac{(-\delta)^n}{n!}  f^{(n)} (x)  +
-                        O(\delta^{n+1})
-\end{eqnarray}</script><p>The addition and subtraction of $f(x+\delta)$ and $f(x-\delta)$ lead to:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-    \frac{f(x+\delta) + f(x-\delta)}{2} & = & f(x) +    \frac{\delta^2}{2!} f''(x) +
-                                                        \frac{\delta^4}{4!} f^{(4)}(x) +
-                                                        \frac{\delta^{2i}}{(2i)!} f^{(2i)}(x) +
-                                                        O( \delta^{2i+2})
-                                                        \label{second} \\
-    \frac{f(x+\delta) - f(x-\delta)}{2} & = & \delta f'(x) +
-                                            \frac{\delta^3}{3!} f^{(3)}(x) +
-                                            \frac{\delta^5}{5!} f^{(5)}(x) +
-                                            \frac{\delta^{2i-1}}{(2i-1)!} f^{(2i-1)}(x) +
-                                            O(\delta^{2i+1})
-                                            \label{first}
-
-\end{eqnarray}</script><h2 id="derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h2><p>For physical field, it is first and second order derivatives, as well as other boundary(initial) functions or constants, that compose the differential control equations. So we only pay attention to derivations of first and second order derivatives.</p>
-<h4 id="1-first-order-derivative"><a href="#1-First-order-derivative" class="headerlink" title="(1) First order derivative"></a>(1) First order derivative</h4><p>According to $\eqref{first}$, $f&#x2019;(x)$ should be:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-    f'(x;\delta) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}
-                                                        - \frac{\delta^2}{3!} f^{(3)}(x)
-                                                        - \frac{\delta^4}{5!} f^{(5)}(x)
-                                                        - \frac{\delta^{2i-2}}{(2i-1)!} f^{(2i-1)}(x)
-                                                        + O(\delta^{2i})
-\end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;(x) = \frac{f(x+\delta) - f(x-\delta)}{2\delta}$. The accuracy is $O(\delta^2)$, known as second order accuracy.</p>
-<h4 id="2-second-order-derivative"><a href="#2-Second-order-derivative" class="headerlink" title="(2) Second order derivative"></a>(2) Second order derivative</h4><p>In the same way, $f&#x2019;&#x2019;(x)$ is derived from $\eqref{second}$</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
- f''(x;\delta)  = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
-                                                    - \frac{2\delta^2}{4!} f^{(4)}(x)
-                                                    - \frac{2\delta^4}{6!} f^{(6)}(x)
-                                                    - \frac{2\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
-                                                    + O( \delta^{2i})
-\end{eqnarray}</script><p>omitting tail items leads to $f&#x2019;&#x2019;(x) = \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}$. The accuracy is $O(\delta^2)$, also know as second order accuaray.</p>
-<h2 id="higher-order-accuracy"><a href="#Higher-Order-Accuracy" class="headerlink" title="Higher Order Accuracy"></a>Higher Order Accuracy</h2><p>To increase the accuracy, $f&#x2019;(x;\delta)$, $f&#x2019;(x;2\delta)$, $f&#x2019;(x;3\delta)$&#x2026;etc are could be added together by appropriate ratios to counteract the items of $\delta^2$,$\delta^4$,$\delta^6$&#x2026;etc. This method works for $f&#x2019;&#x2019;(x)$ as well.</p>
-<h4 id="1-fx"><a href="#1-f&#x2019;-x" class="headerlink" title="(1) $f&#x2019;(x)$"></a>(1) $f&#x2019;(x)$</h4><p>For step of $\delta$, $2\delta$, $3\delta$&#x2026;etc, we have:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-    \begin{cases}
-        f'(x; \delta) & = & \frac{f(x+\delta) - f(x-\delta)}{2\delta}
-                                        - \frac{\delta^2}{3!} f^{(3)}(x)
-                                        - \frac{\delta^4}{5!} f^{(5)}(x)
-                                        - \frac{\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
-                                        + O(\delta^{2i})\\
-        f'(x;2\delta) & = & \frac{f(x+2\delta) - f(x-2\delta)}{2 (2\delta)}
-                                        - \frac{2^2\delta^2}{3!}  f^{(3)}(x)
-                                        - \frac{2^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{2^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
-                                        + O(\delta^{2i}) \\
-        f'(x;3\delta) & = & \frac{f(x+3\delta) - f(x-3\delta)}{2 (3\delta)}
-                                        - \frac{3^2\delta^2}{3!}  f^{(3)}(x)
-                                        - \frac{3^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{3^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
-                                        + O(\delta^{2i}) \\
-        ...\\
-        f'(x;N\delta) & = & \frac{f(x+N\delta) - f(x-N\delta)}{2 (N\delta)}
-                                        - \frac{N^2\delta^2}{3!}  f^{(3)}(x)
-                                        - \frac{N^4\delta^4}{5!}  f^{(5)}(x)
-                                        - \frac{N^{2i-2}\delta^{2i-2}}{(2i-1)!}  f^{(2i-1)}(x)
-                                        + O(\delta^{2i}) \\
-    \end{cases}
-\end{eqnarray}</script><p>summing all these items proportionally from $f&#x2019;(x;\delta)$ to $f&#x2019;(x;N\delta)$ leads to:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-\begin{aligned}
-    f'(x) = &\sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } + O(\delta^{2i}) \\
-            & - \frac{\delta^2 f^{(3)}(x) }{3!} \sum \limits_{k=1}^N {C_k k^2}
-              - \frac{\delta^4 f^{(5)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^4}
-              - ...
-              - \frac{\delta^{2i-2} f^{(2i-1)}(x) }{5!} \sum \limits_{k=1}^N {C_k k^{2i-2}}
-\end{aligned}
-\end{equation}</script><script type="math/tex; mode=display">
-\begin{equation}
-C_1+C_2+C_3+...+C_N = 1
-\end{equation}</script><p>so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {C_k k^{**}}$ must have value of zero. Besides, to determine the value of $C_1,C_2,&#x2026;,C_N$, $i$ should equals to $N$. So we arrive at an linear equation of $C$:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-    \begin{bmatrix}
-        1        & 1        & 1        & ... & 1        \\
-        1^2      & 2^2      & 3^2      & ... & N^2      \\
-        1^4      & 2^4      & 3^4      & ... & N^4      \\
-        1^6      & 2^6      & 3^6      & ... & N^6      \\
-        ... \\
-        1^{2N-2} & 2^{2N-2} & 3^{2N-2} & ... & N^{2N-2}
-    \end{bmatrix}
-    \begin{bmatrix}
-        C_1 \\ C_2 \\ C_3 \\ C_4 \\ ... \\ C_N
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-        1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
-    \end{bmatrix}
-    \label{M_C}
-\end{equation}</script><p>By calculation, $C_1,C_2,C_3,&#x2026;,C_N$ have the value of:</p>
-<h4 id="2-fx"><a href="#2-f&#x2019;&#x2019;-x" class="headerlink" title="(2) $f&#x2019;&#x2019;(x)$"></a>(2) $f&#x2019;&#x2019;(x)$</h4><p>For step of $\delta$, $2\delta$, $3\delta$&#x2026;etc, we have:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-    \begin{cases}
-        f''(x; \delta)  & = & \frac{f(x+\delta) + f(x-\delta) - 2f(x)}{ \delta^2}
-                                                            - \frac{2\delta^2}{4!} f^{(4)}(x)
-                                                            - \frac{2\delta^4}{6!} f^{(6)}(x)
-                                                            - \frac{2\delta^{2i-2}}{(2i)!} f^{(2i)}(x)
-                                                            + O( \delta^{2i}) \\
-f''(x;2\delta)  & = & \frac{f(x+2\delta) + f(x-2\delta) - 2f(x)}{ 2^2\delta^2}
-                                                    - 2^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
-                                                    - 2^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
-                                                    - 2^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
-                                                    + O( \delta^{2i}) \\
-f''(x;3\delta)  & = & \frac{f(x+3\delta) + f(x-3\delta) - 2f(x)}{3^2 \delta^2}
-                                                    - 3^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
-                                                    - 3^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
-                                                    - 3^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
-                                                    + O( \delta^{2i}) \\
-f''(x;N\delta)  & = & \frac{f(x+N\delta) + f(x-N\delta) - 2f(x)}{N^2 \delta^2}
-                                                    - N^2     \frac{2 \delta^2}{4!} f^{(4)}(x)
-                                                    - N^4     \frac{2 \delta^4}{6!} f^{(6)}(x)
-                                                    - N^{2i-2}\frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x)
-                                                    + O( \delta^{2i})
-    \end{cases}
-\end{eqnarray}</script><p>summing all these items proportionally from $f&#x2019;(x;\delta)$ to $f&#x2019;(x;N\delta)$ leads to:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-    \begin{aligned}
-        f''(x) = & \sum \limits_{k=1}^N F_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} +O( \delta^{2i}) \\
-                & - \frac{2 \delta^2}{4!} f^{(4)}(x) \sum \limits_{k=1}^N F_k k^2
-                  - \frac{2 \delta^4}{6!} f^{(6)}(x) \sum \limits_{k=1}^N F_k k^4
-                  ...
-                  - \frac{2 \delta^{2i-2}}{(2i)!} f^{(2i)}(x) \sum \limits_{k=1}^N F_k k^{2i-2}
-    \end{aligned}
-\end{equation}</script><script type="math/tex; mode=display">
-\begin{equation}
-F_1+F_2+F_3+...+F_N = 1
-\end{equation}</script><p>so, if we want to have 2ith order accuracy, all item coefficients of $\sum \limits_{k=1}^N {F_k k^{**}}$ must have value of zero. Besides, to determine the value of $F_1,F_2,&#x2026;,F_N$, $i$ should equals to $N$. So we arrive at an linear equation of $F$, which is same as $\eqref{M_C}$</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-    \begin{bmatrix}
-        1        & 1        & 1        & ... & 1        \\
-        1^2      & 2^2      & 3^2      & ... & N^2      \\
-        1^4      & 2^4      & 3^4      & ... & N^4      \\
-        1^6      & 2^6      & 3^6      & ... & N^6      \\
-        ... \\
-        1^{2N-2} & 2^{2N-2} & 3^{2N-2} & ... & N^{2N-2}
-    \end{bmatrix}
-    \begin{bmatrix}
-        F_1 \\ F_2 \\ F_3 \\ F_4 \\ ... \\ F_N
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-        1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
-    \end{bmatrix}
-    \label{M_F}
-\end{equation}</script><h2 id="conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>To sum up, finite difference of 2Nth order accuracy for first or second order derivative are:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-D  [f(x)]   & = & \sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } \\
-D^2[f(x)]   & = & \sum \limits_{k=1}^N C_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
-C_k         & = &
-\end{eqnarray}</script>
+        <p>This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/10/13/finite-difference/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7k26650032qifb0xgslpc8" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciu7kz2q0001r2dfbt975ec05" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -323,7 +138,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciu7k25ur000rqifbz7t1v66o" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciu7kz2p6000u2dfbz14mq9pd" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/12/combination/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -370,7 +185,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciu7k25ve0013qifbay8vtj3g" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciu7kz2pi00162dfbj8m4swkf" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/11/fast-permutation/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -418,7 +233,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciu7k25v5000yqifbk00gr1hu" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciu7kz2pe00102dfb95df85au" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/10/even-odd/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -467,7 +282,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu7k25tb0004qifby8768q9g" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciu7kz2od00062dfbc18pfkji" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/07/BitComputing/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -516,7 +331,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu7k2660002wqifb2jr5i9y8" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciu7kz2pq001i2dfbhbnwdi9l" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/17/fd-2d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -565,7 +380,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu7k265x002tqifb8kj44nxo" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciu7kz2ps001l2dfbzl2kipge" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/15/fd-2d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -614,7 +429,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu7k265r002oqifbdzt4141x" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d-PML/" data-id="ciu7kz2pk001a2dfb3ltfwme2" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/13/fd-1d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -663,7 +478,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu7k265u002qqifb77w5qf4w" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/13/fd-1d/" data-id="ciu7kz2pn001e2dfbg1weq12r" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/13/fd-1d/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -712,7 +527,7 @@ C_k         & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu7k26630030qifb8vnn60bq" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/12/fft-endpoint/" data-id="ciu7kz2pv001o2dfbg7s2mmjr" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/12/fft-endpoint/#disqus_thread" class="article-comment-link">Comments</a>
       

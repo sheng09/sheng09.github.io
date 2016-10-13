@@ -6,7 +6,9 @@
     <entry>
       <title><![CDATA[Finite Difference of Derivatives(微分的有限差分实现)]]></title>
       <url>http://sheng09.github.io/2016/10/13/finite-difference/</url>
-      <content type="html"><![CDATA[<!-- toc -->
+      <content type="html"><![CDATA[<p>This post derive the method of finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.</p>
+<a id="more"></a>
+<!-- toc -->
 <ul>
 <li><a href="#taylor-expansion">Taylor expansion</a></li>
 <li><a href="#derivatives">Derivatives</a><ul>
@@ -20,6 +22,7 @@
 </ul>
 </li>
 <li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#test">Test</a></li>
 </ul>
 <!-- tocstop -->
 <h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
@@ -196,7 +199,7 @@ F_1+F_2+F_3+...+F_N = 1
 D  [f(x)]   & = & \sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } \\
 D^2[f(x)]   & = & \sum \limits_{k=1}^N C_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
 C_k         & = &
-\end{eqnarray}</script>]]></content>
+\end{eqnarray}</script><h2 id="test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2>]]></content>
     </entry>
     
     <entry>
