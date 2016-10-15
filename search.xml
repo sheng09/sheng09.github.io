@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title><![CDATA[Vandermonde Equation]]></title>
+      <url>http://sheng09.github.io/2016/10/15/vandermonde/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<h2 id="equation"><a href="#Equation" class="headerlink" title="Equation"></a>Equation</h2><script type="math/tex; mode=display">
+\begin{equation}
+    \begin{bmatrix}
+        1        & 1        & 1        & ... & 1        \\
+        1^2      & 2^2      & 3^2      & ... & N^2      \\
+        1^4      & 2^4      & 3^4      & ... & N^4      \\
+        1^6      & 2^6      & 3^6      & ... & N^6      \\
+        ... \\
+        1^{2N-2} & 2^{2N-2} & 3^{2N-2} & ... & N^{2N-2}
+    \end{bmatrix}
+    \begin{bmatrix}
+        C_1 \\ C_2 \\ C_3 \\ C_4 \\ ... \\ C_N
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 \\ 0 \\ 0 \\ 0 \\ ... \\ 0
+    \end{bmatrix}
+    \label{M_F}
+\end{equation}</script><p>Corresponding augmented matrix is:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{bmatrix}
+        1^0 & 2^0 & 3^0 & 4^0 & 5^0 & 6^0 & ... & N^0 & 1\\
+        1^2 & 2^2 & 3^2 & 4^2 & 5^2 & 6^2 & ... & N^2 & 0\\
+        1^4 & 2^4 & 3^4 & 4^4 & 5^4 & 6^4 & ... & N^4 & 0\\
+        1^6 & 2^6 & 3^6 & 4^6 & 5^6 & 6^6 & ... & N^6 & 0\\
+        1^8 & 2^8 & 3^8 & 4^8 & 5^8 & 6^8 & ... & N^8 & 0\\
+        ... \\
+        1^{2N-2} & 2^{2N-2} & 3^{2N-2} & ... & ...& ...& ... & N^{2N-2} & 0 \\
+    \end{bmatrix}
+\end{equation}</script><h1 id=""><a href="#" class="headerlink" title="#"></a>#</h1>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Central Finite Difference of Derivatives(中心有限差分)]]></title>
       <url>http://sheng09.github.io/2016/10/13/finite-difference/</url>
       <content type="html"><![CDATA[<p>This post derived the method of central finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.</p>
@@ -1503,14 +1540,14 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
-      <title><![CDATA[about]]></title>
-      <url>http://sheng09.github.io/about/index.html</url>
+      <title><![CDATA[Categories]]></title>
+      <url>http://sheng09.github.io/categories/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[Categories]]></title>
-      <url>http://sheng09.github.io/categories/index.html</url>
+      <title><![CDATA[about]]></title>
+      <url>http://sheng09.github.io/about/index.html</url>
       <content type="html"></content>
     </entry>
     
