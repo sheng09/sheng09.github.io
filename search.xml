@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[Vandermonde Equation]]></title>
+      <title><![CDATA[Solving Vandermonde Equation for FD]]></title>
       <url>http://sheng09.github.io/2016/10/15/vandermonde/</url>
       <content type="html"><![CDATA[<p>This post presents how to solve vandermonde equation in finite-difference.&#x3000;For 2N order accuracy <a href="http://sheng09.github.io/2016/10/13/finite-difference/#conclusion">finite-difference of derivatives</a>, $C_k(k=1,2,&#x2026;,N)$ is the solution of a vandermonde equation:</p>
 <script type="math/tex; mode=display">
