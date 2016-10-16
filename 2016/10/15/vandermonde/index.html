@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://sheng09.github.io/2016/10/15/vandermonde/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="This post presents how to solve vandermonde equation in finite-difference.&amp;#x3000;For 2N order accuracy finite-difference of derivatives, $C_k(k=1,2,&amp;#x2026;,N)$ is the solution of a vandermonde equat">
-<meta property="og:updated_time" content="2016-10-16T04:16:17.458Z">
+<meta property="og:updated_time" content="2016-10-16T04:18:07.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vandermonde Equation">
 <meta name="twitter:description" content="This post presents how to solve vandermonde equation in finite-difference.&amp;#x3000;For 2N order accuracy finite-difference of derivatives, $C_k(k=1,2,&amp;#x2026;,N)$ is the solution of a vandermonde equat">
@@ -117,7 +117,7 @@
 <li><a href="#step-2">Step 2</a></li>
 <li><a href="#step-3">Step 3</a></li>
 <li><a href="#step-k">Step k</a></li>
-<li><a href="#step-n">Step N</a></li>
+<li><a href="#step-n-1">Step N-1</a></li>
 </ul>
 </li>
 <li><a href="#result">Result</a></li>
@@ -174,7 +174,7 @@
         0 & 0     & 0                   & ... &  N^{2N-8}(N^2-3^2)(N^2-2^2)(N^2-1) & 0         \\
     \end{bmatrix}
 \end{equation}</script><h4 id="step-k"><a href="#Step-k" class="headerlink" title="Step k"></a>Step k</h4><p>$row(i+1) - k^2row(i) [i=k,k+1,&#x2026;,N-1] $<br>&#x2026;</p>
-<h4 id="step-n"><a href="#Step-N" class="headerlink" title="Step N"></a>Step N</h4><p>$row(i+1) - k^2row(i) [i=N-1] $</p>
+<h4 id="step-n-1"><a href="#Step-N-1" class="headerlink" title="Step N-1"></a>Step N-1</h4><p>$row(i+1) - k^2row(i) [i=N-1] $</p>
 <h2 id="result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>Finally, the augmented matrix is:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
@@ -276,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/15/vandermonde/" data-id="ciubuybkg0026jrfbory1o9wv" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/15/vandermonde/" data-id="ciuc4g6ha0020tmfb9k19dpk1" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/15/vandermonde/#disqus_thread" class="article-comment-link">Comments</a>
       

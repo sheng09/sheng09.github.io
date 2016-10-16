@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-16T04:16:17.458Z</updated>
+  <updated>2016-10-16T04:18:07.867Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/15/vandermonde/"/>
     <id>http://sheng09.github.io/2016/10/15/vandermonde/</id>
     <published>2016-10-14T19:07:44.000Z</published>
-    <updated>2016-10-16T04:16:17.458Z</updated>
+    <updated>2016-10-16T04:18:07.867Z</updated>
     
     <content type="html">&lt;p&gt;This post presents how to solve vandermonde equation in finite-difference.&amp;#x3000;For 2N order accuracy &lt;a href=&quot;http://sheng09.github.io/2016/10/13/finite-difference/#conclusion&quot;&gt;finite-difference of derivatives&lt;/a&gt;, $C_k(k=1,2,&amp;#x2026;,N)$ is the solution of a vandermonde equation:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
@@ -44,7 +44,7 @@
 &lt;li&gt;&lt;a href=&quot;#step-2&quot;&gt;Step 2&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#step-3&quot;&gt;Step 3&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#step-k&quot;&gt;Step k&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#step-n&quot;&gt;Step N&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#step-n-1&quot;&gt;Step N-1&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#result&quot;&gt;Result&lt;/a&gt;&lt;/li&gt;
@@ -101,7 +101,7 @@
         0 &amp; 0     &amp; 0                   &amp; ... &amp;  N^{2N-8}(N^2-3^2)(N^2-2^2)(N^2-1) &amp; 0         \\
     \end{bmatrix}
 \end{equation}&lt;/script&gt;&lt;h4 id=&quot;step-k&quot;&gt;&lt;a href=&quot;#Step-k&quot; class=&quot;headerlink&quot; title=&quot;Step k&quot;&gt;&lt;/a&gt;Step k&lt;/h4&gt;&lt;p&gt;$row(i+1) - k^2row(i) [i=k,k+1,&amp;#x2026;,N-1] $&lt;br&gt;&amp;#x2026;&lt;/p&gt;
-&lt;h4 id=&quot;step-n&quot;&gt;&lt;a href=&quot;#Step-N&quot; class=&quot;headerlink&quot; title=&quot;Step N&quot;&gt;&lt;/a&gt;Step N&lt;/h4&gt;&lt;p&gt;$row(i+1) - k^2row(i) [i=N-1] $&lt;/p&gt;
+&lt;h4 id=&quot;step-n-1&quot;&gt;&lt;a href=&quot;#Step-N-1&quot; class=&quot;headerlink&quot; title=&quot;Step N-1&quot;&gt;&lt;/a&gt;Step N-1&lt;/h4&gt;&lt;p&gt;$row(i+1) - k^2row(i) [i=N-1] $&lt;/p&gt;
 &lt;h2 id=&quot;result&quot;&gt;&lt;a href=&quot;#Result&quot; class=&quot;headerlink&quot; title=&quot;Result&quot;&gt;&lt;/a&gt;Result&lt;/h2&gt;&lt;p&gt;Finally, the augmented matrix is:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
