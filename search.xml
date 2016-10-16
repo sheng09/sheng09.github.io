@@ -116,7 +116,7 @@
         %     - \sum \limits_{i=k+1}^N  \frac  { k (i+k-1)! } { i(2k-1)!(i-k)! } C_i \\
         %& = &  \sum \limits_{i=k+1}^N \frac{1}{ i(2k-1)!(i-k)! }
         %        \left[ \frac{ (-1)^{k-1}  (k-1)! k! (i-k)!i }{N-k} - { k (i+k-1)! } C_i \right]
-\end{eqnarray}</script><h2 id="value-and-program"><a href="#Value-and-Program" class="headerlink" title="Value and Program"></a>Value and Program</h2><p>Values of $C_i$ are calculated by <a href="/exam/fd_coef.py">fd_coef.py</a></p>
+\end{eqnarray}</script><h2 id="value-and-program"><a href="#Value-and-Program" class="headerlink" title="Value and Program"></a>Value and Program</h2><p>Values of $C_i$ are calculated by <a href="/exam/fd_coef.py">fd_coef.py</a>.</p>
 <div class="table-container">
 <table>
 <thead>
