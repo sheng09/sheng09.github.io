@@ -91,6 +91,7 @@
     \end{bmatrix}
 \end{equation}</script><h4 id="step-k"><a href="#Step-k" class="headerlink" title="Step k"></a>Step k</h4><p>$row(i+1) - k^2row(i) [i=k,k+1,&#x2026;,N-1] $<br>&#x2026;</p>
 <h4 id="step-n-1"><a href="#Step-N-1" class="headerlink" title="Step N-1"></a>Step N-1</h4><p>$row(i+1) - k^2row(i) [i=N-1] $</p>
+<p>Detail derivations are presented in <a href="/exam/fd_coef_vandermonde.pdf">fd_coef_vandermonde.pdf</a>.</p>
 <h2 id="result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>Finally, the augmented matrix is:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
