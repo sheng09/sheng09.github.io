@@ -245,7 +245,7 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-16T05:14:02.477Z</updated>
+    <updated>2016-10-16T05:16:28.714Z</updated>
     
     <content type="html">&lt;p&gt;This post derived the method of central finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -669,8 +669,7 @@ f_k         &amp; = &amp; \frac{C_k}{k^2}
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;h2 id=&quot;examples&quot;&gt;&lt;a href=&quot;#Examples&quot; class=&quot;headerlink&quot; title=&quot;Examples&quot;&gt;&lt;/a&gt;Examples&lt;/h2&gt;&lt;p&gt;Applying finite-difference method to calculate the first and second derivatives of $f(x)=sin(x)$, results of 2nd, 4th, 6th order accuracy are presented below, as well as their error.&lt;br&gt;&lt;img src=&quot;/2016/10/13/finite-difference/1st.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/2016/10/13/finite-difference/2nd.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;/exam/fd_eg.m&quot;&gt;Codes&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;examples&quot;&gt;&lt;a href=&quot;#Examples&quot; class=&quot;headerlink&quot; title=&quot;Examples&quot;&gt;&lt;/a&gt;Examples&lt;/h2&gt;&lt;p&gt;Applying finite-difference method to calculate the first and second derivatives of $f(x)=sin(x)$, results of 2nd, 4th, 6th order accuracy are presented below, as well as their error.&lt;br&gt;&lt;a href=&quot;/exam/fd_eg.m&quot;&gt;Codes&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;/2016/10/13/finite-difference/1st.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/2016/10/13/finite-difference/2nd.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;whats-more&quot;&gt;&lt;a href=&quot;#What&amp;#x2019;s-more&quot; class=&quot;headerlink&quot; title=&quot;What&amp;#x2019;s more&quot;&gt;&lt;/a&gt;What&amp;#x2019;s more&lt;/h2&gt;&lt;p&gt;Method presented above applies to collocated grid and symmetric points only. Find method for staggered grid, and method for processing boundary points(asymmetric method).&lt;/p&gt;
 </content>
     
