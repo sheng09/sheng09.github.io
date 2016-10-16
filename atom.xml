@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-16T04:25:39.974Z</updated>
+  <updated>2016-10-16T04:25:40.190Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/15/vandermonde/"/>
     <id>http://sheng09.github.io/2016/10/15/vandermonde/</id>
     <published>2016-10-14T19:07:44.000Z</published>
-    <updated>2016-10-16T04:25:39.974Z</updated>
+    <updated>2016-10-16T04:25:40.190Z</updated>
     
     <content type="html">&lt;p&gt;This post presents how to solve vandermonde equation in finite-difference.&amp;#x3000;For 2N order accuracy &lt;a href=&quot;http://sheng09.github.io/2016/10/13/finite-difference/#conclusion&quot;&gt;finite-difference of derivatives&lt;/a&gt;, $C_k(k=1,2,&amp;#x2026;,N)$ is the solution of a vandermonde equation:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
