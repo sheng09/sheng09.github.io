@@ -13,7 +13,7 @@
 <meta property="og:description" content="This post derived the method of central finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to">
 <meta property="og:image" content="http://sheng09.github.io/2016/10/13/finite-difference/1st.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/10/13/finite-difference/2nd.jpg">
-<meta property="og:updated_time" content="2016-10-13T19:08:12.217Z">
+<meta property="og:updated_time" content="2016-10-16T04:14:34.066Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Central Finite Difference of Derivatives(中心有限差分)">
 <meta name="twitter:description" content="This post derived the method of central finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to">
@@ -120,7 +120,7 @@
 <h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>According to Taylor expansion, we have:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
-    f(x+\delta ) & = & f(x) +  \delta  f'(x) +
+    f(x+\delta ) & = & f(x) +  \delta  f(x) +
                             \frac{\delta ^2}{2!}  f''(x)  +
                             \frac{\delta ^3}{3!}  f^{(3)} (x)  +
                             ... +
@@ -289,46 +289,90 @@ F_1+F_2+F_3+...+F_N = 1
 \begin{eqnarray}
 D  [f(x)]   & = & \sum \limits_{k=1}^N {C_k \frac{ f(x+k\delta) - f(x-k\delta) }{2k\delta} } \\
 D^2[f(x)]   & = & \sum \limits_{k=1}^N C_k \frac{ f(x+k\delta) - f(x-k\delta) -2f(x) }{k^2 \delta^2} \\
-C_k         & = &
+%C_k         & = &
+\end{eqnarray}</script><p>Values of $C_k$ are obtained by <a href="http://sheng09.github.io/2016/10/15/vandermonde/">solving vandermonde equation</a>.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{cases}
+    C_i & = & \frac{ (-1)^{i-1}  (i-1)! i! } { (2i-1)! } - \sum \limits_{j=i+1}^N \frac  { i (j+i-1)! } { j(2i-1)!(j-i)! } C_i \\
+    %\left[ i= 1,2,3...,N-1 \right]\\
+    C_N & = & \frac  { (-1)^{N-1}  (N-1)! N! } { (2N-1)! } \\
+    \end{cases}
 \end{eqnarray}</script><p>by simplifying:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
-D  [f(x)]   & = & \frac{1}{\delta} \sum \limits_{k=1}^N  c_k[f(x+k\delta) - f(x-k\delta)] \\
-D^2[f(x)]   & = & \frac{1}{\delta^2} \sum \limits_{k=1}^N f_k[f(x+k\delta) - f(x-l\delta) - 2f(x)]  \\
+D  [f(x)]   & = & \sum \limits_{k=1}^N  \frac{c_k}{\delta}   \left[f(x+k\delta) - f(x-k\delta)         \right] \\
+D^2[f(x)]   & = & \sum \limits_{k=1}^N  \frac{f_k}{\delta^2} \left[f(x+k\delta) - f(x-l\delta) - 2f(x) \right]  \\
 c_k         & = & \frac{C_k}{2k} \\
 f_k         & = & \frac{C_k}{k^2}
-\end{eqnarray}</script><div class="table-container">
+\end{eqnarray}</script><p>Values of $C_k$, $c_k$ and $f_k$ are:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th>N</th>
-<th>$C_1$</th>
-<th>$C_2$</th>
-<th>$C_3$</th>
-<th>$C_4$</th>
+<th>order</th>
+<th>$C_{1}$</th>
+<th>$C_{2}$</th>
+<th>$C_{3}$</th>
+<th>$C_{4}$</th>
+<th>$C_{5}$</th>
+<th>$C_{6}$</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>2</td>
-<td>1</td>
+<td>$1$</td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>4</td>
-<td>$\frac{4}{3}$</td>
-<td>-$\frac{1}{3}$</td>
+<td>$4/3$</td>
+<td>$-1/3$</td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>6</td>
-<td>$\frac{3}{2}$</td>
-<td>-$\frac{3}{5}$</td>
-<td>$\frac{1}{10}$</td>
-<td>0</td>
+<td>$3/2$</td>
+<td>$-3/5$</td>
+<td>$1/10$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>$8/5$</td>
+<td>$-4/5$</td>
+<td>$8/35$</td>
+<td>$-1/35$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>$5/3$</td>
+<td>$-20/21$</td>
+<td>$5/14$</td>
+<td>$-5/63$</td>
+<td>$1/126$</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>$12/7$</td>
+<td>$-15/14$</td>
+<td>$10/21$</td>
+<td>$-1/7$</td>
+<td>$2/77$</td>
+<td>$-1/462$</td>
 </tr>
 </tbody>
 </table>
@@ -337,34 +381,69 @@ f_k         & = & \frac{C_k}{k^2}
 <table>
 <thead>
 <tr>
-<th>N</th>
-<th>$c_1$</th>
-<th>$c_2$</th>
-<th>$c_3$</th>
-<th>$c_4$</th>
+<th>order</th>
+<th>$c_{1}$</th>
+<th>$c_{2}$</th>
+<th>$c_{3}$</th>
+<th>$c_{4}$</th>
+<th>$c_{5}$</th>
+<th>$c_{6}$</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>2</td>
-<td>$\frac{1}{2}$</td>
+<td>$0.5$</td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>4</td>
-<td>$\frac{4}{6}$</td>
-<td>-$\frac{1}{12}$</td>
+<td>$2/3$</td>
+<td>$-1/12$</td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>6</td>
-<td>$\frac{3}{4}$</td>
-<td>-$\frac{3}{20}$</td>
-<td>$\frac{1}{60}$</td>
-<td>0</td>
+<td>$3/4$</td>
+<td>$-3/20$</td>
+<td>$1/60$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>$4/5$</td>
+<td>$-1/5$</td>
+<td>$4/105$</td>
+<td>$-1/280$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>$5/6$</td>
+<td>$-5/21$</td>
+<td>$5/84$</td>
+<td>$-5/504$</td>
+<td>$1/1260$</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>$6/7$</td>
+<td>$-15/56$</td>
+<td>$5/63$</td>
+<td>$-1/56$</td>
+<td>$1/385$</td>
+<td>$-1/5544$</td>
 </tr>
 </tbody>
 </table>
@@ -373,34 +452,69 @@ f_k         & = & \frac{C_k}{k^2}
 <table>
 <thead>
 <tr>
-<th>N</th>
-<th>$f_1$</th>
-<th>$f_2$</th>
-<th>$f_3$</th>
-<th>$f_4$</th>
+<th>order</th>
+<th>$f_{1}$</th>
+<th>$f_{2}$</th>
+<th>$f_{3}$</th>
+<th>$f_{4}$</th>
+<th>$f_{5}$</th>
+<th>$f_{6}$</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>2</td>
-<td>1</td>
+<td>$1.0$</td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>4</td>
-<td>$\frac{4}{3}$</td>
-<td>-$\frac{1}{12}$</td>
+<td>$4/3$</td>
+<td>$-1/12$</td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>6</td>
-<td>$\frac{3}{2}$</td>
-<td>-$\frac{3}{20}$</td>
-<td>$\frac{1}{90}$</td>
-<td>0</td>
+<td>$3/2$</td>
+<td>$-3/20$</td>
+<td>$1/90$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>$8/5$</td>
+<td>$-1/5$</td>
+<td>$8/315$</td>
+<td>$-1/560$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>$5/3$</td>
+<td>$-5/21$</td>
+<td>$5/126$</td>
+<td>$-5/1008$</td>
+<td>$1/3150$</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>$12/7$</td>
+<td>$-15/56$</td>
+<td>$10/189$</td>
+<td>$-1/112$</td>
+<td>$2/1925$</td>
+<td>$-1/16632$</td>
 </tr>
 </tbody>
 </table>
@@ -412,7 +526,7 @@ f_k         & = & \frac{C_k}{k^2}
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciubsx3r8002cdbfb1bwzsz85" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciubuybk5001rjrfbh8iqssw9" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
