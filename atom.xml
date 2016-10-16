@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-16T04:18:36.135Z</updated>
+  <updated>2016-10-16T04:21:20.780Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/15/vandermonde/"/>
     <id>http://sheng09.github.io/2016/10/15/vandermonde/</id>
     <published>2016-10-14T19:07:44.000Z</published>
-    <updated>2016-10-16T04:18:36.135Z</updated>
+    <updated>2016-10-16T04:21:20.780Z</updated>
     
     <content type="html">&lt;p&gt;This post presents how to solve vandermonde equation in finite-difference.&amp;#x3000;For 2N order accuracy &lt;a href=&quot;http://sheng09.github.io/2016/10/13/finite-difference/#conclusion&quot;&gt;finite-difference of derivatives&lt;/a&gt;, $C_k(k=1,2,&amp;#x2026;,N)$ is the solution of a vandermonde equation:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
@@ -127,7 +127,7 @@
         %     - \sum \limits_{i=k+1}^N  \frac  { k (i+k-1)! } { i(2k-1)!(i-k)! } C_i \\
         %&amp; = &amp;  \sum \limits_{i=k+1}^N \frac{1}{ i(2k-1)!(i-k)! }
         %        \left[ \frac{ (-1)^{k-1}  (k-1)! k! (i-k)!i }{N-k} - { k (i+k-1)! } C_i \right]
-\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;value-and-program&quot;&gt;&lt;a href=&quot;#Value-and-Program&quot; class=&quot;headerlink&quot; title=&quot;Value and Program&quot;&gt;&lt;/a&gt;Value and Program&lt;/h2&gt;&lt;p&gt;Values of $C_i$ are calculated by &lt;a href=&quot;&quot;&gt;fd_coef.py&lt;/a&gt;&lt;/p&gt;
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;value-and-program&quot;&gt;&lt;a href=&quot;#Value-and-Program&quot; class=&quot;headerlink&quot; title=&quot;Value and Program&quot;&gt;&lt;/a&gt;Value and Program&lt;/h2&gt;&lt;p&gt;Values of $C_i$ are calculated by &lt;a href=&quot;/exam/fd_coef.py&quot;&gt;fd_coef.py&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&quot;table-container&quot;&gt;
 &lt;table&gt;
 &lt;thead&gt;
