@@ -5,10 +5,535 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-16T04:25:40.190Z</updated>
+  <updated>2016-10-17T19:01:56.723Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Asymmetric Finite Difference for Boundary Points</title>
+    <link href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/"/>
+    <id>http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/</id>
+    <published>2016-10-16T18:02:22.000Z</published>
+    <updated>2016-10-17T19:01:56.723Z</updated>
+    
+    <content type="html">&lt;p&gt;For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/img.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#2nd-order-accuracy&quot;&gt;2nd order accuracy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2ith-order-accuracy&quot;&gt;2ith order accuracy&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#point-0&quot;&gt;point 0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#point-1&quot;&gt;point 1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#point-k-k01i-1&quot;&gt;point k (k=0,1,&amp;#x2026;,i-1)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#result-and-examples&quot;&gt;Result and Examples&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#2nd-order-accuracy&quot;&gt;2nd order accuracy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4th-order-accuracy&quot;&gt;4th order accuracy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#6th-order-accuracy&quot;&gt;6th order accuracy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#8h-order-accuracy&quot;&gt;8h order accuracy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
+&lt;p&gt;Let us take 2nd order FD as example:&lt;/p&gt;
+&lt;h2 id=&quot;2nd-order-accuracy&quot;&gt;&lt;a href=&quot;#2nd-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;2nd order accuracy&quot;&gt;&lt;/a&gt;2nd order accuracy&lt;/h2&gt;&lt;p&gt;For point 0, we have:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f(x) &amp; = &amp; f(x)\\
+    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&#39;(x) +
+                            \frac{\delta ^2}{2!}  f&#39;&#39;(x)  +
+                            \frac{\delta ^3}{3!}  f^{(3)} (x)  +
+                            ... +
+                            \frac{\delta ^n}{n!}  f^{(n)} (x)  +
+                            O(\delta^{n+1})\\
+    f(x+2\delta ) &amp; = &amp; f(x) +  2\delta  f&#39;(x) +
+                            \frac{2^2\delta ^2}{2!}  f&#39;&#39;(x)  +
+                            \frac{2^3\delta ^3}{3!}  f^{(3)} (x)  +
+                            ... +
+                            \frac{2^n\delta ^n}{n!}  f^{(n)} (x)  +
+                            O(\delta^{n+1})\\
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;Thus, $f&amp;#x2019;(x)$ is:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f&#39;(x;\delta) &amp; = &amp; \frac{f(x+\delta )- f(x) } {\delta}
+                -\frac{\delta   }{2!}  f&#39;&#39;(x)
+                -\frac{\delta ^2}{3!}  f^{(3)} (x)
+                -...
+                -\frac{\delta ^{n-1}}{n!}  f^{(n)} (x)
+                +O(\delta^{n})\\
+    f&#39;(x;2\delta) &amp; = &amp; \frac{f(x+2\delta )- f(x) } {2\delta}
+                -\frac{2\delta   }{2!}  f&#39;&#39;(x)
+                -\frac{2^2\delta ^2}{3!}  f^{(3)} (x)
+                -...
+                -\frac{2^{n-1}\delta ^{n-1}}{n!}  f^{(n)} (x)
+                +O(\delta^{n})\\
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;adding $f&amp;#x2019;(x;\delta)$ and $f&amp;#x2019;(x;2\delta)$ proportionally:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{cases}
+    \begin{aligned}
+        f&#39;(x) = &amp;    C_{21}\frac{f(x+\delta )- f(x) } {\delta}
+                    +C_{22}\frac{f(x+2\delta )- f(x) } {2\delta} \\
+                &amp;-\frac{\delta  }{2!}f&#39;&#39;(x) \left[ C_{21} + 2C_{22}\right]
+                 -...
+                 -\frac{\delta^{n-1}}{n!}f^{(n)}(x) \left[C_{21} +2^{n-1}C_{22}\right]
+                 +O(\delta^{n})\\
+        1 = &amp; C_{21} + C_{22}
+        \end{aligned}\\
+    \end{cases}
+\end{equation}&lt;/script&gt;&lt;p&gt;Thus, for 2nd order accuracy, item of $\delta$ should be eliminated, so:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+\begin{cases}
+    C_{21} + C_{22}  &amp; = &amp; 1 \\
+    C_{21} + 2C_{22} &amp; = &amp; 0 \\
+\end{cases}
+\Rightarrow
+\begin{cases}
+    C_{21} &amp; = &amp; 2 \\
+    C_{22} &amp; = &amp; -1 \\
+\end{cases}
+\end{equation}&lt;/script&gt;&lt;h2 id=&quot;2ith-order-accuracy&quot;&gt;&lt;a href=&quot;#2ith-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;2ith order accuracy&quot;&gt;&lt;/a&gt;2ith order accuracy&lt;/h2&gt;&lt;h4 id=&quot;point-0&quot;&gt;&lt;a href=&quot;#point-0&quot; class=&quot;headerlink&quot; title=&quot;point 0&quot;&gt;&lt;/a&gt;point 0&lt;/h4&gt;&lt;p&gt;For point 0, we have:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f(x) &amp; = &amp; f(x)\\
+    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&#39;(x) +
+                            \frac{\delta ^2}{2!}  f&#39;&#39;(x)  +
+                            \frac{\delta ^3}{3!}  f^{(3)} (x)  +
+                            ... +
+                            \frac{\delta ^{2i}}{(2i)!}  f^{(2i)} (x)  +
+                            O(\delta^{2i+1})\\
+    f(x+2\delta ) &amp; = &amp; f(x) +  2\delta  f&#39;(x) +
+                            \frac{2^2\delta ^2}{2!}  f&#39;&#39;(x)  +
+                            \frac{2^3\delta ^3}{3!}  f^{(3)} (x)  +
+                            ... +
+                            \frac{2^{2i}\delta ^{2i}}{(2i)!}  f^{(2i)} (x)  +
+                            O(\delta^{2i+1})\\
+    f(x+3\delta ) &amp; = &amp; f(x) +  3\delta  f&#39;(x) +
+                            \frac{3^2\delta ^2}{2!}  f&#39;&#39;(x)  +
+                            \frac{3^3\delta ^3}{3!}  f^{(3)} (x)  +
+                            ... +
+                            \frac{3^{2i}\delta ^{2i}}{(2i)!}  f^{(2i)} (x)  +
+                            O(\delta^{2i+1})\\
+    &amp;...&amp;\\
+    f(x+2i\delta ) &amp; = &amp; f(x) +  2i\delta  f&#39;(x) +
+                            \frac{(2i)^2\delta ^2}{2!}  f&#39;&#39;(x)  +
+                            \frac{(2i)^3\delta ^3}{3!}  f^{(3)} (x)  +
+                            ... +
+                            \frac{(2i)^{2i}\delta ^{2i}}{(2i)!}  f^{(2i)} (x)  +
+                            O(\delta^{2i+1})\\
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;Thus, $f&amp;#x2019;(x)$ is:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f&#39;(x;\delta) &amp; = &amp; \frac {f(x+\delta ) - f(x)}{\delta}
+                            -\frac{\delta   }{2!}  f&#39;&#39;(x)
+                            -\frac{\delta ^2}{3!}  f^{(3)} (x)
+                            -...
+                            -\frac{\delta ^{2i-1}}{(2i)!}  f^{(2i)} (x)
+                            +O(\delta^{2i})\\
+    f&#39;(x;2\delta) &amp; = &amp; \frac {f(x+2\delta ) - f(x)}{2\delta}
+                            -\frac{2  \delta  }{2!}  f&#39;&#39;(x)
+                            -\frac{2^2\delta ^2}{3!}  f^{(3)} (x)
+                            -...
+                            -\frac{2^{2i-1}\delta ^{2i-1}}{(2i)!}  f^{(2i)} (x)
+                            +O(\delta^{2i})\\
+    f&#39;(x;3\delta) &amp; = &amp; \frac {f(x+3\delta ) -f(x)} {3\delta}
+                            -\frac{3  \delta   }{2!}  f&#39;&#39;(x)
+                            -\frac{3^2\delta ^2}{3!}  f^{(3)} (x)
+                            -...
+                            -\frac{3^{2i-1}\delta ^{2i-1}}{(2i)!}  f^{(2i)} (x)
+                            +O(\delta^{2i})\\
+    &amp;...&amp;\\
+    f&#39;(x;2i\delta) &amp; = &amp; \frac{f(x+2i\delta ) - f(x)}{2i\delta  }
+                            -\frac{ 2i \delta     }{2!}  f&#39;&#39;(x)
+                            -\frac{(2i)^2\delta ^2}{3!}  f^{(3)} (x)
+                            -...
+                            -\frac{(2i)^{2i-1}\delta ^{2i-1}}{(2i)!}  f^{(2i)} (x)
+                            + O(\delta^{2i})\\
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;adding $f&amp;#x2019;(x;\delta), f&amp;#x2019;(x;2\delta),&amp;#x2026;,f&amp;#x2019;(x;2i\delta)$ proportionally:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+\begin{aligned}
+    f&#39;(x) = &amp; \sum \limits_{j=1}^{2i} C_{(2i)j} \frac { f(x+j\delta) -f(x) }{j\delta} \\
+            &amp; -  \frac{\delta       }{ 2!}f&#39;&#39;(x) \sum \limits_{j=1}^{2i}C_{(2i)j}j
+              -  \frac{\delta^2     }{ 3!}f^{(3)}(x) \sum \limits_{j=1}^{2i}C_{(2i)j}j^2
+              - ...
+              -  \frac{\delta^{2i-1}}{(2i)!}f^{(2i)}(x)\sum \limits_{j=1}^{2i}C_{(2i)j}j^{2i-1}
+              + O(\delta^{2i})\\
+
+\end{aligned}
+\end{equation}&lt;/script&gt;&lt;p&gt;Thus, for 2ith order accuracy, item of $\delta,\delta^2,&amp;#x2026;,\delta^{2i-1}$ should be eliminated, so:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+% \begin{eqnarray}
+% \begin{cases}
+%     \sum \limits_{j=1}^{2i} C_{(2i)j}    = 1 \\
+%     \sum \limits_{j=1}^{2i} C_{(2i)j}j   = 0 \\
+%     \sum \limits_{j=1}^{2i} C_{(2i)j}j^2 = 0 \\
+%     ...\\
+%     \sum \limits_{j=1}^{2i} C_{(2i)j}j^{2i-1} = 0 \\
+% \end{cases}
+% \end{eqnarray}&lt;/script&gt;&lt;!-- or in matrix form: --&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{bmatrix}
+        1 &amp; 1        &amp; 1        &amp; 1        &amp; ... &amp; 1           \\
+        1 &amp; 2        &amp; 3        &amp; 4        &amp; ... &amp; 2i          \\
+        1 &amp; 2^2      &amp; 3^2      &amp; 4^2      &amp; ... &amp; (2i)^2      \\
+        ...\\
+        1 &amp; 2^{2i-1} &amp; 3^{2i-1} &amp; 4^{2i-1} &amp; ... &amp; (2i)^{2i-1} \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        C_{(2i)1}\\
+        C_{(2i)2}\\
+        C_{(2i)3}\\
+        ...\\
+        C_{(2i)(2i)}\\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    1\\
+    0\\
+    0\\
+    ...\\
+    0\\
+    \end{bmatrix}
+\end{eqnarray}&lt;/script&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+%\begin{eqnarray}
+%    \begin{bmatrix}
+%        1 &amp; 1        &amp; 1        &amp; 1        &amp; ... &amp; 1           \\
+%        1 &amp; 2        &amp; 3        &amp; 4        &amp; ... &amp; N          \\
+%        1 &amp; 2^2      &amp; 3^2      &amp; 4^2      &amp; ... &amp; N^2      \\
+%        ...\\
+%        1 &amp; 2^{N-1} &amp; 3^{N-1} &amp; 4^{N-1} &amp; ... &amp; N^{N-1} \\
+%    \end{bmatrix}
+%    \begin{bmatrix}
+%        C_{N1}\\
+%        C_{N2}\\
+%        C_{N3}\\
+%        ...\\
+%        C_{NN}\\
+%    \end{bmatrix}
+%    =
+%    \begin{bmatrix}
+%    1\\
+%    0\\
+%    0\\
+%    ...\\
+%    0\\
+%    \end{bmatrix}
+%\end{eqnarray}&lt;/script&gt;&lt;h4 id=&quot;point-1&quot;&gt;&lt;a href=&quot;#point-1&quot; class=&quot;headerlink&quot; title=&quot;point 1&quot;&gt;&lt;/a&gt;point 1&lt;/h4&gt;&lt;p&gt;&amp;#x2026;&lt;/p&gt;
+&lt;h4 id=&quot;point-k-k01i-1&quot;&gt;&lt;a href=&quot;#point-k-k-0-1-&amp;#x2026;-i-1&quot; class=&quot;headerlink&quot; title=&quot;point k (k=0,1,&amp;#x2026;,i-1)&quot;&gt;&lt;/a&gt;point k (k=0,1,&amp;#x2026;,i-1)&lt;/h4&gt;&lt;p&gt;For point k, we have:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f(x-k\delta) &amp; = &amp; f(x) - k\delta f&#39;(x) +
+                        \frac{ (-k)^2\delta^2 }{2!} f&#39;&#39;(x) +
+                        ... +
+                        \frac{(-k)^{2i}\delta^{2i}}{(2i)!}  f^{(2i)} (x)  +
+                        O(\delta^{2i+1})\\
+    ...\\
+    f(x-\delta ) &amp; = &amp; f(x) -  \delta  f&#39;(x) +
+                        \frac{(-1)^2\delta ^2}{2!}  f&#39;&#39;(x)  +
+                        ... +
+                        \frac{(-1)^{2i}\delta^{2i}}{(2i)!}  f^{(2i)} (x)  +
+                        O(\delta^{2i+1})\\
+    f(x) &amp; = &amp; f(x)\\
+    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&#39;(x) +
+                            \frac{\delta ^2}{2!}  f&#39;&#39;(x)  +
+                            %\frac{\delta ^3}{3!}  f^{(3)} (x)  +
+                            ... +
+                            \frac{\delta ^{2i}}{(2i)!}  f^{(2i)} (x)  +
+                            O(\delta^{2i+1})\\
+    ...\\
+    f(x+(2i-k)\delta) &amp; = &amp; f(x) +  (2i-k)\delta  f&#39;(x) +
+                            \frac{(2i-k)^2 \delta ^2}{2!}  f&#39;&#39;(x)  +
+                            %\frac{(2i-k)^3 \delta ^3}{3!}  f^{(3)} (x)  +
+                            ... +
+                            \frac{(2i-k)^{2i}\delta ^{2i}}{(2i)!}  f^{(2i)} (x)  +
+                            O(\delta^{2i+1})\\
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;Thus, $f&amp;#x2019;(x)$ is:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f&#39;(x) &amp; = &amp; \frac{f(x-k\delta) - f(x)}{- k\delta }
+                        -\frac{ (-k)\delta }{2!} f&#39;&#39;(x) -
+                        ...
+                        -\frac{(-k)^{2i-1}\delta^{2i-1}}{(2i)!}  f^{(2i)} (x)  +
+                        O(\delta^{2i})\\
+    ...\\
+    f&#39;(x) &amp; = &amp; \frac{f(x-\delta ) - f(x)}{-  \delta  }
+                        -\frac{-\delta}{2!}  f&#39;&#39;(x)  -
+                        ...-
+                        -\frac{(-1)^{2i-1}\delta^{2i-1}}{(2i)!}  f^{(2i)} (x)  +
+                        O(\delta^{2i})\\
+    f&#39;(x) &amp; = &amp; \frac{f(x+\delta ) - f(x)}{\delta  }
+                            -\frac{\delta}{2!}  f&#39;&#39;(x)
+                            - ...
+                            - \frac{\delta ^{2i-1}}{(2i)!}  f^{(2i)} (x)  +
+                            O(\delta^{2i})\\
+    ...\\
+    f&#39;(x) &amp; = &amp; \frac{f(x+(2i-k)\delta)-f(x)}{(2i-k)\delta  }
+                            -\frac{(2i-k) \delta }{2!}  f&#39;&#39;(x)
+                            -...
+                            -\frac{(2i-k)^{2i-1}\delta ^{2i-1}}{(2i)!}  f^{(2i)} (x)  +
+                            O(\delta^{2i})\\
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;adding all these $f&amp;#x2019;(x)$ proportionally:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{aligned}
+        f&#39;(x) = &amp; \sum \limits_{j=-k}^{2i-k} C^k_{(2i)j} \frac{ f(x+j\delta)-f(x) }{j\delta}\\
+                &amp;-   \frac{\delta}{2!}f&#39;&#39;(x) \sum\limits_{j=-k}^{2i-k}jC^k_{(2i)j}
+                 -   \frac{\delta^2}{3!}f^{(3)}(x) \sum\limits_{j=-k}^{2i-k}j^2C^k_{(2i)j}
+                 -   ...
+                 -   \frac{\delta^{2i-1}}{(2i)!}f^{(2i)}(x) \sum \limits_{j=-k}^{2i-k}j^{2i-1}C^k_{(2i)j}
+    \end{aligned}
+\end{equation}&lt;/script&gt;&lt;p&gt;Thus, for 2ith order accuracy, item of $\delta,\delta^2,&amp;#x2026;,\delta^{2i-1}$ should be eliminated, so:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{bmatrix}
+        1      &amp; 1       &amp;... &amp;   1    &amp;  1  &amp; ... &amp; 1                \\
+        -k     &amp; -k+1    &amp;... &amp;  -1    &amp;  1  &amp; ... &amp; 2i-k             \\
+        (-k)^2 &amp;(-k+1)^2 &amp;... &amp; (-1)^2 &amp; 1^2 &amp; ... &amp; (2i-k)^2         \\
+        (-k)^3 &amp;(-k+1)^3 &amp;... &amp; (-1)^2 &amp; 1^3 &amp; ... &amp; (2i-k)^3         \\
+        ...\\
+        (-k)^{2i-1} &amp; (-k+1)^{2i-1} &amp; ... &amp;(-1)^{2i-1} &amp; 1^{2i-1} &amp; ... &amp; (2i-k)^{2i-1}
+    \end{bmatrix}
+    \begin{bmatrix}
+    C^k_{(2i)(-k)}   \\
+    C^k_{(2i)(-k+1)} \\
+    C^k_{(2i)(-k+2)} \\
+    ...\\
+    C^k_{(2i)(-1)}   \\
+    C^k_{(2i)1}      \\
+    ...\\
+    C^k_{(2i)(2i-k)}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    1\\
+    0\\
+    0\\
+    ...\\
+    0\\
+    \end{bmatrix}
+    \label{LA}
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;result-and-examples&quot;&gt;&lt;a href=&quot;#Result-and-Examples&quot; class=&quot;headerlink&quot; title=&quot;Result and Examples&quot;&gt;&lt;/a&gt;Result and Examples&lt;/h2&gt;&lt;p&gt;For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&amp;#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&amp;#x2026;,-1,1,&amp;#x2026;,2i-k)$ is the solution of $\eqref{LA}$.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/fd1_asym.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;2nd-order-accuracy&quot;&gt;&lt;a href=&quot;#2nd-order-accuracy-1&quot; class=&quot;headerlink&quot; title=&quot;2nd order accuracy&quot;&gt;&lt;/a&gt;2nd order accuracy&lt;/h4&gt;&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;point k&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;$C^0_{21}$&lt;/td&gt;
+&lt;td&gt;$C^0_{22}$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;4th-order-accuracy&quot;&gt;&lt;a href=&quot;#4th-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;4th order accuracy&quot;&gt;&lt;/a&gt;4th order accuracy&lt;/h4&gt;&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;point k&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;$ C^0_{(4)(1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(4)(2)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(4)(3)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(4)(4)}  $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;$ C^1_{(4)(-1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(4)(1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(4)(2)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(4)(3)}  $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;6th-order-accuracy&quot;&gt;&lt;a href=&quot;#6th-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;6th order accuracy&quot;&gt;&lt;/a&gt;6th order accuracy&lt;/h4&gt;&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;point k&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;$C^0_{61}$&lt;/td&gt;
+&lt;td&gt;$C^0_{62}$&lt;/td&gt;
+&lt;td&gt;$C^0_{63}$&lt;/td&gt;
+&lt;td&gt;$C^0_{64}$&lt;/td&gt;
+&lt;td&gt;$C^0_{65}$&lt;/td&gt;
+&lt;td&gt;$C^0_{66}$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;$C^1_{6(-1)}$&lt;/td&gt;
+&lt;td&gt;$C^1_{61}$&lt;/td&gt;
+&lt;td&gt;$C^2_{62}$&lt;/td&gt;
+&lt;td&gt;$C^1_{63}$&lt;/td&gt;
+&lt;td&gt;$C^1_{64}$&lt;/td&gt;
+&lt;td&gt;$C^1_{65}$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;$C^2_{6(-2)}$&lt;/td&gt;
+&lt;td&gt;$C^2_{6(-1)}$&lt;/td&gt;
+&lt;td&gt;$C^2_{61}$&lt;/td&gt;
+&lt;td&gt;$C^2_{62}$&lt;/td&gt;
+&lt;td&gt;$C^2_{63}$&lt;/td&gt;
+&lt;td&gt;$C^2_{64}$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;point k&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;$ C^0_{(6)(1)} = 6.000000 $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(6)(2)} = -15.000000 $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(6)(3)} = 20.000000 $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(6)(4)} = -15.000000 $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(6)(5)} = 6.000000 $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(6)(6)} = -1.000000 $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;$ C^1_{(6)(-1)} = 0.166667  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(6)(1)} = 2.500000 $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(6)(2)} = -3.333333 $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(6)(3)} = 2.500000 $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(6)(4)} = -1.000000 $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(6)(5)} = 0.166667 $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;$ C^2_{(6)(-2)} = -0.066667  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(6)(-1)} = 0.400000  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(6)(1)} = 1.333333 $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(6)(2)} = -1.000000 $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(6)(3)} = 0.400000 $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(6)(4)} = -0.066667 $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;8h-order-accuracy&quot;&gt;&lt;a href=&quot;#8h-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;8h order accuracy&quot;&gt;&lt;/a&gt;8h order accuracy&lt;/h4&gt;&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;point k&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;$ C^0_{(8)(1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(8)(2)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(8)(3)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(8)(4)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(8)(5)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(8)(6)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(8)(7)}  $&lt;/td&gt;
+&lt;td&gt;$ C^0_{(8)(8)}  $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;$ C^1_{(8)(-1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(8)(1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(8)(2)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(8)(3)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(8)(4)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(8)(5)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(8)(6)}  $&lt;/td&gt;
+&lt;td&gt;$ C^1_{(8)(7)}  $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;$ C^2_{(8)(-2)}  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(8)(-1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(8)(1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(8)(2)}  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(8)(3)}  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(8)(4)}  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(8)(5)}  $&lt;/td&gt;
+&lt;td&gt;$ C^2_{(8)(6)}  $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;$ C^3_{(8)(-3)}  $&lt;/td&gt;
+&lt;td&gt;$ C^3_{(8)(-2)}  $&lt;/td&gt;
+&lt;td&gt;$ C^3_{(8)(-1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^3_{(8)(1)}  $&lt;/td&gt;
+&lt;td&gt;$ C^3_{(8)(2)}  $&lt;/td&gt;
+&lt;td&gt;$ C^3_{(8)(3)}  $&lt;/td&gt;
+&lt;td&gt;$ C^3_{(8)(4)}  $&lt;/td&gt;
+&lt;td&gt;$ C^3_{(8)(5)}  $&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/img.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
+    
+    
+      <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
+    
+      <category term="modeling" scheme="http://sheng09.github.io/tags/modeling/"/>
+    
+      <category term="error" scheme="http://sheng09.github.io/tags/error/"/>
+    
+  </entry>
   
   <entry>
     <title>Solving Vandermonde Equation for FD</title>
@@ -245,7 +770,7 @@
     <link href="http://sheng09.github.io/2016/10/13/finite-difference/"/>
     <id>http://sheng09.github.io/2016/10/13/finite-difference/</id>
     <published>2016-10-12T19:53:58.000Z</published>
-    <updated>2016-10-16T05:16:28.714Z</updated>
+    <updated>2016-10-16T18:55:59.470Z</updated>
     
     <content type="html">&lt;p&gt;This post derived the method of central finite difference for calculating derivatives, especially for first and second order derivatives, and finally arrive at perfect results. Example are provided to verify the results.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -270,7 +795,7 @@
 &lt;h2 id=&quot;taylor-expansion&quot;&gt;&lt;a href=&quot;#Taylor-expansion&quot; class=&quot;headerlink&quot; title=&quot;Taylor expansion&quot;&gt;&lt;/a&gt;Taylor expansion&lt;/h2&gt;&lt;p&gt;According to Taylor expansion, we have:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
-    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f(x) +
+    f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&#39;(x) +
                             \frac{\delta ^2}{2!}  f&#39;&#39;(x)  +
                             \frac{\delta ^3}{3!}  f^{(3)} (x)  +
                             ... +
@@ -1944,134 +2469,6 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
       <category term="Email Alert" scheme="http://sheng09.github.io/tags/Email-Alert/"/>
     
       <category term="Journals" scheme="http://sheng09.github.io/tags/Journals/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linear Deconvolution</title>
-    <link href="http://sheng09.github.io/2016/06/09/deconvolution/"/>
-    <id>http://sheng09.github.io/2016/06/09/deconvolution/</id>
-    <published>2016-06-09T12:27:50.000Z</published>
-    <updated>2016-06-15T12:13:59.349Z</updated>
-    
-    <content type="html">&lt;p&gt;Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resolution&amp;#x201D;, &amp;#x201C;error&amp;#x201D;, &amp;#x201C;regularization&amp;#x201D;, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;!-- toc --&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#convolution&quot;&gt;Convolution&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#deconvolution-in-frequency-domain&quot;&gt;Deconvolution in frequency domain&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#iterative-deconvolution-in-time-domain&quot;&gt;Iterative deconvolution in time domain&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#error-and-resolution-estimation&quot;&gt;Error and resolution estimation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#implementations&quot;&gt;Implementations&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- tocstop --&gt;
-&lt;h2 id=&quot;convolution&quot;&gt;&lt;a href=&quot;#Convolution&quot; class=&quot;headerlink&quot; title=&quot;Convolution&quot;&gt;&lt;/a&gt;Convolution&lt;/h2&gt;&lt;p&gt;Convolution in time domain corresponds to multiplication in frequency domain:&lt;/p&gt;
-&lt;span&gt;$$\begin{eqnarray}
-r(t) &amp;amp; = &amp;amp; m(t) \otimes s(t) \label{convo_time}\\
-R(\omega) &amp;amp; = &amp;amp; M(\omega) S(\omega) \label{convo_freq}
-\end{eqnarray}$$&lt;/span&gt;&lt;!-- Has MathJax --&gt;
-&lt;p&gt;in $\eqref{convo_time}$, $s(t)$ is the source wavelet or blurring function, $r(t)$ is the observed data, and $m(t)$ is the impulse repsonse of the model. Theoretically, given $s(t)$ and $r(t)$, $m(t)$ could be calculated by division according to $\eqref{convo_freq}$&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-m(t) = IFT \left\{\frac{R(\omega)}{S(\omega)}\right\} \label{decon_div}
-\end{equation}&lt;/script&gt;&lt;p&gt;However, $\eqref{decon_div}$ always present problematic results because observations $r(t)$ contain noise, and some values of $s(\omega)$ approach zero, which result in instablities in the division.&lt;/p&gt;
-&lt;h2 id=&quot;deconvolution-in-frequency-domain&quot;&gt;&lt;a href=&quot;#Deconvolution-in-frequency-domain&quot; class=&quot;headerlink&quot; title=&quot;Deconvolution in frequency domain&quot;&gt;&lt;/a&gt;Deconvolution in frequency domain&lt;/h2&gt;&lt;p&gt;Considering noise $n(t)$, $\eqref{convo_time}$ should be:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{eqnarray}
-r(t) &amp; = &amp; m(t) \otimes s(t) + n(t) \label{convo_time_real}\\
-R(\omega) &amp; = &amp; M(\omega) S(\omega) + N(\omega) \label{convo_freq_real}
-\end{eqnarray}&lt;/script&gt;&lt;p&gt;In deconvolution, we aim to find a time series $s&amp;#x2019;(t)$, which acts like the inverse of the source wavelet or blurring function $s(t)$. So the convolution of $s&amp;#x2019;(t)$ and $s(t)$ will produces a desired resolution function $h(t)$, being impulse function theoretically.&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{eqnarray}
-r(t) \otimes s&#39;(t) &amp; = &amp; m(t) \otimes s(t) \otimes s&#39;(t) + n(t) \otimes s&#39;(t) \label{conv_with_s_inv_time}\\
-R(\omega) S&#39;(\omega) &amp; = &amp; M(\omega) S(\omega) S&#39;(\omega) + N(\omega) S&#39;(\omega) \label{conv_with_s_inv_freq}
-\end{eqnarray}&lt;/script&gt;&lt;p&gt;Let us define:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  \begin{cases}
-    \hat{m}(t) &amp; = &amp; r(t) \otimes s&#39;(t) \\
-    res(t) &amp; = &amp; s(t) \otimes s&#39;(t) \\
-    err(t) &amp; = &amp; n(t) \otimes s&#39;(t)
-  \end{cases}
-\end{equation}&lt;/script&gt;&lt;p&gt;$\hat{m}(t)$ is the calculated model, $res(t)$ is the resolution function, and $err(t)$ is the model error:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  \hat{m}(t) = m(t) \otimes res(t) + err(t)
-\end{equation}&lt;/script&gt;&lt;p&gt;In deconvolution, the real resolution function $res(t)$ should approximates desired one $h(t)$, and model error $err(t)$ should approximates zero. Trade-off exists for these two approaches. Thus, an objective function is built:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  obj = \int_{-\infty}^{+\infty}\{a|res(t)-h(t)|^2+(1-a)|err(t)|^2\}dt \label{obj_func}
-\end{equation}&lt;/script&gt;&lt;p&gt;according to Parseval&amp;#x2019;s theorem, in the frequency domain, $\eqref{obj_func}$ has the form of:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  obj =  a|S(\omega)S&#39;(\omega) - h(\omega)|^2 + (1-a) | N(\omega)S&#39;(\omega) |^2 \label{obj_func_freq}
-\end{equation}&lt;/script&gt;&lt;p&gt;When objective function approach the minimal value, the derivative of $obj$ to $S&amp;#x2019;(\omega)$ should be zero. Corresponding $S&amp;#x2019;(\omega)$ is :&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{eqnarray}
-  S&#39;(\omega) &amp; = &amp; \frac{S^*(\omega)h(\omega)}{S(\omega)S^*(\omega)+b|N(\omega)|^2} \\
-  b &amp; = &amp; \frac{1-a}{a}
-\end{eqnarray}&lt;/script&gt;&lt;p&gt;Choose gaussian function as desired resolution function, and estimate the noise $|N(\omega)|^2$ on the basis of observation and signal to noise energy ratio $\nu$.&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{mod}
-\end{equation}&lt;/script&gt;&lt;p&gt;$\sigma_0^2$ is the self-correlation of $S(t)$, and $c = b \nu$.&lt;/p&gt;
-&lt;p&gt;From the viewpoint to regularization, an item of $c\sigma_0^2$ is added to the denominator. So instablity result from the near-zero value of $S(\omega)S^*(\omega)$ is reduced.&lt;/p&gt;
-&lt;p&gt;Likewise, we could build the solver equation of:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  \hat{m}(t) = IFT\left\{\frac{R(\omega)S^*(\omega)}{ max[S(\omega)S^*(\omega), c\sigma_0^2] }e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{mod_water_level}
-\end{equation}&lt;/script&gt;&lt;p&gt;which is the water-level regularization deconvolution.&lt;/p&gt;
-&lt;h2 id=&quot;iterative-deconvolution-in-time-domain&quot;&gt;&lt;a href=&quot;#Iterative-deconvolution-in-time-domain&quot; class=&quot;headerlink&quot; title=&quot;Iterative deconvolution in time domain&quot;&gt;&lt;/a&gt;Iterative deconvolution in time domain&lt;/h2&gt;&lt;p&gt;For time series, the model $m(t)$ is superposition of impulse functions:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  \hat{m}(t) = \sum_{i} m_i h(t-t_i) \label{superposition}
-\end{equation}&lt;/script&gt;&lt;p&gt;To determine $m_1$ and $t_1$, the error $\eqref{err_iter}$ should approach its minimal value.&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  \Delta_1 = \int_{-\infty}^{+\infty}\{r(t) - m_1 h(t-t_1) \otimes s(t)\}^2dt \label{err_iter}
-\end{equation}&lt;/script&gt;&lt;p&gt;Corresponding $m_1$ and $\Delta_1$ could be calculated assuming $ \frac{\partial \Delta_1} {\partial m_1} = 0 $:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{eqnarray}
-  m_1 &amp; = &amp; \frac { \int_{-\infty}^{+\infty} r(t)s(t-t_1)dt } { \int_{-\infty}^{+\infty} s^2(t)dt} \\
-  \Delta_1 &amp; = &amp; \frac { \int_{-\infty}^{+\infty}r^2(t)dt -[\int_{-\infty}^{+\infty}r(t)s(t-t_1)dt ]^2} {\int_{-\infty}^{+\infty}s^2(t)dt}
-\end{eqnarray}&lt;/script&gt;&lt;p&gt;Obviously, $[\int_{-\infty}^{+\infty}r(t)s(t-t_1)dt ]^2 $ should approach its maximal value so that the error $\Delta_1 $ approach its minimum. Under this criterion, $t_1$ could be acquired by traversal.&lt;br&gt;After obtaining $m_1$ and $t_1$, we subtract $m_1h(t-t_1)$ from $r(t)$ and get residual time series:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  r&#39;(t) = r(t) - m_1h(t-t_1)
-\end{equation}&lt;/script&gt;&lt;p&gt;Likewise, $m_2$ and $t_2$ could be obtain by applying above procedure to $r&amp;#x2019;(t)$. This kind of procedure is iterated for N times until no more significant decrease in the residual time series occurs. The model could be applying a gausssian function to $\eqref{superposition}$ with $ m_i$ and $t_i(i=1,2,&amp;#x2026;N)$. Besides, synthetic observation and error are:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{eqnarray}
-  \hat{r} &amp; = &amp; \sum_{i=1}^N m_i s(t-t_i) \\
-  \Delta_N &amp; = &amp; \int_{-\infty}^{+\infty} [r(t) - \hat{r}(t)]^2 dt
-\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;error-and-resolution-estimation&quot;&gt;&lt;a href=&quot;#Error-and-resolution-estimation&quot; class=&quot;headerlink&quot; title=&quot;Error and resolution estimation&quot;&gt;&lt;/a&gt;Error and resolution estimation&lt;/h2&gt;&lt;p&gt;It is important to evaluate the results of deconvolution, thus to choose the optimal regularization factor $c$ in $ \eqref{mod} $, $\eqref{mod_water_level}$, $N$ for iteration deconvolution, and gaussian factor.&lt;br&gt;First, to determine the error of our result, the calculated model $\hat{m}{t}$ is convolved with $s(t)$, and then compared with observation $r(t)$:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{equation}
-  \Delta = \int_{-\infty}^{+\infty} r(t) - \hat(m)(t) \otimes s(t) dt
-\end{equation}&lt;/script&gt;&lt;p&gt;Second, for resolution estimation. A simply way to obtain resolution function is to deconvolve $s(t)$ from itself. Since we desire a gaussian shape resolution function in derivations, the calculated one will approximates gaussian function.&lt;br&gt;Resolution estimation for $eqref{mod}$ and $\eqref{mod_water_level}$:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\begin{eqnarray}
-  \widehat{res}(t) &amp; = &amp; IFT\left\{\frac{S(\omega)S^*(\omega)}{S(\omega)S^*(\omega)+c\sigma_0^2}e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{res} \\
-
-  \widehat{res}(t) &amp; = &amp; IFT\left\{\frac{S(\omega)S^*(\omega)}{ max[S(\omega)S^*(\omega), c\sigma_0^2] }e^{-\frac{\omega^2}{4\alpha^2}} \right\} \label{res_water_level}
-\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;implementations&quot;&gt;&lt;a href=&quot;#Implementations&quot; class=&quot;headerlink&quot; title=&quot;Implementations&quot;&gt;&lt;/a&gt;Implementations&lt;/h2&gt;&lt;p&gt;You could design your codes according to deconvolution equtions. &lt;a href=&quot;http://www.eas.slu.edu/eqc/eqccps.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CPS&lt;/a&gt; provide programs of &lt;code&gt;sacdecon&lt;/code&gt; for deconvolution in frequency domain, and &lt;code&gt;saciterd&lt;/code&gt; for iteration deconvolution in time domain. Besides, package of &lt;a href=&quot;http://www.eas.slu.edu/People/LZhu/downloads/hk1.3.tar&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hk&lt;/a&gt; provides &lt;code&gt;decon&lt;/code&gt; and &lt;code&gt;iter_decon&lt;/code&gt; as well. These programs differs slighty in the output. To find their usages details, please vist package homepage or &lt;a href=&quot;&quot;&gt;XX&lt;/a&gt;.&lt;br&gt;You could find examples of deconvolution for receiver functions at &lt;a href=&quot;&quot;&gt;XX&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;reference&quot;&gt;&lt;a href=&quot;#Reference&quot; class=&quot;headerlink&quot; title=&quot;Reference&quot;&gt;&lt;/a&gt;Reference&lt;/h2&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Deconvolution problem is a subset of inversion, in which observed data is deconvolved to reconstruct the model given the blurring function or source wavelet. Items of inversion including &amp;#x201C;resolution&amp;#x201D;, &amp;#x201C;error&amp;#x201D;, &amp;#x201C;regularization&amp;#x201D;, et. al also apply to deconvolution. Besides, deconvolution always associates transformation between time domain and frequency domain. Thus, principles inherited from digital singal processing apply to deconvolution. In other words, deconvolution is very complex, though massive codes and programs could output a time series in a blink of eye given no matter what kind of data input. Without comprehension of deconvolution and inversion, programs could be misused to provide wrong results. This blog attempts to theories and implementations of deconvolution.&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Digital Signal Processing" scheme="http://sheng09.github.io/categories/Digital-Signal-Processing/"/>
-    
-    
-      <category term="接收函数" scheme="http://sheng09.github.io/tags/%E6%8E%A5%E6%94%B6%E5%87%BD%E6%95%B0/"/>
-    
-      <category term="Digital Signal Processing" scheme="http://sheng09.github.io/tags/Digital-Signal-Processing/"/>
-    
-      <category term="Inversion" scheme="http://sheng09.github.io/tags/Inversion/"/>
-    
-      <category term="Regularization" scheme="http://sheng09.github.io/tags/Regularization/"/>
     
   </entry>
   
