@@ -13,7 +13,7 @@
 <meta property="og:description" content="For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.">
 <meta property="og:image" content="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/img.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/fd1_asym.png">
-<meta property="og:updated_time" content="2016-10-17T19:06:21.709Z">
+<meta property="og:updated_time" content="2016-10-17T19:08:25.550Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asymmetric Finite Difference for Boundary Points">
 <meta name="twitter:description" content="For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.">
@@ -111,7 +111,8 @@
 <li><a href="#point-k-k01i-1">point k (k=0,1,&#x2026;,i-1)</a></li>
 </ul>
 </li>
-<li><a href="#result-and-examples">Result and Examples</a></li>
+<li><a href="#result">Result</a></li>
+<li><a href="#examples">Examples</a></li>
 </ul>
 <!-- tocstop -->
 <p>Let us take 2nd order FD as example:</p>
@@ -393,18 +394,18 @@
     0\\
     \end{bmatrix}
     \label{LA}
-\end{eqnarray}</script><h2 id="result-and-examples"><a href="#Result-and-Examples" class="headerlink" title="Result and Examples"></a>Result and Examples</h2><p>For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&#x2026;,-1,1,&#x2026;,2i-k)$ is the solution of $\eqref{LA}$, while</p>
+\end{eqnarray}</script><h2 id="result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&#x2026;,-1,1,&#x2026;,2i-k)$ is the solution of $\eqref{LA}$, while</p>
 <script type="math/tex; mode=display">
 \begin{equation}
     \begin{aligned}
         f'(x) = & \sum \limits_{j=-k}^{2i-k} C^k_{(2i)j} \frac{ f(x+j\delta)-f(x) }{j\delta}\\
     \end{aligned}
-\end{equation}</script><p><img src="/2016/10/17/finite-difference-asymmetric/fd1_asym.png" alt=""></p>
+\end{equation}</script><h2 id="examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p><img src="/2016/10/17/finite-difference-asymmetric/fd1_asym.png" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/" data-id="ciuefmcs0001r9efbpikpddsm" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/" data-id="ciucxxvba001rn3fb9viernxy" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/#disqus_thread" class="article-comment-link">Comments</a>
       

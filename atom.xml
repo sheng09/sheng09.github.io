@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-17T19:06:21.709Z</updated>
+  <updated>2016-10-17T19:08:25.550Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/"/>
     <id>http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/</id>
     <published>2016-10-16T18:02:22.000Z</published>
-    <updated>2016-10-17T19:06:21.709Z</updated>
+    <updated>2016-10-17T19:08:25.550Z</updated>
     
     <content type="html">&lt;p&gt;For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/img.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -31,7 +31,8 @@
 &lt;li&gt;&lt;a href=&quot;#point-k-k01i-1&quot;&gt;point k (k=0,1,&amp;#x2026;,i-1)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#result-and-examples&quot;&gt;Result and Examples&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#result&quot;&gt;Result&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#examples&quot;&gt;Examples&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- tocstop --&gt;
 &lt;p&gt;Let us take 2nd order FD as example:&lt;/p&gt;
@@ -313,13 +314,13 @@
     0\\
     \end{bmatrix}
     \label{LA}
-\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;result-and-examples&quot;&gt;&lt;a href=&quot;#Result-and-Examples&quot; class=&quot;headerlink&quot; title=&quot;Result and Examples&quot;&gt;&lt;/a&gt;Result and Examples&lt;/h2&gt;&lt;p&gt;For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&amp;#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&amp;#x2026;,-1,1,&amp;#x2026;,2i-k)$ is the solution of $\eqref{LA}$, while&lt;/p&gt;
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;result&quot;&gt;&lt;a href=&quot;#Result&quot; class=&quot;headerlink&quot; title=&quot;Result&quot;&gt;&lt;/a&gt;Result&lt;/h2&gt;&lt;p&gt;For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&amp;#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&amp;#x2026;,-1,1,&amp;#x2026;,2i-k)$ is the solution of $\eqref{LA}$, while&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{equation}
     \begin{aligned}
         f&#39;(x) = &amp; \sum \limits_{j=-k}^{2i-k} C^k_{(2i)j} \frac{ f(x+j\delta)-f(x) }{j\delta}\\
     \end{aligned}
-\end{equation}&lt;/script&gt;&lt;p&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/fd1_asym.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+\end{equation}&lt;/script&gt;&lt;h2 id=&quot;examples&quot;&gt;&lt;a href=&quot;#Examples&quot; class=&quot;headerlink&quot; title=&quot;Examples&quot;&gt;&lt;/a&gt;Examples&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/fd1_asym.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">

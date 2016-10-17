@@ -20,7 +20,8 @@
 <li><a href="#point-k-k01i-1">point k (k=0,1,&#x2026;,i-1)</a></li>
 </ul>
 </li>
-<li><a href="#result-and-examples">Result and Examples</a></li>
+<li><a href="#result">Result</a></li>
+<li><a href="#examples">Examples</a></li>
 </ul>
 <!-- tocstop -->
 <p>Let us take 2nd order FD as example:</p>
@@ -302,13 +303,13 @@
     0\\
     \end{bmatrix}
     \label{LA}
-\end{eqnarray}</script><h2 id="result-and-examples"><a href="#Result-and-Examples" class="headerlink" title="Result and Examples"></a>Result and Examples</h2><p>For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&#x2026;,-1,1,&#x2026;,2i-k)$ is the solution of $\eqref{LA}$, while</p>
+\end{eqnarray}</script><h2 id="result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&#x2026;,-1,1,&#x2026;,2i-k)$ is the solution of $\eqref{LA}$, while</p>
 <script type="math/tex; mode=display">
 \begin{equation}
     \begin{aligned}
         f'(x) = & \sum \limits_{j=-k}^{2i-k} C^k_{(2i)j} \frac{ f(x+j\delta)-f(x) }{j\delta}\\
     \end{aligned}
-\end{equation}</script><p><img src="/2016/10/17/finite-difference-asymmetric/fd1_asym.png" alt=""></p>
+\end{equation}</script><h2 id="examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p><img src="/2016/10/17/finite-difference-asymmetric/fd1_asym.png" alt=""></p>
 ]]></content>
     </entry>
     
@@ -2114,14 +2115,14 @@ R(\omega) S'(\omega) & = & M(\omega) S(\omega) S'(\omega) + N(\omega) S'(\omega)
     </entry>
     
     <entry>
-      <title><![CDATA[about]]></title>
-      <url>http://sheng09.github.io/about/index.html</url>
+      <title><![CDATA[Categories]]></title>
+      <url>http://sheng09.github.io/categories/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[Categories]]></title>
-      <url>http://sheng09.github.io/categories/index.html</url>
+      <title><![CDATA[about]]></title>
+      <url>http://sheng09.github.io/about/index.html</url>
       <content type="html"></content>
     </entry>
     
