@@ -10,7 +10,10 @@
 <a id="more"></a>
 <!-- toc -->
 <ul>
-<li><a href="#2nd-order-accuracy">2nd order accuracy</a></li>
+<li><a href="#2nd-order-accuracy">2nd order accuracy</a><ul>
+<li><a href="#point-0">point 0</a></li>
+</ul>
+</li>
 <li><a href="#2ith-order-accuracy">2ith order accuracy</a><ul>
 <li><a href="#point-0">point 0</a></li>
 <li><a href="#point-1">point 1</a></li>
@@ -21,8 +24,7 @@
 </ul>
 <!-- tocstop -->
 <p>Let us take 2nd order FD as example:</p>
-<h2 id="2nd-order-accuracy"><a href="#2nd-order-accuracy" class="headerlink" title="2nd order accuracy"></a>2nd order accuracy</h2><p>For point 0, we have:</p>
-<script type="math/tex; mode=display">
+<h2 id="2nd-order-accuracy"><a href="#2nd-order-accuracy" class="headerlink" title="2nd order accuracy"></a>2nd order accuracy</h2><h4 id="point-0"><a href="#point-0" class="headerlink" title="point 0"></a>point 0</h4><script type="math/tex; mode=display">
 \begin{eqnarray}
     f(x) & = & f(x)\\
     f(x+\delta ) & = & f(x) +  \delta  f'(x) +
@@ -78,7 +80,7 @@
     C_{21} & = & 2 \\
     C_{22} & = & -1 \\
 \end{cases}
-\end{equation}</script><h2 id="2ith-order-accuracy"><a href="#2ith-order-accuracy" class="headerlink" title="2ith order accuracy"></a>2ith order accuracy</h2><h4 id="point-0"><a href="#point-0" class="headerlink" title="point 0"></a>point 0</h4><p>For point 0, we have:</p>
+\end{equation}</script><h2 id="2ith-order-accuracy"><a href="#2ith-order-accuracy" class="headerlink" title="2ith order accuracy"></a>2ith order accuracy</h2><h4 id="point-0"><a href="#point-0-1" class="headerlink" title="point 0"></a>point 0</h4><p>For point 0, we have:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     f(x) & = & f(x)\\

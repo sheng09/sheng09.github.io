@@ -13,7 +13,7 @@
 <meta property="og:description" content="For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.">
 <meta property="og:image" content="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/img.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/fd1_asym.png">
-<meta property="og:updated_time" content="2016-10-17T19:04:57.276Z">
+<meta property="og:updated_time" content="2016-10-17T19:06:21.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asymmetric Finite Difference for Boundary Points">
 <meta name="twitter:description" content="For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.">
@@ -101,7 +101,10 @@
 <a id="more"></a>
 <!-- toc -->
 <ul>
-<li><a href="#2nd-order-accuracy">2nd order accuracy</a></li>
+<li><a href="#2nd-order-accuracy">2nd order accuracy</a><ul>
+<li><a href="#point-0">point 0</a></li>
+</ul>
+</li>
 <li><a href="#2ith-order-accuracy">2ith order accuracy</a><ul>
 <li><a href="#point-0">point 0</a></li>
 <li><a href="#point-1">point 1</a></li>
@@ -112,8 +115,7 @@
 </ul>
 <!-- tocstop -->
 <p>Let us take 2nd order FD as example:</p>
-<h2 id="2nd-order-accuracy"><a href="#2nd-order-accuracy" class="headerlink" title="2nd order accuracy"></a>2nd order accuracy</h2><p>For point 0, we have:</p>
-<script type="math/tex; mode=display">
+<h2 id="2nd-order-accuracy"><a href="#2nd-order-accuracy" class="headerlink" title="2nd order accuracy"></a>2nd order accuracy</h2><h4 id="point-0"><a href="#point-0" class="headerlink" title="point 0"></a>point 0</h4><script type="math/tex; mode=display">
 \begin{eqnarray}
     f(x) & = & f(x)\\
     f(x+\delta ) & = & f(x) +  \delta  f'(x) +
@@ -169,7 +171,7 @@
     C_{21} & = & 2 \\
     C_{22} & = & -1 \\
 \end{cases}
-\end{equation}</script><h2 id="2ith-order-accuracy"><a href="#2ith-order-accuracy" class="headerlink" title="2ith order accuracy"></a>2ith order accuracy</h2><h4 id="point-0"><a href="#point-0" class="headerlink" title="point 0"></a>point 0</h4><p>For point 0, we have:</p>
+\end{equation}</script><h2 id="2ith-order-accuracy"><a href="#2ith-order-accuracy" class="headerlink" title="2ith order accuracy"></a>2ith order accuracy</h2><h4 id="point-0"><a href="#point-0-1" class="headerlink" title="point 0"></a>point 0</h4><p>For point 0, we have:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
     f(x) & = & f(x)\\
@@ -402,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/" data-id="ciuefkjnm001r77fbghveskne" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/" data-id="ciuefmcs0001r9efbpikpddsm" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/#disqus_thread" class="article-comment-link">Comments</a>
       

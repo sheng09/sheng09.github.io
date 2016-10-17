@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-17T19:04:57.276Z</updated>
+  <updated>2016-10-17T19:06:21.709Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,13 +15,16 @@
     <link href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/"/>
     <id>http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/</id>
     <published>2016-10-16T18:02:22.000Z</published>
-    <updated>2016-10-17T19:04:57.276Z</updated>
+    <updated>2016-10-17T19:06:21.709Z</updated>
     
     <content type="html">&lt;p&gt;For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/img.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;!-- toc --&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#2nd-order-accuracy&quot;&gt;2nd order accuracy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2nd-order-accuracy&quot;&gt;2nd order accuracy&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#point-0&quot;&gt;point 0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#2ith-order-accuracy&quot;&gt;2ith order accuracy&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#point-0&quot;&gt;point 0&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#point-1&quot;&gt;point 1&lt;/a&gt;&lt;/li&gt;
@@ -32,8 +35,7 @@
 &lt;/ul&gt;
 &lt;!-- tocstop --&gt;
 &lt;p&gt;Let us take 2nd order FD as example:&lt;/p&gt;
-&lt;h2 id=&quot;2nd-order-accuracy&quot;&gt;&lt;a href=&quot;#2nd-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;2nd order accuracy&quot;&gt;&lt;/a&gt;2nd order accuracy&lt;/h2&gt;&lt;p&gt;For point 0, we have:&lt;/p&gt;
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+&lt;h2 id=&quot;2nd-order-accuracy&quot;&gt;&lt;a href=&quot;#2nd-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;2nd order accuracy&quot;&gt;&lt;/a&gt;2nd order accuracy&lt;/h2&gt;&lt;h4 id=&quot;point-0&quot;&gt;&lt;a href=&quot;#point-0&quot; class=&quot;headerlink&quot; title=&quot;point 0&quot;&gt;&lt;/a&gt;point 0&lt;/h4&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     f(x) &amp; = &amp; f(x)\\
     f(x+\delta ) &amp; = &amp; f(x) +  \delta  f&#39;(x) +
@@ -89,7 +91,7 @@
     C_{21} &amp; = &amp; 2 \\
     C_{22} &amp; = &amp; -1 \\
 \end{cases}
-\end{equation}&lt;/script&gt;&lt;h2 id=&quot;2ith-order-accuracy&quot;&gt;&lt;a href=&quot;#2ith-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;2ith order accuracy&quot;&gt;&lt;/a&gt;2ith order accuracy&lt;/h2&gt;&lt;h4 id=&quot;point-0&quot;&gt;&lt;a href=&quot;#point-0&quot; class=&quot;headerlink&quot; title=&quot;point 0&quot;&gt;&lt;/a&gt;point 0&lt;/h4&gt;&lt;p&gt;For point 0, we have:&lt;/p&gt;
+\end{equation}&lt;/script&gt;&lt;h2 id=&quot;2ith-order-accuracy&quot;&gt;&lt;a href=&quot;#2ith-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;2ith order accuracy&quot;&gt;&lt;/a&gt;2ith order accuracy&lt;/h2&gt;&lt;h4 id=&quot;point-0&quot;&gt;&lt;a href=&quot;#point-0-1&quot; class=&quot;headerlink&quot; title=&quot;point 0&quot;&gt;&lt;/a&gt;point 0&lt;/h4&gt;&lt;p&gt;For point 0, we have:&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;
 \begin{eqnarray}
     f(x) &amp; = &amp; f(x)\\
