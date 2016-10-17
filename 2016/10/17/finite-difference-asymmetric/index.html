@@ -13,7 +13,7 @@
 <meta property="og:description" content="For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.">
 <meta property="og:image" content="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/img.jpg">
 <meta property="og:image" content="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/fd1_asym.png">
-<meta property="og:updated_time" content="2016-10-17T19:01:56.723Z">
+<meta property="og:updated_time" content="2016-10-17T19:04:57.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asymmetric Finite Difference for Boundary Points">
 <meta name="twitter:description" content="For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.">
@@ -108,13 +108,7 @@
 <li><a href="#point-k-k01i-1">point k (k=0,1,&#x2026;,i-1)</a></li>
 </ul>
 </li>
-<li><a href="#result-and-examples">Result and Examples</a><ul>
-<li><a href="#2nd-order-accuracy">2nd order accuracy</a></li>
-<li><a href="#4th-order-accuracy">4th order accuracy</a></li>
-<li><a href="#6th-order-accuracy">6th order accuracy</a></li>
-<li><a href="#8h-order-accuracy">8h order accuracy</a></li>
-</ul>
-</li>
+<li><a href="#result-and-examples">Result and Examples</a></li>
 </ul>
 <!-- tocstop -->
 <p>Let us take 2nd order FD as example:</p>
@@ -397,210 +391,18 @@
     0\\
     \end{bmatrix}
     \label{LA}
-\end{eqnarray}</script><h2 id="result-and-examples"><a href="#Result-and-Examples" class="headerlink" title="Result and Examples"></a>Result and Examples</h2><p>For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&#x2026;,-1,1,&#x2026;,2i-k)$ is the solution of $\eqref{LA}$.<br><img src="/2016/10/17/finite-difference-asymmetric/fd1_asym.png" alt=""></p>
-<h4 id="2nd-order-accuracy"><a href="#2nd-order-accuracy-1" class="headerlink" title="2nd order accuracy"></a>2nd order accuracy</h4><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>point k</th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>$C^0_{21}$</td>
-<td>$C^0_{22}$</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="4th-order-accuracy"><a href="#4th-order-accuracy" class="headerlink" title="4th order accuracy"></a>4th order accuracy</h4><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>point k</th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>$ C^0_{(4)(1)}  $</td>
-<td>$ C^0_{(4)(2)}  $</td>
-<td>$ C^0_{(4)(3)}  $</td>
-<td>$ C^0_{(4)(4)}  $</td>
-</tr>
-<tr>
-<td>1</td>
-<td>$ C^1_{(4)(-1)}  $</td>
-<td>$ C^1_{(4)(1)}  $</td>
-<td>$ C^1_{(4)(2)}  $</td>
-<td>$ C^1_{(4)(3)}  $</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="6th-order-accuracy"><a href="#6th-order-accuracy" class="headerlink" title="6th order accuracy"></a>6th order accuracy</h4><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>point k</th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>$C^0_{61}$</td>
-<td>$C^0_{62}$</td>
-<td>$C^0_{63}$</td>
-<td>$C^0_{64}$</td>
-<td>$C^0_{65}$</td>
-<td>$C^0_{66}$</td>
-</tr>
-<tr>
-<td>1</td>
-<td>$C^1_{6(-1)}$</td>
-<td>$C^1_{61}$</td>
-<td>$C^2_{62}$</td>
-<td>$C^1_{63}$</td>
-<td>$C^1_{64}$</td>
-<td>$C^1_{65}$</td>
-</tr>
-<tr>
-<td>2</td>
-<td>$C^2_{6(-2)}$</td>
-<td>$C^2_{6(-1)}$</td>
-<td>$C^2_{61}$</td>
-<td>$C^2_{62}$</td>
-<td>$C^2_{63}$</td>
-<td>$C^2_{64}$</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>point k</th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>$ C^0_{(6)(1)} = 6.000000 $</td>
-<td>$ C^0_{(6)(2)} = -15.000000 $</td>
-<td>$ C^0_{(6)(3)} = 20.000000 $</td>
-<td>$ C^0_{(6)(4)} = -15.000000 $</td>
-<td>$ C^0_{(6)(5)} = 6.000000 $</td>
-<td>$ C^0_{(6)(6)} = -1.000000 $</td>
-</tr>
-<tr>
-<td>1</td>
-<td>$ C^1_{(6)(-1)} = 0.166667  $</td>
-<td>$ C^1_{(6)(1)} = 2.500000 $</td>
-<td>$ C^1_{(6)(2)} = -3.333333 $</td>
-<td>$ C^1_{(6)(3)} = 2.500000 $</td>
-<td>$ C^1_{(6)(4)} = -1.000000 $</td>
-<td>$ C^1_{(6)(5)} = 0.166667 $</td>
-</tr>
-<tr>
-<td>2</td>
-<td>$ C^2_{(6)(-2)} = -0.066667  $</td>
-<td>$ C^2_{(6)(-1)} = 0.400000  $</td>
-<td>$ C^2_{(6)(1)} = 1.333333 $</td>
-<td>$ C^2_{(6)(2)} = -1.000000 $</td>
-<td>$ C^2_{(6)(3)} = 0.400000 $</td>
-<td>$ C^2_{(6)(4)} = -0.066667 $</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="8h-order-accuracy"><a href="#8h-order-accuracy" class="headerlink" title="8h order accuracy"></a>8h order accuracy</h4><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>point k</th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>$ C^0_{(8)(1)}  $</td>
-<td>$ C^0_{(8)(2)}  $</td>
-<td>$ C^0_{(8)(3)}  $</td>
-<td>$ C^0_{(8)(4)}  $</td>
-<td>$ C^0_{(8)(5)}  $</td>
-<td>$ C^0_{(8)(6)}  $</td>
-<td>$ C^0_{(8)(7)}  $</td>
-<td>$ C^0_{(8)(8)}  $</td>
-</tr>
-<tr>
-<td>1</td>
-<td>$ C^1_{(8)(-1)}  $</td>
-<td>$ C^1_{(8)(1)}  $</td>
-<td>$ C^1_{(8)(2)}  $</td>
-<td>$ C^1_{(8)(3)}  $</td>
-<td>$ C^1_{(8)(4)}  $</td>
-<td>$ C^1_{(8)(5)}  $</td>
-<td>$ C^1_{(8)(6)}  $</td>
-<td>$ C^1_{(8)(7)}  $</td>
-</tr>
-<tr>
-<td>2</td>
-<td>$ C^2_{(8)(-2)}  $</td>
-<td>$ C^2_{(8)(-1)}  $</td>
-<td>$ C^2_{(8)(1)}  $</td>
-<td>$ C^2_{(8)(2)}  $</td>
-<td>$ C^2_{(8)(3)}  $</td>
-<td>$ C^2_{(8)(4)}  $</td>
-<td>$ C^2_{(8)(5)}  $</td>
-<td>$ C^2_{(8)(6)}  $</td>
-</tr>
-<tr>
-<td>3</td>
-<td>$ C^3_{(8)(-3)}  $</td>
-<td>$ C^3_{(8)(-2)}  $</td>
-<td>$ C^3_{(8)(-1)}  $</td>
-<td>$ C^3_{(8)(1)}  $</td>
-<td>$ C^3_{(8)(2)}  $</td>
-<td>$ C^3_{(8)(3)}  $</td>
-<td>$ C^3_{(8)(4)}  $</td>
-<td>$ C^3_{(8)(5)}  $</td>
-</tr>
-</tbody>
-</table>
-</div>
+\end{eqnarray}</script><h2 id="result-and-examples"><a href="#Result-and-Examples" class="headerlink" title="Result and Examples"></a>Result and Examples</h2><p>For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&#x2026;,-1,1,&#x2026;,2i-k)$ is the solution of $\eqref{LA}$, while</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{aligned}
+        f'(x) = & \sum \limits_{j=-k}^{2i-k} C^k_{(2i)j} \frac{ f(x+j\delta)-f(x) }{j\delta}\\
+    \end{aligned}
+\end{equation}</script><p><img src="/2016/10/17/finite-difference-asymmetric/fd1_asym.png" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/" data-id="ciuefhufr001k3hfbnjoo3h2t" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/" data-id="ciuefkjnm001r77fbghveskne" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/#disqus_thread" class="article-comment-link">Comments</a>
       

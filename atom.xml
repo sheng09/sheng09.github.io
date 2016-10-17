@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-17T19:01:56.723Z</updated>
+  <updated>2016-10-17T19:04:57.276Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/"/>
     <id>http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/</id>
     <published>2016-10-16T18:02:22.000Z</published>
-    <updated>2016-10-17T19:01:56.723Z</updated>
+    <updated>2016-10-17T19:04:57.276Z</updated>
     
     <content type="html">&lt;p&gt;For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/img.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -28,13 +28,7 @@
 &lt;li&gt;&lt;a href=&quot;#point-k-k01i-1&quot;&gt;point k (k=0,1,&amp;#x2026;,i-1)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#result-and-examples&quot;&gt;Result and Examples&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#2nd-order-accuracy&quot;&gt;2nd order accuracy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#4th-order-accuracy&quot;&gt;4th order accuracy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#6th-order-accuracy&quot;&gt;6th order accuracy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#8h-order-accuracy&quot;&gt;8h order accuracy&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#result-and-examples&quot;&gt;Result and Examples&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- tocstop --&gt;
 &lt;p&gt;Let us take 2nd order FD as example:&lt;/p&gt;
@@ -317,205 +311,13 @@
     0\\
     \end{bmatrix}
     \label{LA}
-\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;result-and-examples&quot;&gt;&lt;a href=&quot;#Result-and-Examples&quot; class=&quot;headerlink&quot; title=&quot;Result and Examples&quot;&gt;&lt;/a&gt;Result and Examples&lt;/h2&gt;&lt;p&gt;For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&amp;#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&amp;#x2026;,-1,1,&amp;#x2026;,2i-k)$ is the solution of $\eqref{LA}$.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/fd1_asym.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;2nd-order-accuracy&quot;&gt;&lt;a href=&quot;#2nd-order-accuracy-1&quot; class=&quot;headerlink&quot; title=&quot;2nd order accuracy&quot;&gt;&lt;/a&gt;2nd order accuracy&lt;/h4&gt;&lt;div class=&quot;table-container&quot;&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;point k&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;$C^0_{21}$&lt;/td&gt;
-&lt;td&gt;$C^0_{22}$&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;h4 id=&quot;4th-order-accuracy&quot;&gt;&lt;a href=&quot;#4th-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;4th order accuracy&quot;&gt;&lt;/a&gt;4th order accuracy&lt;/h4&gt;&lt;div class=&quot;table-container&quot;&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;point k&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;$ C^0_{(4)(1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(4)(2)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(4)(3)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(4)(4)}  $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;$ C^1_{(4)(-1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(4)(1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(4)(2)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(4)(3)}  $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;h4 id=&quot;6th-order-accuracy&quot;&gt;&lt;a href=&quot;#6th-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;6th order accuracy&quot;&gt;&lt;/a&gt;6th order accuracy&lt;/h4&gt;&lt;div class=&quot;table-container&quot;&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;point k&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;$C^0_{61}$&lt;/td&gt;
-&lt;td&gt;$C^0_{62}$&lt;/td&gt;
-&lt;td&gt;$C^0_{63}$&lt;/td&gt;
-&lt;td&gt;$C^0_{64}$&lt;/td&gt;
-&lt;td&gt;$C^0_{65}$&lt;/td&gt;
-&lt;td&gt;$C^0_{66}$&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;$C^1_{6(-1)}$&lt;/td&gt;
-&lt;td&gt;$C^1_{61}$&lt;/td&gt;
-&lt;td&gt;$C^2_{62}$&lt;/td&gt;
-&lt;td&gt;$C^1_{63}$&lt;/td&gt;
-&lt;td&gt;$C^1_{64}$&lt;/td&gt;
-&lt;td&gt;$C^1_{65}$&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;$C^2_{6(-2)}$&lt;/td&gt;
-&lt;td&gt;$C^2_{6(-1)}$&lt;/td&gt;
-&lt;td&gt;$C^2_{61}$&lt;/td&gt;
-&lt;td&gt;$C^2_{62}$&lt;/td&gt;
-&lt;td&gt;$C^2_{63}$&lt;/td&gt;
-&lt;td&gt;$C^2_{64}$&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;table-container&quot;&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;point k&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;$ C^0_{(6)(1)} = 6.000000 $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(6)(2)} = -15.000000 $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(6)(3)} = 20.000000 $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(6)(4)} = -15.000000 $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(6)(5)} = 6.000000 $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(6)(6)} = -1.000000 $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;$ C^1_{(6)(-1)} = 0.166667  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(6)(1)} = 2.500000 $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(6)(2)} = -3.333333 $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(6)(3)} = 2.500000 $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(6)(4)} = -1.000000 $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(6)(5)} = 0.166667 $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;$ C^2_{(6)(-2)} = -0.066667  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(6)(-1)} = 0.400000  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(6)(1)} = 1.333333 $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(6)(2)} = -1.000000 $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(6)(3)} = 0.400000 $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(6)(4)} = -0.066667 $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;h4 id=&quot;8h-order-accuracy&quot;&gt;&lt;a href=&quot;#8h-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;8h order accuracy&quot;&gt;&lt;/a&gt;8h order accuracy&lt;/h4&gt;&lt;div class=&quot;table-container&quot;&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;point k&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;$ C^0_{(8)(1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(8)(2)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(8)(3)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(8)(4)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(8)(5)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(8)(6)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(8)(7)}  $&lt;/td&gt;
-&lt;td&gt;$ C^0_{(8)(8)}  $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;$ C^1_{(8)(-1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(8)(1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(8)(2)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(8)(3)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(8)(4)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(8)(5)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(8)(6)}  $&lt;/td&gt;
-&lt;td&gt;$ C^1_{(8)(7)}  $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;$ C^2_{(8)(-2)}  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(8)(-1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(8)(1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(8)(2)}  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(8)(3)}  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(8)(4)}  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(8)(5)}  $&lt;/td&gt;
-&lt;td&gt;$ C^2_{(8)(6)}  $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;$ C^3_{(8)(-3)}  $&lt;/td&gt;
-&lt;td&gt;$ C^3_{(8)(-2)}  $&lt;/td&gt;
-&lt;td&gt;$ C^3_{(8)(-1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^3_{(8)(1)}  $&lt;/td&gt;
-&lt;td&gt;$ C^3_{(8)(2)}  $&lt;/td&gt;
-&lt;td&gt;$ C^3_{(8)(3)}  $&lt;/td&gt;
-&lt;td&gt;$ C^3_{(8)(4)}  $&lt;/td&gt;
-&lt;td&gt;$ C^3_{(8)(5)}  $&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
+\end{eqnarray}&lt;/script&gt;&lt;h2 id=&quot;result-and-examples&quot;&gt;&lt;a href=&quot;#Result-and-Examples&quot; class=&quot;headerlink&quot; title=&quot;Result and Examples&quot;&gt;&lt;/a&gt;Result and Examples&lt;/h2&gt;&lt;p&gt;For $2i$th order FD accuracy, the $k$th$(k=0,1,2,&amp;#x2026;,i-1)$ boundary points, $C^k_{(2i)(j)}$ $(j=-k,-k+1,&amp;#x2026;,-1,1,&amp;#x2026;,2i-k)$ is the solution of $\eqref{LA}$, while&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{aligned}
+        f&#39;(x) = &amp; \sum \limits_{j=-k}^{2i-k} C^k_{(2i)j} \frac{ f(x+j\delta)-f(x) }{j\delta}\\
+    \end{aligned}
+\end{equation}&lt;/script&gt;&lt;p&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/fd1_asym.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
