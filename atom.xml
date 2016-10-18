@@ -5,10 +5,374 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-18T01:22:47.822Z</updated>
+  <updated>2016-10-18T22:38:32.428Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Finite Difference of Staggered Grid (2)</title>
+    <link href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/"/>
+    <id>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/</id>
+    <published>2016-10-18T14:18:22.000Z</published>
+    <updated>2016-10-18T22:38:32.428Z</updated>
+    
+    <content type="html">&lt;p&gt;This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.&lt;/p&gt;
+&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#fx-in-2nd-order-accuracy&quot;&gt;$f&amp;#x2019;(x)$ in 2nd order accuracy&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#point-0&quot;&gt;point 0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#fx-in-2nth-order-accuracy&quot;&gt;$f&amp;#x2019;(x)$ in 2Nth order accuracy&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#point-0&quot;&gt;point 0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#point-k-k0123n-1&quot;&gt;point k $(k=0,1,2,3&amp;#x2026;,N-1)$&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#examples&quot;&gt;Examples&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
+&lt;h2 id=&quot;fx-in-2nd-order-accuracy&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;-x-in-2nd-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;(x)$ in 2nd order accuracy&quot;&gt;&lt;/a&gt;$f&amp;#x2019;(x)$ in 2nd order accuracy&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2016/10/18/finite-difference-staggerGrid2/2order.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;point-0&quot;&gt;&lt;a href=&quot;#point-0&quot; class=&quot;headerlink&quot; title=&quot;point 0&quot;&gt;&lt;/a&gt;point 0&lt;/h4&gt;&lt;p&gt;To calculate the first order derivates in the $\color{blue}{blue}$ grid points, values in $\color{red}{red}$ points are expanded.&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f(x+\frac{\delta}{2}) &amp; = &amp; f(x) + \frac{\delta}{2} f&#39;(x)
+                    + \frac{\delta^2}{2^2 2!}f&#39;&#39;(x)
+                    + O(\delta^3) \\
+                    %+\frac{\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1}) \\
+    f(x+\frac{3\delta}{2}) &amp; = &amp; f(x) + \frac{3\delta}{2} f&#39;(x)
+                    + \frac{3^2\delta^2}{2^2 2!}f&#39;&#39;(x)
+                    + O(\delta^3) \\
+                    %+ ...
+                    %+ \frac{3^N\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1}) \\
+    f(x+\frac{5\delta}{2}) &amp; = &amp; f(x) + \frac{5\delta}{2} f&#39;(x)
+                    + \frac{5^2\delta^2}{2^2 2!}f&#39;&#39;(x)
+                    + O(\delta^3) \\
+                    %+ ...
+                    %+ \frac{5^N\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1})
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;thus, $f&amp;#x2019;(x)$ are:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f&#39;(x) &amp; = &amp;  \frac{2 f(x+\frac{\delta}{2}) }{\delta}
+                -\frac{2 f(x)}{\delta}
+                    - \frac{\delta}{2 2!}f&#39;&#39;(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %-\frac{\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N}) \\
+    f&#39;(x) &amp; = &amp;  \frac{2 f(x+\frac{3\delta}{2}) }{3\delta}
+                -\frac{2 f(x)  }{3\delta}
+                    - \frac{3\delta }{2 2!}f&#39;&#39;(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %- \frac{3^{N-1}\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N}) \\
+    f&#39;(x) &amp; = &amp;  \frac{2 f(x+\frac{5\delta}{2}) }{5\delta}
+                -\frac{2 f(x)  }{5\delta}
+                    - \frac{5\delta }{2 2!}f&#39;&#39;(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %- \frac{5^{N-1}\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N})
+
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;add these $f&amp;#x2019;(x)$ proportionally:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+\begin{aligned}
+f&#39;(x) = &amp; \frac{2}{\delta}
+            \left[
+                C^2_{00}            f(x + \frac{\delta}{2}) +
+                C^2_{01}\frac{1}{3} f(x + \frac{3\delta}{2} )+
+                C^2_{02}\frac{1}{5} f(x + \frac{5\delta}{2} )
+            \right]\\
+        &amp; -\frac{2}{\delta}
+            \left[
+                           C^2_{00}+
+                \frac{1}{3}C^2_{01}+
+                \frac{1}{5}C^2_{02}
+            \right] f(x)
+          - \frac{\delta}{2 2!}
+            \left[
+                C^2_{00}+
+                3C^2_{01}+
+                5C^2_{02}
+            \right]f&#39;&#39;(x) + O(\delta^3)
+
+\end{aligned}
+\end{equation}&lt;/script&gt;&lt;p&gt;In order to have second order accuracy, $C^2_{0j}$ must satisfy the equation of:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+    \begin{cases}
+        C^2_{00} +  C^2_{01} + C^2_{02} = 1\\
+        C^2_{00} + \frac{1}{3}C^2_{01} + \frac{1}{5}C^2_{02}  = 0\\
+        C^2_{00} + 3C^2_{01} + 5C^2_{02}  = 0\\
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        C^2_{00} =  -1           \\
+        C^2_{01} =   \frac{9}{2} \\
+        C^2_{02} =  -\frac{5}{2}
+    \end{cases}
+\end{equation}&lt;/script&gt;&lt;h2 id=&quot;fx-in-2nth-order-accuracy&quot;&gt;&lt;a href=&quot;#f&amp;#x2019;-x-in-2Nth-order-accuracy&quot; class=&quot;headerlink&quot; title=&quot;$f&amp;#x2019;(x)$ in 2Nth order accuracy&quot;&gt;&lt;/a&gt;$f&amp;#x2019;(x)$ in 2Nth order accuracy&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2016/10/18/finite-difference-staggerGrid2/2Norder.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;point-0&quot;&gt;&lt;a href=&quot;#point-0-1&quot; class=&quot;headerlink&quot; title=&quot;point 0&quot;&gt;&lt;/a&gt;point 0&lt;/h4&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f(x+\frac{\delta}{2}) &amp; = &amp; f(x) + \frac{\delta}{2} f&#39;(x)
+                    + \frac{\delta^2}{2^2 2!}f&#39;&#39;(x)
+                    + ...
+                    +\frac{\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N+1}) \\
+    f(x+\frac{3\delta}{2}) &amp; = &amp; f(x) + \frac{3\delta}{2} f&#39;(x)
+                    + \frac{3^2\delta^2}{2^2 2!}f&#39;&#39;(x)
+                    + ...
+                    + \frac{3^{2N}\delta^{2N}}{2^{2N} {2N}!}f^{(2N)}(x)
+                    + O(\delta^{2N+1})\\
+        &amp;...&amp;\\
+    f(x+\frac{l\delta}{2}) &amp; = &amp; f(x) + \frac{l\delta}{2}f&#39;(x)
+                    + \frac{l^2\delta^2}{2^2 2!}f&#39;&#39;(x)
+                    + ...
+                    + \frac{l^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N+1})
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;thus, $f&amp;#x2019;(x)$ are:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f&#39;(x) &amp; = &amp;  \frac{2 f(x+\frac{\delta}{2}) }{\delta}
+                -\frac{2 f(x)}{\delta}
+                - \frac{\delta}{2 2!}f&#39;&#39;(x)
+                - ...
+                -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                + O(\delta^{2N}) \\
+    f&#39;(x) &amp; = &amp;  \frac{2 f(x+\frac{3\delta}{2}) }{3\delta}
+                -\frac{2 f(x)  }{3\delta}
+                    - \frac{3\delta }{2 2!}f&#39;&#39;(x)
+                    - ...
+                    - \frac{3^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    &amp;...&amp;\\
+    f&#39;(x) &amp; = &amp; \frac{2 f(x+\frac{l\delta}{2}) }{l\delta}
+               -\frac{2 f(x) }{l\delta}
+                    - \frac{l\delta}{2 2!}f&#39;&#39;(x)
+                    - ...
+                    - \frac{l^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    \color{red}{(l=1,3,5,7,9...)}
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;add these $f&amp;#x2019;(x)$ proportionally:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+\begin{aligned}
+f&#39;(x) = &amp; \frac{2}{\delta}
+            \sum \limits_l
+            \left[
+                 f(x + \frac{l\delta}{2}) C^{2N}_{0(\frac{l-1}{2})}\frac{1}{l}
+            \right]\\
+        &amp;-\frac{2}{\delta}f(x)
+            \sum \limits_l
+            \left[
+                 C^{2i}_{0(\frac{l-1}{2})} \frac{1}{l}
+            \right]
+         -\frac{\delta}{2 2!} f&#39;&#39;(x)
+            \sum \limits_l
+            \left[
+                C^{2i}_{0(\frac{l-1}{2})} l
+            \right]\\
+        &amp; -...
+        -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!} f^{2N}(x)
+            \sum \limits_l
+            \left[
+                C^{2N}_{0(\frac{l-1}{2})} l^{2N-1}
+            \right]
+        +O(\delta^{2N})\\
+        (l=1,3,5,7,9...)
+\end{aligned}
+\end{equation}&lt;/script&gt;&lt;p&gt;To have 2Nth order accuracy, , $C^{2N}_{0j}$ must satisfy the equation:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    \begin{bmatrix}
+        1 &amp; 1            &amp; 1          &amp; ... &amp; 1           \\
+        1 &amp; \frac{1}{3}  &amp; \frac{1}{5}&amp; ... &amp; \frac{1}{4N+1} \\
+        1 &amp; 3            &amp; 5          &amp; ... &amp;  4N+1          \\
+        1 &amp; 3^2          &amp; 5^2        &amp; ... &amp;  (4N+1)^2        \\
+        ...\\
+        1 &amp; 3^{2N-1}      &amp; 5^{2N-1}    &amp; ... &amp;  (4N+1)^{2N-1}    \\
+    \end{bmatrix}
+    \begin{bmatrix}
+    C^{2N}_{00}      \\
+    C^{2N}_{01}      \\
+    C^{2N}_{02}      \\
+    C^{2N}_{03}      \\
+    ...\\
+    C^{2N}_{0(2N)} \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    1\\
+    0\\
+    0\\
+    0\\
+    ...\\
+    0\\
+    \end{bmatrix}
+\end{eqnarray}&lt;/script&gt;&lt;h4 id=&quot;point-k-k0123n-1&quot;&gt;&lt;a href=&quot;#point-k-k-0-1-2-3&amp;#x2026;-N-1&quot; class=&quot;headerlink&quot; title=&quot;point k $(k=0,1,2,3&amp;#x2026;,N-1)$&quot;&gt;&lt;/a&gt;point k $(k=0,1,2,3&amp;#x2026;,N-1)$&lt;/h4&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f(x+\frac{(1-2k)\delta}{2}) &amp; = &amp; f(x)
+            +\frac{(1-2k)\delta}{2} f&#39;(x)
+            + \frac{(1-2k)^2\delta^2}{2^22!}f&#39;&#39;(x)
+            +...
+            + \frac{(1-2k)^{2N}\delta^{2N}}{2^{2N}(2N)!}f^{(2N)}(x)
+            + O(2N+1)
+    \\
+    ...
+    \\
+    f(x-\frac{\delta}{2}) &amp; = &amp; f(x) - \frac{\delta}{2}f&#39;(x)
+            + \frac{\delta^2}{2^22!}f&#39;&#39;(x)
+            + ...
+            + \frac{(-1)^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})
+                                    \\
+    f(x+\frac{\delta}{2}) &amp; = &amp; f(x) + \frac{\delta}{2} f&#39;(x)
+            + \frac{\delta^2}{2^2 2!}f&#39;&#39;(x)
+            + ...
+            +\frac{\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1}) \\
+    f(x+\frac{3\delta}{2}) &amp; = &amp; f(x) + \frac{3\delta}{2} f&#39;(x)
+            + \frac{3^2\delta^2}{2^2 2!}f&#39;&#39;(x)
+            + ...
+            + \frac{3^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})\\
+        &amp;...&amp;\\
+    f(x+\frac{l\delta}{2}) &amp; = &amp; f(x) + \frac{l\delta}{2}f&#39;(x)
+            + \frac{l^2\delta^2}{2^2 2!}f&#39;&#39;(x)
+            + ...
+            + \frac{l^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;thus, $f&amp;#x2019;(x)$ are:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{eqnarray}
+    f&#39;(x) &amp; = &amp; \frac{2}{(1-2k)\delta} f(x+\frac{(1-2k)\delta}{2})
+            - \frac{2}{(1-2k)\delta} f(x)
+            - \frac{(1-2k)\delta}{2 2!}f&#39;&#39;(x)
+            - ...
+            -\frac{(1-2k)^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    \\
+    ...
+    \\
+    f&#39;(x) &amp; = &amp; \frac{-2}{\delta} f(x-\frac{\delta}{2})
+                 +\frac{2}{\delta} f(x)
+                 + \frac{\delta^2}{22!}f&#39;&#39;(x)
+                 + ...
+                 + \frac{(-1)^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                                    + O(\delta^{2N})
+                                    \\
+    f&#39;(x) &amp; = &amp; \frac{2}{\delta} f(x+\frac{\delta}{2})
+                    - \frac{2}{\delta} f(x)
+                    - \frac{\delta}{2 2!}f&#39;&#39;(x)
+                    - ...
+                    -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    f&#39;(x) &amp; = &amp; \frac{2}{3\delta} f(x+\frac{3\delta}{2})
+                    -\frac{2}{3\delta}f(x)
+                    - \frac{3\delta}{2 2!}f&#39;&#39;(x)
+                    - ...
+                    - \frac{3^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N})\\
+        &amp;...&amp;\\
+    f&#39;(x) &amp; = &amp; \frac{2}{l\delta} f(x+\frac{l\delta}{2})
+                    -\frac{2}{l\delta} f(x)
+                    - \frac{l\delta}{2 2!}f&#39;&#39;(x)
+                    - ...
+                    - \frac{l^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N})
+\end{eqnarray}&lt;/script&gt;&lt;p&gt;add these $f&amp;#x2019;(x)$ proportionally:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+\begin{aligned}
+    f&#39;(x) =  &amp;
+\frac{2}{\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{ l\delta}{2} )C^{2N}_{k(\frac{l-1}{2})} \frac{1}{l}
+    \right]
+\\
+&amp;-\frac{2}{\delta}f(x) \sum \limits_l \frac{1}{l}    C^{2N}_{k(\frac{l-1}{2})}
+-\frac{\delta}{22!}f&#39;&#39;(x)         \sum \limits_l{l}  C^{2N}_{k(\frac{l-1}{2})}
+-\frac{\delta^2}{2^23!}f^{(3)}(x) \sum \limits_l{l^2}C^{2N}_{k(\frac{l-1}{2})}
+\\
+&amp;-\frac{\delta^3}{2^34!}f^{(4)}(x) \sum \limits_l{l^3}C^{2N}_{k(\frac{l-1}{2})}
+-...
+-\frac{\delta^{2N-1}}{2^{2N-1}(2N)!}f^{(2N)}(x) \sum \limits_l{l^{2N-1}}C^{2N}_{k(\frac{l-1}{2})}
++O({\delta^{2N}})
+\\
+&amp;(l = 1-2k, 3-2k,...,-1,1,...)
+\end{aligned}
+\end{equation}&lt;/script&gt;&lt;p&gt;to have 2Nth order accuracy: $C^{2N}_{kj}$ must satisfy equation:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+\begin{bmatrix}
+    1 &amp; 1              &amp; 1                           &amp; ... &amp; 1 \\
+    \frac{1}{1-2k} &amp; \frac{1}{3-2k} &amp; \frac{1}{5-2k} &amp; ... &amp; \frac{1}{4N-2k+1} \\
+    1-2k           &amp; 3-2k           &amp; 5-2k           &amp; ... &amp; 4N-2k+1 \\
+    (1-2k)^2       &amp; (3-2k)^2       &amp; (5-2k)^2       &amp; ... &amp; (4N-2k+1)^2 \\
+    ...\\
+    (1-2k)^{2N-1}  &amp; (3-2k)^{2N-1}  &amp; (5-2k)^{2N-1}  &amp; ... &amp; (4N-2k+1)^{2N-1}
+\end{bmatrix}
+\begin{bmatrix}
+    C^{2N}_{k (-k)   } \\
+    C^{2N}_{k (-k+1) } \\
+    C^{2N}_{k (-k+2) } \\
+    C^{2N}_{k (-k+3) } \\
+    ...\\
+    C^{2N}_{k (2N-k)}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1\\
+    0\\
+    0\\
+    0\\
+    ...\\
+    0\\
+    \end{bmatrix}
+    \label{LA}
+\end{equation}&lt;/script&gt;&lt;h2 id=&quot;conclusion&quot;&gt;&lt;a href=&quot;#Conclusion&quot; class=&quot;headerlink&quot; title=&quot;Conclusion&quot;&gt;&lt;/a&gt;Conclusion&lt;/h2&gt;&lt;p&gt;For 2Nth order accuracy, for point k in the boundary region, value of $f&amp;#x2019;(x)$ is:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+f&#39;(x) = 
+\frac{2}{l\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{l\delta}{2} )C^{2N}_{k(\frac{l-1}{2})}
+    \right]
+    \\
+    (l=1-2k,3-2k,...,-1,1,...,4N-2k+1)
+\end{equation}&lt;/script&gt;&lt;p&gt;while $C^{2N}_{kj}$ is solution of equation $\eqref{LA}$.&lt;/p&gt;
+&lt;p&gt;Or, in the form of:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{equation}
+\begin{cases}
+f&#39;(x) = 
+\frac{1}{\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{l\delta}{2} )c^{2N}_{k(\frac{l-1}{2})}
+    \right]
+    \\
+    c^{2N}_{k(\frac{l-1}{2})}  = \frac{2}{l}C^{2N}_{k(\frac{l-1}{2})}
+    \\
+    (l=1-2k,3-2k,...,-1,1,...,4N-2k+1)
+\end{cases}
+\end{equation}&lt;/script&gt;&lt;h2 id=&quot;examples&quot;&gt;&lt;a href=&quot;#Examples&quot; class=&quot;headerlink&quot; title=&quot;Examples&quot;&gt;&lt;/a&gt;Examples&lt;/h2&gt;&lt;p&gt;FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x)=sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&amp;#x2019;(x)=cos(x)$, as well as their error.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2016/10/18/finite-difference-staggerGrid2/compare.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boun
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Finite Difference of Staggered Grid (1)</title>
@@ -2497,50 +2861,6 @@ d(x) = log(\frac{1}{R}) \frac{3v}{2\delta}(\frac{x}{\delta})^2&lt;/script&gt;&lt
     
     
       <category term="Hexo" scheme="http://sheng09.github.io/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo博客添加Swiftype站内搜索</title>
-    <link href="http://sheng09.github.io/2016/06/14/add-swiftype-search/"/>
-    <id>http://sheng09.github.io/2016/06/14/add-swiftype-search/</id>
-    <published>2016-06-14T04:35:23.000Z</published>
-    <updated>2016-06-14T14:06:11.377Z</updated>
-    
-    <content type="html">&lt;p&gt;Landscape&amp;#x4E3B;&amp;#x9898;&amp;#x9ED8;&amp;#x8BA4;&amp;#x641C;&amp;#x7D22;&amp;#x4F4D;&amp;#x4E8E;&amp;#x53F3;&amp;#x4E0A;&amp;#x89D2;&amp;#xFF0C;&amp;#x4E14;&amp;#x4F7F;&amp;#x7528;Google&amp;#x3002;&amp;#x7F16;&amp;#x8F91;&amp;#x4E3B;&amp;#x9898;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5229;&amp;#x7528;&lt;a href=&quot;https://swiftype.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Swiftype&lt;/a&gt;&amp;#x642D;&amp;#x5EFA;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;&amp;#x7AD9;&amp;#x5185;&amp;#x641C;&amp;#x7D22;&amp;#xFF0C;&amp;#x5E76;&amp;#x5C06;&amp;#x641C;&amp;#x7D22;&amp;#x6309;&amp;#x94AE;&amp;#x7F6E;&amp;#x4E8E;&amp;#x83DC;&amp;#x5355;&amp;#x4E4B;&amp;#x4E2D;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/06/14/add-swiftype-search/search.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;!-- toc --&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x521B;&amp;#x5EFA;swiftype&amp;#x8D26;&amp;#x53F7;&quot;&gt;&amp;#x521B;&amp;#x5EFA;Swiftype&amp;#x8D26;&amp;#x53F7;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x914D;&amp;#x7F6E;&amp;#x4E0E;&amp;#x83B7;&amp;#x53D6;install-code&quot;&gt;&amp;#x914D;&amp;#x7F6E;&amp;#x4E0E;&amp;#x83B7;&amp;#x53D6;Install Code&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#hexo-landscape&amp;#x4E3B;&amp;#x9898;&amp;#x914D;&amp;#x7F6E;&quot;&gt;Hexo-Landscape&amp;#x4E3B;&amp;#x9898;&amp;#x914D;&amp;#x7F6E;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x5B8C;&amp;#x6210;&quot;&gt;&amp;#x5B8C;&amp;#x6210;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#&amp;#x53C2;&amp;#x8003;&quot;&gt;&amp;#x53C2;&amp;#x8003;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- tocstop --&gt;
-&lt;h2 id=&quot;&amp;#x521B;&amp;#x5EFA;swiftype&amp;#x8D26;&amp;#x53F7;&quot;&gt;&lt;a href=&quot;#&amp;#x521B;&amp;#x5EFA;Swiftype&amp;#x8D26;&amp;#x53F7;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x521B;&amp;#x5EFA;Swiftype&amp;#x8D26;&amp;#x53F7;&quot;&gt;&lt;/a&gt;&amp;#x521B;&amp;#x5EFA;Swiftype&amp;#x8D26;&amp;#x53F7;&lt;/h2&gt;&lt;p&gt;&amp;#x6CE8;&amp;#x518C;&lt;a href=&quot;https://swiftype.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Swiftype&lt;/a&gt;&amp;#x8D26;&amp;#x53F7;&amp;#xFF0C;&amp;#x767B;&amp;#x9646;&amp;#xFF0C;&amp;#x70B9;&amp;#x51FB;&lt;code&gt;Creat A New Engine&lt;/code&gt;&lt;br&gt;&lt;img src=&quot;/2016/06/14/add-swiftype-search/creat_engine.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&amp;#x8F93;&amp;#x5165;&amp;#x7F51;&amp;#x5740;&lt;br&gt;&lt;img src=&quot;/2016/06/14/add-swiftype-search/type_url.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&amp;#x8D77;&amp;#x4E2A;&amp;#x540D;&amp;#x5B57;&lt;br&gt;&lt;img src=&quot;/2016/06/14/add-swiftype-search/engine_name.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&amp;#x968F;&amp;#x540E;&amp;#xFF0C;&amp;#x5F00;&amp;#x59CB;&amp;#x6293;&amp;#x53D6;&amp;#x7F51;&amp;#x7AD9;&amp;#x5185;&amp;#x5BB9;&amp;#x3002;&amp;#x6293;&amp;#x53D6;&amp;#x7ED3;&amp;#x675F;&amp;#x4E4B;&amp;#x540E;&amp;#x5728;&lt;code&gt;Manage/Content&lt;/code&gt;&amp;#x4E2D;&amp;#x67E5;&amp;#x770B;&amp;#x6293;&amp;#x53D6;&amp;#x4E86;&amp;#x90A3;&amp;#x4E9B;&amp;#x5185;&amp;#x5BB9;&amp;#x3002;&amp;#x4E0D;&amp;#x60F3;&amp;#x8981;&amp;#x7684;&amp;#x6570;&amp;#x636E;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x624B;&amp;#x52A8;&amp;#x5728;&lt;code&gt;Detials&lt;/code&gt;&amp;#x91CC;&amp;#x5220;&amp;#x9664;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/06/14/add-swiftype-search/manage.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/2016/06/14/add-swiftype-search/content.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x914D;&amp;#x7F6E;&amp;#x4E0E;&amp;#x83B7;&amp;#x53D6;install-code&quot;&gt;&lt;a href=&quot;#&amp;#x914D;&amp;#x7F6E;&amp;#x4E0E;&amp;#x83B7;&amp;#x53D6;Install-Code&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x914D;&amp;#x7F6E;&amp;#x4E0E;&amp;#x83B7;&amp;#x53D6;Install Code&quot;&gt;&lt;/a&gt;&amp;#x914D;&amp;#x7F6E;&amp;#x4E0E;&amp;#x83B7;&amp;#x53D6;Install Code&lt;/h2&gt;&lt;p&gt;&amp;#x70B9;&amp;#x51FB;&amp;#x5B89;&amp;#x88C5;&amp;#xFF0C;&amp;#x914D;&amp;#x7F6E;&amp;#x5916;&amp;#x89C2;&amp;#xFF0C;&amp;#x83B7;&amp;#x5F97;&lt;code&gt;Install Code&lt;/code&gt;&amp;#xFF0C;&amp;#x590D;&amp;#x5236;&amp;#x4FDD;&amp;#x5B58;&amp;#x4EE5;&amp;#x5907;&amp;#x540E;&amp;#x9762;&amp;#x4F7F;&amp;#x7528;&amp;#x3002;&amp;#x5916;&amp;#x89C2;&amp;#x9009;&amp;#x7528;&amp;#x9ED8;&amp;#x8BA4;&amp;#x5373;&amp;#x53EF;&amp;#xFF0C;&amp;#x4E5F;&amp;#x53EF;&amp;#x4EE5;&amp;#x70B9;&amp;#x51FB;&lt;code&gt;Change Configuration&lt;/code&gt;&amp;#x4FEE;&amp;#x6539;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/06/14/add-swiftype-search/install.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;hexo-landscape&amp;#x4E3B;&amp;#x9898;&amp;#x914D;&amp;#x7F6E;&quot;&gt;&lt;a href=&quot;#Hexo-Landscape&amp;#x4E3B;&amp;#x9898;&amp;#x914D;&amp;#x7F6E;&quot; class=&quot;headerlink&quot; title=&quot;Hexo-Landscape&amp;#x4E3B;&amp;#x9898;&amp;#x914D;&amp;#x7F6E;&quot;&gt;&lt;/a&gt;Hexo-Landscape&amp;#x4E3B;&amp;#x9898;&amp;#x914D;&amp;#x7F6E;&lt;/h2&gt;&lt;p&gt;&amp;#x5728;&lt;code&gt;landscape&lt;/code&gt;&amp;#x4E3B;&amp;#x9898;&amp;#x4E0B;&amp;#x7684;&lt;code&gt;_config.yml&lt;/code&gt;&amp;#x6587;&amp;#x4EF6;&amp;#x672B;&amp;#x5C3E;&amp;#x6DFB;&amp;#x52A0;&amp;#x5982;&amp;#x4E0B;&amp;#x4EE3;&amp;#x7801;&amp;#xFF1A;&lt;br&gt;&lt;figure class=&quot;highlight yml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;swift_search:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  enable:&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x5728;&lt;code&gt;landscape&lt;/code&gt;&amp;#x4E3B;&amp;#x9898;&amp;#x4E0B;&amp;#x7684;&lt;code&gt;_config.yml&lt;/code&gt;&amp;#x4E2D;&amp;#x7684;&lt;code&gt;menu&lt;/code&gt;&amp;#x90E8;&amp;#x5206;&amp;#x6DFB;&amp;#x52A0;&lt;code&gt;Search&lt;/code&gt;&amp;#xFF1A;&lt;br&gt;&lt;figure class=&quot;highlight yml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# Header&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;menu:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  Home:&lt;/span&gt; /&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  Archives:&lt;/span&gt; /archives&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  Search:&lt;/span&gt; /search&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x6253;&amp;#x5F00;&lt;code&gt;landscape/layout/_partial/header.ejs&lt;/code&gt;&amp;#xFF0C;&amp;#x5C06;&amp;#x4EE5;&amp;#x4E0B;&amp;#x5185;&amp;#x5BB9;&lt;br&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;header-inner&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;inner&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;nav&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;main-nav&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;main-nav-toggle&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-icon&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;attr&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;theme.menu&lt;/span&gt;){ %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;main-nav-link&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;href&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%- url_for(theme.menu[i]) %&amp;gt;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;i&lt;/span&gt; %&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;nav&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;nav&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;sub-nav&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;attr&quot;&gt;theme.rss&lt;/span&gt;){ %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-rss-link&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-icon&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;href&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%- theme.rss %&amp;gt;&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;title&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%= __(&amp;apos;rss_feed&amp;apos;) %&amp;gt;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-search-btn&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-icon&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;title&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%= __(&amp;apos;search&amp;apos;) %&amp;gt;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;nav&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;search-form-wrap&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%-&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;search_form&lt;/span&gt;({&lt;span class=&quot;attr&quot;&gt;button:&lt;/span&gt; &amp;apos;&amp;amp;#&lt;span class=&quot;attr&quot;&gt;xF002&lt;/span&gt;;&amp;apos;}) %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x4FEE;&amp;#x6539;&amp;#x4E3A;&amp;#xFF1A;&lt;br&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;header-inner&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;inner&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;nav&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;main-nav&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;main-nav-toggle&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-icon&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;attr&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;theme.menu&lt;/span&gt;){ %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;attr&quot;&gt;i&lt;/span&gt; != &lt;span class=&quot;string&quot;&gt;&amp;quot;Search&amp;quot;&lt;/span&gt;){ %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;main-nav-link&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;href&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%- url_for(theme.menu[i]) %&amp;gt;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;i&lt;/span&gt; %&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } &lt;span class=&quot;attr&quot;&gt;else&lt;/span&gt; {%&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;main-nav-link st-search-show-outputs&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;href&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%- url_for(theme.menu[i]) %&amp;gt;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;i&lt;/span&gt; %&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;nav&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;nav&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;sub-nav&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;attr&quot;&gt;theme.rss&lt;/span&gt;){ %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-rss-link&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-icon&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;href&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%- theme.rss %&amp;gt;&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;title&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%= __(&amp;apos;rss_feed&amp;apos;) %&amp;gt;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;attr&quot;&gt;theme.search_icon&lt;/span&gt;){ %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-search-btn&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;nav-icon st-search-show-outputs&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;title&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;&amp;lt;%= &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    __(&amp;apos;search&amp;apos;) %&amp;gt;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;nav&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x5728;&lt;code&gt;landscape/layout/_partial/&lt;/code&gt;&amp;#x76EE;&amp;#x5F55;&amp;#x4E0B;&amp;#x521B;&amp;#x5EFA;&amp;#x6587;&amp;#x4EF6;&lt;code&gt;search.ejs&lt;/code&gt;&amp;#xFF0C;&amp;#x5199;&amp;#x5165;&amp;#x4EE5;&amp;#x4E0B;&amp;#x5185;&amp;#x5BB9;&amp;#x3002;&amp;#x6CE8;&amp;#x610F;&amp;#xFF0C;&amp;#x5176;&amp;#x4E2D;&amp;#x7684;&lt;code&gt;Install code&lt;/code&gt;&amp;#x811A;&amp;#x672C;&amp;#x4EE3;&amp;#x7801;&amp;#x4E3A;&amp;#x81EA;swiftype&amp;#x83B7;&amp;#x53D6;&amp;#x7684;&amp;#x90A3;&amp;#x6BB5;&amp;#x3002;&lt;br&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;if&lt;/span&gt;(&lt;span class=&quot;attr&quot;&gt;theme.swift_search.enable&lt;/span&gt;) { %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;  &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;container&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;page&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;st-results-container&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;st-search-container&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;style&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;width:80%&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt; Searching... Please Wait&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;style&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;.st-result-text {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;background: #fafafa;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;display: block;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;border-left: 0.5em solid #ccc;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-webkit-transition: border-left 0.45s;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-moz-transition: border-left 0.45s;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-o-transition: border-left 0.45s;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-ms-transition: border-left 0.45s;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transition: border-left 0.45s;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;padding: 0.5em;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@media only screen and (min-width: 768px) {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;.st-result-text {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  padding: 1em;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;.st-result-text:hover {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;border-left: 0.5em solid #ea6753;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;.st-result-text h3 a{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;color: #2ca6cb;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;line-height: 1.5;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;font-size: 22px;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;.st-snippet em {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;font-weight: bold;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;color: #ea6753;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;style&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;&amp;#xFF01;--&amp;#x4E0B;&amp;#x9762;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x8981;&amp;#x6362;&amp;#x6210;swiftype&amp;#x7684;install&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;code--&lt;/span&gt;&amp;#xFF01;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  (&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;w,d,t,u,n,s,e&lt;/span&gt;)&lt;/span&gt;{w[&lt;span class=&quot;string&quot;&gt;&amp;apos;SwiftypeObject&amp;apos;&lt;/span&gt;]=n;w[n]=w[n]||&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  (w[n].q=w[n].q||[]).push(&lt;span class=&quot;built_in&quot;&gt;arguments&lt;/span&gt;);};s=d.createElement(t);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  e=d.getElementsByTagName(t)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;];s.async=&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;s.src=u;e.parentNode.insertBefore(s,e);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  })(&lt;span class=&quot;built_in&quot;&gt;window&lt;/span&gt;,&lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;script&amp;apos;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;//s.swiftypecdn.com/install/v2/st.js&amp;apos;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;_st&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  _st(&lt;span class=&quot;string&quot;&gt;&amp;apos;install&amp;apos;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;4LRsoUZsCDnx-aTgg_f5&amp;apos;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;2.0.0&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&amp;#x6253;&amp;#x5F00;&lt;code&gt;landscape/layout/_partial/footer.ejs&lt;/code&gt;&amp;#xFF0C;&amp;#x5728;&amp;#x6700;&amp;#x540E;&amp;#x4E00;&amp;#x4E2A;&lt;code&gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&amp;#x524D;&amp;#xFF0C;&amp;#x52A0;&amp;#x5165;&amp;#x540C;&amp;#x6837;&amp;#x7684;&lt;code&gt;Install Code&lt;/code&gt;&amp;#x3002;&lt;br&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;footer&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;footer&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;attr&quot;&gt;theme.sidebar&lt;/span&gt; === &lt;span class=&quot;string&quot;&gt;&amp;apos;bottom&amp;apos;&lt;/span&gt;){ %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%-&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;partial&lt;/span&gt;(&amp;apos;&lt;span class=&quot;attr&quot;&gt;_partial&lt;/span&gt;/&lt;span class=&quot;attr&quot;&gt;sidebar&lt;/span&gt;&amp;apos;) %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%&lt;/span&gt; } %&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;outer&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;footer-info&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;inner&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;amp;copy; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;date&lt;/span&gt;(&lt;span class=&quot;attr&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;Date&lt;/span&gt;(), &amp;apos;&lt;span class=&quot;attr&quot;&gt;YYYY&lt;/span&gt;&amp;apos;) %&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;config.author&lt;/span&gt; || &lt;span class=&quot;attr&quot;&gt;config.title&lt;/span&gt; %&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;br&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;__&lt;/span&gt;(&amp;apos;&lt;span class=&quot;attr&quot;&gt;powered_by&lt;/span&gt;&amp;apos;) %&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;href&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;http://hexo.io/&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;target&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;_blank&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;Hexo&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      (&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;w,d,t,u,n,s,e&lt;/span&gt;)&lt;/span&gt;{w[&lt;span class=&quot;string&quot;&gt;&amp;apos;SwiftypeObject&amp;apos;&lt;/span&gt;]=n;w[n]=w[n]||&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      (w[n].q=w[n].q||[]).push(&lt;span class=&quot;built_in&quot;&gt;arguments&lt;/span&gt;);};s=d.createElement(t);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      e=d.getElementsByTagName(t)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;];s.async=&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;s.src=u;e.parentNode.insertBefore(s,e);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      })(&lt;span class=&quot;built_in&quot;&gt;window&lt;/span&gt;,&lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;script&amp;apos;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;//s.swiftypecdn.com/install/v2/st.js&amp;apos;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;_st&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      _st(&lt;span class=&quot;string&quot;&gt;&amp;apos;install&amp;apos;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;4LRsoUZsCDnx-aTgg_f5&amp;apos;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&amp;apos;2.0.0&amp;apos;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;footer&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x5B8C;&amp;#x6210;&quot;&gt;&lt;a href=&quot;#&amp;#x5B8C;&amp;#x6210;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5B8C;&amp;#x6210;&quot;&gt;&lt;/a&gt;&amp;#x5B8C;&amp;#x6210;&lt;/h2&gt;&lt;p&gt;&amp;#x6240;&amp;#x6709;&amp;#x64CD;&amp;#x4F5C;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5B8C;&amp;#x6210;&amp;#xFF0C;&lt;code&gt;hexo g&lt;/code&gt;&amp;#x5E76;&lt;code&gt;hexo s&lt;/code&gt;&amp;#x67E5;&amp;#x770B;&amp;#x7ED3;&amp;#x679C;&amp;#xFF0C;&amp;#x6700;&amp;#x540E;&lt;code&gt;hexo d&lt;/code&gt;&amp;#x90E8;&amp;#x7F72;&amp;#x4E00;&amp;#x4E0B;&amp;#x5427;&amp;#x3002;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x53C2;&amp;#x8003;&quot;&gt;&lt;a href=&quot;#&amp;#x53C2;&amp;#x8003;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x53C2;&amp;#x8003;&quot;&gt;&lt;/a&gt;&amp;#x53C2;&amp;#x8003;&lt;/h2&gt;&lt;p&gt;&amp;#x5229;&amp;#x7528;swiftype&amp;#x4E3A;hexo&amp;#x6DFB;&amp;#x52A0;&amp;#x7AD9;&amp;#x5185;&amp;#x641C;&amp;#x7D22;v2.0&lt;br&gt;&lt;a href=&quot;http://www.jerryfu.net/post/search-engine-for-hexo-with-swiftype-v2.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jerryfu.net/post/search-engine-for-hexo-with-swiftype-v2.html&lt;/a&gt;&lt;br&gt;&amp;#x70B9;&amp;#x51FB;&amp;#x5F39;&amp;#x51FA;&amp;#x641C;&amp;#x7D22;&amp;#x6846;&amp;#x7684;&amp;#x4E8B;&amp;#x4EF6;&amp;#x914D;&amp;#x7F6E;&lt;br&gt;&lt;a href=&quot;http://blog.cloudyu.me/2015/blog-search/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.cloudyu.me/2015/blog-search/&lt;/a&gt;&lt;br&gt;&amp;#x53BB;&amp;#x6389;&amp;#x53F3;&amp;#x4E0B;&amp;#x89D2;&amp;#x4E11;&amp;#x4E11;&amp;#x7684;Swiftype&amp;#x7AD9;&amp;#x5185;&amp;#x641C;&amp;#x7D22;&amp;#x6309;&amp;#x94AE;&lt;br&gt;&lt;a href=&quot;http://www.pangjian.info/2015/03/24/site-search-with-swiftype/#stq=&amp;amp;stp=0&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.pangjian.info/2015/03/24/site-search-with-swiftype/#stq=&amp;amp;stp=0&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Landscape&amp;#x4E3B;&amp;#x9898;&amp;#x9ED8;&amp;#x8BA4;&amp;#x641C;&amp;#x7D22;&amp;#x4F4D;&amp;#x4E8E;&amp;#x53F3;&amp;#x4E0A;&amp;#x89D2;&amp;#xFF0C;&amp;#x4E14;&amp;#x4F7F;&amp;#x7528;Google&amp;#x3002;&amp;#x7F16;&amp;#x8F91;&amp;#x4E3B;&amp;#x9898;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5229;&amp;#x7528;&lt;a href=&quot;https://swiftype.com&quot;&gt;Swiftype&lt;/a&gt;&amp;#x642D;&amp;#x5EFA;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;&amp;#x7AD9;&amp;#x5185;&amp;#x641C;&amp;#x7D22;&amp;#xFF0C;&amp;#x5E76;&amp;#x5C06;&amp;#x641C;&amp;#x7D22;&amp;#x6309;&amp;#x94AE;&amp;#x7F6E;&amp;#x4E8E;&amp;#x83DC;&amp;#x5355;&amp;#x4E4B;&amp;#x4E2D;&amp;#x3002;&lt;br&gt;&lt;img src=&quot;/2016/06/14/add-swiftype-search/search.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Hexo" scheme="http://sheng09.github.io/categories/Hexo/"/>
-    
-    
-      <category term="Hexo" scheme="http://sheng09.github.io/tags/Hexo/"/>
-    
-      <category term="Swiftype" scheme="http://sheng09.github.io/tags/Swiftype/"/>
     
   </entry>
   

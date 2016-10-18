@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Finite Difference of Staggered Grid (2) | Sheng Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.
+
+
+$f&amp;#x2019;(x)$ in 2nd order accuracy
+point 0
+
+
+$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Finite Difference of Staggered Grid (2)">
+<meta property="og:url" content="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/index.html">
+<meta property="og:site_name" content="Sheng Wang">
+<meta property="og:description" content="This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.
+
+
+$f&amp;#x2019;(x)$ in 2nd order accuracy
+point 0
+
+
+$">
+<meta property="og:image" content="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/2order.jpg">
+<meta property="og:image" content="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/2Norder.jpg">
+<meta property="og:image" content="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/compare.jpg">
+<meta property="og:updated_time" content="2016-10-18T22:38:32.428Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Finite Difference of Staggered Grid (2)">
+<meta name="twitter:description" content="This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.
+
+
+$f&amp;#x2019;(x)$ in 2nd order accuracy
+point 0
+
+
+$">
+<meta name="twitter:image" content="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/2order.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sheng Wang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          
+            <a class="main-nav-link" href="/">Home</a>
+          
+        
+          
+            <a class="main-nav-link" href="/archives">Archives</a>
+          
+        
+          
+            <a class="main-nav-link st-search-show-outputs" href="/search">Search</a>
+          
+        
+        </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-finite-difference-staggerGrid2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/18/finite-difference-staggerGrid2/" class="article-date">
+  <time datetime="2016-10-18T14:18:22.000Z" itemprop="datePublished">2016-10-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Finite Difference of Staggered Grid (2)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.</p>
+<!-- toc -->
+<ul>
+<li><a href="#fx-in-2nd-order-accuracy">$f&#x2019;(x)$ in 2nd order accuracy</a><ul>
+<li><a href="#point-0">point 0</a></li>
+</ul>
+</li>
+<li><a href="#fx-in-2nth-order-accuracy">$f&#x2019;(x)$ in 2Nth order accuracy</a><ul>
+<li><a href="#point-0">point 0</a></li>
+<li><a href="#point-k-k0123n-1">point k $(k=0,1,2,3&#x2026;,N-1)$</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="fx-in-2nd-order-accuracy"><a href="#f&#x2019;-x-in-2nd-order-accuracy" class="headerlink" title="$f&#x2019;(x)$ in 2nd order accuracy"></a>$f&#x2019;(x)$ in 2nd order accuracy</h2><p><img src="/2016/10/18/finite-difference-staggerGrid2/2order.jpg" alt=""></p>
+<h4 id="point-0"><a href="#point-0" class="headerlink" title="point 0"></a>point 0</h4><p>To calculate the first order derivates in the $\color{blue}{blue}$ grid points, values in $\color{red}{red}$ points are expanded.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f(x+\frac{\delta}{2}) & = & f(x) + \frac{\delta}{2} f'(x)
+                    + \frac{\delta^2}{2^2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %+\frac{\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1}) \\
+    f(x+\frac{3\delta}{2}) & = & f(x) + \frac{3\delta}{2} f'(x)
+                    + \frac{3^2\delta^2}{2^2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %+ ...
+                    %+ \frac{3^N\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1}) \\
+    f(x+\frac{5\delta}{2}) & = & f(x) + \frac{5\delta}{2} f'(x)
+                    + \frac{5^2\delta^2}{2^2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %+ ...
+                    %+ \frac{5^N\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1})
+\end{eqnarray}</script><p>thus, $f&#x2019;(x)$ are:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f'(x) & = &  \frac{2 f(x+\frac{\delta}{2}) }{\delta}
+                -\frac{2 f(x)}{\delta}
+                    - \frac{\delta}{2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %-\frac{\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N}) \\
+    f'(x) & = &  \frac{2 f(x+\frac{3\delta}{2}) }{3\delta}
+                -\frac{2 f(x)  }{3\delta}
+                    - \frac{3\delta }{2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %- \frac{3^{N-1}\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N}) \\
+    f'(x) & = &  \frac{2 f(x+\frac{5\delta}{2}) }{5\delta}
+                -\frac{2 f(x)  }{5\delta}
+                    - \frac{5\delta }{2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %- \frac{5^{N-1}\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N})
+
+\end{eqnarray}</script><p>add these $f&#x2019;(x)$ proportionally:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+f'(x) = & \frac{2}{\delta}
+            \left[
+                C^2_{00}            f(x + \frac{\delta}{2}) +
+                C^2_{01}\frac{1}{3} f(x + \frac{3\delta}{2} )+
+                C^2_{02}\frac{1}{5} f(x + \frac{5\delta}{2} )
+            \right]\\
+        & -\frac{2}{\delta}
+            \left[
+                           C^2_{00}+
+                \frac{1}{3}C^2_{01}+
+                \frac{1}{5}C^2_{02}
+            \right] f(x)
+          - \frac{\delta}{2 2!}
+            \left[
+                C^2_{00}+
+                3C^2_{01}+
+                5C^2_{02}
+            \right]f''(x) + O(\delta^3)
+
+\end{aligned}
+\end{equation}</script><p>In order to have second order accuracy, $C^2_{0j}$ must satisfy the equation of:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{cases}
+        C^2_{00} +  C^2_{01} + C^2_{02} = 1\\
+        C^2_{00} + \frac{1}{3}C^2_{01} + \frac{1}{5}C^2_{02}  = 0\\
+        C^2_{00} + 3C^2_{01} + 5C^2_{02}  = 0\\
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        C^2_{00} =  -1           \\
+        C^2_{01} =   \frac{9}{2} \\
+        C^2_{02} =  -\frac{5}{2}
+    \end{cases}
+\end{equation}</script><h2 id="fx-in-2nth-order-accuracy"><a href="#f&#x2019;-x-in-2Nth-order-accuracy" class="headerlink" title="$f&#x2019;(x)$ in 2Nth order accuracy"></a>$f&#x2019;(x)$ in 2Nth order accuracy</h2><p><img src="/2016/10/18/finite-difference-staggerGrid2/2Norder.jpg" alt=""></p>
+<h4 id="point-0"><a href="#point-0-1" class="headerlink" title="point 0"></a>point 0</h4><script type="math/tex; mode=display">
+\begin{eqnarray}
+    f(x+\frac{\delta}{2}) & = & f(x) + \frac{\delta}{2} f'(x)
+                    + \frac{\delta^2}{2^2 2!}f''(x)
+                    + ...
+                    +\frac{\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N+1}) \\
+    f(x+\frac{3\delta}{2}) & = & f(x) + \frac{3\delta}{2} f'(x)
+                    + \frac{3^2\delta^2}{2^2 2!}f''(x)
+                    + ...
+                    + \frac{3^{2N}\delta^{2N}}{2^{2N} {2N}!}f^{(2N)}(x)
+                    + O(\delta^{2N+1})\\
+        &...&\\
+    f(x+\frac{l\delta}{2}) & = & f(x) + \frac{l\delta}{2}f'(x)
+                    + \frac{l^2\delta^2}{2^2 2!}f''(x)
+                    + ...
+                    + \frac{l^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N+1})
+\end{eqnarray}</script><p>thus, $f&#x2019;(x)$ are:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f'(x) & = &  \frac{2 f(x+\frac{\delta}{2}) }{\delta}
+                -\frac{2 f(x)}{\delta}
+                - \frac{\delta}{2 2!}f''(x)
+                - ...
+                -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                + O(\delta^{2N}) \\
+    f'(x) & = &  \frac{2 f(x+\frac{3\delta}{2}) }{3\delta}
+                -\frac{2 f(x)  }{3\delta}
+                    - \frac{3\delta }{2 2!}f''(x)
+                    - ...
+                    - \frac{3^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    &...&\\
+    f'(x) & = & \frac{2 f(x+\frac{l\delta}{2}) }{l\delta}
+               -\frac{2 f(x) }{l\delta}
+                    - \frac{l\delta}{2 2!}f''(x)
+                    - ...
+                    - \frac{l^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    \color{red}{(l=1,3,5,7,9...)}
+\end{eqnarray}</script><p>add these $f&#x2019;(x)$ proportionally:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+f'(x) = & \frac{2}{\delta}
+            \sum \limits_l
+            \left[
+                 f(x + \frac{l\delta}{2}) C^{2N}_{0(\frac{l-1}{2})}\frac{1}{l}
+            \right]\\
+        &-\frac{2}{\delta}f(x)
+            \sum \limits_l
+            \left[
+                 C^{2i}_{0(\frac{l-1}{2})} \frac{1}{l}
+            \right]
+         -\frac{\delta}{2 2!} f''(x)
+            \sum \limits_l
+            \left[
+                C^{2i}_{0(\frac{l-1}{2})} l
+            \right]\\
+        & -...
+        -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!} f^{2N}(x)
+            \sum \limits_l
+            \left[
+                C^{2N}_{0(\frac{l-1}{2})} l^{2N-1}
+            \right]
+        +O(\delta^{2N})\\
+        (l=1,3,5,7,9...)
+\end{aligned}
+\end{equation}</script><p>To have 2Nth order accuracy, , $C^{2N}_{0j}$ must satisfy the equation:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{bmatrix}
+        1 & 1            & 1          & ... & 1           \\
+        1 & \frac{1}{3}  & \frac{1}{5}& ... & \frac{1}{4N+1} \\
+        1 & 3            & 5          & ... &  4N+1          \\
+        1 & 3^2          & 5^2        & ... &  (4N+1)^2        \\
+        ...\\
+        1 & 3^{2N-1}      & 5^{2N-1}    & ... &  (4N+1)^{2N-1}    \\
+    \end{bmatrix}
+    \begin{bmatrix}
+    C^{2N}_{00}      \\
+    C^{2N}_{01}      \\
+    C^{2N}_{02}      \\
+    C^{2N}_{03}      \\
+    ...\\
+    C^{2N}_{0(2N)} \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    1\\
+    0\\
+    0\\
+    0\\
+    ...\\
+    0\\
+    \end{bmatrix}
+\end{eqnarray}</script><h4 id="point-k-k0123n-1"><a href="#point-k-k-0-1-2-3&#x2026;-N-1" class="headerlink" title="point k $(k=0,1,2,3&#x2026;,N-1)$"></a>point k $(k=0,1,2,3&#x2026;,N-1)$</h4><script type="math/tex; mode=display">
+\begin{eqnarray}
+    f(x+\frac{(1-2k)\delta}{2}) & = & f(x)
+            +\frac{(1-2k)\delta}{2} f'(x)
+            + \frac{(1-2k)^2\delta^2}{2^22!}f''(x)
+            +...
+            + \frac{(1-2k)^{2N}\delta^{2N}}{2^{2N}(2N)!}f^{(2N)}(x)
+            + O(2N+1)
+    \\
+    ...
+    \\
+    f(x-\frac{\delta}{2}) & = & f(x) - \frac{\delta}{2}f'(x)
+            + \frac{\delta^2}{2^22!}f''(x)
+            + ...
+            + \frac{(-1)^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})
+                                    \\
+    f(x+\frac{\delta}{2}) & = & f(x) + \frac{\delta}{2} f'(x)
+            + \frac{\delta^2}{2^2 2!}f''(x)
+            + ...
+            +\frac{\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1}) \\
+    f(x+\frac{3\delta}{2}) & = & f(x) + \frac{3\delta}{2} f'(x)
+            + \frac{3^2\delta^2}{2^2 2!}f''(x)
+            + ...
+            + \frac{3^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})\\
+        &...&\\
+    f(x+\frac{l\delta}{2}) & = & f(x) + \frac{l\delta}{2}f'(x)
+            + \frac{l^2\delta^2}{2^2 2!}f''(x)
+            + ...
+            + \frac{l^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})
+\end{eqnarray}</script><p>thus, $f&#x2019;(x)$ are:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f'(x) & = & \frac{2}{(1-2k)\delta} f(x+\frac{(1-2k)\delta}{2})
+            - \frac{2}{(1-2k)\delta} f(x)
+            - \frac{(1-2k)\delta}{2 2!}f''(x)
+            - ...
+            -\frac{(1-2k)^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    \\
+    ...
+    \\
+    f'(x) & = & \frac{-2}{\delta} f(x-\frac{\delta}{2})
+                 +\frac{2}{\delta} f(x)
+                 + \frac{\delta^2}{22!}f''(x)
+                 + ...
+                 + \frac{(-1)^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                                    + O(\delta^{2N})
+                                    \\
+    f'(x) & = & \frac{2}{\delta} f(x+\frac{\delta}{2})
+                    - \frac{2}{\delta} f(x)
+                    - \frac{\delta}{2 2!}f''(x)
+                    - ...
+                    -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    f'(x) & = & \frac{2}{3\delta} f(x+\frac{3\delta}{2})
+                    -\frac{2}{3\delta}f(x)
+                    - \frac{3\delta}{2 2!}f''(x)
+                    - ...
+                    - \frac{3^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N})\\
+        &...&\\
+    f'(x) & = & \frac{2}{l\delta} f(x+\frac{l\delta}{2})
+                    -\frac{2}{l\delta} f(x)
+                    - \frac{l\delta}{2 2!}f''(x)
+                    - ...
+                    - \frac{l^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N})
+\end{eqnarray}</script><p>add these $f&#x2019;(x)$ proportionally:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+    f'(x) =  &
+\frac{2}{\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{ l\delta}{2} )C^{2N}_{k(\frac{l-1}{2})} \frac{1}{l}
+    \right]
+\\
+&-\frac{2}{\delta}f(x) \sum \limits_l \frac{1}{l}    C^{2N}_{k(\frac{l-1}{2})}
+-\frac{\delta}{22!}f''(x)         \sum \limits_l{l}  C^{2N}_{k(\frac{l-1}{2})}
+-\frac{\delta^2}{2^23!}f^{(3)}(x) \sum \limits_l{l^2}C^{2N}_{k(\frac{l-1}{2})}
+\\
+&-\frac{\delta^3}{2^34!}f^{(4)}(x) \sum \limits_l{l^3}C^{2N}_{k(\frac{l-1}{2})}
+-...
+-\frac{\delta^{2N-1}}{2^{2N-1}(2N)!}f^{(2N)}(x) \sum \limits_l{l^{2N-1}}C^{2N}_{k(\frac{l-1}{2})}
++O({\delta^{2N}})
+\\
+&(l = 1-2k, 3-2k,...,-1,1,...)
+\end{aligned}
+\end{equation}</script><p>to have 2Nth order accuracy: $C^{2N}_{kj}$ must satisfy equation:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{bmatrix}
+    1 & 1              & 1                           & ... & 1 \\
+    \frac{1}{1-2k} & \frac{1}{3-2k} & \frac{1}{5-2k} & ... & \frac{1}{4N-2k+1} \\
+    1-2k           & 3-2k           & 5-2k           & ... & 4N-2k+1 \\
+    (1-2k)^2       & (3-2k)^2       & (5-2k)^2       & ... & (4N-2k+1)^2 \\
+    ...\\
+    (1-2k)^{2N-1}  & (3-2k)^{2N-1}  & (5-2k)^{2N-1}  & ... & (4N-2k+1)^{2N-1}
+\end{bmatrix}
+\begin{bmatrix}
+    C^{2N}_{k (-k)   } \\
+    C^{2N}_{k (-k+1) } \\
+    C^{2N}_{k (-k+2) } \\
+    C^{2N}_{k (-k+3) } \\
+    ...\\
+    C^{2N}_{k (2N-k)}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1\\
+    0\\
+    0\\
+    0\\
+    ...\\
+    0\\
+    \end{bmatrix}
+    \label{LA}
+\end{equation}</script><h2 id="conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>For 2Nth order accuracy, for point k in the boundary region, value of $f&#x2019;(x)$ is:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+f'(x) = 
+\frac{2}{l\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{l\delta}{2} )C^{2N}_{k(\frac{l-1}{2})}
+    \right]
+    \\
+    (l=1-2k,3-2k,...,-1,1,...,4N-2k+1)
+\end{equation}</script><p>while $C^{2N}_{kj}$ is solution of equation $\eqref{LA}$.</p>
+<p>Or, in the form of:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{cases}
+f'(x) = 
+\frac{1}{\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{l\delta}{2} )c^{2N}_{k(\frac{l-1}{2})}
+    \right]
+    \\
+    c^{2N}_{k(\frac{l-1}{2})}  = \frac{2}{l}C^{2N}_{k(\frac{l-1}{2})}
+    \\
+    (l=1-2k,3-2k,...,-1,1,...,4N-2k+1)
+\end{cases}
+\end{equation}</script><h2 id="examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x)=sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&#x2019;(x)=cos(x)$, as well as their error.</p>
+<p><img src="/2016/10/18/finite-difference-staggerGrid2/compare.jpg" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/" data-id="ciufldebm001lm0fb8ynjs0is" class="article-share-link">Share</a>
+      
+        <a href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/18/finite-difference-staggerGrid/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Finite Difference of Staggered Grid (1)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Digital-Signal-Processing/">Digital Signal Processing</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具及配置/">Linux工具及配置</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PDE/">PDE</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming/">programming</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/接收函数/">接收函数</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建科研工作环境/">搭建科研工作环境</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compiling/">Compiling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Digital-Signal-Processing/">Digital Signal Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email-Alert/">Email Alert</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FD/">FD</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inversion/">Inversion</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Journals/">Journals</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Equation/">Linear Equation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PDE/">PDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regularization/">Regularization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swiftype/">Swiftype</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bit/">bit</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/">error</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modeling/">modeling</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/">programming</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wave-equation/">wave equation</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/射线参数/">射线参数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/接收函数/">接收函数</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/界面/">界面</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/18/finite-difference-staggerGrid2/">Finite Difference of Staggered Grid (2)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/18/finite-difference-staggerGrid/">Finite Difference of Staggered Grid (1)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/17/finite-difference-asymmetric/">Asymmetric Finite Difference for Boundary Points</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/15/vandermonde/">Solving Vandermonde Equation for FD</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/13/finite-difference/">Central Finite Difference of Derivatives(中心有限差分)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Sheng Wang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+    <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','4LRsoUZsCDnx-aTgg_f5','2.0.0');
+    </script>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/search" class="mobile-nav-link">Search</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'sheng09';
+  
+  var disqus_url = 'http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:150px;right:20px;cursor: pointer;">
+	<a title="Back to top"><img src="/imgs/scrollup_arrow.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
