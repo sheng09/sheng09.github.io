@@ -7,6 +7,7 @@
       <title><![CDATA[Finite Difference of Staggered Grid (2)]]></title>
       <url>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/</url>
       <content type="html"><![CDATA[<p>This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.</p>
+<a id="more"></a>
 <!-- toc -->
 <ul>
 <li><a href="#fx-in-2nd-order-accuracy">$f&#x2019;(x)$ in 2nd order accuracy</a><ul>

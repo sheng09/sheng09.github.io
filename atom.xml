@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-18T22:38:32.428Z</updated>
+  <updated>2016-10-18T22:40:01.696Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,9 +15,10 @@
     <link href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/"/>
     <id>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/</id>
     <published>2016-10-18T14:18:22.000Z</published>
-    <updated>2016-10-18T22:38:32.428Z</updated>
+    <updated>2016-10-18T22:40:01.696Z</updated>
     
     <content type="html">&lt;p&gt;This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;!-- toc --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#fx-in-2nd-order-accuracy&quot;&gt;$f&amp;#x2019;(x)$ in 2nd order accuracy&lt;/a&gt;&lt;ul&gt;
@@ -367,7 +368,7 @@ f&#39;(x) =
     
     <summary type="html">
     
-      &lt;p&gt;This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boun
+      &lt;p&gt;This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.&lt;/p&gt;
     
     </summary>
     

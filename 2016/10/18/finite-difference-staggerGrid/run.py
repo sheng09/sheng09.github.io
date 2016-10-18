@@ -63,7 +63,7 @@ class compare:
 		#map( fd1_stagger.fd_all ,fd )
 
 		col = 2
-		row = int( (int(self.maxorder/2) + 1) / col) + 1
+		row = int( (int(len(order)) + 1) / col) + 1
 		print(row)
 		ax_index = [ i+3+ row*100+col*10 for i in range(0,len(order)) ]
 		plt.figure()
