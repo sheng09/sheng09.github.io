@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-18T01:03:32.137Z</updated>
+  <updated>2016-10-18T01:11:22.989Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/"/>
     <id>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/</id>
     <published>2016-10-17T20:15:09.000Z</published>
-    <updated>2016-10-18T01:03:32.137Z</updated>
+    <updated>2016-10-18T01:11:22.989Z</updated>
     
     <content type="html">&lt;p&gt;This post presents the central finite difference(FD) system build in stagger grid. Symmetric scheme are derived and examples are presented.&lt;/p&gt;
 &lt;!-- toc --&gt;
@@ -294,6 +294,14 @@ f&#39;(x) &amp; = &amp;
     
     </summary>
     
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
+    
+    
+      <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
+    
+      <category term="modeling" scheme="http://sheng09.github.io/tags/modeling/"/>
+    
+      <category term="error" scheme="http://sheng09.github.io/tags/error/"/>
     
   </entry>
   
@@ -302,7 +310,7 @@ f&#39;(x) &amp; = &amp;
     <link href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/"/>
     <id>http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/</id>
     <published>2016-10-16T18:02:22.000Z</published>
-    <updated>2016-10-18T01:10:48.857Z</updated>
+    <updated>2016-10-18T01:11:09.617Z</updated>
     
     <content type="html">&lt;p&gt;For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/img.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
