@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-18T01:11:56.813Z</updated>
+  <updated>2016-10-18T01:12:25.121Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/"/>
     <id>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/</id>
     <published>2016-10-17T20:15:09.000Z</published>
-    <updated>2016-10-18T01:11:56.813Z</updated>
+    <updated>2016-10-18T01:12:25.121Z</updated>
     
     <content type="html">&lt;p&gt;This post presents the central finite difference(FD) system build in stagger grid. Symmetric scheme are derived and examples are presented.&lt;/p&gt;
 &lt;!-- toc --&gt;
@@ -211,7 +211,8 @@ f&#39;(x) &amp; = &amp;
                 - f\left(x-\frac{i\delta}{2}\right)
             \right]
     \\
-    c_i &amp; = &amp; \frac{C_i}{i}
+    c_i &amp; = &amp; \frac{C_i}{i}\\
+    \color{red}{\left(i =1,3,5,7,9...\right)}
 \end{cases}
 \end{eqnarray}&lt;/script&gt;&lt;p&gt;Values of $c_i$ for different accuracy order are:&lt;/p&gt;
 &lt;div class=&quot;table-container&quot;&gt;
