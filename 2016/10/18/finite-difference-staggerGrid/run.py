@@ -54,9 +54,9 @@ class fd1_stagger:
 		pass
 
 class compare:
-	def __init__(self, maxorder):
-		self.maxorder = maxorder
-		order = list( range(2,maxorder+2,2) )
+	def __init__(self, order):
+		self.maxorder = max(order)
+		self.order = order
 		fd = [fd1_stagger(o) for o in order]
 		for f in fd:
 			f.fd_all()
@@ -92,10 +92,9 @@ class compare:
 		plt.show()
 
 if __name__ == '__main__':
-	order = eval(sys.argv[1])
+	order = [eval(o) for o in sys.argv[1:]]
 	#fd = fd1_stagger(order)
 	#fd.fd_all()
 	#fd.fdplot()
-
 	compare(order)
 

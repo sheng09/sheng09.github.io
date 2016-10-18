@@ -96,280 +96,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>This post presents the central finite difference(FD) system build in stagger grid. Symmetric scheme are derived and examples are presented.</p>
-<!-- toc -->
-<ul>
-<li><a href="#taylor-expansion">Taylor expansion</a></li>
-<li><a href="#first-order-derivatives">First order derivatives</a></li>
-<li><a href="#conclusion">Conclusion</a></li>
-<li><a href="#examples">Examples</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="taylor-expansion"><a href="#Taylor-expansion" class="headerlink" title="Taylor expansion"></a>Taylor expansion</h2><p>As always, we start the derivation from taylor expansion. For the $\color{red}{red}$ points in the below staggerd point, function value here have the form of taylor series expanded in the $\color{blue}{blue}$ point. This kind of stagger grid scheme is widely used in modeling.</p>
-<p><img src="/2016/10/18/finite-difference-staggerGrid/img.jpg" alt=""></p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-f\left(x-\frac{i\delta}{2}\right) & = & f(x) - \frac{i\delta}{2}f'(x)
-                                    + \frac{i^2\delta^2}{2^22!}f''(x)
-                                    - \frac{i^3\delta^3}{2^33!}f^{(3)}(x)
-                                    %+ \frac{i^4\delta^4}{2^44!}f^{(4)}(x)
-                                    + ...
-                                    + \frac{i^{2N}\delta^{2N}}{2^{2N}(2N)!}f^{(2N)}(x)
-                                    + O(\delta^{2N+1})
-                                    \\
-& ... &\\
-f\left(x-\frac{\delta}{2}\right) & = & f(x) - \frac{\delta}{2}f'(x)
-                                    + \frac{\delta^2}{2^22!}f''(x)
-                                    - \frac{\delta^3}{2^33!}f^{(3)}(x)
-                                    %+ \frac{\delta^4}{2^44!}f^{(4)}(x)
-                                    + ...
-                                    + \frac{\delta^{2N}}{2^{2N}(2N)!}f^{(2N)}(x)
-                                    + O(\delta^{2N+1})
-                                    \\
-f\left(x+\frac{\delta}{2}\right) & = & f(x) + \frac{\delta}{2}f'(x)
-                                    + \frac{\delta^2}{2^22!}f''(x)
-                                    + \frac{\delta^3}{2^33!}f^{(3)}(x)
-                                    %+ \frac{\delta^4}{2^44!}f^{(4)}(x)
-                                    + ...
-                                    + \frac{\delta^{2N}}{2^{2N}(2N)!}f^{(2N)}(x)
-                                    + O(\delta^{2N+1})
-                                    \\
-& ... &\\
-f\left(x+\frac{i\delta}{2}\right) & = & f(x) + \frac{i\delta}{2}f'(x)
-                                    + \frac{i^2\delta^2}{2^22!}f''(x)
-                                    + \frac{i^3\delta^3}{2^33!}f^{(3)}(x)
-                                    %+ \frac{i^4\delta^4}{2^44!}f^{(4)}(x)
-                                    + ...
-                                    + \frac{i^{2N}\delta^{2N}}{2^{2N}(2N)!}f^{(2N)}(x)
-                                    + O(\delta^{2N+1})
-\\
-\color{red}{\left(i =1,3,5,7,9...\right)}
-\\
-\end{eqnarray}</script><h2 id="first-order-derivatives"><a href="#First-order-derivatives" class="headerlink" title="First order derivatives"></a>First order derivatives</h2><script type="math/tex; mode=display">
-\begin{eqnarray}
-\frac{f\left(x+\frac{\delta}{2}\right) - f\left(x-\frac{\delta}{2}\right)}{2}
-    & = & \frac{\delta}{2}f'(x)
-        + \frac{\delta^3}{2^33!}f^{(3)}(x)
-        + ...
-        + \frac{\delta^{2N-1}}{2^{2N-1}(2N-1)!}f^{(2N-1)}(x)
-        + O(\delta^{2N+1})
-        \\
-&...&\\
-\frac{ f\left(x+\frac{i\delta}{2}\right) - f\left(x-\frac{i\delta}{2}\right) }{2}
-    & = & \frac{i\delta}{2}f'(x)
-        + \frac{i^3\delta^3}{2^33!}f^{(3)}(x)
-        + ...
-        + \frac{i^{2N-1}\delta^{2N-1}}{2^{2N-1}(2N-1)!}f^{(2N-1)}(x)
-        + O(\delta^{2N+1})
-        \\
-\color{red}{\left(i=1,3,5,7,9...\right)}
-\\
-\end{eqnarray}</script><p>or in the forms of:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-f'(x) & = &
-    \frac{f\left(x+\frac{\delta}{2}\right) - f\left(x-\frac{\delta}{2}\right)}{\delta}
-        - \frac{\delta^2}{2^23!}f^{(3)}(x)
-        - ...
-        - \frac{\delta^{2N-2}}{2^{2N-2}(2N-1)!}f^{(2N-1)}(x)
-        + O(\delta^{2N})
-        \\
-&...&\\
-f'(x) & = &
-\frac{ f\left(x+\frac{i\delta}{2}\right) - f\left(x-\frac{i\delta}{2}\right) }{i\delta}
-        - \frac{i^2\delta^2}{2^23!}f^{(3)}(x)
-        - ...
-        - \frac{i^{2N-2}\delta^{2N-2}}{2^{2N-2}(2N-1)!}f^{(2N-1)}(x)
-        + O(\delta^{2N})
-        \\
-\end{eqnarray}</script><p>adding all these $f&#x2019;(x)$ propotionally together:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-\begin{aligned}
-    f'(x) \sum \limits_{i} C_i
-     = &\sum \limits_{i} C_i
-            \frac{ f\left(x+\frac{i\delta}{2}\right) - f\left(x-\frac{i\delta}{2}\right) }{i\delta}\\
-        &- \frac{\delta^2}{2^23!}f^{(3)}(x) \sum \limits_i i^2C_i
-         - \frac{\delta^4}{2^45!}f^{(5)}(x) \sum \limits_i i^4C_i
-         %- \frac{\delta^6}{2^67!}f^{(7)}(x) \sum \limits_i i^6C_i
-         - \frac{\delta^{2N-2}}{2^{2N-2}(2N-1)!}f^{(2N-1)}(x) \sum \limits_i i^{2N-2}C_i
-         + O(\delta^{2N})
-\end{aligned}\label{fd1} \\
-\color{red}{\left(i=1,3,5,7,9...,2N-1\right)}
-\end{equation}</script><p>So, for $2N$th order accuracy, $C_k$ must be the solution of linear equation:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-    \begin{bmatrix}
-        1 & 1           & 1         & 1         & ... & 1\\
-        1 & 3^2         & 5^2       & 7^2       & ... & (2N-1)^2     \\
-        1 & 3^4         & 5^4       & 7^4       & ... & (2N-1)^4     \\
-        ...\\
-        1 & 3^{2N-2}    & 5^{2N-2}  & 7^{2N-2}  & ... & (2N-1)^{2N-2}\\
-    \end{bmatrix}
-    \begin{bmatrix}
-        C_1\\
-        C_3\\
-        C_5\\
-        ...\\
-        C_{2N-1}\\
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-    1\\
-    0\\
-    0\\
-    ...\\
-    0\\
-    \end{bmatrix}
-    \label{LA}
-\end{equation}</script><p>$\eqref{LA}$ is the <a href="http://sheng09.github.io/2016/10/15/vandermonde">vandermonde equation</a>, its augmented matrix corresponds to the upper triangular linear equation:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-    \begin{bmatrix}
-        1 & 1 & 1      & 1      & ... & 1      \\
-        0 & 1 & a_{23} & a_{24} & ... & a_{2N} \\
-        0 & 0 & 1      & a_{34} & ... & a_{3N} \\
-        ...\\
-        0 & 0 & 0      & 0      & ... & 1 \\
-    \end{bmatrix}
-    \begin{bmatrix}
-        x_1\\
-        x_2\\
-        x_3\\
-        ...\\
-        x_N\\
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-    b_1\\
-    b-2\\
-    b-3\\
-    ...\\
-    b_N\\
-    \end{bmatrix}
-\end{equation}</script><p>while</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-    a_{ij} & = & \frac{ \left[ (2j-1)^2-(2i-3)^2    \right]
-                    \left[  (2j-1)^2-(2i-5)^2   \right]
-                    ...
-                    \left[(2j-1)^2-1            \right]  }
-                {   \left[ (2i-1)^2 - (2i-3)^2  \right]
-                    \left[ (2i-1)^2 - (2i-5)^2  \right]
-                    ...
-                    \left[ (2i-1)^2 - 1         \right]  }
-                (j \geq i)
-    \\
-    b_i & = & \frac
-                    {   (-1)^{i-1}1^23^2...(2i-3)^2     }
-                    {   \left[ (2i-1)^2 - (2i-3)^2  \right]
-                    \left[ (2i-1)^2 - (2i-5)^2  \right]
-                    ...
-                    \left[ (2i-1)^2 - 1         \right]  }
-\end{eqnarray}</script><p>Thus, $x_i$ have the value of:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-\begin{cases}
-    x_i= C_{2i-1} = b_i - \sum \limits_{j=i+1}^N a_{ij}x_j
-    \\
-    x_N = C_{2N-1} = b_N
-\end{cases}
-\end{equation}</script><h2 id="conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>From $\eqref{fd1}$, the FD scheme of 2Nth order accuracy is built:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-    f'(x) & = &\sum \limits_{i} C_i
-            \frac{ f\left(x+\frac{i\delta}{2}\right) - f\left(x-\frac{i\delta}{2}\right) }{i\delta}
-\end{eqnarray}</script><p>or in the form of:</p>
-<script type="math/tex; mode=display">
-\begin{eqnarray}
-\begin{cases}
-    f'(x) & = & \frac{1}{\delta} &\sum \limits_{i}
-            c_i
-            \left[
-                f\left(x+\frac{i\delta}{2}\right)
-                - f\left(x-\frac{i\delta}{2}\right)
-            \right]
-    \\
-    c_i & = & \frac{C_i}{i}\\
-    \color{red}{\left(i =1,3,5,7,9...\right)}
-\end{cases}
-\end{eqnarray}</script><p>Values of $c_i$ for different accuracy order are:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>order</th>
-<th>$c_1$</th>
-<th>$c_2$</th>
-<th>$c_3$</th>
-<th>$c_4$</th>
-<th>$c_5$</th>
-<th>$c_6$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2</td>
-<td>$\frac{1}{1}$</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>$\frac{9}{8}$</td>
-<td>$\frac{-1}{24}$</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>6</td>
-<td>$\frac{75}{64}$</td>
-<td>$\frac{-25}{384}$</td>
-<td>$\frac{3}{640}$</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>8</td>
-<td>$\frac{1225}{1024}$</td>
-<td>$\frac{-245}{3072}$</td>
-<td>$\frac{49}{5120}$</td>
-<td>$\frac{-5}{7168}$</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>10</td>
-<td>$\frac{19845}{16384}$</td>
-<td>$\frac{-735}{8192}$</td>
-<td>$\frac{567}{40960}$</td>
-<td>$\frac{-405}{229376}$</td>
-<td>$\frac{35}{294912}$</td>
-<td></td>
-</tr>
-<tr>
-<td>12</td>
-<td>$\frac{160083}{131072}$</td>
-<td>$\frac{-12705}{131072}$</td>
-<td>$\frac{22869}{1310720}$</td>
-<td>$\frac{-5445}{1835008}$</td>
-<td>$\frac{847}{2359296}$</td>
-<td>$\frac{-63}{2883584}$</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x) = sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&#x2019;(x) = cos(x)$, as well as their error.<br><img src="/2016/10/18/finite-difference-staggerGrid/fd1_sym_staggered.jpg" alt=""></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2016/10/18/finite-difference-staggerGrid/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/" data-id="ciuesstsy001vocfbdag131ii" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/" data-id="ciuet2ic3001u3pfbjtk84czm" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -418,7 +153,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/" data-id="ciuesstsw001socfb9qdocjw4" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/" data-id="ciuet2ibv001r3pfb7atjf0v4" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -486,7 +221,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/15/vandermonde/" data-id="ciuesstt70029ocfb0fabozf9" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/15/vandermonde/" data-id="ciuet2ich00283pfbe1j5t2fd" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/15/vandermonde/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -535,7 +270,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciuesstt00020ocfb750qogms" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/13/finite-difference/" data-id="ciuet2ic6001z3pfbnn0mklxg" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/13/finite-difference/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -575,7 +310,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciuessts2000vocfb8ug97s02" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/12/combination/" data-id="ciuet2iap000u3pfbqtlskxgb" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/12/combination/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -622,7 +357,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciuesstsd0017ocfbee4d6v0k" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/11/fast-permutation/" data-id="ciuet2ib700163pfb9awn9lec" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/11/fast-permutation/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -671,7 +406,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciuessts90012ocfblvd1sx2j" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/10/even-odd/" data-id="ciuet2ib000103pfbfp3xsrbr" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/10/even-odd/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -720,7 +455,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciuesstre0006ocfb0yvygcf5" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/10/07/BitComputing/" data-id="ciuet2i9h00063pfb2nxvncg5" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/10/07/BitComputing/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -769,7 +504,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciuesstsl001hocfb00052wia" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/17/fd-2d-PML/" data-id="ciuet2ibk001i3pfbqau2c704" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/17/fd-2d-PML/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -818,7 +553,7 @@ f'(x) & = &
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciuesstso001locfbnitl3aaw" class="article-share-link">Share</a>
+      <a data-url="http://sheng09.github.io/2016/09/15/fd-2d/" data-id="ciuet2ibn001l3pfbah9qk2na" class="article-share-link">Share</a>
       
         <a href="http://sheng09.github.io/2016/09/15/fd-2d/#disqus_thread" class="article-comment-link">Comments</a>
       

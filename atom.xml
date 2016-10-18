@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-18T01:12:58.313Z</updated>
+  <updated>2016-10-18T01:22:47.822Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,9 +15,10 @@
     <link href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/"/>
     <id>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/</id>
     <published>2016-10-17T20:15:09.000Z</published>
-    <updated>2016-10-18T01:12:58.313Z</updated>
+    <updated>2016-10-18T01:22:47.822Z</updated>
     
     <content type="html">&lt;p&gt;This post presents the central finite difference(FD) system build in stagger grid. Symmetric scheme are derived and examples are presented.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;!-- toc --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#taylor-expansion&quot;&gt;Taylor expansion&lt;/a&gt;&lt;/li&gt;
@@ -291,7 +292,7 @@ f&#39;(x) &amp; = &amp;
     
     <summary type="html">
     
-      &lt;p&gt;This post presents the central finite difference(FD) system build in stagger grid. Symmetric scheme are derived and examples are presente
+      &lt;p&gt;This post presents the central finite difference(FD) system build in stagger grid. Symmetric scheme are derived and examples are presented.&lt;/p&gt;
     
     </summary>
     
