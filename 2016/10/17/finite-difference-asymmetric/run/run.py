@@ -91,32 +91,35 @@ class fd_1d:
 if __name__ == '__main__':
 	str_orders = sys.argv[1:]
 	order = [eval(ch) for ch in str_orders]
-	
+	maxorder = max(order)
 	col = 2
 	row = int( (1 + len(order)) /col ) + 1
 	index = [i+ 3 +col*10+row*100 for i in range(0, len(order) )]
-	print(index)
+	#print(index)
 
 	plt.figure()
 	axs = [ plt.subplot(i) for i in index ]
 	total = row*100+11
 	ax_total = plt.subplot(total)
 	plt.subplots_adjust(wspace=0.3, hspace=0.4)
+	width = 4.0
 	for o,a in zip(order,axs):
 		fd = fd_1d(o,nx=200,dx=0.1)
 		fd.fd_all()
 		plt.sca(a)
-		plt.plot(fd.x, fd.err1)
+		plt.plot(fd.x, fd.err1, color='red', linewidth = 2)
 		plt.plot(fd.x, fd.zero)
-		plt.xlim( min(fd.x) -fd.dx*5, max(fd.x)+fd.dx*5 )
+		plt.xlim( min(fd.x) -fd.dx*maxorder, max(fd.x)+fd.dx*maxorder )
 		err_max = max( max(fd.err1) , -min(fd.err1) ) * 1.5
 		plt.ylim( -err_max, err_max )
 
 		plt.grid()
 		plt.title('%d order accuracy error' % o )
 		plt.sca(ax_total)
-		plt.plot(fd.x, fd.v1) #, ls = 'dotted', marker = 'x')
+		plt.plot(fd.x, fd.v1, linewidth = width) #, ls = 'dotted', marker = 'x')
+		width = width - 0.5
 	plt.sca(ax_total)
 	plt.grid()
-	plt.title('FD [ f\'(x) ]')
+	plt.xlim( min(fd.x) -fd.dx*maxorder, max(fd.x)+fd.dx*maxorder )
+	plt.title('compare (boundary points processed well)')
 	plt.show()
