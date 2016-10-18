@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2016-10-18T01:12:25.121Z</updated>
+  <updated>2016-10-18T01:12:58.313Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/"/>
     <id>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/</id>
     <published>2016-10-17T20:15:09.000Z</published>
-    <updated>2016-10-18T01:12:25.121Z</updated>
+    <updated>2016-10-18T01:12:58.313Z</updated>
     
     <content type="html">&lt;p&gt;This post presents the central finite difference(FD) system build in stagger grid. Symmetric scheme are derived and examples are presented.&lt;/p&gt;
 &lt;!-- toc --&gt;
@@ -311,7 +311,7 @@ f&#39;(x) &amp; = &amp;
     <link href="http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/"/>
     <id>http://sheng09.github.io/2016/10/17/finite-difference-asymmetric/</id>
     <published>2016-10-16T18:02:22.000Z</published>
-    <updated>2016-10-18T01:11:09.617Z</updated>
+    <updated>2016-10-18T01:15:21.013Z</updated>
     
     <content type="html">&lt;p&gt;For $2i$th order accuracy finite difference(FD), symmetric scheme cannot apply to $i$ boundary points. Thus, asymmetric scheme are required.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/img.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -616,7 +616,7 @@ f&#39;(x) &amp; = &amp;
     \begin{aligned}
         f&#39;(x) = &amp; \sum \limits_{j=-k}^{2i-k} C^k_{(2i)j} \frac{ f(x+j\delta)-f(x) }{j\delta}\\
     \end{aligned}
-\end{equation}&lt;/script&gt;&lt;h2 id=&quot;examples&quot;&gt;&lt;a href=&quot;#Examples&quot; class=&quot;headerlink&quot; title=&quot;Examples&quot;&gt;&lt;/a&gt;Examples&lt;/h2&gt;&lt;p&gt;FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x) = sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&amp;#x2019;(x) = cos(x)$, as well as their error.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/fd1_asym.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+\end{equation}&lt;/script&gt;&lt;h2 id=&quot;examples&quot;&gt;&lt;a href=&quot;#Examples&quot; class=&quot;headerlink&quot; title=&quot;Examples&quot;&gt;&lt;/a&gt;Examples&lt;/h2&gt;&lt;p&gt;FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x) = sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&amp;#x2019;(x) = cos(x)$, as well as their error.&lt;br&gt;&lt;img src=&quot;/2016/10/17/finite-difference-asymmetric/fd1_asym.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">

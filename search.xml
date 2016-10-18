@@ -585,7 +585,7 @@ f'(x) & = &
     \begin{aligned}
         f'(x) = & \sum \limits_{j=-k}^{2i-k} C^k_{(2i)j} \frac{ f(x+j\delta)-f(x) }{j\delta}\\
     \end{aligned}
-\end{equation}</script><h2 id="examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x) = sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&#x2019;(x) = cos(x)$, as well as their error.<br><img src="/2016/10/17/finite-difference-asymmetric/fd1_asym.png" alt=""></p>
+\end{equation}</script><h2 id="examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x) = sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&#x2019;(x) = cos(x)$, as well as their error.<br><img src="/2016/10/17/finite-difference-asymmetric/fd1_asym.jpg" alt=""></p>
 ]]></content>
     </entry>
     
