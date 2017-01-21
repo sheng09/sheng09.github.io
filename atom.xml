@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2017-01-21T13:41:48.625Z</updated>
+  <updated>2017-01-21T15:53:41.594Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,7 +15,7 @@
     <link href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/"/>
     <id>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/</id>
     <published>2016-10-18T14:18:22.000Z</published>
-    <updated>2017-01-21T13:41:48.625Z</updated>
+    <updated>2017-01-21T15:53:41.594Z</updated>
     
     <content type="html">&lt;p&gt;This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -372,6 +372,8 @@ f&#39;(x) =
     
     </summary>
     
+      <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
+    
     
   </entry>
   
@@ -380,7 +382,7 @@ f&#39;(x) =
     <link href="http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/"/>
     <id>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid/</id>
     <published>2016-10-17T20:15:09.000Z</published>
-    <updated>2016-10-18T01:22:47.822Z</updated>
+    <updated>2017-01-21T15:55:02.183Z</updated>
     
     <content type="html">&lt;p&gt;This post presents the central finite difference(FD) system build in stagger grid. Symmetric scheme are derived and examples are presented.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
