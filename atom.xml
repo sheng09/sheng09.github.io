@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2017-01-22T13:28:54.311Z</updated>
+  <updated>2017-01-22T13:33:40.935Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,16 +15,17 @@
     <link href="http://sheng09.github.io/2017/01/21/const_reference/"/>
     <id>http://sheng09.github.io/2017/01/21/const_reference/</id>
     <published>2017-01-21T09:07:40.000Z</published>
-    <updated>2017-01-22T13:28:54.311Z</updated>
+    <updated>2017-01-22T13:33:40.935Z</updated>
     
-    <content type="html">&lt;!-- toc --&gt;
+    <content type="html">&lt;p&gt;This post presents tips of using &lt;code&gt;const reference&lt;/code&gt; in functions. Examples are presented for wrong using.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;!-- toc --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#in-function-parameters&quot;&gt;In Function Parameters&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#in-class-methods&quot;&gt;In Class Methods&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#conclusions-and-tips&quot;&gt;Conclusions and Tips&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- tocstop --&gt;
-&lt;p&gt;This post presents tips of using &lt;code&gt;const reference&lt;/code&gt; in functions. Examples are presented for wrong using.&lt;/p&gt;
 &lt;h2 id=&quot;in-function-parameters&quot;&gt;&lt;a href=&quot;#In-Function-Parameters&quot; class=&quot;headerlink&quot; title=&quot;In Function Parameters&quot;&gt;&lt;/a&gt;In Function Parameters&lt;/h2&gt;&lt;p&gt;&lt;code&gt;reference&lt;/code&gt; is used to declare the formal parameters in a function, in order to speed up programs. However, a &lt;code&gt;const&lt;/code&gt; argument may be&lt;br&gt;passed into this function, then compiling fails. This is because &amp;#x201C;constructing a &lt;code&gt;reference&lt;/code&gt; to a const variable&amp;#x201D; is wrong. The resolution&lt;br&gt;is &amp;#x201C;construting a &lt;code&gt;const reference&lt;/code&gt; to a const variable&amp;#x201D;, or &amp;#x201C;construting a &lt;code&gt;const reference&lt;/code&gt; to a whatever variable&amp;#x201D;.&lt;/p&gt;
 &lt;p&gt;eg:&lt;br&gt;&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &amp;amp; v)&lt;/span&gt; &lt;/span&gt;{}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; v1 = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; v2 = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo(v1);   &lt;span class=&quot;comment&quot;&gt;// correct&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo(v2);   &lt;span class=&quot;comment&quot;&gt;// wrong, passing &amp;quot;const int&amp;quot; to &amp;quot;int &amp;amp;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo(&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;);    &lt;span class=&quot;comment&quot;&gt;// wrong&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;foo2&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &amp;amp; v)&lt;/span&gt; &lt;/span&gt;{}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo2(v1);   &lt;span class=&quot;comment&quot;&gt;// correct&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo2(v2);   &lt;span class=&quot;comment&quot;&gt;// correct&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo2(&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;);    &lt;span class=&quot;comment&quot;&gt;// correct&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;&amp;amp; &lt;span class=&quot;title&quot;&gt;foo3&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &amp;amp; v)&lt;/span&gt; &lt;/span&gt;{&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; v;} &lt;span class=&quot;comment&quot;&gt;//false, passing &amp;quot;const int&amp;amp;&amp;quot; to &amp;quot;int&amp;amp;&amp;quot; in return&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;&amp;amp; &lt;span class=&quot;title&quot;&gt;foo3&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &amp;amp; v)&lt;/span&gt; &lt;/span&gt;{&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; v;} &lt;span class=&quot;comment&quot;&gt;//correct&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h2 id=&quot;in-class-methods&quot;&gt;&lt;a href=&quot;#In-Class-Methods&quot; class=&quot;headerlink&quot; title=&quot;In Class Methods&quot;&gt;&lt;/a&gt;In Class Methods&lt;/h2&gt;&lt;p&gt;When calling a method for a class instance through its &lt;code&gt;const reference&lt;/code&gt;, this method should be declared to be &lt;code&gt;const&lt;/code&gt;.&lt;/p&gt;
@@ -39,10 +40,7 @@
     
     <summary type="html">
     
-      &lt;!-- toc --&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#in-function-parameters&quot;&gt;In Function Parameters&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#in-class-methods&quot;&gt;In Class Methods&lt;/a&gt;
+      &lt;p&gt;This post presents tips of using &lt;code&gt;const reference&lt;/code&gt; in functions. Examples are presented for wrong using.&lt;/p&gt;
     
     </summary>
     
