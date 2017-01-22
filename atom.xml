@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2017-01-22T14:26:21.015Z</updated>
+  <updated>2017-01-22T14:54:52.827Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -15,11 +15,21 @@
     <link href="http://sheng09.github.io/2017/01/22/multiArray/"/>
     <id>http://sheng09.github.io/2017/01/22/multiArray/</id>
     <published>2017-01-22T13:37:45.000Z</published>
-    <updated>2017-01-22T14:26:21.015Z</updated>
+    <updated>2017-01-22T14:54:52.827Z</updated>
     
     <content type="html">&lt;p&gt;This post introduce methods of constructing and calling multidimensional array in C/C++.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;!--toc--&gt;
+&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#c&quot;&gt;C&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#a-simple-method&quot;&gt;A simple method&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#better-method&quot;&gt;Better method&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#c&quot;&gt;C++&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#elegant-method&quot;&gt;Elegant method&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
 &lt;p&gt;The key point of mutlidimensional array is using the pointer to pointers. For example, constructing two dimensional array requires a pointer array, each element of which points to an one dimensional array. &lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&quot;c&quot;&gt;&lt;a href=&quot;#C&quot; class=&quot;headerlink&quot; title=&quot;C&quot;&gt;&lt;/a&gt;C&lt;/h2&gt;&lt;p&gt;A simple method is:&lt;/p&gt;
