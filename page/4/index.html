@@ -1207,6 +1207,376 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2015/10/26/pesudo-bending-method/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/sheng09_invert.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sheng Wang">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sheng Wang" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/26/pesudo-bending-method/" itemprop="url">
+                  Ray Tracing (2) Pesudo Bending Method
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-26T22:26:07+08:00">
+                2015-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seismic-Tomography/" itemprop="url" rel="index">
+                    <span itemprop="name">Seismic Tomography</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/10/26/pesudo-bending-method/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/26/pesudo-bending-method/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>This post is about the pseudo bending method provided by Junho Um and Clifford Thurber. Test and codes are provided.</p>
+<h2 id="intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>The key point of bending method is ray path calibration, which could be calculated according to $\eqref{rt1}$.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{d^2x_i}{ds^2} = \frac{1}{c} ( -\frac{dc}{dx_i} + \frac{dc}{ds}\frac{dx_i}{ds} ) \label{rt1}\\
+%    T = \int_s \frac{1}{c}ds \label{rt2}
+\end{eqnarray}</script><p>In $\eqref{rt1}$, the left side is the ray path curvature, while the right side states the velocity gradient component normal to the ray path. This ray path curvature direction gives the calibration direction for each points:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \vec{n} = \nabla c - \frac{\vec{dx}}{|\vec{dx}|^2}\nabla c \cdot \vec{dx} \label{cur}
+\end{eqnarray}</script><p>The amount of calibration $R_c$ is obtained by minimizing the travel time.</p>
+<h2 id="computation"><a href="#Computation" class="headerlink" title="Computation"></a>Computation</h2><p>Discretize the seismic ray and analyze a segment of it:</p>
+<p><img src="/2015/10/26/pesudo-bending-method/fig1.png" alt="Digram from Um and Thurber"></p>
+<p>The travel time for discretized ray path is:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    T = \sum_{k=2}^{N} |\vec{X_k} - \vec{X_{k-1}}| \frac{c_k+c_{k-1}}{2}
+\end{eqnarray}</script><p>According to $\eqref{cur}$, the curvature direction for segment ($X<em>{k-1}X</em>{k+1}$) should be:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \vec{n} & = & \nabla c - \frac{\vec{X}_{k+1}- \vec{X}_{k-1}} {|\vec{X}_{k+1}- \vec{X}_{k-1}|^2}\nabla c \cdot (\vec{X}_{k+1}- \vec{X}_{k-1}) \label{e1}
+\end{eqnarray}</script><p>After having the curvature direction, a initial point is required. The mid-point is choosed, and the ideal point is $X_k&#x2019;$.</p>
+<p>Calibration amount is obtained by minimizing the travel-time of segment $X<em>{k-1} \rightarrow X_k&#x2019; \rightarrow X</em>{k+1}$.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    R_c & =  & -\frac{c_a c_{mid} + 1}{4c_a \vec{n}_0 \cdot \nabla c_{mid}} +
+            \sqrt{ 
+                \Big( \frac{c_a c_{mid}+1}{4c_a \vec{n}_0 \cdot \nabla c_mid} \Big)
+                + \frac{ |\vec{X}_{k+1} - \vec{X}_{mid}|^2}{ 2c_a c_{mid} }
+            } \label{e2} \\
+    c_a & = & \frac{1}{2} \Big( \frac{1}{c_{k-1}} + \frac{1}{c_{k+1}} \Big) \\
+    \vec{n}_0 & = & \frac{ \vec{n} }{|\vec{n}|}
+\end{eqnarray}</script><p>For each points of the seismic ray, apply $\eqref{e1}$ and $\eqref{e2}$ to acquire the new point. Repeat this procedure until the traveltime converges.</p>
+<p>Moreover, more ray path control points are require for traveltime convergence. Um and Thurber provides a flow chart:</p>
+<p><img src="/2015/10/26/pesudo-bending-method/fig2.png" alt="Digram from Um and Thurber"></p>
+<h2 id="codes-test"><a href="#Codes-amp-Test" class="headerlink" title="Codes &amp; Test"></a>Codes &amp; Test</h2><h3 id="1d-constant-gradient-model"><a href="#1D-constant-gradient-model" class="headerlink" title="1D constant gradient model"></a>1D constant gradient model</h3><p>For one-dimensional constant velocity gradient model, the analytic ray path is an arc, the red line presented bellow. Ray paths of iteration are presented in black lines, which finally converge to the analytic ray path.<br><img src="/2015/10/26/pesudo-bending-method/path.jpg" width="500" align="center"></p>
+<h3 id="codes"><a href="#Codes" class="headerlink" title="Codes"></a>Codes</h3><p><a href="/exam/raytracing_test1.tgz">codes</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bash&gt; make</span><br><span class="line">bash&gt; ./main &gt; path.dat</span><br><span class="line">bash&gt; ./plot.sh <span class="comment"># &quot;path.jpg&quot; is the image of raypath</span></span><br><span class="line">bash&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Um, J.,C.H. Thurber, A fast algorithm for two-point seismic ray tracing. Bull Seismol Soc Am.Bulletin of the Seismological Society of America, 1987. 77(3).</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2015/10/26/RayTracing/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/sheng09_invert.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sheng Wang">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sheng Wang" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/26/RayTracing/" itemprop="url">
+                  Ray Tracing (1) Derivation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-26T16:46:59+08:00">
+                2015-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seismic-Tomography/" itemprop="url" rel="index">
+                    <span itemprop="name">Seismic Tomography</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/10/26/RayTracing/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/26/RayTracing/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Give acoustic wave equation $\eqref{acoustic_wave}$, consider the harmonic solution $\eqref{harmonic_sol}$, where $c(x_i)$ is the velocity, $T(x_i)$ the travel time. </p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \nabla^2\phi & = & \frac{1}{c^2(x_i)}\phi \label{acoustic_wave}
+\end{eqnarray}</script><script type="math/tex; mode=display">
+\begin{eqnarray}
+    \phi(x_i) & = & \Phi(x_i)exp[-i\omega(t-T(x_i))] \label{harmonic_sol}
+\end{eqnarray}</script><p>Applying the high frequency approximation, eikonal equation$\eqref{eikonal_eq}$ and transport equation $\eqref{transport_eq}$ are derived. $\textbf{p}$, the slowness vector, which is perpendicular to the wavefront, the contour of travel time $T$, declares the propagation direction of waves.</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\begin{eqnarray}
+    & & p_ip_i  =  \frac{1}{c^2(x_i)} \label{eikonal_eq} \\
+    & & p_i = (\nabla T)_i \\
+    & & 2 \nabla \Phi \cdot \nabla T+ \Phi \nabla^2T = 0 \label{transport_eq}
+\end{eqnarray}
+\end{cases}</script><p>Build Hamilton equation for eikonal equation, where $s$ declares the ray path.</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\begin{eqnarray}
+    H(x_i, p_i) & = & (p_ip_i)^{1/2} - c^{-1}(x_i) \label{hamilton_eq} \\
+    \frac{dx_i}{ds} & = & \frac{\partial H}{\partial p_i} \\
+    \frac{dp_i}{ds} & = & \frac{\partial H}{\partial x_i} \\
+    \frac{dT}{d} & = & p_i \frac{\partial H}{\partial p_i}
+\end{eqnarray}
+\end{cases}</script><p>Derivation ends here. In the right side of $\eqref{rt1}$, $\frac{dc}{dx_i}$ is the velocity gradient, $\frac{dc}{ds}\frac{dx_i}{ds}$ the projection of velocity gradient along ray path. In the left side, $\frac{d^2x_i}{ds^2}$ declares the curvature direction of ray path. Thus, the direction change of ray path can be calculated given the velocity gradient and ray path direction. Or, given a initial ray path direction, we could derive each segments of ray path. </p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{d^2x_i}{ds^2} = \frac{1}{c} ( -\frac{dc}{dx_i} + \frac{dc}{ds}\frac{dx_i}{ds} ) \label{rt1}\\
+%    T = \int_s \frac{1}{c}ds \label{rt2}
+\end{eqnarray}</script><p>However, the <strong>boundary condition problem</strong>, the two-point ray tracing problem, but not <strong>initial condition problem</strong> is much more prevalent. It could be solved using iteration, and the ray path is calibrated in each step according to $\eqref{rt1}$. This is <strong>bending method</strong>.</p>
+<p><strong>Reference</strong><br>Cerveny, V.,M.G. Brown, Seismic Ray Theory. Applied Mechanics Reviews, 2002. 55(6): p.14.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1254,7 +1624,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1263,7 +1633,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
