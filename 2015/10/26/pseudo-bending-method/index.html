@@ -89,20 +89,20 @@
 <meta name="description" content="This post is about the pseudo bending method provided by Junho Um and Clifford Thurber. Test and codes are provided.
 IntroThe key point of bending method is ray path calibration, which could be calcul">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ray Tracing (2) Pesudo Bending Method">
-<meta property="og:url" content="http://sheng09.github.io/2015/10/26/pesudo-bending-method/index.html">
+<meta property="og:title" content="Ray Tracing (2) Pseudo Bending Method">
+<meta property="og:url" content="http://sheng09.github.io/2015/10/26/pseudo-bending-method/index.html">
 <meta property="og:site_name" content="Sheng Wang">
 <meta property="og:description" content="This post is about the pseudo bending method provided by Junho Um and Clifford Thurber. Test and codes are provided.
 IntroThe key point of bending method is ray path calibration, which could be calcul">
-<meta property="og:image" content="http://sheng09.github.io/2015/10/26/pesudo-bending-method/fig1.png">
-<meta property="og:image" content="http://sheng09.github.io/2015/10/26/pesudo-bending-method/fig2.png">
-<meta property="og:image" content="http://sheng09.github.io/2015/10/26/pesudo-bending-method/path.jpg">
-<meta property="og:updated_time" content="2017-01-31T05:44:06.391Z">
+<meta property="og:image" content="http://sheng09.github.io/2015/10/26/pseudo-bending-method/fig1.png">
+<meta property="og:image" content="http://sheng09.github.io/2015/10/26/pseudo-bending-method/fig2.png">
+<meta property="og:image" content="http://sheng09.github.io/2015/10/26/pseudo-bending-method/path.jpg">
+<meta property="og:updated_time" content="2017-01-31T05:54:01.630Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ray Tracing (2) Pesudo Bending Method">
+<meta name="twitter:title" content="Ray Tracing (2) Pseudo Bending Method">
 <meta name="twitter:description" content="This post is about the pseudo bending method provided by Junho Um and Clifford Thurber. Test and codes are provided.
 IntroThe key point of bending method is ray path calibration, which could be calcul">
-<meta name="twitter:image" content="http://sheng09.github.io/2015/10/26/pesudo-bending-method/fig1.png">
+<meta name="twitter:image" content="http://sheng09.github.io/2015/10/26/pseudo-bending-method/fig1.png">
 
 
 
@@ -130,13 +130,13 @@ IntroThe key point of bending method is ray path calibration, which could be cal
 
 
 
-  <link rel="canonical" href="http://sheng09.github.io/2015/10/26/pesudo-bending-method/"/>
+  <link rel="canonical" href="http://sheng09.github.io/2015/10/26/pseudo-bending-method/"/>
 
 
 
 
 
-  <title> Ray Tracing (2) Pesudo Bending Method | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Ray Tracing (2) Pseudo Bending Method | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -292,7 +292,7 @@ IntroThe key point of bending method is ray path calibration, which could be cal
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2015/10/26/pesudo-bending-method/">
+  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2015/10/26/pseudo-bending-method/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="">
@@ -316,7 +316,7 @@ IntroThe key point of bending method is ray path calibration, which could be cal
             
             
               
-                Ray Tracing (2) Pesudo Bending Method
+                Ray Tracing (2) Pseudo Bending Method
               
             
           </h1>
@@ -372,8 +372,8 @@ IntroThe key point of bending method is ray path calibration, which could be cal
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2015/10/26/pesudo-bending-method/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/26/pesudo-bending-method/" itemprop="commentCount"></span>
+                <a href="/2015/10/26/pseudo-bending-method/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/26/pseudo-bending-method/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -411,7 +411,7 @@ IntroThe key point of bending method is ray path calibration, which could be cal
     \vec{n} = \nabla c - \frac{\vec{dx}}{|\vec{dx}|^2}\nabla c \cdot \vec{dx} \label{cur}
 \end{eqnarray}</script><p>The amount of calibration $R_c$ is obtained by minimizing the travel time.</p>
 <h2 id="computation"><a href="#Computation" class="headerlink" title="Computation"></a>Computation</h2><p>Discretize the seismic ray and analyze a segment of it:</p>
-<p><img src="/2015/10/26/pesudo-bending-method/fig1.png" alt="Digram from Um and Thurber"></p>
+<p><img src="/2015/10/26/pseudo-bending-method/fig1.png" alt="Digram from Um and Thurber"></p>
 <p>The travel time for discretized ray path is:</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
@@ -433,8 +433,8 @@ IntroThe key point of bending method is ray path calibration, which could be cal
     \vec{n}_0 & = & \frac{ \vec{n} }{|\vec{n}|}
 \end{eqnarray}</script><p>For each points of the seismic ray, apply $\eqref{e1}$ and $\eqref{e2}$ to acquire the new point. Repeat this procedure until the traveltime converges.</p>
 <p>Moreover, more ray path control points are require for traveltime convergence. Um and Thurber provides a flow chart:</p>
-<p><img src="/2015/10/26/pesudo-bending-method/fig2.png" alt="Digram from Um and Thurber"></p>
-<h2 id="codes-test"><a href="#Codes-amp-Test" class="headerlink" title="Codes &amp; Test"></a>Codes &amp; Test</h2><h3 id="1d-constant-gradient-model"><a href="#1D-constant-gradient-model" class="headerlink" title="1D constant gradient model"></a>1D constant gradient model</h3><p>For one-dimensional constant velocity gradient model, the analytic ray path is an arc, the red line presented bellow. Ray paths of iteration are presented in black lines, which finally converge to the analytic ray path.<br><img src="/2015/10/26/pesudo-bending-method/path.jpg" width="500" align="center"></p>
+<p><img src="/2015/10/26/pseudo-bending-method/fig2.png" alt="Digram from Um and Thurber"></p>
+<h2 id="codes-test"><a href="#Codes-amp-Test" class="headerlink" title="Codes &amp; Test"></a>Codes &amp; Test</h2><h3 id="1d-constant-gradient-model"><a href="#1D-constant-gradient-model" class="headerlink" title="1D constant gradient model"></a>1D constant gradient model</h3><p>For one-dimensional constant velocity gradient model, the analytic ray path is an arc, the red line presented bellow. Ray paths of iteration are presented in black lines, which finally converge to the analytic ray path.<br><img src="/2015/10/26/pseudo-bending-method/path.jpg" width="500" align="center"></p>
 <h3 id="codes"><a href="#Codes" class="headerlink" title="Codes"></a>Codes</h3><p><a href="/exam/raytracing_test1.tgz">codes</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bash&gt; make</span><br><span class="line">bash&gt; ./main &gt; path.dat</span><br><span class="line">bash&gt; ./plot.sh <span class="comment"># &quot;path.jpg&quot; is the image of raypath</span></span><br><span class="line">bash&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Um, J.,C.H. Thurber, A fast algorithm for two-point seismic ray tracing. Bull Seismol Soc Am.Bulletin of the Seismological Society of America, 1987. 77(3).</p>
@@ -803,9 +803,9 @@ IntroThe key point of bending method is ray path calibration, which could be cal
 
     <script type="text/javascript">
       var disqus_shortname = 'sheng09';
-      var disqus_identifier = '2015/10/26/pesudo-bending-method/';
+      var disqus_identifier = '2015/10/26/pseudo-bending-method/';
 
-      var disqus_title = "Ray Tracing (2) Pesudo Bending Method";
+      var disqus_title = "Ray Tracing (2) Pseudo Bending Method";
 
 
       function run_disqus_script(disqus_script) {
