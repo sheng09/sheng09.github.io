@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="This post introduces usage of &amp;#x201C;const&amp;#x201D;, especially terms of &amp;#x201C;top-level const&amp;#x201D; and &amp;#x201C;low-level const&amp;#x201D;.">
+<meta name="description" content="This post presents tips of using const reference in functions. Examples are presented for wrong using.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Const in C/C++">
-<meta property="og:url" content="http://sheng09.github.io/2017/01/21/const/index.html">
+<meta property="og:title" content="Const Reference in Function Parameters">
+<meta property="og:url" content="http://sheng09.github.io/2015/05/21/const_reference/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="This post introduces usage of &amp;#x201C;const&amp;#x201D;, especially terms of &amp;#x201C;top-level const&amp;#x201D; and &amp;#x201C;low-level const&amp;#x201D;.">
-<meta property="og:updated_time" content="2017-01-25T08:51:20.470Z">
+<meta property="og:description" content="This post presents tips of using const reference in functions. Examples are presented for wrong using.">
+<meta property="og:updated_time" content="2017-02-02T07:55:18.654Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Const in C/C++">
-<meta name="twitter:description" content="This post introduces usage of &amp;#x201C;const&amp;#x201D;, especially terms of &amp;#x201C;top-level const&amp;#x201D; and &amp;#x201C;low-level const&amp;#x201D;.">
+<meta name="twitter:title" content="Const Reference in Function Parameters">
+<meta name="twitter:description" content="This post presents tips of using const reference in functions. Examples are presented for wrong using.">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://sheng09.github.io/2017/01/21/const/"/>
+  <link rel="canonical" href="http://sheng09.github.io/2015/05/21/const_reference/"/>
 
 
 
 
 
-  <title> Const in C/C++ | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Const Reference in Function Parameters | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -285,7 +285,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2017/01/21/const/">
+  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2015/05/21/const_reference/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="">
@@ -309,7 +309,7 @@
             
             
               
-                Const in C/C++
+                Const Reference in Function Parameters
               
             
           </h1>
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-21T17:07:40+08:00">
-                2017-01-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-21T17:07:40+08:00">
+                2015-05-21
               </time>
             
 
@@ -365,8 +365,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/21/const/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/01/21/const/" itemprop="commentCount"></span>
+                <a href="/2015/05/21/const_reference/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/21/const_reference/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -392,15 +392,25 @@
       
 
       
-        <p>This post introduces usage of &#x201C;const&#x201D;, especially terms of &#x201C;top-level const&#x201D; and &#x201C;low-level const&#x201D;.</p>
+        <p>This post presents tips of using <code>const reference</code> in functions. Examples are presented for wrong using.</p>
 <a id="more"></a>
-<!--toc-->
-<h2 id="const-associated"><a href="#Const-Associated" class="headerlink" title="Const Associated"></a>Const Associated</h2><p>Associating pointers, <code>const</code> is used to declare that pointer is a const, or the object pointed by it is a const. This difference leads to &#x201C;top-level const&#x201D; and &#x201C;low-level const&#x201D;.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// top-level const and low-level const</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">10</span>, y = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> p1 = &amp;x; <span class="comment">// p1 is a top-level const, p1 cannot be changed, but not the object it points</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>  *p2 = &amp;x; <span class="comment">// p2 is a low-level const, the object pointed by p2 cannot be changed, but not p2</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span>  *p3 = &amp;x; <span class="comment">// equal to &quot;const int&quot;</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *<span class="keyword">const</span> p4 = &amp;x; <span class="comment">// neither p4 nor the object pointed by p4 can be changed</span></span><br><span class="line"></span><br><span class="line">*p1 = <span class="number">0</span>;</span><br><span class="line">p1 = &amp;y; <span class="comment">// wrong</span></span><br><span class="line">*p2 = <span class="number">0</span>; <span class="comment">// wrong</span></span><br><span class="line">p2 = &amp;y;</span><br></pre></td></tr></table></figure></p>
-<p>The pointer that points to a const object must be a low-level const<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> x = <span class="number">99</span>;</span><br><span class="line"><span class="keyword">int</span> y = <span class="number">88</span>;</span><br><span class="line"><span class="keyword">int</span> *p1 = &amp;x; <span class="comment">// wrong</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *p2 = &amp;x; <span class="comment">// correct</span></span><br><span class="line">*p2 = <span class="number">80</span>;     <span class="comment">// wrong</span></span><br><span class="line">p2 = &amp;y;      <span class="comment">// correct</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="const-in-formal-parameter"><a href="#Const-in-Formal-Parameter" class="headerlink" title="Const in Formal Parameter"></a>Const in Formal Parameter</h2><p>In functions, declaring a formal parameter as const follows the principle of using const for variables. The top-level const is ignored whether it is in formal or actual parameters.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// top-level const in actual parameter</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> i)</span> </span>{}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">int</span>* p)</span> </span>{}</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> *<span class="keyword">const</span> p = &amp;y;</span><br><span class="line">fun1(x); <span class="comment">// correct, it is like &quot;int tmp = x&quot;, so whether tmp should be const or not doesn&apos;t matter</span></span><br><span class="line">fun2(p); <span class="comment">// correct, it is like &quot;int *tmp = p&quot;,</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//top-level const in formal parameter</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> i)</span> </span>{}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">int</span> *<span class="keyword">const</span> p)</span> </span>{}</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;x;</span><br><span class="line">fun1(x); <span class="comment">// correct</span></span><br><span class="line">fun2(p); <span class="comment">// correct it is like &quot;int *const tmp = p&quot;, whether p is const or not doesn&apos;t matter</span></span><br></pre></td></tr></table></figure>
-<h2 id="in-template"><a href="#In-Template" class="headerlink" title="In Template"></a>In Template</h2><p>Principles described above apply to template as well.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// template</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; <span class="function">T <span class="title">f</span><span class="params">(T, T)</span></span>;</span><br><span class="line"><span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> y;</span><br><span class="line">f(x,y); <span class="comment">// call f(int, int); const is ignored</span></span><br></pre></td></tr></table></figure>
+<!-- toc -->
+<ul>
+<li><a href="#in-function-parameters">In Function Parameters</a></li>
+<li><a href="#in-class-methods">In Class Methods</a></li>
+<li><a href="#conclusions-and-tips">Conclusions and Tips</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="in-function-parameters"><a href="#In-Function-Parameters" class="headerlink" title="In Function Parameters"></a>In Function Parameters</h2><p><code>reference</code> is used to declare the formal parameters in a function, in order to speed up programs. However, a <code>const</code> argument may be<br>passed into this function, then compiling fails. This is because &#x201C;constructing a <code>reference</code> to a const variable&#x201D; is wrong. The resolution<br>is &#x201C;construting a <code>const reference</code> to a const variable&#x201D;, or &#x201C;construting a <code>const reference</code> to a whatever variable&#x201D;.</p>
+<p>eg:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> &amp; v)</span> </span>{}</span><br><span class="line"><span class="keyword">int</span> v1 = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> v2 = <span class="number">2</span>;</span><br><span class="line">foo(v1);   <span class="comment">// correct</span></span><br><span class="line">foo(v2);   <span class="comment">// wrong, passing &quot;const int&quot; to &quot;int &amp;&quot;</span></span><br><span class="line">foo(<span class="number">3</span>);    <span class="comment">// wrong</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo2</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; v)</span> </span>{}</span><br><span class="line">foo2(v1);   <span class="comment">// correct</span></span><br><span class="line">foo2(v2);   <span class="comment">// correct</span></span><br><span class="line">foo2(<span class="number">3</span>);    <span class="comment">// correct</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>&amp; <span class="title">foo3</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; v)</span> </span>{<span class="keyword">return</span> v;} <span class="comment">//false, passing &quot;const int&amp;&quot; to &quot;int&amp;&quot; in return</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">int</span>&amp; <span class="title">foo3</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; v)</span> </span>{<span class="keyword">return</span> v;} <span class="comment">//correct</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="in-class-methods"><a href="#In-Class-Methods" class="headerlink" title="In Class Methods"></a>In Class Methods</h2><p>When calling a method for a class instance through its <code>const reference</code>, this method should be declared to be <code>const</code>.</p>
+<p>In example below, compiler fails and error message is <code>passing &quot;const XX&quot; as this argument of &quot;void XX::XX()&quot; discards qualifiers</code>.<br>This is because a non-const methods <code>dosth()</code> is called on a const object <code>rt</code>. In other words, a const <code>rt</code> is passing<br>into  non-const parameter in <code>TEST::dosth()</code>.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> TEST {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    TEST() {};</span><br><span class="line">    ~TEST() {};</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">dosth</span><span class="params">()</span> </span>{}           <span class="comment">// fail</span></span><br><span class="line">  <span class="comment">//void dosth() const {}   // using this </span></span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    TEST t;</span><br><span class="line">    <span class="keyword">const</span> TEST &amp;rt = t;</span><br><span class="line">    rt.dosth();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<h2 id="conclusions-and-tips"><a href="#Conclusions-and-Tips" class="headerlink" title="Conclusions and Tips"></a>Conclusions and Tips</h2><ul>
+<li>Use <code>const reference</code> in formal parameters if <code>reference</code> is required.</li>
+<li>Once using <code>const reference</code> in formal parameters, any operations to it should be const!</li>
+<li>Use pointer but not reference if you want to pass a big data set,<br>such as a struct instance, into a function, and you will change it.</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tip 1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; v)</span></span>; <span class="comment">// use const reference, don&apos;t change v </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// tip 2</span></span><br><span class="line"><span class="keyword">class</span> TEST {<span class="comment">/*...*/</span>};  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">const</span> TEST &amp; t)</span></span>; <span class="comment">// do not call non-const method for t in fun()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// tip 3</span></span><br><span class="line"><span class="keyword">class</span> DAT {<span class="comment">/*...*/</span>};</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pro</span><span class="params">(DAT *d)</span></span>; <span class="comment">// use pointer if changes is made to d in pro()</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -433,8 +443,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/21/const_reference/" rel="next" title="Const Reference in Function Parameters">
-                <i class="fa fa-chevron-left"></i> Const Reference in Function Parameters
+              <a href="/2015/01/31/const/" rel="next" title="Const in C/C++">
+                <i class="fa fa-chevron-left"></i> Const in C/C++
               </a>
             
           </div>
@@ -443,8 +453,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/01/22/multiArray/" rel="prev" title="Multidimensional Array in C/C++">
-                Multidimensional Array in C/C++ <i class="fa fa-chevron-right"></i>
+              <a href="/2015/10/26/RayTracing/" rel="prev" title="Ray Tracing (1) Derivation">
+                Ray Tracing (1) Derivation <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -640,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#const-associated"><span class="nav-text">Const Associated</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#const-in-formal-parameter"><span class="nav-text">Const in Formal Parameter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-template"><span class="nav-text">In Template</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#in-function-parameters"><span class="nav-text">In Function Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-class-methods"><span class="nav-text">In Class Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusions-and-tips"><span class="nav-text">Conclusions and Tips</span></a></li></ol></div>
             
 
           </div>
@@ -772,9 +782,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'sheng09';
-      var disqus_identifier = '2017/01/21/const/';
+      var disqus_identifier = '2015/05/21/const_reference/';
 
-      var disqus_title = "Const in C/C++";
+      var disqus_title = "Const Reference in Function Parameters";
 
 
       function run_disqus_script(disqus_script) {

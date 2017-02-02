@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="This post introduce methods of constructing and calling multidimensional array in C/C++.">
+<meta name="description" content="This post introduces usage of &amp;#x201C;const&amp;#x201D;, especially terms of &amp;#x201C;top-level const&amp;#x201D; and &amp;#x201C;low-level const&amp;#x201D;.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Multidimensional Array in C/C++">
-<meta property="og:url" content="http://sheng09.github.io/2017/01/22/multiArray/index.html">
+<meta property="og:title" content="Const in C/C++">
+<meta property="og:url" content="http://sheng09.github.io/2015/01/31/const/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="This post introduce methods of constructing and calling multidimensional array in C/C++.">
-<meta property="og:updated_time" content="2017-01-25T08:51:20.470Z">
+<meta property="og:description" content="This post introduces usage of &amp;#x201C;const&amp;#x201D;, especially terms of &amp;#x201C;top-level const&amp;#x201D; and &amp;#x201C;low-level const&amp;#x201D;.">
+<meta property="og:updated_time" content="2017-02-02T07:54:57.758Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Multidimensional Array in C/C++">
-<meta name="twitter:description" content="This post introduce methods of constructing and calling multidimensional array in C/C++.">
+<meta name="twitter:title" content="Const in C/C++">
+<meta name="twitter:description" content="This post introduces usage of &amp;#x201C;const&amp;#x201D;, especially terms of &amp;#x201C;top-level const&amp;#x201D; and &amp;#x201C;low-level const&amp;#x201D;.">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://sheng09.github.io/2017/01/22/multiArray/"/>
+  <link rel="canonical" href="http://sheng09.github.io/2015/01/31/const/"/>
 
 
 
 
 
-  <title> Multidimensional Array in C/C++ | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Const in C/C++ | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -285,7 +285,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2017/01/22/multiArray/">
+  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2015/01/31/const/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="">
@@ -309,7 +309,7 @@
             
             
               
-                Multidimensional Array in C/C++
+                Const in C/C++
               
             
           </h1>
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T21:37:45+08:00">
-                2017-01-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-01-31T17:07:40+08:00">
+                2015-01-31
               </time>
             
 
@@ -365,8 +365,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/22/multiArray/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/01/22/multiArray/" itemprop="commentCount"></span>
+                <a href="/2015/01/31/const/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/31/const/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -392,32 +392,15 @@
       
 
       
-        <p>This post introduce methods of constructing and calling multidimensional array in C/C++.</p>
+        <p>This post introduces usage of &#x201C;const&#x201D;, especially terms of &#x201C;top-level const&#x201D; and &#x201C;low-level const&#x201D;.</p>
 <a id="more"></a>
-<!-- toc -->
-<ul>
-<li><a href="#c">C</a><ul>
-<li><a href="#a-simple-method">A simple method</a></li>
-<li><a href="#better-method">Better method</a></li>
-</ul>
-</li>
-<li><a href="#c">C++</a></li>
-<li><a href="#elegant-method">Elegant method</a></li>
-</ul>
-<!-- tocstop -->
-<p>The key point of mutlidimensional array is using the pointer to pointers. For example, constructing two dimensional array requires a pointer array, each element of which points to an one dimensional array. </p>
-<hr>
-<h2 id="c"><a href="#C" class="headerlink" title="C"></a>C</h2><p>A simple method is:</p>
-<h3 id="a-simple-method"><a href="#A-simple-method" class="headerlink" title="A simple method"></a>A simple method</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>** <span class="title">alloc_float2</span><span class="params">(<span class="keyword">int</span> nx, <span class="keyword">int</span> ny)</span> </span>{</span><br><span class="line">    <span class="keyword">float</span> **px  = (<span class="keyword">float</span> **) <span class="built_in">malloc</span> (nx*<span class="keyword">sizeof</span>(<span class="keyword">float</span>**));</span><br><span class="line">    <span class="keyword">float</span> *pdat = (<span class="keyword">float</span>  *) <span class="built_in">malloc</span> (nx*ny*<span class="keyword">sizeof</span>(<span class="keyword">float</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> ix = <span class="number">0</span>; ix &lt; nx; ++ix)</span><br><span class="line">        px[ix] = pdat + ix * ny;</span><br><span class="line">    <span class="keyword">return</span> px;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_float2</span><span class="params">(<span class="keyword">float</span> **p)</span></span>{</span><br><span class="line">    <span class="built_in">free</span>(p[<span class="number">0</span>]); <span class="built_in">free</span>(p);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//usage</span></span><br><span class="line"><span class="keyword">float</span> **m2 = alloc_float2(<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line"><span class="comment">// calling to m2[i][j];</span></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">free_float2(m2);</span><br></pre></td></tr></table></figure>
-<p>However, this is a bad design since both malloc and free are called for twice. More over, forgetting to free the data scope (<code>p[0]</code>) often happens.</p>
-<h3 id="better-method"><a href="#Better-method" class="headerlink" title="Better method"></a>Better method</h3><p>A better method is put the pointer array and data scope array together. Thus, operations of malloc and free are called for only once.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>** <span class="title">alloc_f2</span><span class="params">(<span class="keyword">int</span> nx, <span class="keyword">int</span> ny)</span></span>{</span><br><span class="line">    <span class="keyword">float</span> **ptr  = (<span class="keyword">float</span>**) <span class="built_in">malloc</span> (nx * <span class="keyword">sizeof</span>(<span class="keyword">float</span>*) + nx*ny*<span class="keyword">sizeof</span>(<span class="keyword">float</span>));</span><br><span class="line">    <span class="keyword">float</span>  *pdat = (<span class="keyword">float</span>*) (ptr + nx);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> ix = <span class="number">0</span>; ix &lt; nx; ++ix)</span><br><span class="line">        ptr[ix] = pdat + ix * ny;</span><br><span class="line">    <span class="keyword">return</span> ptr;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//usage</span></span><br><span class="line"><span class="keyword">float</span> **m2 = alloc_f2(<span class="number">10</span>,<span class="number">10</span>);</span><br><span class="line"><span class="comment">// calling m2[i][j];</span></span><br><span class="line"><span class="built_in">free</span>(m2); <span class="comment">//</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="c"><a href="#C-1" class="headerlink" title="C++"></a>C++</h2><p>It is disaster for constructing multi-dimensional array in C because of lots of types, such as <code>int</code>, <code>float</code>, <code>double</code>&#x2026; We need to write codes repeatedly for these types. However, C++ provides a nice method for simplify these, TEMPLATE!</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="function">T** <span class="title">alloc2</span><span class="params">(<span class="built_in">std</span>::<span class="keyword">size_t</span> nx, <span class="built_in">std</span>::<span class="keyword">size_t</span> ny)</span> </span>{</span><br><span class="line">    T** p_m2 = (T**) ( <span class="keyword">new</span> <span class="keyword">char</span> [<span class="keyword">sizeof</span>(T)*nx*ny + <span class="keyword">sizeof</span>(T*)*nx] );</span><br><span class="line">    T*  pdat = p_m2 + nx;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">std</span>::<span class="keyword">size_t</span> ix = <span class="number">0</span>; ix &lt; nx; ++ix)</span><br><span class="line">        p_m2[ix] = pdat + ix * ny;</span><br><span class="line">    <span class="keyword">return</span> p_m2;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// usage</span></span><br><span class="line"><span class="keyword">float</span> **m = alloc2&lt;<span class="keyword">float</span>&gt;(<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line"><span class="comment">// call m[i][j];</span></span><br><span class="line"><span class="keyword">delete</span> m;</span><br></pre></td></tr></table></figure>
-<h2 id="elegant-method"><a href="#Elegant-method" class="headerlink" title="Elegant method"></a>Elegant method</h2><p>C++ provides <code>class</code> for us to packaging everything. Why not using it?</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> MAT2{</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MAT2(<span class="built_in">std</span>::<span class="keyword">size_t</span> nx, <span class="built_in">std</span>::<span class="keyword">size_t</span> ny) : d_nx(nx), d_ny(ny) { dat = <span class="keyword">new</span> T [nx*ny]; }</span><br><span class="line">    ~MAT2() {<span class="keyword">delete</span> dat; }</span><br><span class="line">    T* <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> ix) { <span class="keyword">return</span> (T+ix*ny); }</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="keyword">size_t</span> d_nx, d_ny;</span><br><span class="line">    T* dat;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="comment">//usage</span></span><br><span class="line">MAT2&lt;<span class="keyword">double</span>&gt; m(<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
-<p>Example above is the simplest design for two dimensional array. More advanced design is <a href="https://github.com/sheng09/sheng09.github.io.posts/_posts/multiArray" target="_blank" rel="external">gsw</a>.</p>
+<!--toc-->
+<h2 id="const-associated"><a href="#Const-Associated" class="headerlink" title="Const Associated"></a>Const Associated</h2><p>Associating pointers, <code>const</code> is used to declare that pointer is a const, or the object pointed by it is a const. This difference leads to &#x201C;top-level const&#x201D; and &#x201C;low-level const&#x201D;.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// top-level const and low-level const</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">10</span>, y = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> p1 = &amp;x; <span class="comment">// p1 is a top-level const, p1 cannot be changed, but not the object it points</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>  *p2 = &amp;x; <span class="comment">// p2 is a low-level const, the object pointed by p2 cannot be changed, but not p2</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span>  *p3 = &amp;x; <span class="comment">// equal to &quot;const int&quot;</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *<span class="keyword">const</span> p4 = &amp;x; <span class="comment">// neither p4 nor the object pointed by p4 can be changed</span></span><br><span class="line"></span><br><span class="line">*p1 = <span class="number">0</span>;</span><br><span class="line">p1 = &amp;y; <span class="comment">// wrong</span></span><br><span class="line">*p2 = <span class="number">0</span>; <span class="comment">// wrong</span></span><br><span class="line">p2 = &amp;y;</span><br></pre></td></tr></table></figure></p>
+<p>The pointer that points to a const object must be a low-level const<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> x = <span class="number">99</span>;</span><br><span class="line"><span class="keyword">int</span> y = <span class="number">88</span>;</span><br><span class="line"><span class="keyword">int</span> *p1 = &amp;x; <span class="comment">// wrong</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *p2 = &amp;x; <span class="comment">// correct</span></span><br><span class="line">*p2 = <span class="number">80</span>;     <span class="comment">// wrong</span></span><br><span class="line">p2 = &amp;y;      <span class="comment">// correct</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="const-in-formal-parameter"><a href="#Const-in-Formal-Parameter" class="headerlink" title="Const in Formal Parameter"></a>Const in Formal Parameter</h2><p>In functions, declaring a formal parameter as const follows the principle of using const for variables. The top-level const is ignored whether it is in formal or actual parameters.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// top-level const in actual parameter</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> i)</span> </span>{}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">int</span>* p)</span> </span>{}</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> *<span class="keyword">const</span> p = &amp;y;</span><br><span class="line">fun1(x); <span class="comment">// correct, it is like &quot;int tmp = x&quot;, so whether tmp should be const or not doesn&apos;t matter</span></span><br><span class="line">fun2(p); <span class="comment">// correct, it is like &quot;int *tmp = p&quot;,</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//top-level const in formal parameter</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> i)</span> </span>{}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">int</span> *<span class="keyword">const</span> p)</span> </span>{}</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;x;</span><br><span class="line">fun1(x); <span class="comment">// correct</span></span><br><span class="line">fun2(p); <span class="comment">// correct it is like &quot;int *const tmp = p&quot;, whether p is const or not doesn&apos;t matter</span></span><br></pre></td></tr></table></figure>
+<h2 id="in-template"><a href="#In-Template" class="headerlink" title="In Template"></a>In Template</h2><p>Principles described above apply to template as well.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// template</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; <span class="function">T <span class="title">f</span><span class="params">(T, T)</span></span>;</span><br><span class="line"><span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> y;</span><br><span class="line">f(x,y); <span class="comment">// call f(int, int); const is ignored</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -450,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/21/const/" rel="next" title="Const in C/C++">
-                <i class="fa fa-chevron-left"></i> Const in C/C++
+              <a href="/2015/01/22/multiArray/" rel="next" title="Multidimensional Array in C/C++">
+                <i class="fa fa-chevron-left"></i> Multidimensional Array in C/C++
               </a>
             
           </div>
@@ -459,6 +442,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/21/const_reference/" rel="prev" title="Const Reference in Function Parameters">
+                Const Reference in Function Parameters <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -653,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#c"><span class="nav-text">C</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-simple-method"><span class="nav-text">A simple method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#better-method"><span class="nav-text">Better method</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c"><span class="nav-text">C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#elegant-method"><span class="nav-text">Elegant method</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#const-associated"><span class="nav-text">Const Associated</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#const-in-formal-parameter"><span class="nav-text">Const in Formal Parameter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-template"><span class="nav-text">In Template</span></a></li></ol></div>
             
 
           </div>
@@ -785,9 +772,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'sheng09';
-      var disqus_identifier = '2017/01/22/multiArray/';
+      var disqus_identifier = '2015/01/31/const/';
 
-      var disqus_title = "Multidimensional Array in C/C++";
+      var disqus_title = "Const in C/C++";
 
 
       function run_disqus_script(disqus_script) {

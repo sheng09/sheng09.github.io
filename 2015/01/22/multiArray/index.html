@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="This post presents tips of using const reference in functions. Examples are presented for wrong using.">
+<meta name="description" content="This post introduce methods of constructing and calling multidimensional array in C/C++.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Const Reference in Function Parameters">
-<meta property="og:url" content="http://sheng09.github.io/2017/01/21/const_reference/index.html">
+<meta property="og:title" content="Multidimensional Array in C/C++">
+<meta property="og:url" content="http://sheng09.github.io/2015/01/22/multiArray/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description" content="This post presents tips of using const reference in functions. Examples are presented for wrong using.">
-<meta property="og:updated_time" content="2017-01-22T14:50:21.617Z">
+<meta property="og:description" content="This post introduce methods of constructing and calling multidimensional array in C/C++.">
+<meta property="og:updated_time" content="2017-02-02T07:54:42.390Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Const Reference in Function Parameters">
-<meta name="twitter:description" content="This post presents tips of using const reference in functions. Examples are presented for wrong using.">
+<meta name="twitter:title" content="Multidimensional Array in C/C++">
+<meta name="twitter:description" content="This post introduce methods of constructing and calling multidimensional array in C/C++.">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://sheng09.github.io/2017/01/21/const_reference/"/>
+  <link rel="canonical" href="http://sheng09.github.io/2015/01/22/multiArray/"/>
 
 
 
 
 
-  <title> Const Reference in Function Parameters | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Multidimensional Array in C/C++ | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -285,7 +285,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2017/01/21/const_reference/">
+  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2015/01/22/multiArray/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="">
@@ -309,7 +309,7 @@
             
             
               
-                Const Reference in Function Parameters
+                Multidimensional Array in C/C++
               
             
           </h1>
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-21T17:07:40+08:00">
-                2017-01-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-01-22T21:37:45+08:00">
+                2015-01-22
               </time>
             
 
@@ -365,8 +365,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/21/const_reference/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/01/21/const_reference/" itemprop="commentCount"></span>
+                <a href="/2015/01/22/multiArray/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/22/multiArray/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -392,25 +392,32 @@
       
 
       
-        <p>This post presents tips of using <code>const reference</code> in functions. Examples are presented for wrong using.</p>
+        <p>This post introduce methods of constructing and calling multidimensional array in C/C++.</p>
 <a id="more"></a>
 <!-- toc -->
 <ul>
-<li><a href="#in-function-parameters">In Function Parameters</a></li>
-<li><a href="#in-class-methods">In Class Methods</a></li>
-<li><a href="#conclusions-and-tips">Conclusions and Tips</a></li>
+<li><a href="#c">C</a><ul>
+<li><a href="#a-simple-method">A simple method</a></li>
+<li><a href="#better-method">Better method</a></li>
+</ul>
+</li>
+<li><a href="#c">C++</a></li>
+<li><a href="#elegant-method">Elegant method</a></li>
 </ul>
 <!-- tocstop -->
-<h2 id="in-function-parameters"><a href="#In-Function-Parameters" class="headerlink" title="In Function Parameters"></a>In Function Parameters</h2><p><code>reference</code> is used to declare the formal parameters in a function, in order to speed up programs. However, a <code>const</code> argument may be<br>passed into this function, then compiling fails. This is because &#x201C;constructing a <code>reference</code> to a const variable&#x201D; is wrong. The resolution<br>is &#x201C;construting a <code>const reference</code> to a const variable&#x201D;, or &#x201C;construting a <code>const reference</code> to a whatever variable&#x201D;.</p>
-<p>eg:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> &amp; v)</span> </span>{}</span><br><span class="line"><span class="keyword">int</span> v1 = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> v2 = <span class="number">2</span>;</span><br><span class="line">foo(v1);   <span class="comment">// correct</span></span><br><span class="line">foo(v2);   <span class="comment">// wrong, passing &quot;const int&quot; to &quot;int &amp;&quot;</span></span><br><span class="line">foo(<span class="number">3</span>);    <span class="comment">// wrong</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo2</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; v)</span> </span>{}</span><br><span class="line">foo2(v1);   <span class="comment">// correct</span></span><br><span class="line">foo2(v2);   <span class="comment">// correct</span></span><br><span class="line">foo2(<span class="number">3</span>);    <span class="comment">// correct</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>&amp; <span class="title">foo3</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; v)</span> </span>{<span class="keyword">return</span> v;} <span class="comment">//false, passing &quot;const int&amp;&quot; to &quot;int&amp;&quot; in return</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">int</span>&amp; <span class="title">foo3</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; v)</span> </span>{<span class="keyword">return</span> v;} <span class="comment">//correct</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="in-class-methods"><a href="#In-Class-Methods" class="headerlink" title="In Class Methods"></a>In Class Methods</h2><p>When calling a method for a class instance through its <code>const reference</code>, this method should be declared to be <code>const</code>.</p>
-<p>In example below, compiler fails and error message is <code>passing &quot;const XX&quot; as this argument of &quot;void XX::XX()&quot; discards qualifiers</code>.<br>This is because a non-const methods <code>dosth()</code> is called on a const object <code>rt</code>. In other words, a const <code>rt</code> is passing<br>into  non-const parameter in <code>TEST::dosth()</code>.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> TEST {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    TEST() {};</span><br><span class="line">    ~TEST() {};</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">dosth</span><span class="params">()</span> </span>{}           <span class="comment">// fail</span></span><br><span class="line">  <span class="comment">//void dosth() const {}   // using this </span></span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    TEST t;</span><br><span class="line">    <span class="keyword">const</span> TEST &amp;rt = t;</span><br><span class="line">    rt.dosth();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
-<h2 id="conclusions-and-tips"><a href="#Conclusions-and-Tips" class="headerlink" title="Conclusions and Tips"></a>Conclusions and Tips</h2><ul>
-<li>Use <code>const reference</code> in formal parameters if <code>reference</code> is required.</li>
-<li>Once using <code>const reference</code> in formal parameters, any operations to it should be const!</li>
-<li>Use pointer but not reference if you want to pass a big data set,<br>such as a struct instance, into a function, and you will change it.</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tip 1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; v)</span></span>; <span class="comment">// use const reference, don&apos;t change v </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// tip 2</span></span><br><span class="line"><span class="keyword">class</span> TEST {<span class="comment">/*...*/</span>};  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">const</span> TEST &amp; t)</span></span>; <span class="comment">// do not call non-const method for t in fun()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// tip 3</span></span><br><span class="line"><span class="keyword">class</span> DAT {<span class="comment">/*...*/</span>};</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pro</span><span class="params">(DAT *d)</span></span>; <span class="comment">// use pointer if changes is made to d in pro()</span></span><br></pre></td></tr></table></figure>
+<p>The key point of mutlidimensional array is using the pointer to pointers. For example, constructing two dimensional array requires a pointer array, each element of which points to an one dimensional array. </p>
+<hr>
+<h2 id="c"><a href="#C" class="headerlink" title="C"></a>C</h2><p>A simple method is:</p>
+<h3 id="a-simple-method"><a href="#A-simple-method" class="headerlink" title="A simple method"></a>A simple method</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>** <span class="title">alloc_float2</span><span class="params">(<span class="keyword">int</span> nx, <span class="keyword">int</span> ny)</span> </span>{</span><br><span class="line">    <span class="keyword">float</span> **px  = (<span class="keyword">float</span> **) <span class="built_in">malloc</span> (nx*<span class="keyword">sizeof</span>(<span class="keyword">float</span>**));</span><br><span class="line">    <span class="keyword">float</span> *pdat = (<span class="keyword">float</span>  *) <span class="built_in">malloc</span> (nx*ny*<span class="keyword">sizeof</span>(<span class="keyword">float</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> ix = <span class="number">0</span>; ix &lt; nx; ++ix)</span><br><span class="line">        px[ix] = pdat + ix * ny;</span><br><span class="line">    <span class="keyword">return</span> px;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_float2</span><span class="params">(<span class="keyword">float</span> **p)</span></span>{</span><br><span class="line">    <span class="built_in">free</span>(p[<span class="number">0</span>]); <span class="built_in">free</span>(p);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//usage</span></span><br><span class="line"><span class="keyword">float</span> **m2 = alloc_float2(<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line"><span class="comment">// calling to m2[i][j];</span></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">free_float2(m2);</span><br></pre></td></tr></table></figure>
+<p>However, this is a bad design since both malloc and free are called for twice. More over, forgetting to free the data scope (<code>p[0]</code>) often happens.</p>
+<h3 id="better-method"><a href="#Better-method" class="headerlink" title="Better method"></a>Better method</h3><p>A better method is put the pointer array and data scope array together. Thus, operations of malloc and free are called for only once.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>** <span class="title">alloc_f2</span><span class="params">(<span class="keyword">int</span> nx, <span class="keyword">int</span> ny)</span></span>{</span><br><span class="line">    <span class="keyword">float</span> **ptr  = (<span class="keyword">float</span>**) <span class="built_in">malloc</span> (nx * <span class="keyword">sizeof</span>(<span class="keyword">float</span>*) + nx*ny*<span class="keyword">sizeof</span>(<span class="keyword">float</span>));</span><br><span class="line">    <span class="keyword">float</span>  *pdat = (<span class="keyword">float</span>*) (ptr + nx);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> ix = <span class="number">0</span>; ix &lt; nx; ++ix)</span><br><span class="line">        ptr[ix] = pdat + ix * ny;</span><br><span class="line">    <span class="keyword">return</span> ptr;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//usage</span></span><br><span class="line"><span class="keyword">float</span> **m2 = alloc_f2(<span class="number">10</span>,<span class="number">10</span>);</span><br><span class="line"><span class="comment">// calling m2[i][j];</span></span><br><span class="line"><span class="built_in">free</span>(m2); <span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="c"><a href="#C-1" class="headerlink" title="C++"></a>C++</h2><p>It is disaster for constructing multi-dimensional array in C because of lots of types, such as <code>int</code>, <code>float</code>, <code>double</code>&#x2026; We need to write codes repeatedly for these types. However, C++ provides a nice method for simplify these, TEMPLATE!</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="function">T** <span class="title">alloc2</span><span class="params">(<span class="built_in">std</span>::<span class="keyword">size_t</span> nx, <span class="built_in">std</span>::<span class="keyword">size_t</span> ny)</span> </span>{</span><br><span class="line">    T** p_m2 = (T**) ( <span class="keyword">new</span> <span class="keyword">char</span> [<span class="keyword">sizeof</span>(T)*nx*ny + <span class="keyword">sizeof</span>(T*)*nx] );</span><br><span class="line">    T*  pdat = p_m2 + nx;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">std</span>::<span class="keyword">size_t</span> ix = <span class="number">0</span>; ix &lt; nx; ++ix)</span><br><span class="line">        p_m2[ix] = pdat + ix * ny;</span><br><span class="line">    <span class="keyword">return</span> p_m2;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// usage</span></span><br><span class="line"><span class="keyword">float</span> **m = alloc2&lt;<span class="keyword">float</span>&gt;(<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line"><span class="comment">// call m[i][j];</span></span><br><span class="line"><span class="keyword">delete</span> m;</span><br></pre></td></tr></table></figure>
+<h2 id="elegant-method"><a href="#Elegant-method" class="headerlink" title="Elegant method"></a>Elegant method</h2><p>C++ provides <code>class</code> for us to packaging everything. Why not using it?</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> MAT2{</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MAT2(<span class="built_in">std</span>::<span class="keyword">size_t</span> nx, <span class="built_in">std</span>::<span class="keyword">size_t</span> ny) : d_nx(nx), d_ny(ny) { dat = <span class="keyword">new</span> T [nx*ny]; }</span><br><span class="line">    ~MAT2() {<span class="keyword">delete</span> dat; }</span><br><span class="line">    T* <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> ix) { <span class="keyword">return</span> (T+ix*ny); }</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="keyword">size_t</span> d_nx, d_ny;</span><br><span class="line">    T* dat;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="comment">//usage</span></span><br><span class="line">MAT2&lt;<span class="keyword">double</span>&gt; m(<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+<p>Example above is the simplest design for two dimensional array. More advanced design is <a href="https://github.com/sheng09/sheng09.github.io.posts/_posts/multiArray" target="_blank" rel="external">gsw</a>.</p>
 
       
     </div>
@@ -443,17 +450,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/18/finite-difference-staggerGrid2/" rel="next" title="Finite Difference of Staggered Grid (2)">
-                <i class="fa fa-chevron-left"></i> Finite Difference of Staggered Grid (2)
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/01/21/const/" rel="prev" title="Const in C/C++">
+              <a href="/2015/01/31/const/" rel="prev" title="Const in C/C++">
                 Const in C/C++ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -650,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#in-function-parameters"><span class="nav-text">In Function Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-class-methods"><span class="nav-text">In Class Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusions-and-tips"><span class="nav-text">Conclusions and Tips</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#c"><span class="nav-text">C</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-simple-method"><span class="nav-text">A simple method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#better-method"><span class="nav-text">Better method</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c"><span class="nav-text">C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#elegant-method"><span class="nav-text">Elegant method</span></a></li></ol></div>
             
 
           </div>
@@ -782,9 +785,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'sheng09';
-      var disqus_identifier = '2017/01/21/const_reference/';
+      var disqus_identifier = '2015/01/22/multiArray/';
 
-      var disqus_title = "Const Reference in Function Parameters";
+      var disqus_title = "Multidimensional Array in C/C++";
 
 
       function run_disqus_script(disqus_script) {
