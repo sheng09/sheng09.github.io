@@ -4,9 +4,77 @@
   
     
     <entry>
-      <title><![CDATA[RF_LinearInversion]]></title>
-      <url>http://sheng09.github.io/2017/02/03/RF-LinearInversion/</url>
-      <content type="html"></content>
+      <title><![CDATA[Linear Inversion of Receiver Function]]></title>
+      <url>http://sheng09.github.io/2017/10/19/RF-LinearInversion/</url>
+      <content type="html"><![CDATA[<p>In receiver function inversion, the model is calibrated and the target is to minimize the mismatch between synthetic receiver function waveform and observed waveform. The key point of the inversion is to give a &#x201C;good&#x201D; model calibration direction, and amount. In linear inversion, these calibration items are given by the first order derivative of the optimal function. However, it is difficult to derive the analytical expression of the first order derivative since the relationship between model<br>and receiver function waveform is extreme complex. Finite difference provides approximate value of differential value.</p>
+<a id="more"></a>
+<!--toc-->
+<h1 id="building-linear-equation"><a href="#Building-Linear-Equation" class="headerlink" title="Building Linear Equation"></a>Building Linear Equation</h1><p>The receiver function waveform $r(t)$ is determined by the model $m$ and observation error. Given the real model $\hat{m}$ and the observation $\hat{r}$, we have:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \hat{r}(t) = F( \hat{m}(x) ) + err(t) \label{r0} \\
+\end{eqnarray}</script><p>while synthetic waveform is:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    r(t) = F( m(x) )
+\end{eqnarray}</script><p>$m(x)$ here indicates the <strong>thickness</strong> and <strong>velocity</strong> of each layers. Apply taylor expansion in $\hat{m}$ and ignore high order items, $r(t)$ would be:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    r(t) = F(\hat{m}) + \frac{\delta F}{\delta m} \delta m 
+\end{eqnarray}</script><p>considering $\eqref{r0}$:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    r(t) - \hat{r}(t) = \frac{\delta F}{\delta m}|_{m=\hat{m}} \delta m - err(t)
+\end{eqnarray}</script><p>This gives the model calibration $\delta m$. In discrete sense, it is a linear equation:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{bmatrix}
+        \Delta r[t_0] \\
+        \Delta r[t_1] \\
+        ... \\
+        \Delta r[t_i] \\
+        ... \\
+        \Delta r[t_N] \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        a_{00} & a_{01} & a_{02} & ... & a_{0M} \\
+        a_{10} & a_{11} & a_{12} & ... & a_{1M} \\
+        ... \\
+        a_{i0} & a_{i1} & a_{i2} & ... & a_{iM} \\
+        ... \\
+        a_{N0} & a_{N1} & a_{N2} & ... & a_{NM} \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        \Delta m[x_0] \\
+        \Delta m[x_1] \\
+        ... \\
+        \Delta m[x_i] \\
+        ... \\
+        \Delta m[x_M] \\
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+        err[t_0] \\
+        err[t_1] \\
+        ...\\
+        err[t_i] \\
+        ...\\
+        err[t_N]
+    \end{bmatrix} \\
+    a_{ij} = \frac{\delta F} {\delta m}|_{t_i, \hat{m}(x_j)}
+\end{equation}</script><p>assume current model $m$ approximates the real model $\hat{m}$, $a<em>{ij}$ could be replaced with $a&#x2019;</em>{ij} = \frac{\delta F} {\delta m}|_{t_i, \m(x_j)}$. To minimize the error, the model calibration is the solution of the linear equation:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \mathbf{ \Delta r = A \Delta m } \label{lq}
+\end{equation}</script><h1 id="differential-seismogram"><a href="#Differential-Seismogram" class="headerlink" title="Differential Seismogram"></a>Differential Seismogram</h1><p>It is difficult to derive the first order derivative, the matrix $\mathbf{A}$. Finite difference provides approximates value of this matrix. </p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{\delta F} {\delta m} = \frac{ F(m(x+dx)) - F(m(x)) }{dx} 
+\end{eqnarray}</script><p>for stratified media, <a href="http://www.bssaonline.org/content/85/1/300.short" target="_blank" rel="external">this kind of finite difference value of waveform, the differential seismogram, could be computed directely</a>.</p>
+<h1 id="inversion"><a href="#Inversion" class="headerlink" title="Inversion"></a>Inversion</h1><p>For inversion, model calibration presented above should be operated recursively until the model converges, or minimizing the mismatch between synthetic waveform and observed waveform. Moreover, regularization should be applyed into the inversion to make the solution reasonable.</p>
+<h1 id="more"><a href="#More" class="headerlink" title="More"></a>More</h1><p>In linear inversion, the model calibration is given by the derivatives. So the initial model dominates the solution, the convergence. To avoid locally optimal solution, non-linear techniques is employed. Anyway, linear inversion here presents a way to transform some kinds of complex relationship between model and data into computable problem and employing numerial method to solve it.</p>
+]]></content>
     </entry>
     
     <entry>
