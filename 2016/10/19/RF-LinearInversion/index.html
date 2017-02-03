@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Receiver Function,Inversion,Linear Equation," />
 
 
 
@@ -86,15 +86,16 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sheng Wang">
-<meta property="og:url" content="http://sheng09.github.io/archives/2017/10/index.html">
+<meta name="description" content="In receiver function inversion, the model is calibrated and the target is to minimize the mismatch between synthetic receiver function waveform and observed waveform. The key point of the inversion is">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linear Inversion of Receiver Function">
+<meta property="og:url" content="http://sheng09.github.io/2016/10/19/RF-LinearInversion/index.html">
 <meta property="og:site_name" content="Sheng Wang">
-<meta property="og:description">
+<meta property="og:description" content="In receiver function inversion, the model is calibrated and the target is to minimize the mismatch between synthetic receiver function waveform and observed waveform. The key point of the inversion is">
+<meta property="og:updated_time" content="2017-02-03T08:53:53.257Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sheng Wang">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Linear Inversion of Receiver Function">
+<meta name="twitter:description" content="In receiver function inversion, the model is calibrated and the target is to minimize the mismatch between synthetic receiver function waveform and observed waveform. The key point of the inversion is">
 
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://sheng09.github.io/archives/2017/10/"/>
+  <link rel="canonical" href="http://sheng09.github.io/2016/10/19/RF-LinearInversion/"/>
 
 
 
 
 
-  <title> Archive | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Linear Inversion of Receiver Function | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -149,7 +150,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left  page-archive  ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -274,65 +275,294 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 34 posts in total. Keep on posting.
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2016/10/19/RF-LinearInversion/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/sheng09_invert.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sheng Wang">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sheng Wang" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linear Inversion of Receiver Function
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-19T07:04:16+08:00">
+                2016-10-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Receiver-Function/" itemprop="url" rel="index">
+                    <span itemprop="name">Receiver Function</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/19/RF-LinearInversion/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/19/RF-LinearInversion/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>In receiver function inversion, the model is calibrated and the target is to minimize the mismatch between synthetic receiver function waveform and observed waveform. The key point of the inversion is to give a &#x201C;good&#x201D; model calibration direction, and amount. In linear inversion, these calibration items are given by the first order derivative of the optimal function. However, it is difficult to derive the analytical expression of the first order derivative since the relationship between model<br>and receiver function waveform is extreme complex. Finite difference provides approximate value of differential value.</p>
+<a id="more"></a>
+<!--toc-->
+<h1 id="building-linear-equation"><a href="#Building-Linear-Equation" class="headerlink" title="Building Linear Equation"></a>Building Linear Equation</h1><p>The receiver function waveform $r(t)$ is determined by the model $m$ and observation error. Given the real model $\hat{m}$ and the observation $\hat{r}$, we have:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \hat{r}(t) = F( \hat{m}(x) ) + err(t) \label{r0} \\
+\end{eqnarray}</script><p>while synthetic waveform is:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    r(t) = F( m(x) )
+\end{eqnarray}</script><p>$m(x)$ here indicates the <strong>thickness</strong> and <strong>velocity</strong> of each layers. Apply taylor expansion in $\hat{m}$ and ignore high order items, $r(t)$ would be:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    r(t) = F(\hat{m}) + \frac{\delta F}{\delta m} \delta m 
+\end{eqnarray}</script><p>considering $\eqref{r0}$:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    r(t) - \hat{r}(t) = \frac{\delta F}{\delta m}|_{m=\hat{m}} \delta m - err(t)
+\end{eqnarray}</script><p>This gives the model calibration $\delta m$. In discrete sense, it is a linear equation:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{bmatrix}
+        \Delta r[t_0] \\
+        \Delta r[t_1] \\
+        ... \\
+        \Delta r[t_i] \\
+        ... \\
+        \Delta r[t_N] \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        a_{00} & a_{01} & a_{02} & ... & a_{0M} \\
+        a_{10} & a_{11} & a_{12} & ... & a_{1M} \\
+        ... \\
+        a_{i0} & a_{i1} & a_{i2} & ... & a_{iM} \\
+        ... \\
+        a_{N0} & a_{N1} & a_{N2} & ... & a_{NM} \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        \Delta m[x_0] \\
+        \Delta m[x_1] \\
+        ... \\
+        \Delta m[x_i] \\
+        ... \\
+        \Delta m[x_M] \\
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+        err[t_0] \\
+        err[t_1] \\
+        ...\\
+        err[t_i] \\
+        ...\\
+        err[t_N]
+    \end{bmatrix} \\
+    a_{ij} = \frac{\delta F} {\delta m}|_{t_i, \hat{m}(x_j)}
+\end{equation}</script><p>assume current model $m$ approximates the real model $\hat{m}$, $a<em>{ij}$ could be replaced with $a&#x2019;</em>{ij} = \frac{\delta F} {\delta m}|_{t_i, \m(x_j)}$. To minimize the error, the model calibration is the solution of the linear equation:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \mathbf{ \Delta r = A \Delta m } \label{lq}
+\end{equation}</script><h1 id="differential-seismogram"><a href="#Differential-Seismogram" class="headerlink" title="Differential Seismogram"></a>Differential Seismogram</h1><p>It is difficult to derive the first order derivative, the matrix $\mathbf{A}$. Finite difference provides approximates value of this matrix. </p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \frac{\delta F} {\delta m} = \frac{ F(m(x+dx)) - F(m(x)) }{dx} 
+\end{eqnarray}</script><p>for stratified media, <a href="http://www.bssaonline.org/content/85/1/300.short" target="_blank" rel="external">this kind of finite difference value of waveform, the differential seismogram, could be computed directely</a>.</p>
+<h1 id="inversion"><a href="#Inversion" class="headerlink" title="Inversion"></a>Inversion</h1><p>For inversion, model calibration presented above should be operated recursively until the model converges, or minimizing the mismatch between synthetic waveform and observed waveform. Moreover, regularization should be applyed into the inversion to make the solution reasonable.</p>
+<h1 id="more"><a href="#More" class="headerlink" title="More"></a>More</h1><p>In linear inversion, the model calibration is given by the derivatives. So the initial model dominates the solution, the convergence. To avoid locally optimal solution, non-linear techniques is employed. Anyway, linear inversion here presents a way to transform some kinds of complex relationship between model and data into computable problem and employing numerial method to solve it.</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Receiver-Function/" rel="tag"># Receiver Function</a>
+          
+            <a href="/tags/Inversion/" rel="tag"># Inversion</a>
+          
+            <a href="/tags/Linear-Equation/" rel="tag"># Linear Equation</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/18/finite-difference-staggerGrid/" rel="next" title="Finite Difference of Staggered Grid (1)">
+                <i class="fa fa-chevron-left"></i> Finite Difference of Staggered Grid (1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/19/waveModelinginStratifiedMedia/" rel="prev" title="Wave Modeling in Stratified Media">
+                Wave Modeling in Stratified Media <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/19/RF-LinearInversion/" itemprop="url">
-              
-                <span itemprop="name">Linear Inversion of Receiver Function</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-19T07:04:16+08:00"
-              content="2017-10-19" >
-          10-19
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
 
-  </section>
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 
-  
-
+      
+    </div>
+  </div>
 
           
           </div>
@@ -340,6 +570,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -359,8 +600,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/sheng09_invert.png"
@@ -434,6 +684,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#building-linear-equation"><span class="nav-text">Building Linear Equation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#differential-seismogram"><span class="nav-text">Differential Seismogram</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#inversion"><span class="nav-text">Inversion</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#more"><span class="nav-text">More</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
@@ -540,11 +806,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   
@@ -562,9 +826,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'sheng09';
-      var disqus_identifier = 'archives/2017/10/index.html';
+      var disqus_identifier = '2016/10/19/RF-LinearInversion/';
 
-      var disqus_title = "";
+      var disqus_title = "Linear Inversion of Receiver Function";
 
 
       function run_disqus_script(disqus_script) {
@@ -577,6 +841,13 @@
 
       run_disqus_script('count.js');
 
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
       
 
     </script>
@@ -714,30 +985,7 @@
     $('.popup').click(function(e){
       e.stopPropagation();
     });
-  </script>
-
-
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -755,6 +1003,9 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
+
+
+  
   
 
 
