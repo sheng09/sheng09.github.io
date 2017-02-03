@@ -1,0 +1,1302 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Sheng Wang" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/sheng09_16.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Finite Difference of Staggered Grid (2)">
+<meta property="og:url" content="http://sheng09.github.io/2016/10/20/finite-difference-staggerGrid2/index.html">
+<meta property="og:site_name" content="Sheng Wang">
+<meta property="og:description" content="This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.">
+<meta property="og:image" content="http://sheng09.github.io/2016/10/20/finite-difference-staggerGrid2/2order.jpg">
+<meta property="og:image" content="http://sheng09.github.io/2016/10/20/finite-difference-staggerGrid2/2Norder.jpg">
+<meta property="og:image" content="http://sheng09.github.io/2016/10/20/finite-difference-staggerGrid2/compare.jpg">
+<meta property="og:updated_time" content="2017-02-02T09:50:08.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Finite Difference of Staggered Grid (2)">
+<meta name="twitter:description" content="This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.">
+<meta name="twitter:image" content="http://sheng09.github.io/2016/10/20/finite-difference-staggerGrid2/2order.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sheng09.github.io/2016/10/20/finite-difference-staggerGrid2/"/>
+
+
+
+
+
+  <title> Finite Difference of Staggered Grid (2) | Sheng Wang </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Sheng Wang</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sheng09.github.io/2016/10/20/finite-difference-staggerGrid2/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/sheng09_invert.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sheng Wang">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sheng Wang" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Finite Difference of Staggered Grid (2)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-20T22:18:22+08:00">
+                2016-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PDE/" itemprop="url" rel="index">
+                    <span itemprop="name">PDE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/20/finite-difference-staggerGrid2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/20/finite-difference-staggerGrid2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#fx-in-2nd-order-accuracy">$f&#x2019;(x)$ in 2nd order accuracy</a><ul>
+<li><a href="#point-0">point 0</a></li>
+</ul>
+</li>
+<li><a href="#fx-in-2nth-order-accuracy">$f&#x2019;(x)$ in 2Nth order accuracy</a><ul>
+<li><a href="#point-0">point 0</a></li>
+<li><a href="#point-k-k0123n-1">point k $(k=0,1,2,3&#x2026;,N-1)$</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="fx-in-2nd-order-accuracy"><a href="#f&#x2019;-x-in-2nd-order-accuracy" class="headerlink" title="$f&#x2019;(x)$ in 2nd order accuracy"></a>$f&#x2019;(x)$ in 2nd order accuracy</h2><p><img src="/2016/10/20/finite-difference-staggerGrid2/2order.jpg" alt=""></p>
+<h3 id="point-0"><a href="#point-0" class="headerlink" title="point 0"></a>point 0</h3><p>To calculate the first order derivates in the $\color{blue}{blue}$ grid points, values in $\color{red}{red}$ points are expanded.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f(x+\frac{\delta}{2}) & = & f(x) + \frac{\delta}{2} f'(x)
+                    + \frac{\delta^2}{2^2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %+\frac{\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1}) \\
+    f(x+\frac{3\delta}{2}) & = & f(x) + \frac{3\delta}{2} f'(x)
+                    + \frac{3^2\delta^2}{2^2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %+ ...
+                    %+ \frac{3^N\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1}) \\
+    f(x+\frac{5\delta}{2}) & = & f(x) + \frac{5\delta}{2} f'(x)
+                    + \frac{5^2\delta^2}{2^2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %+ ...
+                    %+ \frac{5^N\delta^N}{2^N N!}f^{(N)}(x)
+                    %+ O(\delta^{N+1})
+\end{eqnarray}</script><p>thus, $f&#x2019;(x)$ are:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f'(x) & = &  \frac{2 f(x+\frac{\delta}{2}) }{\delta}
+                -\frac{2 f(x)}{\delta}
+                    - \frac{\delta}{2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %-\frac{\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N}) \\
+    f'(x) & = &  \frac{2 f(x+\frac{3\delta}{2}) }{3\delta}
+                -\frac{2 f(x)  }{3\delta}
+                    - \frac{3\delta }{2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %- \frac{3^{N-1}\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N}) \\
+    f'(x) & = &  \frac{2 f(x+\frac{5\delta}{2}) }{5\delta}
+                -\frac{2 f(x)  }{5\delta}
+                    - \frac{5\delta }{2 2!}f''(x)
+                    + O(\delta^3) \\
+                    %- ...
+                    %- \frac{5^{N-1}\delta^{N-1}}{2^{N-1} N!}f^{(N)}(x)
+                    %+ O(\delta^{N})
+
+\end{eqnarray}</script><p>add these $f&#x2019;(x)$ proportionally:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+f'(x) = & \frac{2}{\delta}
+            \left[
+                C^2_{00}            f(x + \frac{\delta}{2}) +
+                C^2_{01}\frac{1}{3} f(x + \frac{3\delta}{2} )+
+                C^2_{02}\frac{1}{5} f(x + \frac{5\delta}{2} )
+            \right]\\
+        & -\frac{2}{\delta}
+            \left[
+                           C^2_{00}+
+                \frac{1}{3}C^2_{01}+
+                \frac{1}{5}C^2_{02}
+            \right] f(x)
+          - \frac{\delta}{2 2!}
+            \left[
+                C^2_{00}+
+                3C^2_{01}+
+                5C^2_{02}
+            \right]f''(x) + O(\delta^3)
+
+\end{aligned}
+\end{equation}</script><p>In order to have second order accuracy, $C^2_{0j}$ must satisfy the equation of:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+    \begin{cases}
+        C^2_{00} +  C^2_{01} + C^2_{02} = 1\\
+        C^2_{00} + \frac{1}{3}C^2_{01} + \frac{1}{5}C^2_{02}  = 0\\
+        C^2_{00} + 3C^2_{01} + 5C^2_{02}  = 0\\
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+        C^2_{00} =  -1           \\
+        C^2_{01} =   \frac{9}{2} \\
+        C^2_{02} =  -\frac{5}{2}
+    \end{cases}
+\end{equation}</script><h2 id="fx-in-2nth-order-accuracy"><a href="#f&#x2019;-x-in-2Nth-order-accuracy" class="headerlink" title="$f&#x2019;(x)$ in 2Nth order accuracy"></a>$f&#x2019;(x)$ in 2Nth order accuracy</h2><p><img src="/2016/10/20/finite-difference-staggerGrid2/2Norder.jpg" alt=""></p>
+<h3 id="point-0"><a href="#point-0-1" class="headerlink" title="point 0"></a>point 0</h3><script type="math/tex; mode=display">
+\begin{eqnarray}
+    f(x+\frac{\delta}{2}) & = & f(x) + \frac{\delta}{2} f'(x)
+                    + \frac{\delta^2}{2^2 2!}f''(x)
+                    + ...
+                    +\frac{\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N+1}) \\
+    f(x+\frac{3\delta}{2}) & = & f(x) + \frac{3\delta}{2} f'(x)
+                    + \frac{3^2\delta^2}{2^2 2!}f''(x)
+                    + ...
+                    + \frac{3^{2N}\delta^{2N}}{2^{2N} {2N}!}f^{(2N)}(x)
+                    + O(\delta^{2N+1})\\
+        &...&\\
+    f(x+\frac{l\delta}{2}) & = & f(x) + \frac{l\delta}{2}f'(x)
+                    + \frac{l^2\delta^2}{2^2 2!}f''(x)
+                    + ...
+                    + \frac{l^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N+1})
+\end{eqnarray}</script><p>thus, $f&#x2019;(x)$ are:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f'(x) & = &  \frac{2 f(x+\frac{\delta}{2}) }{\delta}
+                -\frac{2 f(x)}{\delta}
+                - \frac{\delta}{2 2!}f''(x)
+                - ...
+                -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                + O(\delta^{2N}) \\
+    f'(x) & = &  \frac{2 f(x+\frac{3\delta}{2}) }{3\delta}
+                -\frac{2 f(x)  }{3\delta}
+                    - \frac{3\delta }{2 2!}f''(x)
+                    - ...
+                    - \frac{3^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    &...&\\
+    f'(x) & = & \frac{2 f(x+\frac{l\delta}{2}) }{l\delta}
+               -\frac{2 f(x) }{l\delta}
+                    - \frac{l\delta}{2 2!}f''(x)
+                    - ...
+                    - \frac{l^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    \color{red}{(l=1,3,5,7,9...)}
+\end{eqnarray}</script><p>add these $f&#x2019;(x)$ proportionally:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+f'(x) = & \frac{2}{\delta}
+            \sum \limits_l
+            \left[
+                 f(x + \frac{l\delta}{2}) C^{2N}_{0(\frac{l-1}{2})}\frac{1}{l}
+            \right]\\
+        &-\frac{2}{\delta}f(x)
+            \sum \limits_l
+            \left[
+                 C^{2i}_{0(\frac{l-1}{2})} \frac{1}{l}
+            \right]
+         -\frac{\delta}{2 2!} f''(x)
+            \sum \limits_l
+            \left[
+                C^{2i}_{0(\frac{l-1}{2})} l
+            \right]\\
+        & -...
+        -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!} f^{2N}(x)
+            \sum \limits_l
+            \left[
+                C^{2N}_{0(\frac{l-1}{2})} l^{2N-1}
+            \right]
+        +O(\delta^{2N})\\
+        (l=1,3,5,7,9...)
+\end{aligned}
+\end{equation}</script><p>To have 2Nth order accuracy, , $C^{2N}_{0j}$ must satisfy the equation:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    \begin{bmatrix}
+        1 & 1            & 1          & ... & 1           \\
+        1 & \frac{1}{3}  & \frac{1}{5}& ... & \frac{1}{4N+1} \\
+        1 & 3            & 5          & ... &  4N+1          \\
+        1 & 3^2          & 5^2        & ... &  (4N+1)^2        \\
+        ...\\
+        1 & 3^{2N-1}      & 5^{2N-1}    & ... &  (4N+1)^{2N-1}    \\
+    \end{bmatrix}
+    \begin{bmatrix}
+    C^{2N}_{00}      \\
+    C^{2N}_{01}      \\
+    C^{2N}_{02}      \\
+    C^{2N}_{03}      \\
+    ...\\
+    C^{2N}_{0(2N)} \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    1\\
+    0\\
+    0\\
+    0\\
+    ...\\
+    0\\
+    \end{bmatrix}
+\end{eqnarray}</script><h3 id="point-k-k0123n-1"><a href="#point-k-k-0-1-2-3&#x2026;-N-1" class="headerlink" title="point k $(k=0,1,2,3&#x2026;,N-1)$"></a>point k $(k=0,1,2,3&#x2026;,N-1)$</h3><script type="math/tex; mode=display">
+\begin{eqnarray}
+    f(x+\frac{(1-2k)\delta}{2}) & = & f(x)
+            +\frac{(1-2k)\delta}{2} f'(x)
+            + \frac{(1-2k)^2\delta^2}{2^22!}f''(x)
+            +...
+            + \frac{(1-2k)^{2N}\delta^{2N}}{2^{2N}(2N)!}f^{(2N)}(x)
+            + O(2N+1)
+    \\
+    ...
+    \\
+    f(x-\frac{\delta}{2}) & = & f(x) - \frac{\delta}{2}f'(x)
+            + \frac{\delta^2}{2^22!}f''(x)
+            + ...
+            + \frac{(-1)^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})
+                                    \\
+    f(x+\frac{\delta}{2}) & = & f(x) + \frac{\delta}{2} f'(x)
+            + \frac{\delta^2}{2^2 2!}f''(x)
+            + ...
+            +\frac{\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1}) \\
+    f(x+\frac{3\delta}{2}) & = & f(x) + \frac{3\delta}{2} f'(x)
+            + \frac{3^2\delta^2}{2^2 2!}f''(x)
+            + ...
+            + \frac{3^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})\\
+        &...&\\
+    f(x+\frac{l\delta}{2}) & = & f(x) + \frac{l\delta}{2}f'(x)
+            + \frac{l^2\delta^2}{2^2 2!}f''(x)
+            + ...
+            + \frac{l^{2N}\delta^{2N}}{2^{2N} (2N)!}f^{(2N)}(x)
+            + O(\delta^{2N+1})
+\end{eqnarray}</script><p>thus, $f&#x2019;(x)$ are:</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+    f'(x) & = & \frac{2}{(1-2k)\delta} f(x+\frac{(1-2k)\delta}{2})
+            - \frac{2}{(1-2k)\delta} f(x)
+            - \frac{(1-2k)\delta}{2 2!}f''(x)
+            - ...
+            -\frac{(1-2k)^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    \\
+    ...
+    \\
+    f'(x) & = & \frac{-2}{\delta} f(x-\frac{\delta}{2})
+                 +\frac{2}{\delta} f(x)
+                 + \frac{\delta^2}{22!}f''(x)
+                 + ...
+                 + \frac{(-1)^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                                    + O(\delta^{2N})
+                                    \\
+    f'(x) & = & \frac{2}{\delta} f(x+\frac{\delta}{2})
+                    - \frac{2}{\delta} f(x)
+                    - \frac{\delta}{2 2!}f''(x)
+                    - ...
+                    -\frac{\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N}) \\
+    f'(x) & = & \frac{2}{3\delta} f(x+\frac{3\delta}{2})
+                    -\frac{2}{3\delta}f(x)
+                    - \frac{3\delta}{2 2!}f''(x)
+                    - ...
+                    - \frac{3^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N})\\
+        &...&\\
+    f'(x) & = & \frac{2}{l\delta} f(x+\frac{l\delta}{2})
+                    -\frac{2}{l\delta} f(x)
+                    - \frac{l\delta}{2 2!}f''(x)
+                    - ...
+                    - \frac{l^{2N-1}\delta^{2N-1}}{2^{2N-1} (2N)!}f^{(2N)}(x)
+                    + O(\delta^{2N})
+\end{eqnarray}</script><p>add these $f&#x2019;(x)$ proportionally:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+    f'(x) =  &
+\frac{2}{\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{ l\delta}{2} )C^{2N}_{k(\frac{l-1}{2})} \frac{1}{l}
+    \right]
+\\
+&-\frac{2}{\delta}f(x) \sum \limits_l \frac{1}{l}    C^{2N}_{k(\frac{l-1}{2})}
+-\frac{\delta}{22!}f''(x)         \sum \limits_l{l}  C^{2N}_{k(\frac{l-1}{2})}
+-\frac{\delta^2}{2^23!}f^{(3)}(x) \sum \limits_l{l^2}C^{2N}_{k(\frac{l-1}{2})}
+\\
+&-\frac{\delta^3}{2^34!}f^{(4)}(x) \sum \limits_l{l^3}C^{2N}_{k(\frac{l-1}{2})}
+-...
+-\frac{\delta^{2N-1}}{2^{2N-1}(2N)!}f^{(2N)}(x) \sum \limits_l{l^{2N-1}}C^{2N}_{k(\frac{l-1}{2})}
++O({\delta^{2N}})
+\\
+&(l = 1-2k, 3-2k,...,-1,1,...)
+\end{aligned}
+\end{equation}</script><p>to have 2Nth order accuracy: $C^{2N}_{kj}$ must satisfy equation:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{bmatrix}
+    1 & 1              & 1                           & ... & 1 \\
+    \frac{1}{1-2k} & \frac{1}{3-2k} & \frac{1}{5-2k} & ... & \frac{1}{4N-2k+1} \\
+    1-2k           & 3-2k           & 5-2k           & ... & 4N-2k+1 \\
+    (1-2k)^2       & (3-2k)^2       & (5-2k)^2       & ... & (4N-2k+1)^2 \\
+    ...\\
+    (1-2k)^{2N-1}  & (3-2k)^{2N-1}  & (5-2k)^{2N-1}  & ... & (4N-2k+1)^{2N-1}
+\end{bmatrix}
+\begin{bmatrix}
+    C^{2N}_{k (-k)   } \\
+    C^{2N}_{k (-k+1) } \\
+    C^{2N}_{k (-k+2) } \\
+    C^{2N}_{k (-k+3) } \\
+    ...\\
+    C^{2N}_{k (2N-k)}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1\\
+    0\\
+    0\\
+    0\\
+    ...\\
+    0\\
+    \end{bmatrix}
+    \label{LA}
+\end{equation}</script><h2 id="conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>For 2Nth order accuracy, for point k in the boundary region, value of $f&#x2019;(x)$ is:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+f'(x) = 
+\frac{2}{l\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{l\delta}{2} )C^{2N}_{k(\frac{l-1}{2})}
+    \right]
+    \\
+    (l=1-2k,3-2k,...,-1,1,...,4N-2k+1)
+\end{equation}</script><p>while $C^{2N}_{kj}$ is solution of equation $\eqref{LA}$.</p>
+<p>Or, in the form of:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{cases}
+f'(x) = 
+\frac{1}{\delta} \sum \limits_l
+    \left[
+        f( x+ \frac{l\delta}{2} )c^{2N}_{k(\frac{l-1}{2})}
+    \right]
+    \\
+    c^{2N}_{k(\frac{l-1}{2})}  = \frac{2}{l}C^{2N}_{k(\frac{l-1}{2})}
+    \\
+    (l=1-2k,3-2k,...,-1,1,...,4N-2k+1)
+\end{cases}
+\end{equation}</script><h2 id="examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x)=sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&#x2019;(x)=cos(x)$, as well as their error.</p>
+<p><img src="/2016/10/20/finite-difference-staggerGrid2/compare.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/19/waveModelinginStratifiedMedia/" rel="next" title="Wave Modeling in Stratified Media">
+                <i class="fa fa-chevron-left"></i> Wave Modeling in Stratified Media
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/03/RF-LinearInversion/" rel="prev" title="RF_LinearInversion">
+                RF_LinearInversion <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/sheng09_invert.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sheng09" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.geosc.psu.edu/content/sheng_wang" target="_blank" title="HomePage">
+                  
+                    <i class="fa fa-fw fa-home"></i>
+                  
+                  HomePage
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fx-in-2nd-order-accuracy"><span class="nav-text">$f’(x)$ in 2nd order accuracy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#point-0"><span class="nav-text">point 0</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fx-in-2nth-order-accuracy"><span class="nav-text">$f’(x)$ in 2Nth order accuracy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#point-0"><span class="nav-text">point 0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#point-k-k0123n-1"><span class="nav-text">point k $(k=0,1,2,3…,N-1)$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#examples"><span class="nav-text">Examples</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sheng09';
+      var disqus_identifier = '2016/10/20/finite-difference-staggerGrid2/';
+
+      var disqus_title = "Finite Difference of Staggered Grid (2)";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

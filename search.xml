@@ -4,8 +4,14 @@
   
     
     <entry>
+      <title><![CDATA[RF_LinearInversion]]></title>
+      <url>http://sheng09.github.io/2017/02/03/RF-LinearInversion/</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Finite Difference of Staggered Grid (2)]]></title>
-      <url>http://sheng09.github.io/2016/10/18/finite-difference-staggerGrid2/</url>
+      <url>http://sheng09.github.io/2016/10/20/finite-difference-staggerGrid2/</url>
       <content type="html"><![CDATA[<p>This post presents the asymmetric finite-difference scheme build in staggered grid. This asymmetric scheme works well for processing boundary points.</p>
 <a id="more"></a>
 <!-- toc -->
@@ -23,7 +29,7 @@
 <li><a href="#examples">Examples</a></li>
 </ul>
 <!-- tocstop -->
-<h2 id="fx-in-2nd-order-accuracy"><a href="#f&#x2019;-x-in-2nd-order-accuracy" class="headerlink" title="$f&#x2019;(x)$ in 2nd order accuracy"></a>$f&#x2019;(x)$ in 2nd order accuracy</h2><p><img src="/2016/10/18/finite-difference-staggerGrid2/2order.jpg" alt=""></p>
+<h2 id="fx-in-2nd-order-accuracy"><a href="#f&#x2019;-x-in-2nd-order-accuracy" class="headerlink" title="$f&#x2019;(x)$ in 2nd order accuracy"></a>$f&#x2019;(x)$ in 2nd order accuracy</h2><p><img src="/2016/10/20/finite-difference-staggerGrid2/2order.jpg" alt=""></p>
 <h3 id="point-0"><a href="#point-0" class="headerlink" title="point 0"></a>point 0</h3><p>To calculate the first order derivates in the $\color{blue}{blue}$ grid points, values in $\color{red}{red}$ points are expanded.</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
@@ -107,7 +113,7 @@ f'(x) = & \frac{2}{\delta}
         C^2_{01} =   \frac{9}{2} \\
         C^2_{02} =  -\frac{5}{2}
     \end{cases}
-\end{equation}</script><h2 id="fx-in-2nth-order-accuracy"><a href="#f&#x2019;-x-in-2Nth-order-accuracy" class="headerlink" title="$f&#x2019;(x)$ in 2Nth order accuracy"></a>$f&#x2019;(x)$ in 2Nth order accuracy</h2><p><img src="/2016/10/18/finite-difference-staggerGrid2/2Norder.jpg" alt=""></p>
+\end{equation}</script><h2 id="fx-in-2nth-order-accuracy"><a href="#f&#x2019;-x-in-2Nth-order-accuracy" class="headerlink" title="$f&#x2019;(x)$ in 2Nth order accuracy"></a>$f&#x2019;(x)$ in 2Nth order accuracy</h2><p><img src="/2016/10/20/finite-difference-staggerGrid2/2Norder.jpg" alt=""></p>
 <h3 id="point-0"><a href="#point-0-1" class="headerlink" title="point 0"></a>point 0</h3><script type="math/tex; mode=display">
 \begin{eqnarray}
     f(x+\frac{\delta}{2}) & = & f(x) + \frac{\delta}{2} f'(x)
@@ -352,7 +358,28 @@ f'(x) =
     (l=1-2k,3-2k,...,-1,1,...,4N-2k+1)
 \end{cases}
 \end{equation}</script><h2 id="examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>FD scheme corresponding to accuracy orders of 2,4,6,8,10,12 are implemented to $f(x)=sin(x)$, their FD results are ploted versus theoretical first order derivative of $f&#x2019;(x)=cos(x)$, as well as their error.</p>
-<p><img src="/2016/10/18/finite-difference-staggerGrid2/compare.jpg" alt=""></p>
+<p><img src="/2016/10/20/finite-difference-staggerGrid2/compare.jpg" alt=""></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Wave Modeling in Stratified Media]]></title>
+      <url>http://sheng09.github.io/2016/10/19/waveModelinginStratifiedMedia/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<!--toc-->
+<p>This post presents wave modeling techniques related to Prof. Kennett&#x2019;s method. Detailed derivation, and analysis are introduced in the book &lt;<seismic wave="" propagation="" in="" stratified="" media="">&gt;, and this post just pay attention to some key points.</seismic></p>
+<h1 id="green-function"><a href="#Green-Function" class="headerlink" title="Green Function"></a>Green Function</h1><p>When talking about modeling, what we really pay attention to is the system response of media, the Green Function. It is independent of the source, and only determined by the media.</p>
+<p>In Kennett&#x2019;s method, the main target is to obtain the Green Function of stratified media with a free surface boundary condition. </p>
+<p>Kennett&#x2019;s method is widely used in receiver function research, in which the synthetic Green Function of layers are calculated, and compared with the &#x201C;observed&#x201D; Green Functions,the deconvolution of seismic records. Model is calibrated by some inversion techniques until synthetic data &#x201C;matches&#x201D; observed data, and finally, the most optimal and reasonable model is obtained, as well as error estimation.</p>
+<h1 id="media-constraint-and-wave-decoupling"><a href="#Media-Constraint-and-Wave-decoupling" class="headerlink" title="Media Constraint and Wave decoupling"></a>Media Constraint and Wave decoupling</h1><p>What we pay attention to is horizontally stratified media composed of isotropic and elastic material. This simplification or assumption is reasonable for it approximates the real Earth&#x2019;s structure.</p>
+<p>In isotropic media, the wave could be decoupled into SH wave, and P-SV wave. Moreover, if the media is homogeneous, the P-SV wave could be decoupled. Here comes the key point of wave modeling:</p>
+<ul>
+<li>When it is in layer, everything is uniform, so the wave could be decomposed into three independent types of waves, direction of which are pependicular to the others. So we can construct a coordinates system aligning these three direction, the wave propagation is just the changes of phase for each wave component. In equation derivation, the rotation from ordinary XYZ coordinate to wave vector directions is called diagonalization.</li>
+<li>When it is crossing layers (the interface), isotropic condition is satisfied but homogeneous condtion is not, so the wave could be decomposed into SH wave and P-SV wave. So we make two similar derivations, one is for SH wave, which is easier, relatively, and the other is for P-SV wave.</li>
+</ul>
+<h1 id="diagonalization"><a href="#Diagonalization" class="headerlink" title="Diagonalization"></a>Diagonalization</h1><p>An interesting problem is what would happen if imaginary items appear in the diagonalized propagation matrix. In fact, imaginary items correspond to $e^{\alpha z + i \beta x}$, the evanescent wave.</p>
+<h1 id="time-domain-or-frequency-domain"><a href="#Time-Domain-or-Frequency-Domain" class="headerlink" title="Time Domain or Frequency Domain"></a>Time Domain or Frequency Domain</h1><p>Frequency domain is choosed for derivation. In frequency domain, time axis is totally rotated by 90 degrees, then we don&#x2019;t need to care which wave happens firstly, and which happens after. In other words, when calculate the wave in one position, we don&#x2019;t need to struggle with all the wave field of the total space happened formly. We just derive the system response of one layer or one interface in frequency domain, and repeate this derivation one layer by one layer, one interface by<br>interface, from surface to bottom or in reverse.</p>
+<p>However, wraparound problems happen for computation in frequency domain. Since the computation is based on discrete space/time, implicit periodic condition exist for discrete fourier transformation(DFT). To avoid this problem, padding zeros is a simple but inconvenient solution. Much better method is employing imaginery frequency, which corresponds to $e^{-\omega_i nT}$ taper to eliminate the fake signal, the effect of DFT.</p>
 ]]></content>
     </entry>
     
