@@ -328,7 +328,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-19T13:04:16+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-19T07:04:16+08:00">
                 2017-10-19
               </time>
             
@@ -707,24 +707,14 @@
 
       
         
-          
-            <a id="more"></a>
-<!--toc-->
-<p>This post presents wave modeling techniques related to Prof. Kennett&#x2019;s method. Detailed derivation, and analysis are introduced in the book &lt;<seismic wave="" propagation="" in="" stratified="" media="">&gt;, and this post just pay attention to some key points.</seismic></p>
-<h1 id="green-function"><a href="#Green-Function" class="headerlink" title="Green Function"></a>Green Function</h1><p>When talking about modeling, what we really pay attention to is the system response of media, the Green Function. It is independent of the source, and only determined by the media.</p>
-<p>In Kennett&#x2019;s method, the main target is to obtain the Green Function of stratified media with a free surface boundary condition. </p>
-<p>Kennett&#x2019;s method is widely used in receiver function research, in which the synthetic Green Function of layers are calculated, and compared with the &#x201C;observed&#x201D; Green Functions,the deconvolution of seismic records. Model is calibrated by some inversion techniques until synthetic data &#x201C;matches&#x201D; observed data, and finally, the most optimal and reasonable model is obtained, as well as error estimation.</p>
-<h1 id="media-constraint-and-wave-decoupling"><a href="#Media-Constraint-and-Wave-decoupling" class="headerlink" title="Media Constraint and Wave decoupling"></a>Media Constraint and Wave decoupling</h1><p>What we pay attention to is horizontally stratified media composed of isotropic and elastic material. This simplification or assumption is reasonable for it approximates the real Earth&#x2019;s structure.</p>
-<p>In isotropic media, the wave could be decoupled into SH wave, and P-SV wave. Moreover, if the media is homogeneous, the P-SV wave could be decoupled. Here comes the key point of wave modeling:</p>
-<ul>
-<li>When it is in layer, everything is uniform, so the wave could be decomposed into three independent types of waves, direction of which are pependicular to the others. So we can construct a coordinates system aligning these three direction, the wave propagation is just the changes of phase for each wave component. In equation derivation, the rotation from ordinary XYZ coordinate to wave vector directions is called diagonalization.</li>
-<li>When it is crossing layers (the interface), isotropic condition is satisfied but homogeneous condtion is not, so the wave could be decomposed into SH wave and P-SV wave. So we make two similar derivations, one is for SH wave, which is easier, relatively, and the other is for P-SV wave.</li>
-</ul>
-<h1 id="diagonalization"><a href="#Diagonalization" class="headerlink" title="Diagonalization"></a>Diagonalization</h1><p>An interesting problem is what would happen if imaginary items appear in the diagonalized propagation matrix. In fact, imaginary items correspond to $e^{\alpha z + i \beta x}$, the evanescent wave.</p>
-<h1 id="time-domain-or-frequency-domain"><a href="#Time-Domain-or-Frequency-Domain" class="headerlink" title="Time Domain or Frequency Domain"></a>Time Domain or Frequency Domain</h1><p>Frequency domain is choosed for derivation. In frequency domain, time axis is totally rotated by 90 degrees, then we don&#x2019;t need to care which wave happens firstly, and which happens after. In other words, when calculate the wave in one position, we don&#x2019;t need to struggle with all the wave field of the total space happened formly. We just derive the system response of one layer or one interface in frequency domain, and repeate this derivation one layer by one layer, one interface by<br>interface, from surface to bottom or in reverse.</p>
-<p>However, wraparound problems happen for computation in frequency domain. Since the computation is based on discrete space/time, implicit periodic condition exist for discrete fourier transformation(DFT). To avoid this problem, padding zeros is a simple but inconvenient solution. Much better method is employing imaginery frequency, which corresponds to $e^{-\omega_i nT}$ taper to eliminate the fake signal, the effect of DFT.</p>
-
-          
+          <p>This post presents wave modeling techniques related to Prof. Kennett&#x2019;s method. Detailed derivation, and analysis are introduced in the book &lt;<Seismic wave="" propagation="" in="" stratified="" media="">&gt;, and this post just pay attention to some key points.</Seismic></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/10/19/waveModelinginStratifiedMedia/" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

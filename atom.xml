@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sheng09.github.io/"/>
-  <updated>2017-02-03T08:48:08.335Z</updated>
+  <updated>2017-02-03T08:51:18.254Z</updated>
   <id>http://sheng09.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -14,8 +14,8 @@
     <title>Linear Inversion of Receiver Function</title>
     <link href="http://sheng09.github.io/2017/10/19/RF-LinearInversion/"/>
     <id>http://sheng09.github.io/2017/10/19/RF-LinearInversion/</id>
-    <published>2017-10-19T05:04:16.000Z</published>
-    <updated>2017-02-03T08:48:08.335Z</updated>
+    <published>2017-10-18T23:04:16.000Z</published>
+    <updated>2017-02-03T08:51:18.254Z</updated>
     
     <content type="html">&lt;p&gt;In receiver function inversion, the model is calibrated and the target is to minimize the mismatch between synthetic receiver function waveform and observed waveform. The key point of the inversion is to give a &amp;#x201C;good&amp;#x201D; model calibration direction, and amount. In linear inversion, these calibration items are given by the first order derivative of the optimal function. However, it is difficult to derive the analytical expression of the first order derivative since the relationship between model&lt;br&gt;and receiver function waveform is extreme complex. Finite difference provides approximate value of differential value.&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -476,11 +476,11 @@ f&#39;(x) =
     <link href="http://sheng09.github.io/2016/10/19/waveModelinginStratifiedMedia/"/>
     <id>http://sheng09.github.io/2016/10/19/waveModelinginStratifiedMedia/</id>
     <published>2016-10-19T07:59:00.000Z</published>
-    <updated>2017-02-02T09:58:30.908Z</updated>
+    <updated>2017-02-03T08:52:21.857Z</updated>
     
-    <content type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+    <content type="html">&lt;p&gt;This post presents wave modeling techniques related to Prof. Kennett&amp;#x2019;s method. Detailed derivation, and analysis are introduced in the book &amp;lt;&lt;seismic wave=&quot;&quot; propagation=&quot;&quot; in=&quot;&quot; stratified=&quot;&quot; media=&quot;&quot;&gt;&amp;gt;, and this post just pay attention to some key points.&lt;/seismic&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;!--toc--&gt;
-&lt;p&gt;This post presents wave modeling techniques related to Prof. Kennett&amp;#x2019;s method. Detailed derivation, and analysis are introduced in the book &amp;lt;&lt;seismic wave=&quot;&quot; propagation=&quot;&quot; in=&quot;&quot; stratified=&quot;&quot; media=&quot;&quot;&gt;&amp;gt;, and this post just pay attention to some key points.&lt;/seismic&gt;&lt;/p&gt;
 &lt;h1 id=&quot;green-function&quot;&gt;&lt;a href=&quot;#Green-Function&quot; class=&quot;headerlink&quot; title=&quot;Green Function&quot;&gt;&lt;/a&gt;Green Function&lt;/h1&gt;&lt;p&gt;When talking about modeling, what we really pay attention to is the system response of media, the Green Function. It is independent of the source, and only determined by the media.&lt;/p&gt;
 &lt;p&gt;In Kennett&amp;#x2019;s method, the main target is to obtain the Green Function of stratified media with a free surface boundary condition. &lt;/p&gt;
 &lt;p&gt;Kennett&amp;#x2019;s method is widely used in receiver function research, in which the synthetic Green Function of layers are calculated, and compared with the &amp;#x201C;observed&amp;#x201D; Green Functions,the deconvolution of seismic records. Model is calibrated by some inversion techniques until synthetic data &amp;#x201C;matches&amp;#x201D; observed data, and finally, the most optimal and reasonable model is obtained, as well as error estimation.&lt;/p&gt;
@@ -497,9 +497,7 @@ f&#39;(x) =
     
     <summary type="html">
     
-      &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;!--toc--&gt;
-&lt;p&gt;This post presents wave modeling techniques related to Prof. Kennett&amp;#x2019;s method. Detailed derivation, a
+      &lt;p&gt;This post presents wave modeling techniques related to Prof. Kennett&amp;#x2019;s method. Detailed derivation, and analysis are introduced in the book &amp;lt;&lt;Seismic wave=&quot;&quot; propagation=&quot;&quot; in=&quot;&quot; stratified=&quot;&quot; media=&quot;&quot;&gt;&amp;gt;, and this post just pay attention to some key points.&lt;/Seismic&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1361,9 +1359,9 @@ f&#39;(x) &amp; = &amp;
       <category term="PDE" scheme="http://sheng09.github.io/categories/PDE/"/>
     
     
-      <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
-    
       <category term="Linear Equation" scheme="http://sheng09.github.io/tags/Linear-Equation/"/>
+    
+      <category term="FD" scheme="http://sheng09.github.io/tags/FD/"/>
     
       <category term="modeling" scheme="http://sheng09.github.io/tags/modeling/"/>
     

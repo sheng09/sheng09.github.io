@@ -433,9 +433,9 @@ f'(x) =
     <entry>
       <title><![CDATA[Wave Modeling in Stratified Media]]></title>
       <url>http://sheng09.github.io/2016/10/19/waveModelinginStratifiedMedia/</url>
-      <content type="html"><![CDATA[<a id="more"></a>
+      <content type="html"><![CDATA[<p>This post presents wave modeling techniques related to Prof. Kennett&#x2019;s method. Detailed derivation, and analysis are introduced in the book &lt;<seismic wave="" propagation="" in="" stratified="" media="">&gt;, and this post just pay attention to some key points.</seismic></p>
+<a id="more"></a>
 <!--toc-->
-<p>This post presents wave modeling techniques related to Prof. Kennett&#x2019;s method. Detailed derivation, and analysis are introduced in the book &lt;<seismic wave="" propagation="" in="" stratified="" media="">&gt;, and this post just pay attention to some key points.</seismic></p>
 <h1 id="green-function"><a href="#Green-Function" class="headerlink" title="Green Function"></a>Green Function</h1><p>When talking about modeling, what we really pay attention to is the system response of media, the Green Function. It is independent of the source, and only determined by the media.</p>
 <p>In Kennett&#x2019;s method, the main target is to obtain the Green Function of stratified media with a free surface boundary condition. </p>
 <p>Kennett&#x2019;s method is widely used in receiver function research, in which the synthetic Green Function of layers are calculated, and compared with the &#x201C;observed&#x201D; Green Functions,the deconvolution of seismic records. Model is calibrated by some inversion techniques until synthetic data &#x201C;matches&#x201D; observed data, and finally, the most optimal and reasonable model is obtained, as well as error estimation.</p>
